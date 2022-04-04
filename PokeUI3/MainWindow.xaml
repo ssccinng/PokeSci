@@ -1,0 +1,23 @@
+﻿<Window
+    x:Class="PokeUI3.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokeUI3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:PokeUI3.MVVM.ViewModel" xmlns:pokecontrol="using:PokeUI3.PokeControl"
+    mc:Ignorable="d">
+
+    <Grid x:Name="MainGrid">
+        <Grid.DataContext>
+            <viewModel:MainViewModel/>
+        </Grid.DataContext>
+        <NavigationView x:Name="PokeUINv" SelectionChanged="PokeUINv_SelectionChanged" IsBackEnabled="True" BackRequested="PokeUINv_BackRequested" >
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="PhoneBook" Content="宝图鉴" Tag="PokeDexPage" x:Name="test"/>
+                <NavigationViewItem Icon="Save" Content="宝种族值等效工具" Tag="SamplePage2" />
+            </NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </NavigationView>
+    </Grid>
+</Window>

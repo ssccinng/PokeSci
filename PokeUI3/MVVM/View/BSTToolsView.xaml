@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="PokeUI3.MVVM.View.BSTToolsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokeUI3.MVVM.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:pokecontrol="using:PokeUI3.PokeControl"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="15,5,0,5" Padding="5">
+            <TextBlock FontSize="30" Text="{Binding Pokemon.NameChs}" VerticalAlignment="Center" />
+        </StackPanel>
+        <pokecontrol:BSTView HorizontalAlignment="Center" Grid.Row="1"
+                    HP="{Binding Pokemon.BaseHP, Mode=TwoWay}"
+                    Atk="{Binding Pokemon.BaseAtk, Mode=TwoWay}"
+                    Def="{Binding Pokemon.BaseDef, Mode=TwoWay}"
+                    Spa="{Binding Pokemon.BaseSpa, Mode=TwoWay}"
+                    Spd="{Binding Pokemon.BaseSpd, Mode=TwoWay}"
+                    Spe="{Binding Pokemon.BaseSpe, Mode=TwoWay}"
+                    />
+        <pokecontrol:BSTView HorizontalAlignment="Center" Grid.Row="2"
+                    HP="{Binding StatHP, Mode=TwoWay}"
+                    Atk="{Binding Pokemon.BaseAtk, Mode=TwoWay}"
+                    Def="{Binding Pokemon.BaseDef, Mode=TwoWay}"
+                    Spa="{Binding Pokemon.BaseSpa, Mode=TwoWay}"
+                    Spd="{Binding Pokemon.BaseSpd, Mode=TwoWay}"
+                    Spe="{Binding Pokemon.BaseSpe, Mode=TwoWay}"
+                    />
+        <StackPanel>
+            <Slider Maximum="252" Value="{Binding EVHP, Mode=TwoWay}"></Slider>
+            <Slider Maximum="252" Value="{Binding EVHP, Mode=TwoWay}"></Slider>
+            <Slider Maximum="252" Value="{Binding EVHP, Mode=TwoWay}"></Slider>
+            <Slider Maximum="252" Value="{Binding EVHP, Mode=TwoWay}"></Slider>
+        </StackPanel>
+    </Grid>
+</Page>

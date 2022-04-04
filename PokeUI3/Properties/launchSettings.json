@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PokeUI3 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "PokeUI3 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="PokeUI3.MVVM.View.PokeDetail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokeUI3.MVVM.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    
+    xmlns:viewModel="using:PokeUI3.MVVM.ViewModel" xmlns:models="using:PokemonDataAccess.Models" xmlns:pokecontrol="using:PokeUI3.PokeControl"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer ZoomMode="Enabled"
+            IsTabStop="True" IsVerticalScrollChainingEnabled="True"
+            VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto"
+                  Padding="10">
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="15,5,0,5" Padding="5">
+                <TextBlock FontSize="30" Text="{Binding Pokemon.NameChs}" VerticalAlignment="Center" />
+                <HyperlinkButton x:Name="ToBaseValueTool" FontSize="10" 
+                                 Click="ToBaseValueTool_Click"
+                                 VerticalAlignment="Bottom" 
+                                 Content="转入种族工具" ></HyperlinkButton>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="{Binding PokeColor}" BorderThickness="2"  Height="400" Padding="40">
+                    <Image Source="{Binding PokeImage}" />
+                    <!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">我是图片</TextBlock>-->
+                </Border>
+                <!--<pokecontrol:BSTView HP="{Binding MyProperty, Mode=TwoWay}" Margin="0,150,0,0" x:Name="www">
+                    
+                </pokecontrol:BSTView>-->
+                <!--<pokecontrol:BSTView HP="{Binding Pokemon.HP, Mode=TwoWay}">
+
+                </pokecontrol:BSTView>-->
+                <Border Padding="15" BorderThickness="2"
+                        BorderBrush="Black">
+                    <pokecontrol:PokeInfoDisplay
+                        Pokemon="{Binding Pokemon, Mode=TwoWay}"
+                        />
+                    <!--<pokecontrol:BSTView
+                    HP="{Binding Pokemon.BaseHP, Mode=TwoWay}"
+                    Atk="{Binding Pokemon.BaseAtk, Mode=TwoWay}"
+                    Def="{Binding Pokemon.BaseDef, Mode=TwoWay}"
+                    Spa="{Binding Pokemon.BaseSpa, Mode=TwoWay}"
+                    Spd="{Binding Pokemon.BaseSpd, Mode=TwoWay}"
+                    Spe="{Binding Pokemon.BaseSpe, Mode=TwoWay}"
+                    />-->
+                </Border>
+                
+                <!--<Slider x:Name="qwe" Value="{Binding MyProperty}" ValueChanged="qwe_ValueChanged"></Slider>-->
+                <!--<Slider Value="{Binding BSTValue.Atk, Mode=TwoWay}" Margin="0,120,0,0" ValueChanged="Slider_ValueChanged"></Slider>-->
+                <!--<Slider Value="{Binding MyProperty, Mode=TwoWay}" Margin="0,60,0,0"></Slider>-->
+                <!--<TextBox Text="{Binding MyProperty}" Margin="0,200,0,0" ></TextBox>-->
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="PokeUI3.MVVM.View.PokeDexPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokeUI3.MVVM.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:PokeUI3.MVVM.ViewModel" xmlns:models="using:PokemonDataAccess.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModel:MainViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <DataTemplate x:Key="ContactListViewTemplate" x:DataType="models:Pokemon">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="130" VerticalAlignment="Center" Text="{x:Bind FullNameChs}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="100" VerticalAlignment="Center" Text="{x:Bind FormNameEng}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="100" VerticalAlignment="Center" Text="{x:Bind Type1.Name_Chs}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="100" VerticalAlignment="Center" Text="{x:Bind Type2.Name_Chs}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="100" VerticalAlignment="Center" Text="{x:Bind Ability1.Name_Chs}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="100" VerticalAlignment="Center" Text="{x:Bind Ability2.Name_Chs}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="100" VerticalAlignment="Center" Text="{x:Bind AbilityH.Name_Chs}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="30" VerticalAlignment="Center" Text="{x:Bind BaseHP}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="30" VerticalAlignment="Center" Text="{x:Bind BaseAtk}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="30" VerticalAlignment="Center" Text="{x:Bind BaseDef}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="30" VerticalAlignment="Center" Text="{x:Bind BaseSpa}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="30" VerticalAlignment="Center" Text="{x:Bind BaseSpd}" x:Phase="1" Margin="0,5,0,5"/>
+                <TextBlock Width="30" VerticalAlignment="Center" Text="{x:Bind BaseSpe}" x:Phase="1" Margin="0,5,0,5"/>
+
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        
+        <ListView x:Name="PokeList"
+              ItemsSource="{Binding Pokemons}"
+              ItemTemplate="{StaticResource ContactListViewTemplate}"
+              ItemClick="PokeList_ItemClick"
+              IsItemClickEnabled="True"
+                  DoubleTapped="PokeList_DoubleTapped"
+                  Grid.Row="1"
+              >
+            <ListView.Header>
+                <StackPanel Orientation="Horizontal" Padding="5" Margin="10,0,0,0">
+                    <TextBlock Width="130" Text="中文名" Margin="0,5,0,5"/>
+                    <TextBlock Width="100" Text="英文名" Margin="0,5,0,5"/>
+                    <TextBlock Width="100" Text="属性1"  Margin="0,5,0,5"/>
+                    <TextBlock Width="100" Text="属性2"  Margin="0,5,0,5"/>
+                    <TextBlock Width="100" Text="特性1"  Margin="0,5,0,5"/>
+                    <TextBlock Width="100" Text="特性2"  Margin="0,5,0,5"/>
+                    <TextBlock Width="100" Text="梦特"   Margin="0,5,0,5"/>
+                    <TextBlock Width="205" Text="种族值" Margin="0,5,0,5"/>
+                </StackPanel>
+            </ListView.Header>
+            <!--<ListViewHeaderItem>1515</ListViewHeaderItem>-->
+        </ListView>
+        <Border Padding="5">
+            <AutoSuggestBox QueryIcon="Find" Grid.Row="0" VerticalAlignment="Center" TextChanged="AutoSuggestBox_TextChanged"/>
+        </Border>
+        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" Padding="10">
+            <!--<AutoSuggestBox QueryIcon="Find"></AutoSuggestBox>-->
+            <!--<StackPanel></StackPanel>-->
+        </StackPanel>
+    </Grid>
+    
+
+
+
+</Page>
