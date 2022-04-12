@@ -4,16 +4,18 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  IgnorableNamespaces="uap rescap mp uap4">
 
   <Identity
-    Name="f7a6c148-d315-4b3e-8523-a6e2eb2ff96b"
+    Name="61510Scixing.PokeUI3"
     Publisher="CN=scixing"
-    Version="1.0.2.0" />
+    Version="1.0.8.0" />
 
   <Properties>
     <DisplayName>PokeUI3</DisplayName>
-    <PublisherDisplayName>scixing</PublisherDisplayName>
+    <PublisherDisplayName>Scixing</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -44,5 +46,7 @@
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    
+    <!-- <uap:Capability Name="removableStorage"/> -->
   </Capabilities>
 </Package>

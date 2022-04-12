@@ -29,5 +29,10 @@ namespace PokeUI3.MVVM.View
         {
             this.InitializeComponent();
         }
+
+        private void Spd1_5_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -38,8 +38,10 @@ namespace PokeUI3.MVVM.View
         private void PokeList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             ListView listView = sender as ListView;
-            MainWindow.Instance.ContentFrame.Navigate(typeof(PokeDetail));
-            (MainWindow.Instance.ContentFrame.Content as Page).DataContext = new PokeDetailViewModel((listView.SelectedItem as Pokemon));
+            //MainWindow.Instance.ContentFrame.Navigate(typeof(PokeDetail));
+            MainWindow.Instance.ContentFrame.Navigate(typeof(BSTToolsView));
+            //(MainWindow.Instance.ContentFrame.Content as Page).DataContext = new PokeDetailViewModel((listView.SelectedItem as Pokemon));
+            (MainWindow.Instance.ContentFrame.Content as Page).DataContext = new BSTToolsViewModel((listView.SelectedItem as Pokemon));
         }
 
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

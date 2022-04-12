@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokeMath.Interface
+namespace PokeCommon.Interface
 {
-    internal interface IStatusCalc
+    public interface IStatusCalc
     {
         /// <summary>
         /// 计算HP能力值

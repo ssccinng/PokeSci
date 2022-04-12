@@ -15,7 +15,7 @@
         <NavigationView x:Name="PokeUINv" SelectionChanged="PokeUINv_SelectionChanged" IsBackEnabled="True" BackRequested="PokeUINv_BackRequested" >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="PhoneBook" Content="宝图鉴" Tag="PokeDexPage" x:Name="test"/>
-                <NavigationViewItem Icon="Save" Content="宝种族值等效工具" Tag="SamplePage2" />
+                <!--<NavigationViewItem Icon="Save" Content="宝种族值等效工具" Tag="SamplePage2" />-->
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame"/>
         </NavigationView>

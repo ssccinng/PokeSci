@@ -57,14 +57,19 @@ namespace PokeUI3
 
         private void PokeUINv_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
-            contentFrame.GoBack();
+            if (contentFrame.Content is BSTToolsView)
+            {
+                contentFrame.GoBack();
+                (contentFrame.Content as Page).DataContext = (MainGrid.DataContext as MainViewModel).PokemonVM;
+            }
+            return;
             if (contentFrame.Content is PokeDexPage)
             {
                 (contentFrame.Content as Page).DataContext = (MainGrid.DataContext as MainViewModel).PokemonVM;
             }
             if (contentFrame.Content is PokeDetail)
             {
-                (contentFrame.Content as Page).DataContext = (MainGrid.DataContext as MainViewModel).PokemonVM;
+                //(contentFrame.Content as Page).DataContext = ;
             }
 
         }
