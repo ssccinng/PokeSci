@@ -52,12 +52,24 @@ namespace PokeCommon.Models
             {
                 switch (Index)
                 {
-                    case 0: HP = value; ValueChange?.Invoke(SixDimensionValueType.HP); break;
-                    case 1: Atk = value; ValueChange?.Invoke(SixDimensionValueType.Atk); break;
-                    case 2: Def = value; ValueChange?.Invoke(SixDimensionValueType.Def); break;
-                    case 3: Spa = value; ValueChange?.Invoke(SixDimensionValueType.Spa); break;
-                    case 4: Spd = value; ValueChange?.Invoke(SixDimensionValueType.Spd); break;
-                    case 5: Spe = value; ValueChange?.Invoke(SixDimensionValueType.Spe); break;
+                    case 0: HP = value; 
+                        //ValueChange?.Invoke(SixDimensionValueType.HP); 
+                        break;
+                    case 1: Atk = value; 
+                        //ValueChange?.Invoke(SixDimensionValueType.Atk); 
+                        break;
+                    case 2: Def = value; 
+                        //ValueChange?.Invoke(SixDimensionValueType.Def); 
+                        break;
+                    case 3: Spa = value; 
+                        //ValueChange?.Invoke(SixDimensionValueType.Spa); 
+                        break;
+                    case 4: Spd = value; 
+                        //ValueChange?.Invoke(SixDimensionValueType.Spd);
+                        break;
+                    case 5: Spe = value; 
+                        //ValueChange?.Invoke(SixDimensionValueType.Spe); 
+                        break;
                     default:
                         break;
                 }
@@ -104,7 +116,7 @@ namespace PokeCommon.Models
         public void SetAllValue(int value)
         {
             HP = Atk = Def = Spa = Spd = Spe = value;
-            ValueChange?.Invoke(SixDimensionValueType.All);
+            //ValueChange?.Invoke(SixDimensionValueType.All);
         }
         /// <summary>
         /// 值变化事件

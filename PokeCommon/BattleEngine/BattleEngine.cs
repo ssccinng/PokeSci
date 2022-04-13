@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokeCommon.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -81,7 +82,7 @@ namespace PokeBattleEngine.BattleEngines
         /// </summary>
         SV,
     }
-    public abstract class BattleEngine
+    public abstract class BattleEngine: IBattleEngine
     {
         //private static readonly Dictionary<BattleVersion, BattleEngine> _;
 

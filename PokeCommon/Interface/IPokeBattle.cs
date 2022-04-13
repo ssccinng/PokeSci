@@ -16,5 +16,18 @@ namespace PokeCommon.Interface
         public int Turn { get; }
         public BattleType Type { get; }
 
+        /// <summary>
+        /// 初始化并启动
+        /// </summary>
+        /// <returns></returns>
+        public bool Init();
+        /// <summary>
+        /// 结束对战
+        /// </summary>
+        /// <returns></returns>
+        public bool End();
+
+        // 对战结果，在end后保存
+
     }
 }
