@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PokeBattleEngine\PokeBattleEngine.csproj" />
-    <ProjectReference Include="..\PokeMath\PokeMath.csproj" />
+    <ProjectReference Include="..\PokeCommon\PokeCommon.csproj" />
+    <ProjectReference Include="..\PokeOcr\PokeOcr.csproj" />
   </ItemGroup>
 
 </Project>

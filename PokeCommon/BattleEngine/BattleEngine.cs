@@ -89,6 +89,10 @@ namespace PokeBattleEngine.BattleEngines
         public BattleVersion BattleVersion { get; init; }
         public string GameName { get; init; }
 
+        public IDamageCalc DamageCalc => throw new NotImplementedException();
+
+        public IStatusCalc StatusCalc => throw new NotImplementedException();
+
         private string GetGameName(BattleVersion battleVersion)
         {
             return battleVersion switch

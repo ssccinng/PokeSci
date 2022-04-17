@@ -27,7 +27,7 @@ namespace PokeCommon.Models
             SetAllValue(value);
         }
 
-        public SixDimension(int hp, int atk, int def, int spa, int spd, int spe)
+        public SixDimension(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0)
         {
             HP = hp;
             Atk = atk;
@@ -118,9 +118,82 @@ namespace PokeCommon.Models
             HP = Atk = Def = Spa = Spd = Spe = value;
             //ValueChange?.Invoke(SixDimensionValueType.All);
         }
+        public void SetValue(string name, int value)
+        {
+            switch (name.ToLower())
+            {
+                case "hp":
+                    HP = value;
+                    break;
+                case "atk":
+                    Atk = value;
+                    break;
+                case "def":
+                    Def = value;
+                    break;
+                case "spa":
+                    Spa = value;
+                    break;
+                case "spd":
+                    Spd = value;
+                    break;
+                case "spe":
+                    Spe = value;
+                    break;
+                default:
+                    break;
+            }
+        }
         /// <summary>
         /// 值变化事件
         /// </summary>
-        public event Action<SixDimensionValueType> ValueChange;
+        //public event Action<SixDimensionValueType> ValueChange;
+        /// <summary>
+        /// 根据个体计算出
+        /// </summary>
+        /// <returns></returns>
+       
+    }
+
+    /// <summary>
+    /// 个体值
+    /// </summary>
+    public class IV: SixDimension
+    {
+        public IV(int value) : base(value) { }
+        public IV(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0) : base(hp, atk, def, spa, spd, spe) { }
+
+        public string GetHiddenPowerType()
+        {
+            string rtn = "";
+            int type = this[0] % 2 + (this[1] % 2) * 2 + (this[2] % 2) * 4 + (this[5] % 2) * 8 + (this[3] % 2) * 16 + (this[4] % 2) * 32;
+            type = (type * 15) / 63;
+            switch (type)
+            {
+                case 0: rtn = "Fighting"; break;
+                case 1: rtn = "Flying"; break;
+                case 2: rtn = "Poison"; break;
+                case 3: rtn = "Ground"; break;
+                case 4: rtn = "Rock"; break;
+                case 5: rtn = "Bug"; break;
+                case 6: rtn = "Ghost"; break;
+                case 7: rtn = "Steel"; break;
+                case 8: rtn = "Fire"; break;
+                case 9: rtn = "Water"; break;
+                case 10: rtn = "Grass"; break;
+                case 11: rtn = "Electric"; break;
+                case 12: rtn = "Psychic"; break;
+                case 13: rtn = "Ice"; break;
+                case 14: rtn = "Dragon"; break;
+                case 15: rtn = "Dark"; break;
+            }
+            return rtn;
+        }
+    }
+
+    public class EV: SixDimension
+    {
+        public EV(int value) : base(value) { }
+        public EV(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0): base(hp, atk, def, spa, spd, spe) { }
     }
 }

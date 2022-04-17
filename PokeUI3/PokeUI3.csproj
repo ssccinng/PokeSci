@@ -50,9 +50,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.197" />
-    <PackageReference Include="Syncfusion.Chart.WinUI" Version="19.4.0.56" />
+    <PackageReference Include="Syncfusion.Chart.WinUI" Version="20.1.0.48" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 

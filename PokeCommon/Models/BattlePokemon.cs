@@ -9,6 +9,10 @@ namespace PokeCommon.Models
 {
     public class BattlePokemon
     {
-        public Pokemon Pokemon { get; }
+        public GamePokemon Pokemon { get; }
+        /// <summary>
+        /// 携带的道具
+        /// </summary>
+        public Item Item { get; }
     }
 }

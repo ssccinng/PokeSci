@@ -48,6 +48,16 @@ namespace PokeBattleEngine
 
         public BattleType BattleType { get; protected set; }
 
+        public bool End()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Init()
+        {
+            throw new NotImplementedException();
+        }
+
         //public 
     }
 

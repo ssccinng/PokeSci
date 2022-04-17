@@ -38,6 +38,7 @@ namespace PokemonDataAccess
 
                 } */
         public DbSet<Pokemon> Pokemons { get; set; }
+        public DbSet<PSPokemon> PSPokemons { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<Move> Moves { get; set; }
         public DbSet<Item> Items { get; set; }
@@ -51,11 +52,18 @@ namespace PokemonDataAccess
         public DbSet<Performance> Performances { get; set; }
         public DbSet<EggGroup> Egg_Groups { get; set; }
         string DbPath { get; set; }
-        public PokemonContext()
+        public PokemonContext(string? dbPath = "PokeDB.db")
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "PokemonDataBase.db");
+            if (dbPath == null)
+            {
+                var folder = Environment.SpecialFolder.LocalApplicationData;
+                var path = Environment.GetFolderPath(folder);
+                DbPath = System.IO.Path.Join(path, "PokemonDataBase.db");
+            }
+            else
+            {
+                DbPath = dbPath;
+            }
         }
     }
 }
