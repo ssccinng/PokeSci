@@ -52,7 +52,7 @@ namespace PokeCommon.Models
         /// <summary>
         /// 亲密度
         /// </summary>
-        public int Happiness { get; set; }
+        public int Happiness { get; set; } = 160;
         /// <summary>
         /// 招式表
         /// </summary>
@@ -60,7 +60,7 @@ namespace PokeCommon.Models
         /// <summary>
         /// 宝可梦等级
         /// </summary>
-        public int LV { get; set; } = 1;
+        public int LV { get; set; } = 50;
         /// <summary>
         /// 努力值
         /// </summary>
@@ -87,7 +87,17 @@ namespace PokeCommon.Models
                 Spe = _gameRule.StatusCalc.GetOtherStat(MetaPokemon.BaseSpe, IVs.Spe, EVs.Spe, LV),
             };
         }
+        /// <summary>
+        /// 当前血量
+        /// </summary>
+        public int NowHp { get; set; }
+        /// <summary>
+        /// 回到最开始的状态
+        /// </summary>
+        public void Reset()
+        {
 
+        }
 
         private IGameRule _gameRule;
     }

@@ -16,6 +16,8 @@ namespace PokeCommon.Models
         public int PPMax { get; set; }
         public int PP { get; set; }
         public string NameChs => MetaMove.Name_Chs;
+        public string NameEng => MetaMove.Name_Eng;
+        public string NameJpn => MetaMove.Name_Jpn;
 
         public GameMove(Move move)
         {

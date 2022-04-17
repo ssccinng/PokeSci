@@ -12,9 +12,105 @@ namespace PokeCommon.PokemonShowdownTools
 {
     public class PSConverter
     {
-        public static string ConvertToPs(GamePokemon gamePokemon)
+        public static async ValueTask<string> ConvertToPsAsync(GamePokemon gamePokemon)
         {
-            return null;
+            StringBuilder sb = new();
+            if (gamePokemon == null || gamePokemon.MetaPokemon == null)
+            {
+                return "";
+            }
+            // 思考昵称加在哪里
+            // 这里要获取PS名字
+            sb.Append((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
+            if (gamePokemon.Gmax) sb.Append("-Gmax");
+            if (gamePokemon.Item != null) sb.Append($" @ {gamePokemon.Item.Name_Eng}");
+            sb.AppendLine();
+            if (gamePokemon.Ability != null) sb.AppendLine($"Ability: {gamePokemon.Ability.Name_Eng}");
+            sb.AppendLine($"Level: {gamePokemon.LV}");
+            if (gamePokemon.Happiness != 160) sb.AppendLine($"Happiness: {gamePokemon.Happiness}");
+            string[] orz = { "HP", "Atk", "Def", "SpA", "SpD", "Spe" };
+            bool flag = false;
+            if (gamePokemon.EVs.ToSixArray().Any(s => s != 0))
+            {
+                sb.Append("EVs: ");
+                for (int i = 0; i < 6; i++)
+                {
+                    if (gamePokemon.EVs[i] > 0)
+                    {
+                        if (flag)
+                        {
+                            sb.Append(" / ");
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                        sb.Append($"{gamePokemon.EVs[i]} {orz[i]}");
+                    }
+                }
+                sb.AppendLine();
+            }
+
+            
+
+            if (gamePokemon.Shiny)
+            {
+                sb.AppendLine("Shiny: Yes");
+            }
+            if (gamePokemon.Nature != null)
+            {
+                sb.AppendLine($"{gamePokemon.Nature.Name_Eng} Nature");
+            }
+
+            flag = false;
+            if (gamePokemon.IVs.ToSixArray().Any(s => s != 31))
+            {
+                sb.Append("IVs: ");
+                for (int i = 0; i < 6; i++)
+                {
+                    if (gamePokemon.IVs[i] != 31)
+                    {
+                        if (flag)
+                        {
+                            sb.Append(" / ");
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                        sb.Append($"{gamePokemon.IVs[i]} {orz[i]}");
+                    }
+                }
+                sb.AppendLine();
+            }
+            foreach (var move in gamePokemon.Moves)
+            {
+                if (move != null)
+                {
+                    // 这个地方 用id特判
+                    if (move.NameChs.StartsWith("觉醒力量"))
+                    {
+                        
+                    }
+                    else
+                    {
+                        sb.AppendLine($"- {move.NameEng}");
+                    }
+                }
+
+            }
+            return sb.ToString();
+        }
+
+        public static async ValueTask<string> ConvertToPsAsync(GamePokemonTeam gamePokemonTeam)
+        {
+            var sb = new StringBuilder();
+            foreach (var item in gamePokemonTeam.GamePokemons)
+            {
+                sb.AppendLine(await ConvertToPsAsync(item));
+                sb.AppendLine();
+            }
+            return sb.ToString();
         }
         /// <summary>
         /// 转换PS格式文本至单独的宝可梦
@@ -33,7 +129,7 @@ namespace PokeCommon.PokemonShowdownTools
                 pokeName = pokeName[..^5];
                 gmax = true;
             }
-            var poke = await PokemonTools.GetPsPokemonAsync(pokeName);
+            var poke = await PokemonTools.GetPokemonFromPsNameAsync(pokeName);
             if (poke == null)
             {
                 // 返回空宝可梦还是一个null

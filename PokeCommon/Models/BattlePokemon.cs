@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace PokeCommon.Models
 {
-    public class BattlePokemon
+    public class BattlePokemon: GamePokemon
     {
-        public GamePokemon Pokemon { get; }
+        public BattlePokemon(Pokemon pokemon) : base(pokemon)
+        {
+        }
         /// <summary>
-        /// 携带的道具
+        /// 携带的道具 可能丢失
         /// </summary>
         public Item Item { get; }
     }

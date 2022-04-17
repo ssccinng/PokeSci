@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace PokeCommon.Utils
 {
+    /// <summary>
+    /// 宝可梦工具（还需新增初始化）
+    /// </summary>
     public static class PokemonTools
     {
         public static PokemonContext PokemonContext { get; set; } = new("PokemonDataBase.db");
@@ -28,6 +31,7 @@ namespace PokeCommon.Utils
         private static Dictionary<string, int> _itemNameId { get; set; } = new();
 
         private static Dictionary<string, int> _psPokemonId { get; set; } = new();
+        private static Dictionary<int, PSPokemon> _pokemonIdPSName { get; set; } = new();
         
         private static Dictionary<int, Nature> _natures { get; set; } = new();
         private static Dictionary<string, int> _natureNameId { get; set; } = new();
@@ -79,7 +83,7 @@ namespace PokeCommon.Utils
             }
         }
         
-        public static async ValueTask<Pokemon?> GetPsPokemonAsync(string name)
+        public static async ValueTask<Pokemon?> GetPokemonFromPsNameAsync(string name)
         {
             if (_psPokemonId.TryGetValue(name, out var id))
             {
@@ -99,7 +103,22 @@ namespace PokeCommon.Utils
                 }
             }
         }
-
+        public static async ValueTask<PSPokemon?> GetPsPokemonAsync(int pokemonId)
+        {
+            if (_pokemonIdPSName.TryGetValue(pokemonId, out var name))
+            {
+                return name;
+            }
+            else
+            {
+                var nPSName = await PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId);
+                if (nPSName != null)
+                {
+                    _pokemonIdPSName.Add(pokemonId, nPSName);
+                }
+                return nPSName;
+            }
+        }
 
         /// <summary>
         /// 获取特性
