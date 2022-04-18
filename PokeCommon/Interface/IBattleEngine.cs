@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokeCommon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,10 @@ namespace PokeCommon.Interface
         /// 状态计算器
         /// </summary>
         public IStatusCalc StatusCalc { get; }
+        /// <summary>
+        /// 创建一个比赛
+        /// </summary>
+        /// <returns></returns>
+        public IPokeBattle CreateBattle(List<GamePokemonTeam> gamePokemonTeams);
     }
 }

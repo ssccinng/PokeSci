@@ -44,5 +44,8 @@ namespace PokeCommon.GameRule
         /// 
         /// </summary>
         public List<Pokemon> PokemonBanList { get; }
+
+
+        
     }
 }

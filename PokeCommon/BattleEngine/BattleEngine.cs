@@ -1,4 +1,5 @@
 ﻿using PokeCommon.Interface;
+using PokeCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -173,6 +174,11 @@ namespace PokeBattleEngine.BattleEngines
             GameName = GetGameName(battleVersion);
         }
         public abstract PokeBattle CreateBattle();
+
+        public IPokeBattle CreateBattle(List<GamePokemonTeam> gamePokemonTeams)
+        {
+            throw new NotImplementedException();
+        }
         //public void InitBa
     }
 }
