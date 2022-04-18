@@ -7,7 +7,13 @@
 //}
 using PokeCommon.PokemonShowdownTools;
 using PokeCommon.PokeOCR;
+using PokeCommon.BattleEngine;
 using System.Diagnostics;
+
+SWSHBattleEngine engine = BattleEngine.CreateBattleEngine(BattleVersion.SWSH) as SWSHBattleEngine;
+engine.CreateBattle();
+
+
 
 //var a = OCRTools.SplitSWSHTeamPage("test9.jpg");
 //List<string> res = new List<string>();

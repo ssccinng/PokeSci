@@ -15,9 +15,14 @@ namespace PokeCommon.Models
     {
         
 
-        public GamePokemon(Pokemon pokemon)
+        public GamePokemon(Pokemon pokemon, EV eV = null, IV iV = null)
         {
             MetaPokemon = pokemon;
+            if (eV != null) EVs = eV;
+            if (iV != null) IVs = iV;
+            UpdateStats();
+            NowHp = Stats.HP;
+
         }
 
         // 需要内部获取一个计算接口
@@ -92,6 +97,10 @@ namespace PokeCommon.Models
         /// </summary>
         public int NowHp { get; set; }
         /// <summary>
+        /// 是否gg
+        /// </summary>
+        public bool IsDead => NowHp == 0;
+        /// <summary>
         /// 回到最开始的状态
         /// </summary>
         public void Reset()
@@ -99,6 +108,7 @@ namespace PokeCommon.Models
 
         }
 
+        // 这个要取决于什么game
         private IGameRule _gameRule;
     }
 }

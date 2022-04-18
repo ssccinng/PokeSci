@@ -1,4 +1,6 @@
-﻿using PokeCommon.Interface;
+﻿using PokeBattleEngine.BattleEngines;
+using PokeCommon.GameRule;
+using PokeCommon.Interface;
 using PokeCommon.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokeBattleEngine.BattleEngines
+namespace PokeCommon.BattleEngine
 {
     public enum BattleVersion
     {
@@ -83,7 +85,7 @@ namespace PokeBattleEngine.BattleEngines
         /// </summary>
         SV,
     }
-    public abstract class BattleEngine: IBattleEngine
+    public abstract class BattleEngine : IBattleEngine
     {
         //private static readonly Dictionary<BattleVersion, BattleEngine> _;
 
@@ -93,6 +95,7 @@ namespace PokeBattleEngine.BattleEngines
         public IDamageCalc DamageCalc => throw new NotImplementedException();
 
         public IStatusCalc StatusCalc => throw new NotImplementedException();
+        public IBattleRule BattleRule;
 
         private string GetGameName(BattleVersion battleVersion)
         {
@@ -173,12 +176,17 @@ namespace PokeBattleEngine.BattleEngines
             BattleVersion = battleVersion;
             GameName = GetGameName(battleVersion);
         }
-        public abstract PokeBattle CreateBattle();
+        public abstract IPokeBattle CreateBattle(List<GamePokemonTeam> gamePokemonTeams, BattleType battleType);
 
-        public IPokeBattle CreateBattle(List<GamePokemonTeam> gamePokemonTeams)
-        {
-            throw new NotImplementedException();
-        }
+        //IPokeBattle IBattleEngine.CreateBattle(List<GamePokemonTeam> gamePokemonTeams)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public PokeBattle CreateBattle(List<GamePokemonTeam> gamePokemonTeams)
+        //{
+        //    throw new NotImplementedException();
+        //}
         //public void InitBa
     }
 }

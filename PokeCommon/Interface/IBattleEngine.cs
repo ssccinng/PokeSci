@@ -1,4 +1,5 @@
-﻿using PokeCommon.Models;
+﻿using PokeCommon.BattleEngine;
+using PokeCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,6 @@ namespace PokeCommon.Interface
         /// 创建一个比赛
         /// </summary>
         /// <returns></returns>
-        public IPokeBattle CreateBattle(List<GamePokemonTeam> gamePokemonTeams);
+        public IPokeBattle CreateBattle(List<GamePokemonTeam> gamePokemonTeams, BattleType battleType);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PokeCommon.Interface;
+using PokeCommon.Models;
 using PokemonDataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,12 @@ namespace PokeCommon.GameRule
         /// </summary>
         public List<Pokemon> PokemonBanList { get; }
 
+
+        public bool IsTeamOk(List<GamePokemon> gamePokemons);
+        public bool IsTeamOk(GamePokemonTeam gamePokemonTeam)
+        {
+            return IsTeamOk(gamePokemonTeam.GamePokemons);
+        }
 
         
     }

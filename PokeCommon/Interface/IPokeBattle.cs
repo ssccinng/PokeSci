@@ -1,4 +1,4 @@
-﻿using PokeBattleEngine;
+﻿using PokeCommon.BattleEngine;
 using PokeCommon.Models;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace PokeCommon.Interface
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public GameTurnResult RunCurrentTurn()
+        public BattleTurnResult RunCurrentTurn()
         {
             throw new NotImplementedException();
         }
