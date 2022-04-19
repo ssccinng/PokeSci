@@ -10,8 +10,8 @@ using PokeCommon.PokeOCR;
 using PokeCommon.BattleEngine;
 using System.Diagnostics;
 
-SWSHBattleEngine engine = BattleEngine.CreateBattleEngine(BattleVersion.SWSH) as SWSHBattleEngine;
-engine.CreateBattle();
+//SWSHBattleEngine engine = BattleEngine.CreateBattleEngine(BattleVersion.SWSH) as SWSHBattleEngine;
+//engine.CreateBattle();
 
 
 

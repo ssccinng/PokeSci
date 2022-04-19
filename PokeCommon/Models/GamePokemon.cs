@@ -20,8 +20,7 @@ namespace PokeCommon.Models
             MetaPokemon = pokemon;
             if (eV != null) EVs = eV;
             if (iV != null) IVs = iV;
-            UpdateStats();
-            NowHp = Stats.HP;
+            
 
         }
 
@@ -105,7 +104,8 @@ namespace PokeCommon.Models
         /// </summary>
         public void Reset()
         {
-
+            UpdateStats();
+            NowHp = Stats.HP;
         }
 
         // 这个要取决于什么game
