@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PokemonDataAccess;
+using PokemonDataAccess.Interfaces;
 using PokemonDataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ using System.Threading.Tasks;
 namespace PokeCommon.Utils
 {
     /// <summary>
-    /// 宝可梦工具（还需新增初始化）
+    /// 宝可梦工具（还需新增初始化）// 要实现不需要数据库的版本
     /// </summary>
     public static class PokemonTools
     {
-        public static PokemonContext PokemonContext { get; set; } = new("PokemonDataBase.db");
+        public static IPokemonContext PokemonContext { get; set; } = new PokemonContext("PokemonDataBase.db");
         public static object _lockDB = new();
 
         private static Dictionary<int, Ability> _abilities { get; set; } = new();
@@ -36,7 +37,7 @@ namespace PokeCommon.Utils
         private static Dictionary<int, Nature> _natures { get; set; } = new();
         private static Dictionary<string, int> _natureNameId { get; set; } = new();
 
-        public static async Task<Nature?> GetNatureAsync(int id)
+        public static async ValueTask<Nature?> GetNatureAsync(int id)
         {
             if (_natures.TryGetValue(id, out var nature))
             {
@@ -59,7 +60,7 @@ namespace PokeCommon.Utils
                 }
             }
         }
-        public static async Task<Nature?> GetNatureAsync(string name)
+        public static async ValueTask<Nature?> GetNatureAsync(string name)
         {
             if (_natureNameId.TryGetValue(name, out var id))
             {

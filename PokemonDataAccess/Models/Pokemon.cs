@@ -35,19 +35,19 @@ namespace PokemonDataAccess.Models
 
 
         [Comment("形态名")]
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(30)")]
         public string FormNameChs { get; set; }
-        [Column(TypeName = "varchar(20)")]
+        [Column(TypeName = "varchar(40)")]
         public string FormNameEng { get; set; }
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(30)")]
         public string FormNameJpn { get; set; }
 
         [Comment("全名")]
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(30)")]
         public string FullNameChs { get; set; }
-        [Column(TypeName = "varchar(30)")]
+        [Column(TypeName = "varchar(60)")]
         public string FullNameEng { get; set; }
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(30)")]
         public string FullNameJpn { get; set; }
         // [Comment("PS名字")]
         // [Column(TypeName = "varchar(30)")]
@@ -139,10 +139,10 @@ namespace PokemonDataAccess.Models
         public int HatchCycles { get; set; }
 
 
-        [Column(TypeName = "decimal(3, 2)")]
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal Height { get; set; }
 
-        [Column(TypeName = "decimal(3, 1)")]
+        [Column(TypeName = "decimal(4, 1)")]
         public decimal Weight { get; set; }
 
         [Comment("0-9:红色,蓝色,绿色,黄色,紫色,粉红色,褐色,黑色,灰色,白色")]

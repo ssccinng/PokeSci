@@ -15,14 +15,16 @@ using System.Diagnostics;
 
 
 
-//var a = OCRTools.SplitSWSHTeamPage("test9.jpg");
+//var a1 = OCRTools.SplitSWSHTeamPage("test10.jpg");
 //List<string> res = new List<string>();
-//foreach (var item in a)
+//foreach (var item in a1)
 //{
 //    //res.Add(OCRTools.GetText(item.PokeNameImgPath));
 //    res.Add(OCRTools.GetText(item.MoveImgPath));
 //}
 //res.ForEach(item => Console.Write(item));
+//return;
+
 Console.WriteLine(Environment.CurrentDirectory);
  var aa = await PSConverter.ConvertToPokemonAsync(@"sdfsdfsdf (Barraskewda) @ Life Orb
 Ability: Dark Aura

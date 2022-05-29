@@ -1,0 +1,60 @@
+﻿@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<MudPaper Width="250px" Class="tw-py-3" Square="true">
+    <MudNavMenu>
+
+        <MudDivider Class="tw-my-2" />
+        <MudNavLink Href="/">主页</MudNavLink>
+        @*<MudNavLink Href="/test">测试页</MudNavLink>*@
+        <MudNavGroup Title="对战竞技场" Expanded="true">
+            <MudNavLink Icon="@Icons.Material.Filled.Add" Href="/CreateMatch">创办联盟赛</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.List" Href="/MatchList">联赛列表</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.List" Href="/fetchdata">联赛列表</MudNavLink>
+        </MudNavGroup>
+        <AuthorizeView>
+            <Authorized>
+                <MudNavGroup Title="@username" Expanded="true">
+                    <MudNavLink Icon="@Icons.Material.Filled.CreditCard" Href="/BattleRule">我的联盟卡</MudNavLink>
+                    <MudNavLink Icon="@Icons.Material.Filled.Outbox" Href="/TeamManger">宝可梦盒子</MudNavLink>
+                </MudNavGroup>
+            </Authorized>
+        </AuthorizeView>
+        <MudNavGroup Title="联盟信息中心" Expanded="true">
+            <MudNavLink Icon="@Icons.Material.Filled.Edit" Href="/teamcard">编写文章</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.Message" Href="/counter">联盟新闻</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.Report" Href="/counter">队伍报告</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="宝可梦表" Expanded="true">
+            <MudNavLink Icon="@Icons.Material.Filled.Translate" Href="/PSTools">PS格式翻译</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.PanoramaPhotosphere" Href="/ThrowCoin">掷硬币</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.PanoramaPhotosphere" Href="/BDSPDex">BDSP图鉴</MudNavLink>
+        </MudNavGroup>
+        <MudNavLink  Href="/fetchdata">伤害计算器</MudNavLink>
+        <AuthorizeView Roles="Admin">
+            <MudNavLink Href="/AdminPage">成员管理</MudNavLink>
+        </AuthorizeView>
+        <MudNavLink Href="/about">关于我们</MudNavLink>
+    </MudNavMenu>
+</MudPaper>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+    string username = "训练家";
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        //if (user.Identity.IsAuthenticated)
+        //{
+        //    username = (await Http.GetStringAsync($"pokemonisshoni/user/username/{user.Identity.Name}"));
+        //}
+    }
+}

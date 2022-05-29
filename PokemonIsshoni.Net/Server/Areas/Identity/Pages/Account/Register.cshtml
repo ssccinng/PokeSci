@@ -1,0 +1,80 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "注册";
+}
+
+@*<h1>@ViewData["Title"]</h1>*@
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+  <div class="p-5  col-md-5 d-flex align-items-center">
+        <img src="/ServerImages/ania1.png" title="Pokemonisshoni">
+  </div>
+  <div class="p-5 col-md-7">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h3>创建一个新账号</h3>
+            <div class="pt-1 pb-1">
+                <hr />
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" />
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-2">
+                <input asp-for="Input.NickName" class="form-control" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.NickName"></label>
+                <span asp-validation-for="Input.NickName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-2">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Password"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-2">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.ConfirmPassword"></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mt-2">
+                <input asp-for="Input.QQ" class="form-control" autocomplete="qq" aria-required="true" />
+                <label asp-for="Input.QQ"></label>
+                <span asp-validation-for="Input.QQ" class="text-danger"></span>
+            </div>
+
+             <div class="form-floating mt-2">
+                <input asp-for="Input.DOB" class="form-control" autocomplete="dob" aria-required="true" />
+                <label asp-for="Input.DOB"></label>
+                <span asp-validation-for="Input.DOB" class="text-danger"></span>
+            </div>
+             <div class="form-floating mt-2">
+                <input asp-for="Input.City" class="form-control" autocomplete="city" aria-required="true" />
+                <label asp-for="Input.City"></label>
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-2">
+                <input asp-for="Input.HomeName" class="form-control" autocomplete="homename" aria-required="true" />
+                <label asp-for="Input.HomeName"></label>
+                <span asp-validation-for="Input.HomeName" class="text-danger"></span>
+            </div>
+             <div class="form-floating mt-2">
+                    <div class="checkbox">
+                        <label asp-for="Input.Ok">
+                            <input asp-for="Input.Ok" />
+                            @Html.DisplayNameFor(m => m.Input.Ok)
+                        </label>
+                    </div>
+                </div>
+            <div class="pt-5 pb-5">
+            <button id="registerSubmit" type="submit" class=" w-100 btn btn-lg btn-primary">注册</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

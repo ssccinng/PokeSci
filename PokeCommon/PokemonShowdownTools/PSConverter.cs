@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 using System.Text.RegularExpressions;
 using PokeCommon.Utils;
+using PokeCommon.Interface;
 
 namespace PokeCommon.PokemonShowdownTools
 {
-    public class PSConverter
+    public class PSConverter: IPSConverter
     {
         public static async ValueTask<string> ConvertToPsAsync(GamePokemon gamePokemon)
         {

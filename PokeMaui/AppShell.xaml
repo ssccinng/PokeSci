@@ -4,37 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:PokeMaui"
-    Shell.FlyoutBehavior="{OnIdiom Phone=Disabled, Default=Flyout}" >
+    Shell.FlyoutBehavior="Disabled">
 
-    <!--<ShellContent
-        Title="Hello, World!"
+    <ShellContent
+        Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->
-    <!--<Shell.FlyoutHeader>
-        <TextCell Text="临流"></TextCell>
-    </Shell.FlyoutHeader>-->
-    <FlyoutItem Title="Pokeamice" IsVisible="{OnIdiom Phone=false, Default=true}" >
-        <ShellContent
-                      Icon="monkey.png"
-                      ContentTemplate="{DataTemplate local:Pokeamice}" Shell.TitleColor="LightGray" />
-    </FlyoutItem>
-    <FlyoutItem Title="PCL" IsVisible="{OnIdiom Phone=false, Default=true}">
-        <ShellContent 
-                      Icon="monkey.png"
-                      ContentTemplate="{DataTemplate local:PokemonCL}"  Shell.TitleColor="LightGray" />
-    </FlyoutItem>
-
-    <TabBar x:Name="PhoneTabs">
-        <Tab Title="Pokeamice">
-            <ShellContent
-                      Icon="monkey.png"
-                      ContentTemplate="{DataTemplate local:Pokeamice}"/>
-        </Tab>
-        <Tab Title="PCL">
-            <ShellContent 
-                      Icon="monkey.png"
-                      ContentTemplate="{DataTemplate local:PokemonCL}"  />
-        </Tab>
-    </TabBar>
+        Route="MainPage" />
 
 </Shell>

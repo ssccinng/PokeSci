@@ -1,0 +1,114 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using PokemonIsshoni.Net.Server.Data;
+using PokemonIsshoni.Net.Server.Models;
+using Microsoft.AspNetCore.Identity;
+using PokemonIsshoni.Net.Server.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using PokemonIsshoni.Net.Server.Services;
+using PokeCommon.Utils;
+
+var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("PokemonIsshoniNetServerContextConnection") ?? throw new InvalidOperationException("Connection string 'PokemonIsshoniNetServerContextConnection' not found.");
+
+builder.Services.AddDbContext<PokemonIsshoniNetServerContext>(options =>
+    //options.UseMySql(connectionString, ));;
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))); ;
+
+
+builder.Services.AddDefaultIdentity<PokemonIsshoniNetServerUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<PokemonIsshoniNetServerContext>();
+
+// Add services to the container.
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+//builder.Services.AddIdentityServer()
+//    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+builder.Services.AddIdentityServer()
+    .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>();
+// ÓÊ¼þ
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+builder.Services.AddAuthentication()
+    .AddIdentityServerJwt();
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 0;
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(30);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = false;
+});
+
+
+
+
+
+var app = builder.Build();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<PokemonIsshoniNetServerContext>();
+    PokemonTools.PokemonContext = context;
+    //Console.WriteLine(PokemonTools.GetNatureAsync(1).Result.Name_Chs);
+    //context.Database.Migrate();
+
+    //EnsureRole(services, (await context.Users.FirstAsync(s => s.Email == "wanghaosheng@linxrobot.com")).Id, "Admin").Wait();
+    //EnsureRole(services, (await context.Users.FirstAsync(s => s.Email == "chenggang@linxrobot.com")).Id, "Admin").Wait();
+}
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseMigrationsEndPoint();
+    app.UseWebAssemblyDebugging();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseIdentityServer();
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+app.MapRazorPages();
+app.MapControllers();
+app.MapFallbackToFile("index.html");
+
+app.Run();

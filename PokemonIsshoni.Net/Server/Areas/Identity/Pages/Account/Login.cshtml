@@ -1,0 +1,62 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "登入";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+  <div class="d-flex col-5 p-5 align-items-center">
+        <img src="/ServerImages/ania1.png" title="阿尼亚">
+  </div>
+  <div class="p-5 col-7">
+       <section>
+            <form id="account" method="post">
+                <h3>用账户登入.</h3>
+                <div class="pt-1 pb-1">
+                    <hr />
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger mt-3"></div>
+                <div class="form-floating">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email" class="form-label"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mt-2">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <label asp-for="Input.Password" class="form-label"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="mt-2">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="pt-1">
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">登入</button>
+                </div>
+                <div>
+                    <p class="mt-2">
+                        <a style="text-decoration: none" id="forgot-password" asp-page="./ForgotPassword">忘记密码?</a>
+                    </p>
+                    <p class="mt-2">
+                        <a style="text-decoration: none" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">注册新账户</a>
+                    </p>
+                    <p class="mt-2">
+                        <a style="text-decoration: none" id="resend-confirmation" asp-page="./ResendEmailConfirmation">重新发送确认邮件</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+  </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

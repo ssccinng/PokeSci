@@ -1,4 +1,4 @@
-﻿using PokeCommon.Interface;
+﻿ using PokeCommon.Interface;
 using PokeCommon.Models;
 using System;
 using System.Collections.Generic;

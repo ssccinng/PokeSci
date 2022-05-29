@@ -11,7 +11,7 @@ namespace PokemonDataAccess.Models
         public PokeType Type1 { get; set; }
         public PokeType Type2 { get; set; }
 
-        [Column(TypeName = "decimal(1, 1)")]
+        [Column(TypeName = "decimal(2, 1)")]
         public decimal Effect { get; set; }
 
     }
