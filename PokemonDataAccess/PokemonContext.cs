@@ -23,7 +23,6 @@ namespace PokemonDataAccess
         //protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite(@"Data Source=E:\vs code\PokeSci\PokeUI3\DB\PokemonDataBase.db");
         //protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite(@"Data Source=PokemonDataBase.db");
         protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite($"Data Source={DbPath}");
-        //protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseMySQL("server=124.222.254.54;port=3306;Database=newpcl;User ID=NewPCL; Password=ScXL3jtMZEe7Kc6R");
 
         /*         protected override void OnModelCreating(ModelBuilder modelBuilder)
                 {
