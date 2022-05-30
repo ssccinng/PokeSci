@@ -1,0 +1,32 @@
+﻿@using PokemonIsshoni.Net.Shared.Models
+
+<MudDialog Style="width:300px">
+    @*<TitleContent >
+            <b>@MudDialog.Title</b>
+        </TitleContent>*@
+    <DialogContent>
+        <MudTextField T="string" @bind-Value="Player.ShadowId" Label="参赛Id" Variant="Variant.Text"></MudTextField>
+        <MudTextField T="string" @bind-Value="Player.Declaration" Label="参赛宣言" Variant="Variant.Text"></MudTextField>
+        <MudTextField T="string" @bind-Value="Player.QQ" Label="参赛QQ" Variant="Variant.Text"></MudTextField>
+        @if (Password != null)
+        {
+            <MudTextField T="string" @bind-Value="Password.Value"  Label="参赛密语" Variant="Variant.Text"></MudTextField>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Class="tw-font-bold">取消</MudButton>
+        <MudButton Color="Color.Info" OnClick="Submit" Class="tw-font-bold">确认</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public string content { get; set; } = "确认报名该比赛?";
+    [Parameter] public PCLMatchPlayer Player { get; set; }
+    [Parameter] public StringClass Password { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}

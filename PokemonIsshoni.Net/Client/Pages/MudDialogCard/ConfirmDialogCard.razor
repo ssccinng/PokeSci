@@ -1,0 +1,22 @@
+﻿<MudDialog Style="width:300px">
+    @*<TitleContent >
+        <b>@MudDialog.Title</b>
+    </TitleContent>*@
+    <DialogContent>
+        @content
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Class="tw-font-bold">取消</MudButton>
+        <MudButton Color="Color.Info" OnClick="Submit" Class="tw-font-bold">确认</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public string content { get; set; } = "确认此操作?";
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}

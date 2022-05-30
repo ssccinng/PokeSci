@@ -1,0 +1,15 @@
+﻿@page "/MatchGroupDrawLots/{Id:int}"
+
+@using PokemonIsshoni.Net.Shared.Models;
+@attribute [Authorize]
+@inject PCLServices MatchService
+
+@code {
+    [Parameter] public int Id { get; set; }
+    PCLMatch _pclMatch;
+    protected override async Task OnInitializedAsync()
+    {
+        //_pclMatch = await MatchService.GetMatchDetail(Id);
+        //base.OnInitializedAsync();
+    }
+}

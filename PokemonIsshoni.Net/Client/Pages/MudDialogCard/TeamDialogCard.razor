@@ -1,0 +1,12 @@
+﻿@using PokemonIsshoni.Net.Shared.Models;
+
+<MudDialog DisableSidePadding="true">
+    <DialogContent>
+        <MudContainer Style="max-height: 500px; overflow-y: scroll">
+            @*<PokemonIsshoni.Net.Client.Pages.TeamPage.TeamEditor PCLPokeTeam="PCLPokeTeam"/>*@
+        </MudContainer>
+    </DialogContent>
+</MudDialog>
+@code {
+    [Parameter] public PCLPokeTeam PCLPokeTeam { get; set; }
+}

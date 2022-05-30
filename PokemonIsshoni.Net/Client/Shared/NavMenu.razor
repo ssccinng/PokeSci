@@ -1,5 +1,7 @@
 ﻿@inject HttpClient Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject UserInfoServices UserInfoServices
+
 <MudPaper Width="250px" Class="tw-py-3" Square="true">
     <MudNavMenu>
 
@@ -52,9 +54,10 @@
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
-        //if (user.Identity.IsAuthenticated)
-        //{
-        //    username = (await Http.GetStringAsync($"pokemonisshoni/user/username/{user.Identity.Name}"));
-        //}
+        if (user.Identity.IsAuthenticated)
+        {
+            username = (await UserInfoServices.GetUserIdByNameAsync(user.Identity.Name)).NickName;
+            //username = (await Http.GetStringAsync($"pokemonisshoni/user/username/{user.Identity.Name}"));
+        }
     }
 }

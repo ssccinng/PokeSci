@@ -1,0 +1,275 @@
+﻿@page "/MatchDetail/{Id:int}"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using PokemonIsshoni.Net.Client.Lib
+@using PokemonIsshoni.Net.Shared
+@using PokemonIsshoni.Net.Shared.Models
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@inject ISnackbar Snackbar
+@inject HttpClient Http
+@inject PCLServices MatchService
+@inject UserInfoServices UserServices
+@inject NavigationManager Navigation
+@inject IDialogService Dialog
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@using System.Threading;
+
+@if (_pclMatch is null)
+{
+    @*<PochamaLoading />*@
+}
+else
+{
+    <MudPaper Class="tw-w-full tw-p-5">
+        <MudContainer MaxWidth="MaxWidth.Medium">
+            <MudGrid>
+                @if (_pclMatch.IsTeamCompeition)
+                {
+                    <MudItem xs="12">
+                        <MudAlert Variant="Variant.Filled"><b>这是一场团队比赛，请仔细阅读相关规定！</b></MudAlert>
+                    </MudItem>
+                }
+                <MudItem xs="12" Class="tw-mt-5">
+                    <MudText Typo="Typo.h4" Align="Align.Center">
+                        <b>@_pclMatch.Name</b>
+
+                    </MudText>
+                </MudItem>
+
+                @*<MudItem xs="12">
+                        <MudDivider DividerType="DividerType.FullWidth"></MudDivider>
+                    </MudItem>*@
+
+                <MudItem xs="12" md="4">
+                    <MudText Typo="Typo.overline">比赛开始时间.</MudText>
+                    <MudText><b>@_pclMatch.MatchStartDate?.ToString("yyyy-MM-dd HH:mm")</b></MudText>
+                </MudItem>
+                <MudItem xs="12" md="3">
+                    <MudText Typo="Typo.overline">比赛状态.</MudText>
+                    @switch (_pclMatch.MatchState)
+                    {
+                        case MatchState.Registering:
+                            <MudText Typo="Typo.h6" Style="color:red"><b>接受报名中！</b></MudText>
+                            break;
+                        case MatchState.Running:
+                            <MudText Typo="Typo.h6" Style="color:darkgreen"><b>比赛进行中~</b></MudText>
+                            break;
+                        case MatchState.Finished:
+                            <MudText Typo="Typo.h6" Style="color:darkgreen"><b>比赛已结束</b></MudText>
+                            break;
+                        default:
+                            break;
+                    }
+
+                </MudItem>
+                <MudItem xs="12" md="3">
+                    <MudText Typo="Typo.overline">比赛方式.</MudText>
+                    <MudText><b>@_pclMatch.MatchOnline.ToChsString()</b></MudText>
+                </MudItem>
+                <MudItem xs="12" md="2">
+                    <MudText Typo="Typo.overline">比赛模式.</MudText>
+                    <MudText><b>@_pclMatch.MatchType.ToChsString()</b></MudText>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudDivider DividerType="DividerType.FullWidth"></MudDivider>
+                </MudItem>
+                <MudItem xs="12" md="4" Style="min-height:300px">
+                    <MudText Typo="Typo.overline">比赛LOGO.</MudText>
+                    <img src=@_pclMatch.Logo width="150" class="tw-rounded-xl">
+                </MudItem>
+                <MudItem xs="12" md="8" Style="min-height:300px" Class="tw-bg-gray-100 tw-rounded">
+                    <MudText Typo="Typo.overline">比赛介绍.</MudText>
+                    <MudText Typo="Typo.body1">@((MarkupString)_pclMatch.Description.Replace("\n", "<br/>"))</MudText>
+                </MudItem>
+                <MudItem xs="12" md="4">
+                    <MudText Typo="Typo.overline">举办者.</MudText>
+                    @*<div  Style=@($"transform: rotateY({angletest}deg); transition: 1s;")>
+                        
+                    </div>*@
+                    @*<NewPokemonChineseLink.Client.Pages.PCLCard.PCLUserCard UserId="@_pclMatch.UserId" />*@
+                </MudItem>
+                <MudItem xs="12" md="8">
+
+                    <MudText Typo="Typo.overline">报名人数.</MudText>
+                    <MudText>@_pclMatch.PCLMatchPlayerList.Count 人</MudText>
+                </MudItem>
+                @*<MudItem xs="12">
+                        <MudText Typo="Typo.overline">举办者.</MudText>
+                        <NewPokemonChineseLink.Client.Pages.PCLCard.PCLUserCard PCLUserCardSize="PCLCard.PCLUserCard.UserCardSize.Medium" UserId="@_pclMatch.UserId" />
+                    </MudItem>*@
+                <MudItem xs="12" Style="min-height:300px">
+                    <MudText Typo="Typo.overline">比赛流程.</MudText>
+                    <MudGrid>
+                        @for (int i = 0; i < _pclMatch.PCLMatchRoundList.Count; ++i)
+                        {
+                            int ri = i + 1;
+                            var round = _pclMatch.PCLMatchRoundList[i];
+                            <MudItem xs="12" md="4">
+                                <MudCard  >
+                                    <MudCardHeader>
+                                        <CardHeaderAvatar>
+                                            <MudAvatar Color="Color.Primary">@ri</MudAvatar>
+                                        </CardHeaderAvatar>
+                                        <CardHeaderContent><b>@($"{(round.IsGroup ? "分组" : "")}{round.PCLRoundType.ToChsString()} {(round.IsGroup ? round.GroupCnt + "组" : "")}")</b></CardHeaderContent>
+                                    </MudCardHeader>
+                                    <MudCardContent>
+                                        <MudGrid>
+                                            <MudItem xs="6">
+
+                                                <MudText Typo="Typo.overline">@($"出线{(round.SwissPromotionType == PromotionType.Topcut ? "人" : "分")}数")</MudText>
+                                                <MudText Typo="Typo.body1">@round.RoundPromotion 人</MudText>
+                                            </MudItem>
+                                            <MudItem xs="6">
+                                                <MudText Typo="Typo.overline">对局赛制</MudText>
+                                                <MudText Typo="Typo.body1">@($"BO{round.BO}") </MudText>
+                                            </MudItem>
+                                            @*需要一个目前参加人数（？*@
+                                            @switch (round.PCLRoundType)
+                                            {
+                                                case RoundType.Swiss:
+                                                    <MudItem xs="6">
+                                                        <MudText Typo="Typo.overline">瑞士轮数</MudText>
+                                                        <MudText Typo="Typo.body1">@round.SwissCount 轮</MudText>
+                                                    </MudItem>
+                                                    <MudItem xs="6">
+                                                        <MudText Typo="Typo.overline">晋级规则</MudText>
+                                                        <MudText Typo="Typo.body1">@round.SwissPromotionType.ToChsString()</MudText>
+                                                    </MudItem>
+                                                    // 这里再有详细信息（？
+                                                    break;
+                                                case RoundType.Robin:
+                                                    <MudItem xs="6">
+                                                        <MudText Typo="Typo.overline" Color="Color.Transparent">风妖精</MudText>
+                                                        <MudText Typo="Typo.body1" Color="Color.Transparent">可爱</MudText>
+                                                    </MudItem>
+                                                    break;
+                                                case RoundType.Elimination:
+                                                    <MudItem xs="6">
+                                                        <MudText Typo="Typo.overline">淘汰赛模式</MudText>
+                                                        <MudText Typo="Typo.body1">@round.EliminationType.ToChsString()</MudText>
+                                                    </MudItem>
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        </MudGrid>
+
+
+
+
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudItem>
+                        }
+                    </MudGrid>
+
+                </MudItem>
+                <MudItem xs="12">
+                    <AuthorizeView>
+                        <Authorized>
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="tw-font-bold" Disabled="!CanSignin" OnClick="SigninMatch">
+                                报名
+                            </MudButton>
+                        </Authorized>
+                    </AuthorizeView>
+                    <MudButton Variant="Variant.Filled" Color="Color.Default" Class="tw-font-bold" OnClick="@(() => Navigation.NavigateTo($"MatchRun/{Id}"))">
+                        比赛赛程信息
+                    </MudButton>
+                    @if (_userId == _pclMatch.UserId || isAdmin)
+                    {
+                        <MudButton Variant="Variant.Filled" Color="Color.Default" Class="tw-font-bold tw-ml-1" OnClick="@(() => Navigation.NavigateTo($"MatchDetailSetting/{Id}"))">
+                            比赛参数设置
+                        </MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Default" Class="tw-font-bold tw-ml-1" OnClick="@(() => Navigation.NavigateTo($"MatchManager/{Id}"))">
+                            比赛管理
+                        </MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Error" Class="tw-font-bold tw-ml-1">
+                            删除比赛
+                        </MudButton>
+                    }
+
+                </MudItem>
+
+            </MudGrid>
+        </MudContainer>
+    </MudPaper>
+
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    string _userId;
+    PCLMatchPlayer player = new();
+    UserInfo userData;
+    StringClass password = new StringClass { Value = "" };
+    bool isAdmin = false;
+
+    int angletest = 40;
+
+    Timer timer;
+
+    private async Task<bool> OpenDialog()
+    {
+        IDialogReference dialog;
+        //var dialog = Dialog.Show<MatchJoinCard>("报名信息填写", new DialogParameters { { "content", $"确认报名 {_pclMatch.Name} 比赛?" }, {"Player", player } });
+        if (_pclMatch.IsPrivate)
+        {
+
+            dialog = Dialog.Show<MatchJoinCard>("报名信息填写", new DialogParameters { { "content", $"确认报名 {_pclMatch.Name} 比赛?" }, { "Player", player }, { "Password", password } });
+        }
+        else
+        {
+            dialog = Dialog.Show<MatchJoinCard>("报名信息填写", new DialogParameters { { "content", $"确认报名 {_pclMatch.Name} 比赛?" }, { "Player", player } });
+        }
+
+        var res = await dialog.Result;
+        if (res.Cancelled) return false;
+        else return true;
+    }
+
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        try
+        {
+            if (user.Identity.IsAuthenticated)
+            {
+                //_userId = await UserServices.GetUserIdByEmail(user.Identity.Name);
+                //userData = await UserServices.GetUserById(_userId);
+            }
+            isAdmin = user.IsInRole("Admin");
+            //_pclMatch = await MatchService.GetMatchDetail(Id);
+            player.UserId = _userId;
+            player.ShadowId = userData.NickName;
+            player.QQ = userData.QQ;
+            player.PCLMatchId = Id;
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            timer = new(new TimerCallback(
+                _ =>
+                {
+                    angletest = -angletest;
+                    this.InvokeAsync(() => this.StateHasChanged());
+                }), null, 100, 1500);
+        }
+
+    }
+}

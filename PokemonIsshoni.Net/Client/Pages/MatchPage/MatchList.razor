@@ -1,0 +1,93 @@
+﻿@page "/MatchList"
+@inject HttpClient Http
+@inject PCLServices MatchService
+@inject NavigationManager Navigation
+@if (_pclMatches == null)
+{
+    @*<PochamaLoading />*@
+}
+else
+{
+    <MudAlert Severity="Severity.Normal" Variant="Variant.Filled">这里是联赛列表，可以查看或参加你想要了解的比赛~</MudAlert>
+    //transition duration-150 ease-in-out hover:rounded-lg hover:bg-gray-200
+
+    <MudTable Items="_pclMatches" Class="tw-w-full" Hover="true" RowClass="tw-p-3 tw-border-b-2 " RowStyle="max-width:100px; width:100px" Filter="FilterFunc" Style="">
+        @*<ColGroup></ColGroup>*@
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">联盟赛列表</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <RowTemplate>
+            <MudGrid Class="tw-p-3" @onclick="@(()=> Navigation.NavigateTo($"MatchDetail/{context.Id}"))">
+                <MudItem xs="12" md="3">
+                    <img src=@context.Logo width="250" class="tw-rounded-xl">
+                </MudItem>
+                <MudItem xs="12" md="9">
+                    <MudGrid Class="p-5">
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.h5">
+                                <b>
+                                    @context.Name
+                                    @if (context.IsPrivate)
+                                        {
+                                        <MudIcon Icon="@Icons.Filled.Lock"></MudIcon>
+                                        }
+                                </b>
+
+                            </MudText>
+                        </MudItem>
+                        <MudItem xs="12" md="4">
+                            <MudText Typo="Typo.overline">比赛开始时间.</MudText>
+                            <MudText Typo="Typo.h6">@context.MatchStartDate?.ToString("yyyy-MM-dd HH:mm")</MudText>
+                        </MudItem>
+                        <MudItem xs="12" md="4">
+                            <MudText Typo="Typo.overline">比赛状态.</MudText>
+                            @switch (context.MatchState)
+                                {
+                                    case MatchState.Registering:
+                                    <MudText Typo="Typo.h6" Style="color:red"><b>接受报名中！</b></MudText>
+                                        break;
+                                    case MatchState.Running:
+                                    <MudText Typo="Typo.h6" Style="color:darkgreen"><b>比赛进行中~</b></MudText>
+                                        break;
+                                    case MatchState.Finished:
+                                    <MudText Typo="Typo.h6" Style="color:darkgreen"><b>比赛已结束</b></MudText>
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                        </MudItem>
+                        <MudItem xs="12" md="4">
+                            <MudText Typo="Typo.overline">比赛方式.</MudText>
+                            <MudText Typo="Typo.h6"><b>@context.MatchOnline</b></MudText>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.overline">比赛简介.</MudText>
+                            <MudText Typo="Typo.h6">@((MarkupString)context.Description[..(Math.Min(200, context.Description.Length))])<text>...</text></MudText>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+            </MudGrid>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+}
+@code {
+    string searchString;
+    protected override async Task OnInitializedAsync()
+    {
+        //try
+        //{
+        //    _pclMatches = (await MatchService.GetMatches()).OrderByDescending(s => s.Id);
+        //}
+        //catch (AccessTokenNotAvailableException exception)
+        //{
+        //    exception.Redirect();
+        //}
+    }
+
+}

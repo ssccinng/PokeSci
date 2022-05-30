@@ -42,7 +42,8 @@ public class PokemonIsshoniNetServerUser : IdentityUser
     public DateTime Registertime { get; set; } = DateTime.Now;// 注册时间
 
     [Column(TypeName = "longtext")]
-    public string Avatar { get; set; } = "ServerImage/Avatar/ztxb.jpeg";
+    //public string Avatar { get; set; } = "ServerImage/Avatar/ztxb.jpeg";
+    public string Avatar { get; set; } = "ServerImages/Avatar/ania.jpg";
 
     public int TrainerIdInt { get; set; }
     /// <summary>

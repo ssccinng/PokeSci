@@ -8,6 +8,8 @@ using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using PokemonIsshoni.Net.Server.Services;
 using PokeCommon.Utils;
+using System.IdentityModel.Tokens.Jwt;
+using Duende.IdentityServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PokemonIsshoniNetServerContextConnection") ?? throw new InvalidOperationException("Connection string 'PokemonIsshoniNetServerContextConnection' not found.");
@@ -32,8 +34,18 @@ builder.Services.AddDefaultIdentity<PokemonIsshoniNetServerUser>(options => opti
 
 //builder.Services.AddIdentityServer()
 //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+// 身份验证 角色
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>();
+    .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>(options => {
+        options.IdentityResources["openid"].UserClaims.Add("name");
+        options.ApiResources.Single().UserClaims.Add("name");
+        options.IdentityResources["openid"].UserClaims.Add("role");
+        options.ApiResources.Single().UserClaims.Add("role");
+    });
+
+builder.Services.AddTransient<IProfileService, ProfileService>();
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 // 邮件
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
@@ -112,3 +124,33 @@ app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+
+static async Task<IdentityResult> EnsureRole(IServiceProvider serviceProvider,
+                                                                    string uid, string role)
+{
+    IdentityResult IR = null;
+    var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+    //var UserroleManager = serviceProvider.GetService<UserRoleManager<IdentityUserRole>>();
+    if (roleManager == null)
+    {
+        throw new Exception("roleManager null");
+    }
+
+    if (!await roleManager.RoleExistsAsync(role))
+    {
+        IR = await roleManager.CreateAsync(new IdentityRole(role));
+    }
+
+    var userManager = serviceProvider.GetService<UserManager<PokemonIsshoniNetServerUser>>();
+
+    var user = await userManager.FindByIdAsync(uid);
+
+    if (user == null)
+    {
+        throw new Exception("The testUserPw password was probably not strong enough!");
+    }
+    IR = await userManager.AddToRoleAsync(user, role);
+
+    return IR;
+}

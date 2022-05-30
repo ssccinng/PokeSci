@@ -6,6 +6,9 @@
 
 @inject HttpClient Http
 @inject AuthenticationStateProvider AuthenticationStateProvider
+
+@inject UserInfoServices UserInfoServices
+
 <AuthorizeView>
     <Authorized>
         <MudMenu Direction="Direction.Bottom" OffsetY="true">
@@ -14,7 +17,7 @@
             </ActivatorContent>
             <ChildContent>
                 <MudMenuItem>个人资料</MudMenuItem>
-                <MudMenuItem>登出</MudMenuItem>
+                <MudMenuItem><button @onclick="BeginSignOut">登出</button> </MudMenuItem>
             </ChildContent>
         </MudMenu>
 
@@ -41,10 +44,11 @@
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
-        //if (user.Identity.IsAuthenticated)
-        //{
-        //    avatar = (await Http.GetStringAsync($"pokemonisshoni/user/avatar/{user.Identity.Name}"));
-        //    username = (await Http.GetStringAsync($"pokemonisshoni/user/username/{user.Identity.Name}"));
-        //}
+        if (user.Identity.IsAuthenticated)
+        {
+            var userI = (await UserInfoServices.GetUserIdByNameAsync(user.Identity.Name));
+            avatar = userI.Avatar;
+            username = userI.NickName;
+        }
     }
 }
