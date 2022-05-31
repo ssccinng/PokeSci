@@ -1,0 +1,98 @@
+﻿@using PokemonIsshoni.Net.Shared.Models
+
+@inject UserInfoServices UserServices
+
+@if (_user is null)
+{
+
+}
+else
+{
+    switch (PCLUserCardSize)
+    {
+        case UserCardSize.Small:
+            <MudCard Style="max-width:230px; width:230px; height: 67px; max-height:67px">
+                <MudCardHeader Class="p-3">
+                    <CardHeaderAvatar>
+                        <MudAvatar Image="@_user.Avatar"></MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1" Class="mt-n2">@_user.NickName</MudText>
+                        <MudText Typo="Typo.caption">@(_user.TrainerId)</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+            </MudCard>
+            break;
+        case UserCardSize.Medium:
+            <MudCard Style="max-width:400px; width:400px;">
+                <MudCardHeader >
+                    <CardHeaderAvatar>
+                        <MudAvatar Image="@_user.Avatar"></MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1">@_user.NickName</MudText>
+                        <MudText Typo="Typo.body2">@_user.TrainerId</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem xs="5">
+                            <MudText Typo="Typo.overline">剑/盾游戏名</MudText>
+                            <MudText Typo="Typo.body1">@_user.HomeName</MudText>
+                        </MudItem>
+                        <MudItem xs="5">
+                            <MudText Typo="Typo.overline">QQ</MudText>
+                            <MudText Typo="Typo.body1">@_user.QQ</MudText>
+                        </MudItem>
+                        <MudItem xs="5">
+                            <MudText Typo="Typo.overline">所在城市</MudText>
+                            <MudText Typo="Typo.body1">@_user.City</MudText>
+                        </MudItem>
+                        <MudItem xs="5">
+                            <MudText Typo="Typo.overline">邮箱</MudText>
+                            <MudText Typo="Typo.body1">@_user.Email</MudText>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.overline">生日</MudText>
+                            <MudText Typo="Typo.body1">@_user.DOB.ToString("yyyy-MM-dd")</MudText>
+                        </MudItem>
+
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+            break;
+        case UserCardSize.Large:
+            break;
+        default:
+            break;
+    }
+
+}
+
+
+@code {
+
+    [Parameter] public string UserId { get; set; }
+    [Parameter] public bool AllowClick { get; set; }
+    [Parameter] public UserCardSize PCLUserCardSize { get; set; } = UserCardSize.Small;
+    UserInfo _user;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _user = await UserServices.GetUserByIdAsync(UserId);
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    public enum UserCardSize
+    {
+        Small,
+        Medium,
+        Large
+    };
+}

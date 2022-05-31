@@ -10,15 +10,22 @@ namespace PokemonIsshoni.Net.Client.Services
         {
             _httpClient = httpClient;
         }
+        public async Task<List<UserInfo>> GetAllUserAsync()
+        {
 
-        public async Task<UserInfo> GetUserIdByEmail(string email)
+            return await _httpClient.GetFromJsonAsync<List<UserInfo>>($"/api/userinfo/GetAllUser");
+        }
+        public async Task<UserInfo> GetUserByEmailAsync(string email)
         {
             return await _httpClient.GetFromJsonAsync<UserInfo>($"/api/userinfo/GetUserByEmail/{email}");
         }
 
-        public async Task<UserInfo> GetUserIdByNameAsync(string name)
+        public async Task<UserInfo> GetUserByNameAsync(string name)
         {
             return await _httpClient.GetFromJsonAsync<UserInfo>($"/api/userinfo/GetUserByName/{name}");
+        }public async Task<UserInfo> GetUserByIdAsync(string id)
+        {
+            return await _httpClient.GetFromJsonAsync<UserInfo>($"/api/userinfo/GetUserById/{id}");
         }
     }
 }

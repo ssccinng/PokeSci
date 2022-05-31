@@ -1,0 +1,171 @@
+﻿@*@using NewPokemonChineseLink.Shared.Models
+@using PokemonDataAccess.Models
+
+
+@inject HttpClient Http
+@inject MatchService MatchService
+
+@inject NavigationManager Navigation
+@inject IDialogService Dialog
+@inject UserServices UserServices
+@inject PokemonDataServices PokemonDataServices
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+@if (PCLPokemon == null || loading)
+{
+    // 更像是个编辑card 还有其他的card
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <MudGrid Justify="Justify.Center">
+                <MudItem xs="12" md="3" lg="2" Class="flex">
+                    <img class="self-center" src="GymLogo.png" width="150" />
+                </MudItem>
+                <MudItem xs="12" lg="4">
+                    <MudGrid>
+                        <MudItem xs="4">
+                            <MudAutocomplete Margin="0" Label="宝可梦名" SearchFunc="SearchPoke"
+                                             AdornmentColor="Color.Transparent"
+                                             Value="_pokemons.FirstOrDefault(s=>s.Id == PCLPokemon.PokemonId)"
+                                             ValueChanged="(e) => PCLPokemon.PokemonId = e.Id"
+                                             ToStringFunc="(e) => e.FullNameChs" T="Pokemon"></MudAutocomplete>
+                            <MudAutocomplete Margin="0" Label="道具名"
+                                             SearchFunc="SearchItem"
+                                             AdornmentColor="Color.Transparent"
+                                             Value="_items.FirstOrDefault(s=>s.ItemId == PCLPokemon.ItemId)"
+                                             ValueChanged="(e) => PCLPokemon.ItemId = e.ItemId" ToStringFunc="(e) => e.Name_Chs"
+                                             T="Item"></MudAutocomplete>
+                            <MudAutocomplete Margin="0" Label="特性名"
+                                             SearchFunc="SearchAbility"
+                                             AdornmentColor="Color.Transparent"
+                                             Value="_abilitys.FirstOrDefault(s=>s.AbilityId == PCLPokemon.AbilityId)"
+                                             ValueChanged="(e) => PCLPokemon.AbilityId = e.AbilityId"
+                                             ToStringFunc="(e) => e.Name_Chs" T="Ability"></MudAutocomplete>
+                            <MudSelect Label="性格" T="string">
+                                <MudSelectItem T="string" Value=@("大胆")>大胆</MudSelectItem>
+                                <MudSelectItem T="string" Value=@("温和")>温和</MudSelectItem>
+                                <MudSelectItem T="string" Value=@("内敛")>内敛</MudSelectItem>
+                            </MudSelect>
+
+                        </MudItem>
+                        <MudItem xs="4">
+                            <MudAutocomplete Label="招式1"
+                                             SearchFunc="SearchMove"
+                                             AdornmentColor="Color.Transparent"
+                                             Value="_moves.FirstOrDefault(s=>s.MoveId == PCLPokemon.MoveID[0])"
+                                             ValueChanged="(e) => PCLPokemon.MoveID[0] = e.MoveId"
+                                             ToStringFunc="(e) => e.Name_Chs" T="Move"></MudAutocomplete>
+                            <MudAutocomplete Label="招式2"
+                                             SearchFunc="SearchMove"
+                                             AdornmentColor="Color.Transparent"
+                                             Value="_moves.FirstOrDefault(s=>s.MoveId == PCLPokemon.MoveID[1])"
+                                             ValueChanged="(e) => PCLPokemon.MoveID[1] = e.MoveId"
+                                             ToStringFunc="(e) => e.Name_Chs" T="Move"></MudAutocomplete>
+                            <MudAutocomplete Label="招式3"
+                                             SearchFunc="SearchMove"
+                                             AdornmentColor="Color.Transparent"
+                                             Value="_moves.FirstOrDefault(s=>s.MoveId == PCLPokemon.MoveID[2])"
+                                             ValueChanged="(e) => PCLPokemon.MoveID[2] = e.MoveId"
+                                             ToStringFunc="(e) => e.Name_Chs" T="Move"></MudAutocomplete>
+                            <MudAutocomplete Label="招式4"
+                                             SearchFunc="SearchMove"
+                                             AdornmentColor="Color.Transparent"
+                                             Value="_moves.FirstOrDefault(s=>s.MoveId == PCLPokemon.MoveID[3])"
+                                             ValueChanged="(e) => PCLPokemon.MoveID[0] = e.MoveId"
+                                             ToStringFunc="(e) => e.Name_Chs" T="Move"></MudAutocomplete>
+
+                        </MudItem>
+                        <MudItem xs="4">
+                            <MudNumericField HideSpinButtons="true" @bind-Value=" PCLPokemon.Level" Margin="0" Label="等级" T="int" Max="100" Min="0"></MudNumericField>
+                            <MudNumericField HideSpinButtons="true" @bind-Value=" PCLPokemon.Happiness" Label="亲密度" T="int"></MudNumericField>
+
+                            <MudCheckBox Label="闪光" Class="mt-3 ml-n2" @bind-Checked=" PCLPokemon.Shiny" Color="Color.Error" T="bool" Dense="true" Size="Size.Small" UncheckedIcon="@Icons.Material.Filled.StarOutline" CheckedIcon="@Icons.Material.Filled.Star"></MudCheckBox>
+
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+                <MudItem xs="12" lg="5">
+                    <MudGrid Class="mt-2">
+                        <MudItem xs="1" S>
+                            <MudText Style="height: 30px"></MudText>
+
+                            <MudText Style="height: 30px">HP</MudText>
+                            <MudText Style="height: 30px">Atk</MudText>
+                            <MudText Style="height: 30px">Def</MudText>
+                            <MudText Style="height: 30px">Spa</MudText>
+                            <MudText Style="height: 30px">Spd</MudText>
+                            <MudText Style="height: 30px">Spe</MudText>
+                        </MudItem>
+                        <MudItem xs="2" lg="2">
+                            <MudText Style="height: 30px" Align="Align.Center">IV</MudText>
+                            <input type="tel" max="31" min="0" class="mt-n2 text-center w-full" @bind-value="PCLPokemon.IV.HP" Style="height: 30px" />
+                            <input type="tel" max="31" min="0" class="text-center w-full" @bind-value="PCLPokemon.IV.Atk" Style="height: 30px" />
+                            <input type="tel" max="31" min="0" class="text-center w-full" @bind-value="PCLPokemon.IV.Def" Style="height: 30px" />
+                            <input type="tel" max="31" min="0" class="text-center w-full" @bind-value="PCLPokemon.IV.Spa" Style="height: 30px" />
+                            <input type="tel" max="31" min="0" class="text-center w-full" @bind-value="PCLPokemon.IV.Spd" Style="height: 30px" />
+                            <input type="tel" max="31" min="0" class="text-center w-full" @bind-value="PCLPokemon.IV.Spe" Style="height: 30px" />
+                     
+                        </MudItem>
+                        <MudItem xs="6" lg="6" Class="pl-0 pr-0 md:pl-12 md:pr-12">
+                            <MudText Style="height: 30px"></MudText>
+                            <MudSlider Color="Color.Dark" Min="0" Max="252" Step="4" @bind-Value="PCLPokemon.EV.HP" Style="height: 30px; "></MudSlider>
+                            <MudSlider Color="Color.Error" Min="0" Max="252" Step="4" @bind-Value="PCLPokemon.EV.Atk" Style="height: 30px"></MudSlider>
+                            <MudSlider Color="Color.Tertiary" Min="0" Max="252" Step="4" @bind-Value="PCLPokemon.EV.Def" Style="height: 30px"></MudSlider>
+                            <MudSlider Color="Color.Info" Min="0" Max="252" Step="4" @bind-Value="PCLPokemon.EV.Spa" Style="height: 30px"></MudSlider>
+                            <MudSlider Color="Color.Secondary" Min="0" Max="252" Step="4" @bind-Value="PCLPokemon.EV.Spd" Style="height: 30px"></MudSlider>
+                            <MudSlider Color="Color.Warning" Min="0" Max="252" Step="4" @bind-Value="PCLPokemon.EV.Spe" Style="height: 30px"></MudSlider>
+
+                        </MudItem>
+                        <MudItem xs="1" lg="2" Class="pl-2 pr-0 md:pl-12 md:pr-12">
+                            <MudText Style="height: 30px" Align="Align.Center">EV</MudText>
+                            <input type="tel" step="4" max="252" min="0" class="text-center w-full" @bind-value="PCLPokemon.EV.HP" Style="height: 30px; margin-top:-2.5px" />
+                            <input type="tel" step="4" max="252" min="0" class="text-center w-full" @bind-value="PCLPokemon.EV.Atk" Style="height: 30px" />
+                            <input type="tel" step="4" max="252" min="0" class="text-center w-full" @bind-value="PCLPokemon.EV.Def" Style="height: 30px" />
+                            <input type="tel" step="4" max="252" min="0" class="text-center w-full" @bind-value="PCLPokemon.EV.Spa" Style="height: 30px" />
+                            <input type="tel" step="4" max="252" min="0" class="text-center w-full" @bind-value="PCLPokemon.EV.Spd" Style="height: 30px" />
+                            <input type="tel" step="4" max="252" min="0" class="text-center w-full" @bind-value="PCLPokemon.EV.Spe" Style="height: 30px" />
+
+                        </MudItem>
+                        <MudItem xs="1" lg="1">
+                            <MudText Style="height: 30px">Val</MudText>
+                            <MudText Style="height: 30px" class="text-center ml-2">0</MudText>
+                            <MudText Style="height: 30px" class="text-center ml-2">0</MudText>
+                            <MudText Style="height: 30px" class="text-center ml-2">0</MudText>
+                            <MudText Style="height: 30px" class="text-center ml-2">0</MudText>
+                            <MudText Style="height: 30px" class="text-center ml-2">0</MudText>
+                            <MudText Style="height: 30px" class="text-center ml-2">0</MudText>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+
+            </MudGrid>
+        </DialogContent>
+    </MudDialog>
+}
+
+
+@code {
+    [Parameter] public PCLPokemon PCLPokemon { get; set; }
+
+    private List<Item> _items;
+    private List<Ability> _abilitys;
+    private List<Nature> _natures;
+    private List<Move> _moves;
+    private List<Pokemon> _pokemons;
+
+
+    bool loading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _items = await PokemonDataServices.GetItems();
+        _abilitys = await PokemonDataServices.GetAbilities();
+        _moves = await PokemonDataServices.GetMoves();
+        _natures = await PokemonDataServices.GetNatures();
+        _pokemons = await PokemonDataServices.GetPokemons();
+        loading = false;
+    }
+}*@

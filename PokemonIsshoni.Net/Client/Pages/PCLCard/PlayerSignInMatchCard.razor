@@ -1,0 +1,58 @@
+﻿@using PokemonIsshoni.Net.Shared.Models
+
+@inject UserInfoServices UserServices
+
+@if (PCLMatchPlayer != null && _user != null)
+{
+    switch(PCLUserCardSize)
+    {
+        case UserCardSize.Small:
+        <MudCard Style="max-width:230px; width:230px; height: 67px; max-height:67px">
+                <MudCardHeader Class="p-3">
+                    <CardHeaderAvatar>
+                        <MudAvatar Image="@_user.Avatar"></MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1" Class="mt-n2">@PCLMatchPlayer.ShadowId</MudText>
+                        <MudText Typo="Typo.caption">@(PCLMatchPlayer.Declaration)</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+            </MudCard>
+            break;
+
+        case UserCardSize.Medium:
+            break;
+
+        case UserCardSize.Large:
+            break;
+        default:
+            break;
+    }
+}
+
+@code {
+    //[Parameter] public string UserId { get; set; }
+    [Parameter] public bool AllowClick { get; set; } = false;
+    [Parameter] public UserCardSize PCLUserCardSize { get; set; } = UserCardSize.Small;
+    [Parameter] public PCLMatchPlayer  PCLMatchPlayer { get; set; }
+    UserInfo _user;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _user = await UserServices.GetUserByIdAsync(PCLMatchPlayer.UserId);
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    public enum UserCardSize
+    {
+        Small,
+        Medium,
+        Large
+    };
+}

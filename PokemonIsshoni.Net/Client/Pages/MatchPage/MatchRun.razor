@@ -1,9 +1,133 @@
 ﻿@page "/MatchRun/{Id:int}"
-<p>比赛运行页</p>
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using PokemonIsshoni.Net.Client.Pages.PCLCard
+@using PokemonIsshoni.Net.Shared.Info
+
+@inject ISnackbar Snackbar
+@inject HttpClient Http
+@inject PCLServices MatchService
+@inject UserInfoServices UserServices
+@inject NavigationManager Navigation
+@inject IDialogService Dialog
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@if (_pclMatch == null)
+{
+
+}
+else
+{
+    <MudPaper Class="tw-p-5">
+        <MudText Typo=Typo.h4>@_pclMatch.Name</MudText>
+
+
+        <MudTabs  Elevation="0" Rounded="true" Centered="true" Color="@Color.Default" Class="tw-mt-2" @bind-ActivePanelIndex="selectId">
+            <MudTabPanel Text="比赛总管理">
+                <MudGrid Class="">
+                    <MudItem xs="12">
+                        <MudText>已报名选手</MudText>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudGrid>
+                            @foreach (var player in _pclMatch.PCLMatchPlayerList)
+                            {
+                                <MudItem xs=12 md=4 lg=3 Class="tw-flex tw-justify-center">
+                                    <PlayerSignInMatchCard PCLMatchPlayer=player />
+                                </MudItem>
+                            }
+                        </MudGrid>
+                    </MudItem>
+
+
+                </MudGrid>
+
+            </MudTabPanel>
+            @{
+                int idx = 1;
+            }
+            @if (_pclMatch.MatchState > MatchState.Registering)
+            {
+                foreach (var pclRound in _pclMatch.PCLMatchRoundList)
+                {
+                    int roundIdx = idx;
+                    switch (pclRound.PCLRoundType)
+                    {
+                        case RoundType.Swiss:
+                            <MudTabPanel Text=@($"{roundIdx}. 瑞士轮")>
+                                @switch (pclRound.PCLRoundState)
+                                {
+                                    case RoundState.Waiting:
+                                        break;
+                                    case RoundState.WaitConfirm:
+                                        break;
+                                    case RoundState.Running:
+                                        break;
+                                    case RoundState.TopConfirm:
+                                        break;
+                                    case RoundState.Finished:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            </MudTabPanel>
+                            break;
+                        case RoundType.Robin:
+                            <MudTabPanel Text=@($"{roundIdx}. 循环赛")>
+
+                            </MudTabPanel>
+                            break;
+                        case RoundType.Elimination:
+                            <MudTabPanel Text=@($"{roundIdx}. 淘汰赛")>
+
+                            </MudTabPanel>
+                            break;
+                        default:
+                            break;
+                    }
+
+                    idx++;
+                }
+            }
+        </MudTabs>
+    </MudPaper>
+}
+
 
 @code {
     [Parameter]
-    public int Id{ get; set; }
+    public int Id { get; set; }
+    bool isAdmin = false;
+    int selectId = 0;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        try
+        {
+            if (user.Identity.IsAuthenticated)
+            {
+                //_userId = await UserServices.GetUserIdByEmail(user.Identity.Name);
+                //userData = await UserServices.GetUserById(_userId);
+            }
+            else
+            {
+                PCLServices.IsAnonymous = true;
+            }
+            isAdmin = user.IsInRole("Admin");
+            _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+            //_userDatas = await UserServices.GetAllUser();
+            selectId = _pclMatch.RoundIdx + 1;
 
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
 }

@@ -15,6 +15,7 @@ namespace PokeCommon.Utils
     /// </summary>
     public static class PokemonTools
     {
+        // 加个全部初始化
         public static IPokemonContext PokemonContext { get; set; } = new PokemonContext("PokemonDataBase.db");
         public static object _lockDB = new();
 
@@ -36,6 +37,19 @@ namespace PokeCommon.Utils
         
         private static Dictionary<int, Nature> _natures { get; set; } = new();
         private static Dictionary<string, int> _natureNameId { get; set; } = new();
+
+        private static async Task InitAlAsync()
+        {
+            var natureList = await PokemonContext.Natures.ToListAsync();
+            for (int i = 0; i < natureList.Count; i++)
+            {
+                _natures.Add(natureList[i].NatureId, natureList[i]);
+                _natureNameId.Add(natureList[i].Name_Chs, natureList[i].NatureId);
+                _natureNameId.Add(natureList[i].Name_Eng, natureList[i].NatureId);
+                _natureNameId.Add(natureList[i].Name_Jpn, natureList[i].NatureId);
+            }
+        }
+
 
         public static async ValueTask<Nature?> GetNatureAsync(int id)
         {

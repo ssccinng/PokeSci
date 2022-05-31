@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
+using PokemonIsshoni.Net.Shared;
 using PokemonIsshoni.Net.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                             fileName: e.File.Name);
 
                 var res = await Http.PostAsync("upload/image", content);
-                //_pclMatch.Logo = (await res.Content.ReadFromJsonAsync<UploadResult>()).url;
+                _pclMatch.Logo = (await res.Content.ReadFromJsonAsync<UploadResult>()).Url;
 
             }
             else
@@ -66,16 +67,16 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 
         async void SaveChange()
         {
-            //var res = await MatchService.UpdatePCLMatch(_pclMatch);
-            //if (res)
-            //{
-            //    PrintInfoBar("保存成功", "Success");
-            //    success = false;
-            //}
-            //else
-            //{
-            //    PrintInfoBar("保存失败");
-            //}
+            var res = await MatchService.UpdatePCLMatchAsync(_pclMatch);
+            if (res)
+            {
+                PrintInfoBar("保存成功", "Success");
+                success = false;
+            }
+            else
+            {
+                PrintInfoBar("保存失败");
+            }
         }
     }
 

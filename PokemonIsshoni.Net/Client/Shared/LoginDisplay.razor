@@ -46,7 +46,7 @@
 
         if (user.Identity.IsAuthenticated)
         {
-            var userI = (await UserInfoServices.GetUserIdByNameAsync(user.Identity.Name));
+            var userI = (await UserInfoServices.GetUserByNameAsync(user.Identity.Name));
             avatar = userI.Avatar;
             username = userI.NickName;
         }

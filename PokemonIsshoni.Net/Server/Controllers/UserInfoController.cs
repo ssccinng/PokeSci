@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
@@ -18,12 +19,33 @@ namespace PokemonIsshoni.Net.Server.Controllers
             _context = context;
 
         }
+        [Authorize]
+        [HttpGet("/api/userinfo/GetAllUser")]
+
+        public async Task<IEnumerable<UserInfo>> GetAllUser()
+        {
+            return _userManager.Users.Select(s => new UserInfo
+            {
+                UserId = s.Id,
+                Avatar = s.Avatar,
+                City = s.City,
+                DOB = s.DOB,
+                Email = s.Email,
+                HomeName = s.HomeName,
+                NickName = s.NickName,
+                QQ = s.QQ,
+                Registertime = s.Registertime,
+                TrainerIdInt = s.TrainerIdInt,
+            });
+        }
+
         [HttpGet("/api/userinfo/GetUserByEmail/{email}")]
         public async Task<UserInfo> GetUserByEmail(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             return new UserInfo
             {
+                UserId = user.Id,
                 Avatar = user.Avatar,
                 City = user.City,
                 DOB = user.DOB,
@@ -42,6 +64,26 @@ namespace PokemonIsshoni.Net.Server.Controllers
             var user = await _userManager.FindByNameAsync(name);
             return new UserInfo
             {
+                UserId = user.Id,
+                Avatar = user.Avatar,
+                City = user.City,
+                DOB = user.DOB,
+                Email = user.Email,
+                HomeName = user.HomeName,
+                NickName = user.NickName,
+                QQ = user.QQ,
+                Registertime = user.Registertime,
+                TrainerIdInt = user.TrainerIdInt,
+            };
+        }
+
+        [HttpGet("/api/userinfo/GetUserById/{Id}")]
+        public async Task<UserInfo> GetUserById(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            return new UserInfo
+            {
+                UserId = user.Id,
                 Avatar = user.Avatar,
                 City = user.City,
                 DOB = user.DOB,

@@ -15,12 +15,12 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// PS格式数据
         /// </summary>
         [Column(TypeName = "longtext")]
-        public string PSText { get; set; }
+        public string PSText { get; set; } = "";
         [Column(TypeName = "longtext")]
         /// <summary>
         /// 队伍json格式数据
         /// </summary>
-        public string TeamData { get; set; }
+        public string TeamData { get; set; } = "";
 
         [NotMapped]
         [NonSerialized]

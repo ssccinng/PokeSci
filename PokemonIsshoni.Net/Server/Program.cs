@@ -77,7 +77,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 
-
+builder.Services.AddServerSideBlazor().AddHubOptions(o =>
+{
+    o.MaximumReceiveMessageSize = 10 * 1024 * 1024;
+});
 
 
 var app = builder.Build();
@@ -154,3 +157,4 @@ static async Task<IdentityResult> EnsureRole(IServiceProvider serviceProvider,
 
     return IR;
 }
+

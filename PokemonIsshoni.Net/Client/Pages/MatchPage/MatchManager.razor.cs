@@ -40,19 +40,19 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             player1.ShadowId = player.NickName;
             player1.QQ = player.QQ;
             player1.PCLMatchId = Id;
-            //var res = await MatchService.RegisterPCLMatch(player1);
-            //if (res != null)
-            //{
-            //    PrintInfoBar("添加成功", "Success");
-            //    res.UserData = player;
-            //    _pclMatch.PCLMatchPlayerList.Add(res);
-            //    StateHasChanged();
-            //}
-            //else
-            //{
-            //    PrintInfoBar("添加失败");
-            //    // CanSignin修改
-            //}
+            var res = await MatchService.RegisterPCLMatch(player1);
+            if (res != null)
+            {
+                PrintInfoBar("添加成功", "Success");
+                //res.UserData = player;
+                _pclMatch.PCLMatchPlayerList.Add(res);
+                StateHasChanged();
+            }
+            else
+            {
+                PrintInfoBar("添加失败");
+                // CanSignin修改
+            }
             // In real life use an asynchronous function for fetching data from an api.
             //await Task.Delay(300);
 

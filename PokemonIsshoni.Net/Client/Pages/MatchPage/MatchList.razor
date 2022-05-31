@@ -20,7 +20,7 @@ else
         </ToolBarContent>
         <RowTemplate>
             <MudGrid Class="tw-p-3" @onclick="@(()=> Navigation.NavigateTo($"MatchDetail/{context.Id}"))">
-                <MudItem xs="12" md="3">
+                <MudItem xs="12" md="3" Class="tw-flex tw-items-center">
                     <img src=@context.Logo width="250" class="tw-rounded-xl">
                 </MudItem>
                 <MudItem xs="12" md="9">
@@ -80,14 +80,14 @@ else
     string searchString;
     protected override async Task OnInitializedAsync()
     {
-        //try
-        //{
-        //    _pclMatches = (await MatchService.GetMatches()).OrderByDescending(s => s.Id);
-        //}
-        //catch (AccessTokenNotAvailableException exception)
-        //{
-        //    exception.Redirect();
-        //}
+        try
+        {
+            _pclMatches = (await MatchService.GetMatchesAsync()).OrderByDescending(s => s.Id);
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
     }
 
 }

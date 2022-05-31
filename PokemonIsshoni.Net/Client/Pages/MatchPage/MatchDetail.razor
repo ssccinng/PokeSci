@@ -75,9 +75,18 @@ else
                 <MudItem xs="12">
                     <MudDivider DividerType="DividerType.FullWidth"></MudDivider>
                 </MudItem>
-                <MudItem xs="12" md="4" Style="min-height:300px">
+                <MudItem xs="12" md="4" Style="min-height:300px" >
+                    <MudGrid Class="tw-h-full">
+                        <MudItem xs=12>
                     <MudText Typo="Typo.overline">比赛LOGO.</MudText>
+
+                        </MudItem>
+                        <MudItem xs=12 Class="tw-flex tw-items-center">
                     <img src=@_pclMatch.Logo width="150" class="tw-rounded-xl">
+
+                        </MudItem>
+                    </MudGrid>
+                    @*<img src=@_pclMatch.Logo width="150" class="tw-rounded-xl">*@
                 </MudItem>
                 <MudItem xs="12" md="8" Style="min-height:300px" Class="tw-bg-gray-100 tw-rounded">
                     <MudText Typo="Typo.overline">比赛介绍.</MudText>
@@ -88,7 +97,7 @@ else
                     @*<div  Style=@($"transform: rotateY({angletest}deg); transition: 1s;")>
                         
                     </div>*@
-                    @*<NewPokemonChineseLink.Client.Pages.PCLCard.PCLUserCard UserId="@_pclMatch.UserId" />*@
+                    <PokemonIsshoni.Net.Client.Pages.PCLCard.PCLUserCard UserId="@_pclMatch.UserId" />
                 </MudItem>
                 <MudItem xs="12" md="8">
 
@@ -169,12 +178,38 @@ else
                 <MudItem xs="12">
                     <AuthorizeView>
                         <Authorized>
-                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="tw-font-bold" Disabled="!CanSignin" OnClick="SigninMatch">
-                                报名
+                            @if (_pclMatch.PCLMatchPlayerList.Any(s => s.UserId == userData.UserId))
+                            {
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="tw-font-bold tw-ml-1" Disabled="true" OnClick="SigninMatch">
+                                已报名(@(_pclMatch.PCLMatchPlayerList.Count)人)
                             </MudButton>
+                            }
+                            else
+                            {
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="tw-font-bold tw-ml-1" Disabled="!CanSignin" OnClick="SigninMatch">
+                                报名(@(_pclMatch.PCLMatchPlayerList.Count)人)
+                            </MudButton>
+                            }
+                            
                         </Authorized>
+                        <NotAuthorized>
+                            @*可能可以匿名报名*@
+                            @if (_pclMatch.AllowGuest)
+                            {
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="tw-font-bold tw-ml-1" Disabled="!CanSignin" OnClick="SigninMatch">
+                                匿名报名(@(_pclMatch.PCLMatchPlayerList.Count)人)
+                            </MudButton>
+                            }
+                            else
+                            {
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="tw-font-bold tw-ml-1" Disabled="true">
+                                登入以报名该比赛(@(_pclMatch.PCLMatchPlayerList.Count)人)
+                            </MudButton>
+                            }
+                            
+                        </NotAuthorized>
                     </AuthorizeView>
-                    <MudButton Variant="Variant.Filled" Color="Color.Default" Class="tw-font-bold" OnClick="@(() => Navigation.NavigateTo($"MatchRun/{Id}"))">
+                    <MudButton Variant="Variant.Filled" Color="Color.Default" Class="tw-font-bold tw-ml-1" OnClick="@(() => Navigation.NavigateTo($"MatchRun/{Id}"))">
                         比赛赛程信息
                     </MudButton>
                     @if (_userId == _pclMatch.UserId || isAdmin)
@@ -242,14 +277,18 @@ else
             if (user.Identity.IsAuthenticated)
             {
                 //_userId = await UserServices.GetUserIdByEmail(user.Identity.Name);
-                //userData = await UserServices.GetUserById(_userId);
+                userData = await UserServices.GetUserByNameAsync(user.Identity.Name);
+                player.ShadowId = userData.NickName;
+                player.QQ = userData.QQ;
+                player.PCLMatchId = Id;
+            }
+            else {
+                PCLServices.IsAnonymous = true;
             }
             isAdmin = user.IsInRole("Admin");
-            //_pclMatch = await MatchService.GetMatchDetail(Id);
-            player.UserId = _userId;
-            player.ShadowId = userData.NickName;
-            player.QQ = userData.QQ;
-            player.PCLMatchId = Id;
+            _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+            //player.UserId = _userId;
+            
 
         }
         catch (AccessTokenNotAvailableException exception)

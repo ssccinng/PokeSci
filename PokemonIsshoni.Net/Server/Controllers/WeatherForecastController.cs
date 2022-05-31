@@ -25,9 +25,13 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            //var a = HttpContext.User.Claims.ToList();
-            ////var b = HttpContext.User.Identity
-            //var b = a.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
+            //string uid = HttpContext.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            //string uid = HttpContext.User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            //var uid1 = HttpContext.User.Claims;
+
+            var a = HttpContext.User.Claims.ToList();
+            //var b = HttpContext.User.Identity
+            var b = a.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
             //Console.WriteLine(b.Value);
             //HttpContext.User
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

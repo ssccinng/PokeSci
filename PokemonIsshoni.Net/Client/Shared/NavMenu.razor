@@ -11,7 +11,7 @@
         <MudNavGroup Title="对战竞技场" Expanded="true">
             <MudNavLink Icon="@Icons.Material.Filled.Add" Href="/CreateMatch">创办联盟赛</MudNavLink>
             <MudNavLink Icon="@Icons.Material.Filled.List" Href="/MatchList">联赛列表</MudNavLink>
-            <MudNavLink Icon="@Icons.Material.Filled.List" Href="/fetchdata">联赛列表</MudNavLink>
+            @*<MudNavLink Icon="@Icons.Material.Filled.List" Href="/fetchdata">联赛列表</MudNavLink>*@
         </MudNavGroup>
         <AuthorizeView>
             <Authorized>
@@ -56,7 +56,7 @@
 
         if (user.Identity.IsAuthenticated)
         {
-            username = (await UserInfoServices.GetUserIdByNameAsync(user.Identity.Name)).NickName;
+            username = (await UserInfoServices.GetUserByNameAsync(user.Identity.Name)).NickName;
             //username = (await Http.GetStringAsync($"pokemonisshoni/user/username/{user.Identity.Name}"));
         }
     }

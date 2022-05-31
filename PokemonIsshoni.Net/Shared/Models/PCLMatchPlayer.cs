@@ -22,7 +22,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         //public UserData UserData { get; set; }
 
         [Column(TypeName = "varchar(270)")]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "";
 
         /// <summary>
         /// 比赛Id
@@ -34,7 +34,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 参赛宣言
         /// </summary>
         [Column(TypeName = "nvarchar(50)")]
-        public string Declaration { get; set; }
+        public string Declaration { get; set; } = "";
 
         /// <summary>
         /// 马甲
@@ -46,11 +46,11 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 备注
         /// </summary>
         [Column(TypeName = "nvarchar(30)")]
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; } = "";
 
         // 团赛所属队伍
 
-        public PCLMatchTeamGroup PCLMatchTeamGroup { get; set; }
+        public PCLMatchTeamGroup? PCLMatchTeamGroup { get; set; }
         public int? PCLMatchTeamGroupId { get; set; }
 
         [Column(TypeName = "varchar(15)")]

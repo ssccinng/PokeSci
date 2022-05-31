@@ -14,6 +14,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 
         async Task<bool> SigninMatch()
         {
+            // 可能要加入匿名报名的
             try
             {
                 if (!await OpenDialog())
@@ -21,22 +22,25 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                     return false;
                 }
                 //PrintInfoBar("比赛准备创建", "Success");
+                player.PreTeam = new PCLPokeTeam();
+                
                 //if (!await MatchService.CheckPCLMatchPwd(Id, password.Value))
                 //{
                 //    PrintInfoBar("密语错误");
                 //    return false;
                 //}
-                //var res = await MatchService.RegisterPCLMatch(player);
-                //if (res != null)
-                //{
-                //    PrintInfoBar("报名成功", "Success");
-                //    _pclMatch.PCLMatchPlayerList.Add(res);
-                //}
-                //else
-                //{
-                //    PrintInfoBar("报名失败");
-                //    // CanSignin修改
-                //}
+                var res = await MatchService.RegisterPCLMatch(player, password.Value);
+                if (res != null)
+                {
+                    PrintInfoBar("报名成功", "Success");
+                    _pclMatch.PCLMatchPlayerList.Add(res);
+                }
+                else
+                {
+                    // 输出错误原因
+                    PrintInfoBar("报名失败");
+                    // CanSignin修改
+                }
                 //Navigation.NavigateTo($"MatchDetail/{Id}", true);
                 // 改颜色 + 跳转
             }

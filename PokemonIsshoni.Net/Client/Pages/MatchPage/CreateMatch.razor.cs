@@ -64,7 +64,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
         {
             // 可能还要check一下
             // 加入跳转
-            _pclMatch.UserId = _userId;
+            //_pclMatch.UserId = _userId;
             try
             {
                 if (!await OpenDialog())
@@ -72,9 +72,20 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                     return;
                 }
                 //PrintInfoBar("比赛准备创建", "Success");
-                //var res = await MatchService.CreateMatch(_pclMatch);
-                //PrintInfoBar("比赛创建成功", "Success");
-                //Navigation.NavigateTo($"MatchDetail/{res.Id}");
+                //_pclMatch.UserId = "123";
+                var res = await MatchService.CreateMatch(_pclMatch);
+                if (res != null)
+                {
+                    PrintInfoBar("比赛创建成功", "Success");
+                    Navigation.NavigateTo($"MatchDetail/{res.Id}");
+                }
+
+                else
+                {
+                    PrintInfoBar("比赛创建失败");
+
+                }
+
                 // 改颜色 + 跳转
             }
             catch
@@ -174,7 +185,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                             fileName: e.File.Name);
 
                 var res = await Http.PostAsync("upload/image", content);
-                //_pclMatch.Logo = (await res.Content.ReadFromJsonAsync<UploadResult>()).url;
+                _pclMatch.Logo = (await res.Content.ReadFromJsonAsync<UploadResult>()).Url;
 
             }
             else

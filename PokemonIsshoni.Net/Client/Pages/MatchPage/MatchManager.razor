@@ -102,12 +102,12 @@ else
                             @*<MudTh>队伍</MudTh>*@
                         </HeaderContent>
                         <RowTemplate>
-                            @*<MudTd DataLabel="昵称">@context.UserData?.NickName</MudTd>
-                            <MudTd DataLabel="邮箱">@context.UserData?.Email</MudTd>
-                            <MudTd DataLabel="训练师">@context.UserData?.TrainerId</MudTd>
+                            <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
+                            <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
+                            <MudTd DataLabel="训练师">@_userDatasDic[context.UserId]?.TrainerId</MudTd>
                             <MudTd DataLabel="参赛QQ">@context.QQ</MudTd>
                             <MudTd DataLabel="参赛ID">@context.ShadowId</MudTd>
-                            <MudTd DataLabel="参赛宣言">@context.Declaration</MudTd>*@
+                            <MudTd DataLabel="参赛宣言">@context.Declaration</MudTd>
                             @if (_pclMatch.NeedCheck)
                                 {
                                 // 这里要去保存情况
@@ -169,9 +169,9 @@ else
                             <MudTh>QQ</MudTh>
                         </HeaderContent>
                         <RowTemplate>
-                           @* <MudTd DataLabel="昵称">@context.UserData?.NickName</MudTd>
-                            <MudTd DataLabel="邮箱">@context.UserData?.Email</MudTd>
-                            <MudTd DataLabel="参赛QQ">@context.UserData?.QQ</MudTd>*@
+                            <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
+                            <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
+                            <MudTd DataLabel="参赛QQ">@_userDatasDic[context.UserId]?.QQ</MudTd>
                         </RowTemplate>
                         <PagerContent>
                             <MudTablePager />
@@ -241,6 +241,7 @@ else
     int selectId = 0;
 
     string searchString;
+    Dictionary<string, UserInfo> _userDatasDic;
     List<UserInfo> _userDatas;
     protected override async Task OnInitializedAsync()
     {
@@ -251,11 +252,22 @@ else
             if (user.Identity.IsAuthenticated)
             {
                 //_userId = await UserServices.GetUserIdByEmail(user.Identity.Name);
-                //userData = await UserServices.GetUserById(_userId);
+                userData = await UserServices.GetUserByNameAsync(user.Identity.Name);
+            }
+            else
+            {
+                return;
+
             }
             isAdmin = user.IsInRole("Admin");
-            //_pclMatch = await MatchService.GetMatchAndUserDetail(Id);
-            //_userDatas = await UserServices.GetAllUser();
+            _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+            // 还可能是裁判
+            if (userData.UserId != _pclMatch.UserId && !isAdmin)
+            {
+                Navigation.NavigateTo("/");
+            }
+            _userDatas = (await UserServices.GetAllUserAsync());
+            _userDatasDic = _userDatas.ToDictionary(s => s.UserId);
             selectId = _pclMatch.RoundIdx + 1;
 
         }

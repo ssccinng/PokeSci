@@ -9,6 +9,7 @@ namespace PokemonIsshoni.Net.Shared.Info
 {
     public class UserInfo
     {
+        public string UserId { get; set; } // 昵称
         public string Email { get; set; } // 昵称
         public string NickName { get; set; } // 昵称
 

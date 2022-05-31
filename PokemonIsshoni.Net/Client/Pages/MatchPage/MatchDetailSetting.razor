@@ -14,7 +14,7 @@
 @inject ISnackbar Snackbar
 @inject ILogger<CreateMatch> Logger
 @inject HttpClient Http
-@inject PCLBattle MatchService
+@inject PCLServices MatchService
 
 @inject NavigationManager Navigation
 @inject IDialogService Dialog
@@ -224,7 +224,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //_pclMatch = await MatchService.GetMatchWithPwd(Id);
+        _pclMatch = await MatchService.GetMatchByIdAsync(Id);
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         try

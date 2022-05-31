@@ -33,17 +33,17 @@
                         </MudItem>
                         <MudItem md="4" xs="12">
                             <MudSelect T="string" @bind-Value="_pclMatch.Logo" @key="_pclMatch.Logo" Label="比赛Logo" Class="logoinput" Variant="Variant.Filled">
-                                <MudSelectItem T="string" Value="@("ServerImage/Default/matchsingle.png")">
-                                    <img src="ServerImage/Default/matchsingle.png" width="100" class="tw-mr-1" />
+                                <MudSelectItem T="string" Value="@("ServerImages/Default/matchsingle.png")">
+                                    <img src="ServerImages/Default/matchsingle.png" width="100" class="tw-mr-1" />
                                 </MudSelectItem>
-                                <MudSelectItem T="string" Value="@("ServerImage/Default/matchdouble.png")">
-                                    <img src="ServerImage/Default/matchdouble.png" width="100" class="tw-mr-1" />
+                                <MudSelectItem T="string" Value="@("ServerImages/Default/matchdouble.png")">
+                                    <img src="ServerImages/Default/matchdouble.png" width="100" class="tw-mr-1" />
                                 </MudSelectItem>
-                                <MudSelectItem T="string" Value="@("ServerImage/Default/matchgym.png")">
-                                    <img src="ServerImage/Default/matchgym.png" width="100" class="tw-mr-1" />
+                                <MudSelectItem T="string" Value="@("ServerImages/Default/matchgym.png")">
+                                    <img src="ServerImages/Default/matchgym.png" width="100" class="tw-mr-1" />
                                 </MudSelectItem>
-                                <MudSelectItem T="string" Value="@("ServerImage/Default/matchnormal.png")">
-                                    <img src="ServerImage/Default/matchnormal.png" width="100" class="tw-mr-1" />
+                                <MudSelectItem T="string" Value="@("ServerImages/Default/matchnormal.png")">
+                                    <img src="ServerImages/Default/matchnormal.png" width="100" class="tw-mr-1" />
                                 </MudSelectItem>
                                 @if (!_pclMatch.Logo?.Contains("Default") ?? false)
                                 {
@@ -158,6 +158,7 @@
         var user = authState.User;
         try
         {
+            // 在权限内的人才可以创建
             if (user.Identity.IsAuthenticated)
             {
                 //_userId = await UserServices.GetUserIdByEmail(user.Identity.Name);

@@ -39,7 +39,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 创办者Id
         /// </summary>
         [Column(TypeName = "varchar(270)")]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "";
         [Column(TypeName = "nvarchar(30)")]
         public string Name { get; set; }
 
@@ -80,7 +80,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 比赛图标路径
         /// </summary>
         [Column(TypeName = "varchar(100)")]
-        public string Logo { get; set; } = "ServerImage/Default/matchdouble.png";
+        public string Logo { get; set; } = "ServerImages/Default/matchdouble.png";
 
         public List<PCLMatchRound> PCLMatchRoundList { get; set; } = new List<PCLMatchRound>();
         public List<PCLMatchPlayer> PCLMatchPlayerList { get; set; } = new List<PCLMatchPlayer>();
