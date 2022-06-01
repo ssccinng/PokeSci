@@ -62,7 +62,7 @@ else
         </MudGrid>
     </MudPaper>
 
-    <MudTabs Elevation="4" Rounded="true" Centered="true" Color="@Color.Default" Class="tw-mt-2" @bind-ActivePanelIndex="selectId">
+    <MudTabs Elevation="1" Rounded="true" Centered="true" Color="@Color.Default" Class="tw-mt-2" @bind-ActivePanelIndex="selectId">
         <MudTabPanel Text="比赛总管理">
             <MudGrid Class="">
                 @*<MudItem xs="12">
@@ -118,7 +118,7 @@ else
                             }
 
                         <MudTd DataLabel="预提交队伍">
-                            @if (context.PreTeam != null)
+                            @if (context.PreTeam.TeamData != "")
                                 {
                                 <MudButton Variant="Variant.Outlined" Size="Size.Small" Class="tw-text-bold" Color="Color.Success" OnClick=@(() => { Dialog.Show<TeamDialogCard>("队伍编辑", new DialogParameters { { "PCLPokeTeam", null } }, new MudBlazor.DialogOptions() { MaxWidth = MaxWidth.Large, FullWidth = true });})>编辑</MudButton>
                                 }
@@ -169,6 +169,7 @@ else
                     </ToolBarContent>
                     <HeaderContent>
                         <MudTh>昵称</MudTh>
+                        <MudTh>级别</MudTh>
                         <MudTh>邮箱</MudTh>
                         <MudTh>QQ</MudTh>
                         @if (isAdmin)
@@ -179,12 +180,13 @@ else
                     </HeaderContent>
                     <RowTemplate>
                         <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
+                        <MudTd DataLabel="级别">@context.RefereeType</MudTd>
                         <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
                         <MudTd DataLabel="参赛QQ">@_userDatasDic[context.UserId]?.QQ</MudTd>
                         @if (isAdmin)
                             {
                             <MudTd DataLabel="管理">
-                                <MudIconButton Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick=@(() => { Dialog.Show<TeamDialogCard>("队伍编辑", new DialogParameters { { "PCLPokeTeam", null } }, new MudBlazor.DialogOptions() { MaxWidth = MaxWidth.Large, FullWidth = true });})>查看队伍</MudIconButton>
+                                <MudIconButton Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick=@(() => DeleteRefereeFromMatch(context))>查看队伍</MudIconButton>
                             </MudTd>
 
                             }

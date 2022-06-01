@@ -62,6 +62,14 @@ namespace PokemonIsshoni.Net.Client.Services
             return await res.Content.ReadFromJsonAsync<PCLMatchPlayer>();
             //return null;
         }
+        public async Task<PCLMatchPlayer> AddPCLMatch(PCLMatchPlayer pCLMatchPlayer)
+        {
+            // 限制一下数目(? 有必要的话
+            var res = await _httpClient.PostAsJsonAsync($"api/PCLMatches/AddUser", pCLMatchPlayer);
+            if (!res.IsSuccessStatusCode) return null;
+            return await res.Content.ReadFromJsonAsync<PCLMatchPlayer>();
+            //return null;
+        }
         /// <summary>
         /// 取消报名
         /// </summary>
@@ -85,18 +93,27 @@ namespace PokemonIsshoni.Net.Client.Services
             //return null;
         }
         #region 裁判
-        public async Task<Referee> RegisterRefereePCLMatchAsync(Referee referee)
+        public async Task<PCLReferee> RegisterRefereePCLMatchAsync(PCLReferee referee)
         {
             // 限制一下数目(? 有必要的话
             var res = await _httpClient.PostAsJsonAsync($"api/Referees", referee);
-            if (res == null)
+            if (!res.IsSuccessStatusCode)
             {
                 return null;
             }
             else
             {
-                return await res.Content.ReadFromJsonAsync<Referee>();
+                return await res.Content.ReadFromJsonAsync<PCLReferee>();
             }
+
+            //return null;
+        }
+
+        public async Task<bool> DeRegisterRefereePCLMatchAsync(PCLReferee referee)
+        {
+            // 限制一下数目(? 有必要的话
+            var res = await _httpClient.DeleteAsync($"api/Referees/{referee.Id}");
+            return res.IsSuccessStatusCode;
 
             //return null;
         }

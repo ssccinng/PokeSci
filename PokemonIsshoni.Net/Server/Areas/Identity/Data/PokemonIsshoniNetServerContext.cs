@@ -72,5 +72,6 @@ public class PokemonIsshoniNetServerContext : ApiAuthorizationDbContext<PokemonI
     /// 队伍表
     /// </summary>
     public DbSet<PCLPokeTeam> PCLPokeTeams { get; set; }
-    public DbSet<Referee> PCLReferees { get; set; }
+    public DbSet<PCLReferee> PCLReferees { get; set; }
+    public DbSet<Guest> PCLGuests { get; set; }
 }

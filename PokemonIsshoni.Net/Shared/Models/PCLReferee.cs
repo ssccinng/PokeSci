@@ -14,7 +14,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         // 普通裁判
         Normal
     }
-    public class Referee
+    public class PCLReferee
     {
         public int Id { get; set; }
 
@@ -27,6 +27,6 @@ namespace PokemonIsshoni.Net.Shared.Models
         //public PCLMatch Match { get; set; }
         public int PCLMatchId { get; set; } = -1;
 
-        public RefereeType refereeType = RefereeType.Normal;
+        public RefereeType RefereeType { get; set; } = RefereeType.Normal;
     }
 }

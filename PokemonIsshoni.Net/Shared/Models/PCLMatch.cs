@@ -84,7 +84,7 @@ namespace PokemonIsshoni.Net.Shared.Models
 
         public List<PCLMatchRound> PCLMatchRoundList { get; set; } = new List<PCLMatchRound>();
         public List<PCLMatchPlayer> PCLMatchPlayerList { get; set; } = new List<PCLMatchPlayer>();
-        public List<Referee> PCLMatchRefereeList { get; set; } = new List<Referee>();
+        public List<PCLReferee> PCLMatchRefereeList { get; set; } = new List<PCLReferee>();
 
         /// <summary>
         /// 进行到的阶段数

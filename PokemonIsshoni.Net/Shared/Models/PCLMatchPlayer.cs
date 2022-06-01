@@ -58,7 +58,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         public bool IsChecked { get; set; }
 
         // 预提交队伍
-        public PCLPokeTeam PreTeam { get; set; }
+        public PCLPokeTeam PreTeam { get; set; } = new();
         //public int PreTeamId { get; set; }
         /// <summary>
         /// 预提队伍Id

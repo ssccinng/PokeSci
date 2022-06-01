@@ -24,7 +24,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
         // GET: api/Referees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Referee>>> GetPCLReferees()
+        public async Task<ActionResult<IEnumerable<PCLReferee>>> GetPCLReferees()
         {
           if (_context.PCLReferees == null)
           {
@@ -35,7 +35,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
         // GET: api/Referees/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Referee>> GetReferee(int id)
+        public async Task<ActionResult<PCLReferee>> GetReferee(int id)
         {
           if (_context.PCLReferees == null)
           {
@@ -54,7 +54,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         // PUT: api/Referees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReferee(int id, Referee referee)
+        public async Task<IActionResult> PutReferee(int id, PCLReferee referee)
         {
             if (id != referee.Id)
             {
@@ -86,7 +86,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Referee>> PostReferee(Referee referee)
+        public async Task<ActionResult<PCLReferee>> PostReferee(PCLReferee referee)
         {
           if (_context.PCLReferees == null)
           {
@@ -95,17 +95,13 @@ namespace PokemonIsshoni.Net.Server.Controllers
             var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
             // 或者admin也行 要加入函数！
             var plcMatch = await _context.PCLMatchs.FindAsync(referee.PCLMatchId);
-            if (plcMatch != null)
+            if (!await HasPower(referee.PCLMatchId))
             {
-                if (plcMatch.UserId != uid.Value)
-                {
-                    return NoContent();
-                }
-
+                return Problem("没有权限");
             }
-            else
+            if (_context.PCLReferees.Any(s => s.PCLMatchId == referee.PCLMatchId && s.UserId == referee.UserId))
             {
-                return NoContent();
+                return Problem("已经在裁判列表中");
             }
             _context.PCLReferees.Add(referee);
             await _context.SaveChangesAsync();
@@ -127,8 +123,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
             {
                 return NotFound();
             }
-            var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
-            var plcMatch = await _context.PCLMatchs.FindAsync(referee.PCLMatchId);
+            if (!await HasPower(referee.PCLMatchId))
+            {
+                return Problem("没有权限");
+            }
             //判断是不是创建者
 
             _context.PCLReferees.Remove(referee);
@@ -140,6 +138,13 @@ namespace PokemonIsshoni.Net.Server.Controllers
         private bool RefereeExists(int id)
         {
             return (_context.PCLReferees?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        public async Task<bool> HasPower(int matchId)
+        {
+            var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
+            var plcMatch = await _context.PCLMatchs.FindAsync(matchId);
+            return HttpContext.User.IsInRole("Admin") || plcMatch.UserId == uid.Value;
         }
     }
 }

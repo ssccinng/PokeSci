@@ -180,30 +180,34 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
         // 要这样好呢 还是单独列出api好
         [HttpPost("RegisterUser/{pwd}")]
+        [Authorize]
         public async Task<ActionResult<PCLMatchPlayer>> RegisterPCLMatch(PCLMatchPlayer user, string pwd)
         //public async Task<ActionResult<PCLMatchPlayer>> RegisterPCLMatch([FromBody] PCLMatchPlayer user)
         {
             // 搜一次
             var b = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
             if (b == null) return NoContent();
+
+            // 何时判断
             user.UserId = b.Value;
-            
+            //if (user.UserId == )
             var pCLMatch = await _context.PCLMatchs.Include(s => s.PCLMatchPlayerList).FirstAsync(s => s.Id == user.PCLMatchId);
-            if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId) || pCLMatch.PCLMatchPlayerList.Any(s => s.ShadowId == user.ShadowId))
+            if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId || s.ShadowId == user.ShadowId))
+                //if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId))
             {
                 // 已报名 或者同名 这个可能要分开
-                return Problem("已经报名，或者又同名人");
+                return Problem("已经报名，或者有同名人");
             }
             // 判断密码
             if (pCLMatch.IsPrivate)
             {
-                if (pwd != pCLMatch.Password)
+                if (pwd != pCLMatch.Password && !await HasPower(pCLMatch))
                 {
                     return Problem("密码错误");
                 }
                 // 判断密码
             }
-            user.PreTeam = new PCLPokeTeam();
+            //user.PreTeam = new PCLPokeTeam();
             _context.PCLMatchPlayers.Add(user);
 
             //_context.PCLMatchs.Add(pCLMatch);
@@ -213,7 +217,45 @@ namespace PokemonIsshoni.Net.Server.Controllers
             return user;
         }
 
+        [HttpPost("AddUser")]
+        [Authorize]
+        public async Task<ActionResult<PCLMatchPlayer>> AddUserPCLMatch(PCLMatchPlayer user)
+        //public async Task<ActionResult<PCLMatchPlayer>> RegisterPCLMatch([FromBody] PCLMatchPlayer user)
+        {
+            // 搜一次
+            var b = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
+            if (b == null) return NoContent();
+            if (!await HasPower(user.PCLMatchId)) return NoContent();
+            // 何时判断
+            //user.UserId = b.Value;
+            //if (user.UserId == )
+            var pCLMatch = await _context.PCLMatchs.Include(s => s.PCLMatchPlayerList).FirstAsync(s => s.Id == user.PCLMatchId);
+            //if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId || s.ShadowId == user.ShadowId))
+            if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId))
+            {
+                return Problem("已经报名");
+            }
 
+            _context.PCLMatchPlayers.Add(user);
+
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task<bool> HasPower(int matchId)
+        {
+            //var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
+            var plcMatch = await _context.PCLMatchs.FindAsync(matchId);
+            return await HasPower(plcMatch);
+            //return HttpContext.User.IsInRole("Admin") || plcMatch.UserId == uid.Value;
+        }
+        public async Task<bool> HasPower(PCLMatch match)
+        {
+            var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
+            //var plcMatch = await _context.PCLMatchs.FindAsync(matchId);
+            return HttpContext.User.IsInRole("Admin") || match.UserId == uid.Value;
+        }
         #region PokemonHome
         [HttpPost("/api/GetTrainerRankData")]
         public async Task<ActionResult<List<PokemonHomeTrainerRankData>>> GetTrainerRankData(PokemonHomeSession pokemonHomeSession)

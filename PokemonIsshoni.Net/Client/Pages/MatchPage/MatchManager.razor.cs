@@ -40,7 +40,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             player1.ShadowId = player.NickName;
             player1.QQ = player.QQ;
             player1.PCLMatchId = Id;
-            var res = await MatchService.RegisterPCLMatch(player1);
+            var res = await MatchService.AddPCLMatch(player1);
             if (res != null)
             {
                 PrintInfoBar("添加成功", "Success");
@@ -72,10 +72,10 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             var res1 = await dialog.Result;
 
             if (res1.Cancelled) return;
-            Referee player1 = new();
+            PCLReferee player1 = new();
             player1.UserId = player.UserId;
             player1.PCLMatchId = Id;
-            player1.refereeType = refereeType;
+            player1.RefereeType = refereeType;
             //player1.UserId = value3.UserId;
             var res = await MatchService.RegisterRefereePCLMatchAsync(player1);
             if (res != null)
@@ -106,11 +106,31 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             var res1 = await dialog.Result;
             if (res1.Cancelled) return;
             var res = await MatchService.DeRegisterPCLMatch(player);
-            if (res != null)
+            if (res)
             {
                 PrintInfoBar("删除成功", "Success");
                 //player1.UserId = player;
                 _pclMatch.PCLMatchPlayerList.Remove(player);
+                StateHasChanged();
+            }
+            else
+            {
+                PrintInfoBar("删除失败");
+                // CanSignin修改
+            }
+        }
+
+        private async void DeleteRefereeFromMatch(PCLReferee referee)
+        {
+            var dialog = Dialog.Show<ConfirmDialogCard>("删除确认", new DialogParameters { { "content", $"确认删除裁判 {_userDatasDic[referee.UserId].NickName} ?" } });
+            var res1 = await dialog.Result;
+            if (res1.Cancelled) return;
+            var res = await MatchService.DeRegisterRefereePCLMatchAsync(referee);
+            if (res)
+            {
+                PrintInfoBar("删除成功", "Success");
+                //player1.UserId = player;
+                _pclMatch.PCLMatchRefereeList.Remove(referee);
                 StateHasChanged();
             }
             else
