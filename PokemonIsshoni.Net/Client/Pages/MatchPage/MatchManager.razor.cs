@@ -36,7 +36,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 
             if (res1.Cancelled) return;
             PCLMatchPlayer player1 = new();
-            //player1.UserId = player.UserId;
+            player1.UserId = player.UserId;
             player1.ShadowId = player.NickName;
             player1.QQ = player.QQ;
             player1.PCLMatchId = Id;
@@ -73,23 +73,24 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 
             if (res1.Cancelled) return;
             Referee player1 = new();
-            //player1.UserId = player.UserId;
+            player1.UserId = player.UserId;
             player1.PCLMatchId = Id;
             player1.refereeType = refereeType;
-            //var res = await MatchService.RegisterRefereePCLMatch(player1);
-            //if (res != null)
-            //{
-            //    PrintInfoBar("添加成功", "Success");
-            //    player1.Id = res.Id;
-            //    player1.UserData = player;
-            //    _pclMatch.PCLMatchRefereeList.Add(player1);
-            //    StateHasChanged();
-            //}
-            //else
-            //{
-            //    PrintInfoBar("添加失败");
-            //    // CanSignin修改
-            //}
+            //player1.UserId = value3.UserId;
+            var res = await MatchService.RegisterRefereePCLMatchAsync(player1);
+            if (res != null)
+            {
+                PrintInfoBar("添加成功", "Success");
+                player1.Id = res.Id;
+                //player1.UserId = player;
+                _pclMatch.PCLMatchRefereeList.Add(player1);
+                StateHasChanged();
+            }
+            else
+            {
+                PrintInfoBar("添加失败");
+                // CanSignin修改
+            }
             // In real life use an asynchronous function for fetching data from an api.
             //await Task.Delay(300);
 
@@ -99,7 +100,25 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             //return _userDatas.Select(s => s.NickName).Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
         }
 
-
+        private async void DeleteUserFromMatch(PCLMatchPlayer player)
+        {
+            var dialog = Dialog.Show<ConfirmDialogCard>("删除确认", new DialogParameters { { "content", $"确认删除选手 {player.ShadowId} ?" } });
+            var res1 = await dialog.Result;
+            if (res1.Cancelled) return;
+            var res = await MatchService.DeRegisterPCLMatch(player);
+            if (res != null)
+            {
+                PrintInfoBar("删除成功", "Success");
+                //player1.UserId = player;
+                _pclMatch.PCLMatchPlayerList.Remove(player);
+                StateHasChanged();
+            }
+            else
+            {
+                PrintInfoBar("删除失败");
+                // CanSignin修改
+            }
+        }
         private bool MatchStart()
         {
 

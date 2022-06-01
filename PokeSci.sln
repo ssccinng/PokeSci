@@ -21,11 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrLiteLib", "OcrLiteLib\Oc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeMaui", "PokeMaui\PokeMaui.csproj", "{9477AB79-14D0-44EE-BB09-49FE0B42BE3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonIsshoni.Net.Server", "PokemonIsshoni.Net\Server\PokemonIsshoni.Net.Server.csproj", "{B8B82BDE-6217-4418-AF04-94F7E5D59A82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.Net.Server", "PokemonIsshoni.Net\Server\PokemonIsshoni.Net.Server.csproj", "{B8B82BDE-6217-4418-AF04-94F7E5D59A82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonIsshoni.Net.Client", "PokemonIsshoni.Net\Client\PokemonIsshoni.Net.Client.csproj", "{5D1FD693-4F3A-47FD-AD36-A26A5885DF5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.Net.Client", "PokemonIsshoni.Net\Client\PokemonIsshoni.Net.Client.csproj", "{5D1FD693-4F3A-47FD-AD36-A26A5885DF5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonIsshoni.Net.Shared", "PokemonIsshoni.Net\Shared\PokemonIsshoni.Net.Shared.csproj", "{4FC621CE-48B1-4427-9181-45166699F357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.Net.Shared", "PokemonIsshoni.Net\Shared\PokemonIsshoni.Net.Shared.csproj", "{4FC621CE-48B1-4427-9181-45166699F357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,63 @@
+﻿@page "/PokemonHomePage"
+@using PokeCommon.Models
+@inject PCLServices PCLServices
+@if (_isLoading)
+{
+
+}
+else
+{
+    <MudPaper>
+        <MudTabs Rounded="true" Centered="true" Color="@Color.Default">
+            <MudTabPanel Text="训练家排名">
+                <MudTable T="PokemonHomeTrainerRankData" Items=_pokemonHomeTrainerRankDatas 
+                Filter="new Func<PokemonHomeTrainerRankData,bool>(FilterFunc)"
+                    Striped=true Hover=true RowsPerPage=50>
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">训练家对战竞技场排名</MudText>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Rank.</MudTh>
+                        <MudTh>头像</MudTh>
+                        <MudTh>昵称</MudTh>
+                        <MudTh>分数</MudTh>
+                        <MudTh>语言</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Rank.">@context.Rank</MudTd>
+                        <MudTd DataLabel="头像">
+                            <img width=30 src=@($"https://resource.pokemon-home.com/battledata/img/icons/trainer/{context.Icon}")
+                             onerror="this.onerror=null;this.src='https://resource.pokemon-home.com/battledata/img/icons/icon_prof_icon02.png';" />
+                        </MudTd>
+                        <MudTd DataLabel="昵称">@context.Name</MudTd>
+                        <MudTd DataLabel="分数">@(context.RatingValue / 1000)</MudTd>
+                        <MudTd DataLabel="语言">@context.LanguageType</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+                    </PagerContent>
+                </MudTable>
+            </MudTabPanel>
+            <MudTabPanel Text="宝可梦使用率排名">
+
+            </MudTabPanel>
+        </MudTabs>
+    </MudPaper>
+}
+
+
+@code {
+    bool _isLoading = true;
+    string searchString1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _pokemonHomeTrainerRankDatas = await PCLServices.GetTrainerRankDataAsync();
+        //var aa = await PCLServices.GetPokemonHomeSessionsAsync();
+        //_pokemonHomeTrainerRankDatas = await PCLServices.GetTrainerRankDataAsync(aa[2]);
+        _isLoading = false;
+        //return base.OnInitializedAsync();
+    }
+}

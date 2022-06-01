@@ -67,18 +67,18 @@ else
             <MudGrid Class="">
                 @*<MudItem xs="12">
                     <MudText>已报名选手</MudText>
-                </MudItem>*@
+                    </MudItem>*@
                 <MudItem xs="12">
-                    <MudTable Items="_pclMatch.PCLMatchPlayerList"  RowClass="odd:tw-bg-gray-100" >
+                    <MudTable Items="_pclMatch.PCLMatchPlayerList" RowClass="odd:tw-bg-gray-100">
                         <ToolBarContent>
                             <MudText Typo="Typo.h6">已报名选手</MudText>
                             <MudSpacer />
                             <MudAutocomplete T="UserInfo" Label="添加新成员" @bind-Value="value2" SearchFunc="@SearchUser"
-                                             ResetValueOnEmptyText="true"
-                                             CoerceText="true"
-                                             MaxItems="20"
-                                             AdornmentIcon="@Icons.Material.Filled.Add" OnAdornmentClick="(args) => AddUserToMatch(value2)" AdornmentColor="Color.Primary"
-                                             ToStringFunc="@(e=> e==null?null : $"{e.NickName}({e.Email})")">
+                                         ResetValueOnEmptyText="true"
+                                         CoerceText="true"
+                                         MaxItems="20"
+                                         AdornmentIcon="@Icons.Material.Filled.Add" OnAdornmentClick="(args) => AddUserToMatch(value2)" AdornmentColor="Color.Primary"
+                                         ToStringFunc="@(e=> e==null?null : $"{e.NickName}({e.Email})")">
                                 <ItemTemplate>
                                     <MudText>@($"{context.NickName}({context.Email})")</MudText>
                                 </ItemTemplate>
@@ -93,28 +93,29 @@ else
                             <MudTh>参赛ID</MudTh>
                             <MudTh>参赛宣言</MudTh>
                             @if (_pclMatch.NeedCheck)
-                                {
-                                <MudTh>签到</MudTh>
-                                }
+                            {
+                            <MudTh>签到</MudTh>
+                            }
 
-                            <MudTh>预提交队伍</MudTh>
-                            <MudTh>查看队伍</MudTh>
-                            @*<MudTh>队伍</MudTh>*@
-                        </HeaderContent>
-                        <RowTemplate>
-                            <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
-                            <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
-                            <MudTd DataLabel="训练师">@_userDatasDic[context.UserId]?.TrainerId</MudTd>
-                            <MudTd DataLabel="参赛QQ">@context.QQ</MudTd>
-                            <MudTd DataLabel="参赛ID">@context.ShadowId</MudTd>
-                            <MudTd DataLabel="参赛宣言">@context.Declaration</MudTd>
-                            @if (_pclMatch.NeedCheck)
-                                {
-                                // 这里要去保存情况
-                                <MudTd DataLabel="签到">
-                                    <MudCheckBox @bind-Checked="@context.IsChecked"></MudCheckBox>
-                                </MudTd>
-                                }
+                        <MudTh>预提交队伍</MudTh>
+                        <MudTh>查看队伍</MudTh>
+                        <MudTh>管理</MudTh>
+                        @*<MudTh>队伍</MudTh>*@
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
+                        <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
+                        <MudTd DataLabel="训练师">@_userDatasDic[context.UserId]?.TrainerId</MudTd>
+                        <MudTd DataLabel="参赛QQ">@context.QQ</MudTd>
+                        <MudTd DataLabel="参赛ID">@context.ShadowId</MudTd>
+                        <MudTd DataLabel="参赛宣言">@context.Declaration</MudTd>
+                        @if (_pclMatch.NeedCheck)
+                            {
+                            // 这里要去保存情况
+                            <MudTd DataLabel="签到">
+                                <MudCheckBox @bind-Checked="@context.IsChecked"></MudCheckBox>
+                            </MudTd>
+                            }
 
                         <MudTd DataLabel="预提交队伍">
                             @if (context.PreTeam != null)
@@ -127,66 +128,84 @@ else
                                 <MudButton Variant="Variant.Outlined" Size="Size.Small" Class="tw-text-bold" Color="Color.Error" OnClick=@(() => { Dialog.Show<TeamDialogCard>("队伍编辑", new DialogParameters { { "PCLPokeTeam", new PCLPokeTeam() } }, new MudBlazor.DialogOptions() { MaxWidth = MaxWidth.Large, FullWidth = true });})>未提交</MudButton>
                                 }
                         </MudTd>
-                            <MudTd DataLabel="查看队伍">
-                                <MudButton Variant="Variant.Filled" Size="Size.Small" Class="tw-text-bold" Color="Color.Primary" OnClick=@(() => { Dialog.Show<TeamDialogCard>("队伍编辑", new DialogParameters { { "PCLPokeTeam", null } }, new MudBlazor.DialogOptions() { MaxWidth = MaxWidth.Large, FullWidth = true });})>查看队伍</MudButton>
+                        <MudTd DataLabel="查看队伍">
+                            <MudButton Variant="Variant.Filled" Size="Size.Small" Class="tw-text-bold" Color="Color.Primary" OnClick=@(() => { Dialog.Show<TeamDialogCard>("队伍编辑", new DialogParameters { { "PCLPokeTeam", null } }, new MudBlazor.DialogOptions() { MaxWidth = MaxWidth.Large, FullWidth = true });})>查看队伍</MudButton>
+                        </MudTd>
+                        <MudTd DataLabel="管理">
+                            <MudIconButton Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick=@(() => DeleteUserFromMatch(context))>查看队伍</MudIconButton>
+                        </MudTd>
+                        @*<MudTd DataLabel="队伍">
+                            <MudButton Variant="Variant.Filled" Size="Size.Small" Class="text-bold" Color="Color.Success">编辑</MudButton>
+                            </MudTd>*@
+                        @*<MudTd DataLabel="参赛宣言">@context.c</MudTd>
+                            <MudTd DataLabel="参赛宣言">@context.c</MudTd>*@
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+            </MudItem>
+
+            <MudItem xs="12">
+                <MudTable Items="_pclMatch.PCLMatchRefereeList">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h6">裁判列表</MudText>
+                        <MudSpacer />
+                        <MudAutocomplete T="UserInfo" Label="添加新裁判" @bind-Value="value3" SearchFunc="@SearchUser"
+                                         ResetValueOnEmptyText="true"
+                                         CoerceText="true"
+                                         AdornmentIcon="@Icons.Material.Filled.Add" OnAdornmentClick="(args) => AddRefereeToMatch(value3, value4)" AdornmentColor="Color.Primary"
+                                         ToStringFunc="@(e=> e==null?null : $"{e.NickName}({e.Email})")"
+                                         Style="width:300px">
+                            <ItemTemplate>
+                                <MudText>@($"{context.NickName}({context.Email})")</MudText>
+                            </ItemTemplate>
+                        </MudAutocomplete>
+                        <MudSelect T="RefereeType" @bind-Value="value4" Style="width:100px">
+                            <MudSelectItem Value="RefereeType.Main">主裁</MudSelectItem>
+                            <MudSelectItem Value="RefereeType.Normal">裁判</MudSelectItem>
+                        </MudSelect>
+                        @*<MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>昵称</MudTh>
+                        <MudTh>邮箱</MudTh>
+                        <MudTh>QQ</MudTh>
+                        @if (isAdmin)
+                            {
+                            <MudTh>管理</MudTh>
+
+                            }
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
+                        <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
+                        <MudTd DataLabel="参赛QQ">@_userDatasDic[context.UserId]?.QQ</MudTd>
+                        @if (isAdmin)
+                            {
+                            <MudTd DataLabel="管理">
+                                <MudIconButton Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick=@(() => { Dialog.Show<TeamDialogCard>("队伍编辑", new DialogParameters { { "PCLPokeTeam", null } }, new MudBlazor.DialogOptions() { MaxWidth = MaxWidth.Large, FullWidth = true });})>查看队伍</MudIconButton>
                             </MudTd>
-                            @*<MudTd DataLabel="队伍">
-            <MudButton Variant="Variant.Filled" Size="Size.Small" Class="text-bold" Color="Color.Success">编辑</MudButton>
-        </MudTd>*@
-                            @*<MudTd DataLabel="参赛宣言">@context.c</MudTd>
-        <MudTd DataLabel="参赛宣言">@context.c</MudTd>*@
-                        </RowTemplate>
-                        <PagerContent>
-                            <MudTablePager />
-                        </PagerContent>
-                    </MudTable>
-                </MudItem>
 
-                <MudItem xs="12">
-                    <MudTable Items="_pclMatch.PCLMatchRefereeList">
-                        <ToolBarContent>
-                            <MudText Typo="Typo.h6">裁判列表</MudText>
-                            <MudSpacer />
-                            <MudAutocomplete T="UserInfo" Label="添加新裁判" @bind-Value="value3" SearchFunc="@SearchUser"
-                                             ResetValueOnEmptyText="true"
-                                             CoerceText="true"
-                                             AdornmentIcon="@Icons.Material.Filled.Add" OnAdornmentClick="(args) => AddRefereeToMatch(value3, value4)" AdornmentColor="Color.Primary"
-                                             ToStringFunc="@(e=> e==null?null : $"{e.NickName}({e.Email})")"
-                                             Style="width:300px">
-                                <ItemTemplate>
-                                    <MudText>@($"{context.NickName}({context.Email})")</MudText>
-                                </ItemTemplate>
-                            </MudAutocomplete>
-                            <MudSelect T="RefereeType" @bind-Value="value4" Style="width:100px">
-                                <MudSelectItem Value="RefereeType.Main">主裁</MudSelectItem>
-                                <MudSelectItem Value="RefereeType.Normal">裁判</MudSelectItem>
-                            </MudSelect>
-                            @*<MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
-                        </ToolBarContent>
-                        <HeaderContent>
-                            <MudTh>昵称</MudTh>
-                            <MudTh>邮箱</MudTh>
-                            <MudTh>QQ</MudTh>
-                        </HeaderContent>
-                        <RowTemplate>
-                            <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
-                            <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
-                            <MudTd DataLabel="参赛QQ">@_userDatasDic[context.UserId]?.QQ</MudTd>
-                        </RowTemplate>
-                        <PagerContent>
-                            <MudTablePager />
-                        </PagerContent>
-                    </MudTable>
-                </MudItem>
-            </MudGrid>
+                            }
 
-        </MudTabPanel>
-        @{ int idx = 1;}
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+            </MudItem>
+        </MudGrid>
+
+    </MudTabPanel>
+    @{
+            int idx = 1;
+        }
         @if (_pclMatch.MatchState > MatchState.Registering)
         {
             foreach (var pclRound in _pclMatch.PCLMatchRoundList)
             {
-                int roundIdx = idx; 
+                int roundIdx = idx;
                 switch (pclRound.PCLRoundType)
                 {
                     case RoundType.Swiss:
@@ -237,6 +256,7 @@ else
     UserInfo value3;
     RefereeType value4 = RefereeType.Normal;
     bool isAdmin = false;
+    bool isReferee = false;
 
     int selectId = 0;
 
@@ -261,6 +281,12 @@ else
             }
             isAdmin = user.IsInRole("Admin");
             _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+            if (_pclMatch.UserId == userData.UserId)
+            {
+                isAdmin = true;
+                // 如果是主裁 赋予最高权限
+                // 否则 赋予裁判权限
+            }
             // 还可能是裁判
             if (userData.UserId != _pclMatch.UserId && !isAdmin)
             {

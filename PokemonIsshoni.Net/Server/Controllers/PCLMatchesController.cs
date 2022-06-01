@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PokeCommon.Models;
+using PokeCommon.PokemonHome;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 using PokemonIsshoni.Net.Shared.Info;
 using PokemonIsshoni.Net.Shared.Models;
@@ -19,9 +21,12 @@ namespace PokemonIsshoni.Net.Server.Controllers
     {
         private readonly PokemonIsshoniNetServerContext _context;
 
+        private readonly PokemonHomeTools _pokeHomeTools = new(true);
+
         public PCLMatchesController(PokemonIsshoniNetServerContext context)
         {
             _context = context;
+            _pokeHomeTools.UpdateRankMatchAsync().Wait();
         }
 
         // GET: api/PCLMatches
@@ -52,7 +57,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
             //var pCLMatch = await _context.PCLMatchs.FindAsync(id);
             var pCLMatch = await _context.PCLMatchs
                                         .Include(s => s.PCLMatchRoundList)
-
+                                        .Include(s => s.PCLMatchRefereeList)
                                         //.Include(s=>s.User)
                                         .Include(s => s.PCLMatchPlayerList).FirstOrDefaultAsync(s => s.Id == id);
 
@@ -208,5 +213,25 @@ namespace PokemonIsshoni.Net.Server.Controllers
             return user;
         }
 
+
+        #region PokemonHome
+        [HttpPost("/api/GetTrainerRankData")]
+        public async Task<ActionResult<List<PokemonHomeTrainerRankData>>> GetTrainerRankData(PokemonHomeSession pokemonHomeSession)
+        {
+            return await _pokeHomeTools.GetTrainerDataAsync(pokemonHomeSession);
+        }
+
+        [HttpGet("/api/GetTrainerRankDataLast")]
+        public ActionResult<List<PokemonHomeTrainerRankData>> GetTrainerRankDataLast()
+        {
+            return _pokeHomeTools.PokemonHomeTrainerRankDatas;
+        }
+        [HttpGet("/api/GetPokemonHomeSessions")]
+        public ActionResult<List<PokemonHomeSession>> GetPokemonHomeSessions()
+        {
+            return _pokeHomeTools.PokemonHomeSessions;
+        }
+
+        #endregion
     }
 }

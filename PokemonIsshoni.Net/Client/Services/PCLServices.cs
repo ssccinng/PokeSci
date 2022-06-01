@@ -1,4 +1,5 @@
-﻿using PokemonIsshoni.Net.Shared.Models;
+﻿using PokeCommon.Models;
+using PokemonIsshoni.Net.Shared.Models;
 using System.Net.Http.Json;
 
 namespace PokemonIsshoni.Net.Client.Services
@@ -61,7 +62,20 @@ namespace PokemonIsshoni.Net.Client.Services
             return await res.Content.ReadFromJsonAsync<PCLMatchPlayer>();
             //return null;
         }
-
+        /// <summary>
+        /// 取消报名
+        /// </summary>
+        /// <param name="pCLMatchPlayer"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public async Task<bool> DeRegisterPCLMatch(PCLMatchPlayer pCLMatchPlayer)
+        {
+            // 限制一下数目(? 有必要的话
+            // 直接删？还是只是取消 可以再想想
+            var res = await _httpClient.DeleteAsync($"api/PCLMatchPlayers/{pCLMatchPlayer.Id}");
+            return res.IsSuccessStatusCode;
+            //return null;
+        }
         public async Task<bool> UpdatePCLMatchAsync(PCLMatch pCLMatch)
         {
             // 限制一下数目(? 有必要的话
@@ -70,6 +84,60 @@ namespace PokemonIsshoni.Net.Client.Services
             return res.IsSuccessStatusCode;
             //return null;
         }
+        #region 裁判
+        public async Task<Referee> RegisterRefereePCLMatchAsync(Referee referee)
+        {
+            // 限制一下数目(? 有必要的话
+            var res = await _httpClient.PostAsJsonAsync($"api/Referees", referee);
+            if (res == null)
+            {
+                return null;
+            }
+            else
+            {
+                return await res.Content.ReadFromJsonAsync<Referee>();
+            }
+
+            //return null;
+        }
+        #endregion
+        #region PokemonHome
+        public async Task<List<PokemonHomeTrainerRankData>> GetTrainerRankDataAsync(PokemonHomeSession pokemonHomeSession = null)
+        {
+            // 限制一下数目(? 有必要的话
+
+            if (pokemonHomeSession == null)
+            {
+                var res = await _httpClientAnonymous.GetAsync($"api/GetTrainerRankDataLast");
+                if (res.IsSuccessStatusCode)
+                {
+                    return await res.Content.ReadFromJsonAsync<List<PokemonHomeTrainerRankData>>();
+                }
+            }
+            else
+            {
+                var res = await _httpClientAnonymous.PostAsJsonAsync($"api/GetTrainerRankData", pokemonHomeSession);
+                if (res.IsSuccessStatusCode)
+                {
+                    return await res.Content.ReadFromJsonAsync<List<PokemonHomeTrainerRankData>>();
+                }
+            }
+            return null;
+            //return null;
+        }
+        public async Task<List<PokemonHomeSession>> GetPokemonHomeSessionsAsync()
+        {
+            // 限制一下数目(? 有必要的话
+
+            var res = await _httpClientAnonymous.GetAsync($"api/GetPokemonHomeSessions");
+            if (res.IsSuccessStatusCode)
+            {
+                return await res.Content.ReadFromJsonAsync<List<PokemonHomeSession>>();
+            }
+            return null;
+            //return null;
+        }
+        #endregion
 
     }
 }

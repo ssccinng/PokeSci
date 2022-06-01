@@ -22,7 +22,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         //[NotMapped]
         //public UserData UserData { get; set; }
         [Column(TypeName = "varchar(270)")]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "";
 
         //public PCLMatch Match { get; set; }
         public int PCLMatchId { get; set; } = -1;

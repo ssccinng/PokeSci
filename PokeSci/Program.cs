@@ -6,14 +6,18 @@
 //    Console.WriteLine("CPU temp : " + CPUtprt.ToString() + " °C");
 //}
 using PokeCommon.PokemonShowdownTools;
+using PokeCommon.PokemonHome;
 using PokeCommon.PokeOCR;
 using PokeCommon.BattleEngine;
 using System.Diagnostics;
 
 //SWSHBattleEngine engine = BattleEngine.CreateBattleEngine(BattleVersion.SWSH) as SWSHBattleEngine;
 //engine.CreateBattle();
-
-
+PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
+var data =  await PokemonHomeTools.GetRankMatchAsync();
+var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], 1);
+int aaa = 1;
+return;
 
 //var a1 = OCRTools.SplitSWSHTeamPage("test10.jpg");
 //List<string> res = new List<string>();
