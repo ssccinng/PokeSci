@@ -13,6 +13,7 @@
 @inject NavigationManager Navigation
 @inject IDialogService Dialog
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize]
 
 @if (_pclMatch == null)
 {
@@ -46,7 +47,7 @@ else
                 <MudItem xs="12" md="3" Class="tw-grid tw-self-center">
                     @if (_pclMatch.RoundIdx == -1)
                     {
-                        <MudButton Variant="Variant.Filled" Color="Color.Info" Class="tw-justify-self-center">启动比赛</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Info" Class="tw-justify-self-center" OnClick=MatchStart>启动比赛</MudButton>
                     }
                     else
                     {
@@ -105,7 +106,7 @@ else
                     <RowTemplate>
                         <MudTd DataLabel="昵称">@_userDatasDic[context.UserId]?.NickName</MudTd>
                         <MudTd DataLabel="邮箱">@_userDatasDic[context.UserId]?.Email</MudTd>
-                        <MudTd DataLabel="训练师">@_userDatasDic[context.UserId]?.TrainerId</MudTd>
+                        <MudTd DataLabel="训练师Id">@_userDatasDic[context.UserId]?.TrainerId</MudTd>
                         <MudTd DataLabel="参赛QQ">@context.QQ</MudTd>
                         <MudTd DataLabel="参赛ID">@context.ShadowId</MudTd>
                         <MudTd DataLabel="参赛宣言">@context.Declaration</MudTd>

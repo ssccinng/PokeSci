@@ -73,6 +73,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         public int GroupCnt { get; set; } = 2;
 
         public List<PCLRoundPlayer> PCLRoundPlayers { get; set; } = new List<PCLRoundPlayer>();
+        public List<PCLBattle> PCLBattles { get; set; } = new();
 
         /// <summary>
         /// 比赛状态

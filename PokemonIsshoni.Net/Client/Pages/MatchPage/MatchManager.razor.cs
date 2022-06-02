@@ -139,12 +139,34 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                 // CanSignin修改
             }
         }
-        private bool MatchStart()
+        #region 比赛流程控制
+        private async Task<bool> MatchStart()
         {
+            // 这里显示比赛信息 确认无误后再继续
 
-            return true;
+            var dialog = Dialog.Show<MatchConfirmCard>("信息确认", new DialogParameters { { "PCLMatch", _pclMatch } });
+            var res1 = await dialog.Result;
+            if (res1.Cancelled) return false;
+            if (_pclMatch.MatchState != MatchState.Registering)
+            {
+                PrintInfoBar("比赛已经启动！");
+            }
+
+            if (_pclMatch.PCLMatchPlayerList.Count < 4)
+            {
+                PrintInfoBar("人太少了！再喊点人吧~");
+            }
+            if (await MatchService.PCLMatcStarthAsync(Id))
+            {
+                _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+                PrintInfoBar("比赛开始！", "Success");
+                return true;
+            }
+            PrintInfoBar("创建失败...");
+            // 这里可以刷新页面
+            return false;
         }
-
+        #endregion
         void PrintInfoBar(string message, string type = "Error")
         {
             Snackbar.Clear();

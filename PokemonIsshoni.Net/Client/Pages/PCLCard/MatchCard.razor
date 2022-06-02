@@ -1,5 +1,14 @@
-﻿<h3>MatchCard</h3>
+﻿@using PokemonIsshoni.Net.Shared.Models
+
+@if (PCLMatch != null)
+{
+    
+}
+
+
 
 @code {
+    [Parameter] public PCLMatch PCLMatch { get; set; }
+    [Parameter] public UserCardSize PCLUserCardSize { get; set; } = UserCardSize.Small;
 
 }

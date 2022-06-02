@@ -13,7 +13,6 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 {
     public partial class MatchDetailSetting
     {
-        private PCLMatch _pclMatch;
         private bool shouldRender = true;
         private string MatchNameCheck(string matchName)
         {
@@ -35,7 +34,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                             fileName: e.File.Name);
 
                 var res = await Http.PostAsync("upload/image", content);
-                _pclMatch.Logo = (await res.Content.ReadFromJsonAsync<UploadResult>()).Url;
+                PCLMatch.Logo = (await res.Content.ReadFromJsonAsync<UploadResult>()).Url;
 
             }
             else
@@ -67,7 +66,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 
         async void SaveChange()
         {
-            var res = await MatchService.UpdatePCLMatchAsync(_pclMatch);
+            var res = await MatchService.UpdatePCLMatchAsync(PCLMatch);
             if (res)
             {
                 PrintInfoBar("保存成功", "Success");

@@ -1,0 +1,81 @@
+﻿@page "/AdminPage"
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@attribute [Authorize(Roles = "Admin")]
+@inject UserInfoServices UserServices
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@if (_isLoading)
+{
+
+}
+else
+{
+    <MudTabs Elevation="1" Rounded="true" Centered="true" Color="@Color.Default">
+        <MudTabPanel Text="成员管理">
+            <MudTable Items=_userDatas>
+                <HeaderContent>
+                    <MudTh>昵称</MudTh>
+                    <MudTh>邮箱</MudTh>
+                    <MudTh>训练师ID</MudTh>
+                    <MudTh>QQ</MudTh>
+                    <MudTh>所在城市</MudTh>
+                    <MudTh>生日</MudTh>
+                    <MudTh>游戏名称</MudTh>
+                    @*<MudTh>查看队伍</MudTh>*@
+                    <MudTh>管理</MudTh>
+                    @*<MudTh>队伍</MudTh>*@
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="昵称">@context?.NickName</MudTd>
+                    <MudTd DataLabel="邮箱">@context?.Email</MudTd>
+                    <MudTd DataLabel="训练师Id">@context?.TrainerId</MudTd>
+                    <MudTd DataLabel="QQ">@context.QQ</MudTd>
+                    <MudTd DataLabel="用户Id">@context.UserId</MudTd>
+                    <MudTd DataLabel="所在城市">@context.City</MudTd>
+                    <MudTd DataLabel="生日">@context.DOB</MudTd>
+                    <MudTd DataLabel="游戏名称">@context.HomeName</MudTd>
+                    <MudTd DataLabel="管理"><MudButton Size=Size.Small>锁定</MudButton></MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudTabPanel>
+        <MudTabPanel Text="管理小工具">
+            <MudPaper Class="tw-p-5">
+                <MudGrid>
+                    <MudItem xs=12>
+                        <MudButton OnClick=AddGuest Variant="Variant.Filled" Color=Color.Primary>添加200个游客</MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+
+        </MudTabPanel>
+    </MudTabs>
+}
+@code {
+    Dictionary<string, UserInfo> _userDatasDic;
+    List<UserInfo> _userDatas;
+
+    bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        try
+        {
+            _userDatas = (await UserServices.GetAllUserAsync());
+            _userDatasDic = _userDatas.ToDictionary(s => s.UserId);
+            _isLoading = false;
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    async void AddGuest()
+    {
+        //await UserServices.AddGustAsync(200);
+    }
+}

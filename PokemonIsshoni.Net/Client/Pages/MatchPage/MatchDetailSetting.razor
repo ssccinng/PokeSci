@@ -23,7 +23,7 @@
 
 @attribute [Authorize]
 
-@if (_pclMatch == null)
+@if (PCLMatch == null)
 {
     @*<PochamaLoading />*@
 }
@@ -41,11 +41,11 @@ else
                                 <MudText Typo="Typo.h6" Class="tw-font-semibold">比赛参数设定</MudText>
                             </MudItem>
                             <MudItem xs="12">
-                                <MudTextField @bind-Value="_pclMatch.Name" Label="比赛名" Variant="Variant.Text" Required="true"
+                                <MudTextField @bind-Value="PCLMatch.Name" Label="比赛名" Variant="Variant.Text" Required="true"
                                               RequiredError="人家需要5-30字一个名字啦（呕" Validation="new Func<string, string>(MatchNameCheck)"></MudTextField>
                             </MudItem>
                             <MudItem md="4" xs="12">
-                                <MudSelect T="string" @bind-Value="_pclMatch.Logo" @key="_pclMatch.Logo" Label="比赛Logo" Class="logoinput" Variant="Variant.Filled">
+                                <MudSelect T="string" @bind-Value="PCLMatch.Logo" @key="PCLMatch.Logo" Label="比赛Logo" Class="logoinput" Variant="Variant.Filled">
                                     <MudSelectItem T="string" Value="@("ServerImage/Default/matchsingle.png")">
                                         <img src="ServerImage/Default/matchsingle.png" width="100" class="mr-1" />
                                     </MudSelectItem>
@@ -58,10 +58,10 @@ else
                                     <MudSelectItem T="string" Value="@("ServerImage/Default/matchnormal.png")">
                                         <img src="ServerImage/Default/matchnormal.png" width="100" class="mr-1" />
                                     </MudSelectItem>
-                                    @if (!_pclMatch.Logo?.Contains("Default") ?? false)
+                                    @if (!PCLMatch.Logo?.Contains("Default") ?? false)
                                     {
-                                        <MudSelectItem T="string" Value="_pclMatch.Logo">
-                                            <img src=@_pclMatch.Logo width="100" class="tw-mr-1" />
+                                        <MudSelectItem T="string" Value="PCLMatch.Logo">
+                                            <img src=@PCLMatch.Logo width="100" class="tw-mr-1" />
                                         </MudSelectItem>
                                     }
 
@@ -80,14 +80,14 @@ else
                                 </MudButton>
                             </MudItem>
                             <MudItem xs="12">
-                                <MudTextField T="string" Label="比赛描述" Variant="Variant.Text" @bind-Value="@_pclMatch.Description" Lines="5" />
+                                <MudTextField T="string" Label="比赛描述" Variant="Variant.Text" @bind-Value="@PCLMatch.Description" Lines="5" />
                             </MudItem>
                             <MudItem xs="12">
-                                <MudCheckBox @bind-Checked="_pclMatch.IsTeamCompeition" Label="是否为团体赛" T="bool" Class="tw-ml-n2"></MudCheckBox>
+                                <MudCheckBox @bind-Checked="PCLMatch.IsTeamCompeition" Label="是否为团体赛" T="bool" Class="tw-ml-n2"></MudCheckBox>
                             </MudItem>
                             <MudItem xs="12">
                                 <MudField Label="比赛模式" Variant="Variant.Text" InnerPadding="false">
-                                    <MudRadioGroup @bind-SelectedOption="_pclMatch.MatchType">
+                                    <MudRadioGroup @bind-SelectedOption="PCLMatch.MatchType">
                                         <MudRadio T="MatchType" Option="MatchType.Single">单打比赛</MudRadio>
                                         <MudRadio T="MatchType" Option="MatchType.Double">双打比赛</MudRadio>
                                     </MudRadioGroup>
@@ -95,33 +95,33 @@ else
                             </MudItem>
                             <MudItem xs="12">
                                 <MudField Label="比赛方式" Variant="Variant.Text" InnerPadding="false">
-                                    <MudRadioGroup @bind-SelectedOption="_pclMatch.MatchOnline">
+                                    <MudRadioGroup @bind-SelectedOption="PCLMatch.MatchOnline">
                                         <MudRadio T="MatchOnline" Option="MatchOnline.Online">线上赛</MudRadio>
                                         <MudRadio T="MatchOnline" Option="MatchOnline.Offline">线下赛</MudRadio>
                                     </MudRadioGroup>
                                 </MudField>
                             </MudItem>
                             <MudItem md="6">
-                                <MudCheckBox @bind-Checked="_pclMatch.AllowGuest" Label="允许游客参加" T="bool" Class="tw-ml-n2"></MudCheckBox>
+                                <MudCheckBox @bind-Checked="PCLMatch.AllowGuest" Label="允许游客参加" T="bool" Class="tw-ml-n2"></MudCheckBox>
                             </MudItem>
                             <MudItem md="6">
-                                <MudCheckBox @bind-Checked="_pclMatch.NeedCheck" Label="需要签到参赛" T="bool" Class="tw-ml-n2"></MudCheckBox>
+                                <MudCheckBox @bind-Checked="PCLMatch.NeedCheck" Label="需要签到参赛" T="bool" Class="tw-ml-n2"></MudCheckBox>
                             </MudItem>
                             <MudItem md="6">
-                                <MudCheckBox @bind-Checked="_pclMatch.IsPrivate" Label="是否需要密语参赛" T="bool" Class="tw-ml-n2"></MudCheckBox>
+                                <MudCheckBox @bind-Checked="PCLMatch.IsPrivate" Label="是否需要密语参赛" T="bool" Class="tw-ml-n2"></MudCheckBox>
                             </MudItem>
-                            <MudItem xs="12" Class="tw-transition" Style=@($"overflow:hidden; -webkit-transition: 0.5s; {(_pclMatch.IsPrivate ? "height:100px" : "height:0; padding:0")}")>
-                                <MudTextField @bind-Value="_pclMatch.Password" Label="密语" Variant="Variant.Outlined"></MudTextField>
+                            <MudItem xs="12" Class="tw-transition" Style=@($"overflow:hidden; -webkit-transition: 0.5s; {(PCLMatch.IsPrivate ? "height:100px" : "height:0; padding:0")}")>
+                                <MudTextField @bind-Value="PCLMatch.Password" Label="密语" Variant="Variant.Outlined"></MudTextField>
                             </MudItem>
 
                             <MudItem xs="12" sm="6">
-                                <MudDatePicker PickerVariant="PickerVariant.Dialog" @bind-Date="_pclMatch.MatchStartDate" Label="比赛开始时间" DisableToolbar="true" />
+                                <MudDatePicker PickerVariant="PickerVariant.Dialog" @bind-Date="PCLMatch.MatchStartDate" Label="比赛开始时间" DisableToolbar="true" />
                             </MudItem>
                             <MudItem xs="12" sm="6">
-                                <MudDatePicker PickerVariant="PickerVariant.Dialog" @bind-Date="_pclMatch.MatchEndDate" Label="比赛结束时间" DisableToolbar="true" />
+                                <MudDatePicker PickerVariant="PickerVariant.Dialog" @bind-Date="PCLMatch.MatchEndDate" Label="比赛结束时间" DisableToolbar="true" />
                             </MudItem>
 
-                            @foreach (PCLMatchRound pclMatchRound in _pclMatch.PCLMatchRoundList)
+                            @foreach (PCLMatchRound pclMatchRound in PCLMatch.PCLMatchRoundList)
                             {
                                 // 这里要加删除 和 是否是小组赛的选项
 
@@ -218,13 +218,16 @@ else
 @code {
     [Parameter]
     public int Id { get; set; }
+    [Parameter]
+    public PCLMatch PCLMatch { get; set; }
 
     bool success = false;
     string _userId;
 
     protected override async Task OnInitializedAsync()
     {
-        _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+        if (PCLMatch == null)
+            PCLMatch = await MatchService.GetMatchByIdAsync(Id);
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         try

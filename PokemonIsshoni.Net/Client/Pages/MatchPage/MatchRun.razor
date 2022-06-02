@@ -24,11 +24,11 @@ else
 {
     <MudPaper Class="tw-p-5">
         <MudText Typo=Typo.h4>@_pclMatch.Name</MudText>
+        <MudLink Href=@($"MatchDetail/{Id}") Class="tw-text-sm"><MudIcon Style="margin-bottom: 0.15rem" Icon=@Icons.Material.Filled.ArrowBack />返回比赛主页</MudLink>
 
-
-        <MudTabs  Elevation="0" Rounded="true" Centered="true" Color="@Color.Default" Class="tw-mt-2" @bind-ActivePanelIndex="selectId">
-            <MudTabPanel Text="比赛总管理">
-                <MudGrid Class="">
+        <MudTabs  Elevation="0" Rounded="true"  Color="@Color.Default" Class="tw-mt-2" @bind-ActivePanelIndex="selectId">
+            <MudTabPanel Text="比赛信息">
+                <MudGrid Class="tw-p-3">
                     <MudItem xs="12">
                         <MudText>已报名选手</MudText>
                     </MudItem>
@@ -59,6 +59,8 @@ else
                     {
                         case RoundType.Swiss:
                             <MudTabPanel Text=@($"{roundIdx}. 瑞士轮")>
+
+
                                 @switch (pclRound.PCLRoundState)
                                 {
                                     case RoundState.Waiting:

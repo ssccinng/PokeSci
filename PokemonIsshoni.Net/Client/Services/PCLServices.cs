@@ -156,5 +156,23 @@ namespace PokemonIsshoni.Net.Client.Services
         }
         #endregion
 
+        #region 比赛流程控制
+        public async Task<bool> PCLMatcStarthAsync(PCLMatch pCLMatch)
+        {
+            // 限制一下数目(? 有必要的话
+            return await PCLMatcStarthAsync(pCLMatch.Id);
+            //return null;
+        }
+
+        public async Task<bool> PCLMatcStarthAsync(int id)
+        {
+            // 限制一下数目(? 有必要的话
+            var res = await _httpClient.PostAsync($"api/PCLMatches/MatchStart/{id}", null );
+
+            return res.IsSuccessStatusCode;
+            //return null;
+        }
+        #endregion
+
     }
 }

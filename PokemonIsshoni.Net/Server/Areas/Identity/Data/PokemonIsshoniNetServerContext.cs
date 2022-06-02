@@ -72,6 +72,16 @@ public class PokemonIsshoniNetServerContext : ApiAuthorizationDbContext<PokemonI
     /// 队伍表
     /// </summary>
     public DbSet<PCLPokeTeam> PCLPokeTeams { get; set; }
+    /// <summary>
+    /// 裁判表
+    /// </summary>
     public DbSet<PCLReferee> PCLReferees { get; set; }
+    /// <summary>
+    /// 游客
+    /// </summary>
     public DbSet<Guest> PCLGuests { get; set; }
+    /// <summary>
+    /// 用户队伍
+    /// </summary>
+    public DbSet<PCLUserTeam> PCLUserTeams { get; set; }
 }

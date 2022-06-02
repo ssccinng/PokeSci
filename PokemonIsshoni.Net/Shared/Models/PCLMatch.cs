@@ -65,6 +65,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         // 加个是否可取消报名（？
         public MatchType MatchType { get; set; } = MatchType.Double;
         public MatchOnline MatchOnline { get; set; } = MatchOnline.Online;
+        [ConcurrencyCheck]
         public MatchState MatchState { get; set; } = MatchState.Registering;
 
         /// <summary>

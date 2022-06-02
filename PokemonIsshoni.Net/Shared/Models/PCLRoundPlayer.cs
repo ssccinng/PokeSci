@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -21,9 +22,14 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 小组赛模式的组号
         /// </summary>
         public int GroupId { get; set; }
+        [ConcurrencyCheck]
 
         public int Win { get; set; }
+        [ConcurrencyCheck]
+
         public int Draw { get; set; }
+        [ConcurrencyCheck]
+
         public int Lose { get; set; }
         [NotMapped]
         public decimal Ratio

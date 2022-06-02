@@ -27,5 +27,10 @@ namespace PokemonIsshoni.Net.Client.Services
         {
             return await _httpClient.GetFromJsonAsync<UserInfo>($"/api/userinfo/GetUserById/{id}");
         }
+
+        public async Task AddGustAsync(int cnt)
+        {
+            await _httpClient.GetAsync($"/api/userinfo/AddGuset/{cnt}");
+        }
     }
 }

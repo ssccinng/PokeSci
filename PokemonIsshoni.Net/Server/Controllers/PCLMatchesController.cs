@@ -28,7 +28,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
             _context = context;
             _pokeHomeTools.UpdateRankMatchAsync().Wait();
         }
-
+        #region 比赛类CRUD
         // GET: api/PCLMatches
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PCLMatch>>> GetPCLMatchs()
@@ -57,6 +57,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
             //var pCLMatch = await _context.PCLMatchs.FindAsync(id);
             var pCLMatch = await _context.PCLMatchs
                                         .Include(s => s.PCLMatchRoundList)
+                                            .ThenInclude(s => s.PCLRoundPlayers) // 这个ok 对战没有必要继续放
                                         .Include(s => s.PCLMatchRefereeList)
                                         //.Include(s=>s.User)
                                         .Include(s => s.PCLMatchPlayerList).FirstOrDefaultAsync(s => s.Id == id);
@@ -177,7 +178,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         {
             return (_context.PCLMatchs?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-
+        #endregion
         // 要这样好呢 还是单独列出api好
         [HttpPost("RegisterUser/{pwd}")]
         [Authorize]
@@ -274,6 +275,69 @@ namespace PokemonIsshoni.Net.Server.Controllers
             return _pokeHomeTools.PokemonHomeSessions;
         }
 
+        #endregion
+
+        #region 比赛流程控制
+        [HttpPost("MatchStart/{id}")]
+        [Authorize]
+        public async Task<bool> MatchStart(int id)
+        {
+            //if (!int.TryParse(id, out var Id))
+            //{
+            //    return false;
+            //}
+            var plcMatch = await _context.PCLMatchs
+                .Include(s => s.PCLMatchPlayerList)
+                .Include(s => s.PCLMatchRoundList).FirstOrDefaultAsync(s => s.Id == id);
+            if (!await HasPower(plcMatch))
+            {
+                return false;
+            }
+            
+            // 比赛合理性检查
+            if (plcMatch.MatchState != MatchState.Registering)
+            {
+                return false;
+            }
+
+            Random rand = new Random();
+            foreach (var player in plcMatch.PCLMatchPlayerList)
+            {
+                plcMatch.PCLMatchRoundList[0].PCLRoundPlayers.Add(
+                    new PCLRoundPlayer
+                    {
+                        BattleTeam = new(),
+
+                        Rank = rand.Next(2048),
+                        UserId = player.UserId,
+                    }
+                    );
+                //var p = new PCLRoundPlayer
+                //{
+                //    BattleTeam = new(),
+                //    PCLMatchRoundId = plcMatch.PCLMatchRoundList[0].Id,
+                //    Rank = rand.Next(2048),
+                    
+                //};
+                //_context.PCLRoundPlayers.Add(p);
+            }
+            //switch (plcMatch.PCLMatchRoundList[0].PCLRoundType)
+            //{
+            //    case RoundType.Swiss:
+            //        break;
+            //    case RoundType.Robin:
+            //        break;
+            //    case RoundType.Elimination:
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            plcMatch.MatchState = MatchState.Running;
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
         #endregion
     }
 }
