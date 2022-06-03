@@ -24,6 +24,18 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             //return new UserData[0];
             return _userDatas.Where(x => x.NickName.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.Email.Contains(value, StringComparison.InvariantCultureIgnoreCase));
         }
+
+        private async Task<IEnumerable<PCLMatchPlayer>> SearchMatchUser(string value)
+        {
+            // In real life use an asynchronous function for fetching data from an api.
+            await Task.Delay(300);
+
+            // if text is null or empty, don't return values (drop-down will not open)
+            if (string.IsNullOrEmpty(value))
+                return _pclMatch.PCLMatchPlayerList;
+            //return new UserData[0];
+            return _pclMatch.PCLMatchPlayerList.Where(x => x.ShadowId.Contains(value, StringComparison.InvariantCultureIgnoreCase) || _userDatasDic[x.UserId].Email.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        }
         private async void AddUserToMatch(UserInfo player)
         {
             if (player == null)
@@ -46,6 +58,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                 PrintInfoBar("添加成功", "Success");
                 //res.UserData = player;
                 _pclMatch.PCLMatchPlayerList.Add(res);
+                _matchUserDatasDic.Add(res.UserId, res);
                 StateHasChanged();
             }
             else
@@ -132,6 +145,58 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                 //player1.UserId = player;
                 _pclMatch.PCLMatchRefereeList.Remove(referee);
                 StateHasChanged();
+            }
+            else
+            {
+                PrintInfoBar("删除失败");
+                // CanSignin修改
+            }
+        }
+
+        private async void AddUserToRound(PCLMatchRound pCLMatchRound, PCLMatchPlayer player)
+        {
+            if (player == null)
+            {
+                PrintInfoBar("你啥也没选呢");
+                return;
+            }
+            var dialog = Dialog.Show<ConfirmDialogCard>("操作确认", new DialogParameters { { "content", $"确认添加 {player.ShadowId} 至比赛?" } });
+            var res1 = await dialog.Result;
+
+            if (res1.Cancelled) return;
+            PCLRoundPlayer player1 = new();
+            player1.UserId = player.UserId;
+            player1.PCLMatchRoundId = pCLMatchRound.Id;
+            var res = await MatchService.AddPCLRound(player1);
+
+            if (res != null)
+            {
+                PrintInfoBar("添加成功", "Success");
+                pCLMatchRound.PCLRoundPlayers.Add(res);
+                // 加入对应轮
+                //res.UserData = player;
+                //_pclMatch.PCLMatchPlayerList.Add(res);
+                StateHasChanged();
+            }
+            else
+            {
+                PrintInfoBar("添加失败");
+                // CanSignin修改
+            }
+        }
+
+        private async void DeleteUserFromRound(PCLRoundPlayer player)
+        {
+            var dialog = Dialog.Show<ConfirmDialogCard>("删除确认", new DialogParameters { { "content", $"确认删除选手 {_matchUserDatasDic[player.UserId].ShadowId} ?" } });
+            var res1 = await dialog.Result;
+            if (res1.Cancelled) return;
+            var res = await MatchService.DeRegisterPCLRound(player);
+            if (res)
+            {
+                PrintInfoBar("删除成功", "Success");
+                //player1.UserId = player;
+                //_pclMatch.DeRegisterPCLRound.Remove(player);
+                //StateHasChanged();
             }
             else
             {

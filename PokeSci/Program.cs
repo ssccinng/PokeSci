@@ -10,6 +10,18 @@ using PokeCommon.PokemonHome;
 using PokeCommon.PokeOCR;
 using PokeCommon.BattleEngine;
 using System.Diagnostics;
+using PokePSCore;
+
+var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
+await pc.ConnectAsync();
+await Task.Delay(500);
+await pc.LoginAsync();
+while (true)
+{
+    await Task.Delay(1000);
+    //await pc.GetRoomListAsync();
+}
+return;
 
 //SWSHBattleEngine engine = BattleEngine.CreateBattleEngine(BattleVersion.SWSH) as SWSHBattleEngine;
 //engine.CreateBattle();

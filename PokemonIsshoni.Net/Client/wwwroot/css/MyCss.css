@@ -8,3 +8,7 @@
 .logoinput .mud-input-slot {
     height: 100px !important
 }
+
+.no-border-mud-table .mud-table-cell {
+    border-bottom: 0
+}

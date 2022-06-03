@@ -251,8 +251,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
             return await HasPower(plcMatch);
             //return HttpContext.User.IsInRole("Admin") || plcMatch.UserId == uid.Value;
         }
-        public async Task<bool> HasPower(PCLMatch match)
+        public async Task<bool> HasPower(PCLMatch? match)
         {
+            if (match == null) return false;
+
             var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
             //var plcMatch = await _context.PCLMatchs.FindAsync(matchId);
             return HttpContext.User.IsInRole("Admin") || match.UserId == uid.Value;
@@ -307,36 +309,98 @@ namespace PokemonIsshoni.Net.Server.Controllers
                     new PCLRoundPlayer
                     {
                         BattleTeam = new(),
-
                         Rank = rand.Next(2048),
                         UserId = player.UserId,
+                        //Tag = rand.Next(2048),
                     }
                     );
-                //var p = new PCLRoundPlayer
-                //{
-                //    BattleTeam = new(),
-                //    PCLMatchRoundId = plcMatch.PCLMatchRoundList[0].Id,
-                //    Rank = rand.Next(2048),
-                    
-                //};
-                //_context.PCLRoundPlayers.Add(p);
             }
-            //switch (plcMatch.PCLMatchRoundList[0].PCLRoundType)
-            //{
-            //    case RoundType.Swiss:
-            //        break;
-            //    case RoundType.Robin:
-            //        break;
-            //    case RoundType.Elimination:
-            //        break;
-            //    default:
-            //        break;
-            //}
 
             plcMatch.MatchState = MatchState.Running;
+            plcMatch.RoundIdx = 0;
             await _context.SaveChangesAsync();
-
             return true;
+        }
+
+        /// <summary>
+        /// 进入下一轮
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("MatchNextRound/{id}")]
+        [Authorize]
+
+        public async Task<bool> MatchNextRound(int id)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// 开启本轮
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roundId"></param>
+        /// <returns></returns>
+        [HttpPost("RoundStart/{id}/{roundId}")]
+        [Authorize]
+        public async Task<ActionResult<bool>> RoundStart(int id, int roundId)
+        {
+            var plcMatch = await _context.PCLMatchs
+                .Include(s => s.PCLMatchRoundList)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (!await HasPower(plcMatch)) { return false; }
+            if (plcMatch.MatchState != MatchState.Running) { return Problem("比赛未在进行"); }    
+
+            return false;
+        }
+        /// <summary>
+        /// 确认本轮参赛成员
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roundId"></param>
+        /// <returns></returns>
+        [HttpPost("RoundConfirm/{id}/{roundId}")]
+        [Authorize]
+        public async Task<ActionResult<bool>> RoundConfirm(int id, int roundId)
+        {
+            var plcMatch = await _context.PCLMatchs
+                .Include(s => s.PCLMatchRoundList)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (plcMatch == null) return false;
+            if (!await HasPower(plcMatch)) { return false; }
+            if (plcMatch.MatchState != MatchState.Running) { return Problem("比赛未在进行"); }
+
+            return false;
+        }
+        /// <summary>
+        /// 该轮对阵清算
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roundId"></param>
+        /// <returns></returns>
+        [HttpPost("RoundCalc/{id}/{roundId}")]
+        [Authorize]
+        public async Task<ActionResult<bool>> RoundCalc(int id, int roundId)
+        {
+            var plcMatch = await _context.PCLMatchs
+                .Include(s => s.PCLMatchRoundList)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (!await HasPower(plcMatch)) { return false; }
+            if (plcMatch.MatchState != MatchState.Running) { return Problem("比赛未在进行"); }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 比赛结束
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("MatchEnd/{id}")]
+        [Authorize]
+        public async Task<bool> MatchEnd(int id)
+        {
+            return false;
         }
         #endregion
     }

@@ -84,6 +84,22 @@ namespace PokemonIsshoni.Net.Client.Services
             return res.IsSuccessStatusCode;
             //return null;
         }
+        public async Task<PCLRoundPlayer> AddPCLRound(PCLRoundPlayer pCLRoundPlayer)
+        {
+            // 限制一下数目(? 有必要的话
+            var res = await _httpClient.PostAsJsonAsync($"api/PCLRoundPlayers", pCLRoundPlayer);
+            if (!res.IsSuccessStatusCode) return null;
+            return await res.Content.ReadFromJsonAsync<PCLRoundPlayer>();
+            //return null;
+        }
+        public async Task<bool> DeRegisterPCLRound(PCLRoundPlayer pCLRoundPlayer)
+        {
+            // 限制一下数目(? 有必要的话
+            // 直接删？还是只是取消 可以再想想
+            var res = await _httpClient.DeleteAsync($"api/PCLRoundPlayers/{pCLRoundPlayer.Id}");
+            return res.IsSuccessStatusCode;
+            //return null;
+        }
         public async Task<bool> UpdatePCLMatchAsync(PCLMatch pCLMatch)
         {
             // 限制一下数目(? 有必要的话

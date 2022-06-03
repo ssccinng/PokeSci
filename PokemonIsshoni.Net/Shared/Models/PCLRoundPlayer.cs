@@ -10,6 +10,8 @@ namespace PokemonIsshoni.Net.Shared.Models
 {
     public class PCLRoundPlayer
     {
+        [NotMapped]
+        private static Random _rnd = new();
         public int Id { get; set; }
         //public ApplicationUser User { get; set; }
         [Column(TypeName = "varchar(270)")]
@@ -23,13 +25,10 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// </summary>
         public int GroupId { get; set; }
         [ConcurrencyCheck]
-
         public int Win { get; set; }
         [ConcurrencyCheck]
-
         public int Draw { get; set; }
         [ConcurrencyCheck]
-
         public int Lose { get; set; }
         [NotMapped]
         public decimal Ratio
@@ -50,7 +49,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 随机tag 备用
         /// </summary>
-        public int Tag { get; set; }
+        public int Tag { get; set; } = _rnd.Next(2048);
         /// <summary>
         /// 已经被轮空过了
         /// </summary>
@@ -61,9 +60,9 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 瑞士轮数
         /// </summary>
         [Column(TypeName = "decimal(8, 6)")]
-        public decimal OppRatio { get; set; } = 1;// 瑞士轮数 // 系统推荐
+        public decimal OppRatio { get; set; } = 0;// 瑞士轮数 // 系统推荐
         [Column(TypeName = "decimal(8, 6)")]
-        public decimal OppOppRatio { get; set; } = 1;// 瑞士轮数 // 系统推荐
+        public decimal OppOppRatio { get; set; } = 0;// 瑞士轮数 // 系统推荐
         #endregion
 
         #region 淘汰赛
@@ -76,7 +75,7 @@ namespace PokemonIsshoni.Net.Shared.Models
 
 
         // 提交队伍
-        public PCLPokeTeam BattleTeam { get; set; }
+        public PCLPokeTeam? BattleTeam { get; set; }
         public int BattleTeamId { get; set; }
     }
 }

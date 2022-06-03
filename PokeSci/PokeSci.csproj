@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PokeCommon\PokeCommon.csproj" />
     <ProjectReference Include="..\PokeOcr\PokeOcr.csproj" />
+    <ProjectReference Include="..\PokePSCore\PokePSCore.csproj" />
   </ItemGroup>
 
 </Project>
