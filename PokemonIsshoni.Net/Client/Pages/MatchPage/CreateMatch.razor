@@ -19,7 +19,7 @@
 @attribute [Authorize]
 
 <MudPaper Width="100%" Class="tw-bg-transparent tw-border-0 tw-shadow-none">
-    <MudContainer MaxWidth="MaxWidth.Small">
+    <MudContainer MaxWidth="MaxWidth.Medium">
         <MudCard>
             <MudCardContent>
                 <MudForm @bind-IsValid="success">
@@ -68,6 +68,9 @@
                         </MudItem>
                         <MudItem xs="12">
                             <MudTextField T="string" Label="比赛描述" Variant="Variant.Text" @bind-Value="@_pclMatch.Description" Lines="5" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudNumericField Label="比赛人数限制" Variant="Variant.Text" @bind-Value="@_pclMatch.LimitPlayer" Lines="5" />
                         </MudItem>
                         <MudItem xs="12">
                             <MudCheckBox @bind-Checked="_pclMatch.IsTeamCompeition" Label="是否为团体赛" T="bool" Class="tw-ml-n2"></MudCheckBox>

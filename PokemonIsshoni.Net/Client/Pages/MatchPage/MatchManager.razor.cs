@@ -185,7 +185,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             }
         }
 
-        private async void DeleteUserFromRound(PCLRoundPlayer player)
+        private async void DeleteUserFromRound(PCLMatchRound pCLMatchRound, PCLRoundPlayer player)
         {
             var dialog = Dialog.Show<ConfirmDialogCard>("删除确认", new DialogParameters { { "content", $"确认删除选手 {_matchUserDatasDic[player.UserId].ShadowId} ?" } });
             var res1 = await dialog.Result;
@@ -195,8 +195,8 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             {
                 PrintInfoBar("删除成功", "Success");
                 //player1.UserId = player;
-                //_pclMatch.DeRegisterPCLRound.Remove(player);
-                //StateHasChanged();
+                pCLMatchRound.PCLRoundPlayers.Remove(player);
+                StateHasChanged();
             }
             else
             {
@@ -215,13 +215,17 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             if (_pclMatch.MatchState != MatchState.Registering)
             {
                 PrintInfoBar("比赛已经启动！");
+                return false;
+
             }
 
             if (_pclMatch.PCLMatchPlayerList.Count < 4)
             {
                 PrintInfoBar("人太少了！再喊点人吧~");
+                return false;
+
             }
-            if (await MatchService.PCLMatcStarthAsync(Id))
+            if (await MatchService.PCLMatcStartAsync(Id))
             {
                 _pclMatch = await MatchService.GetMatchByIdAsync(Id);
                 PrintInfoBar("比赛开始！", "Success");
@@ -230,6 +234,29 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             PrintInfoBar("创建失败...");
             // 这里可以刷新页面
             return false;
+        }
+
+        private async Task<bool> RoundStart(PCLMatchRound round)
+        {
+            var dialog = Dialog.Show<ConfirmDialogCard>("开始确认", new DialogParameters { { "content", $"确认开始本轮吗？" } });
+            var res1 = await dialog.Result;
+            if (res1.Cancelled) return false;
+            if (_pclMatch.MatchState != MatchState.Running)
+            {
+                PrintInfoBar("比赛未启动！");
+                return false;
+            }
+
+            if (round.PCLRoundState != RoundState.Waiting)
+            {
+                PrintInfoBar("数据有问题说！");
+                return false;
+
+            }
+            await MatchService.PCLRoundStartAsync(Id, round.Id);
+            _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+            PrintInfoBar("开始！", "Success");
+            return true;
         }
         #endregion
         void PrintInfoBar(string message, string type = "Error")

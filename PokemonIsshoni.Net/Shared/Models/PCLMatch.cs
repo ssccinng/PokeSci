@@ -95,7 +95,7 @@ namespace PokemonIsshoni.Net.Shared.Models
 
         public bool NeedCheck { get; set; } = false;
 
-        public int LimitPlayer { get; set; } = -1;
+        public int LimitPlayer { get; set; } = 999;
         // 是否显示在主界面
     }
 }

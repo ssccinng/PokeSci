@@ -31,6 +31,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         #region 比赛类CRUD
         // GET: api/PCLMatches
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<PCLMatch>>> GetPCLMatchs()
         {
           if (_context.PCLMatchs == null)
@@ -100,13 +101,24 @@ namespace PokemonIsshoni.Net.Server.Controllers
         // PUT: api/PCLMatches/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutPCLMatch(int id, PCLMatch pCLMatch)
         {
+            // 保存时机
+            // 要有权限
             if (id != pCLMatch.Id)
             {
                 return BadRequest();
             }
-
+            var match = await _context.PCLMatchs.AsNoTracking().FirstAsync(s => s.Id == id);
+            if (match.MatchState != MatchState.Registering)
+            {
+                return Problem("比赛已经开始");
+            }
+            if (!await HasPower(match))
+            {
+                return Problem("不准动！");
+            }
             _context.Entry(pCLMatch).State = EntityState.Modified;
 
             try
@@ -193,6 +205,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
             user.UserId = b.Value;
             //if (user.UserId == )
             var pCLMatch = await _context.PCLMatchs.Include(s => s.PCLMatchPlayerList).FirstAsync(s => s.Id == user.PCLMatchId);
+            if (pCLMatch.PCLMatchPlayerList.Count >= pCLMatch.LimitPlayer)
+            {
+                return Problem("人数已满！");
+            }
             if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId || s.ShadowId == user.ShadowId))
                 //if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId))
             {
@@ -348,8 +364,21 @@ namespace PokemonIsshoni.Net.Server.Controllers
             var plcMatch = await _context.PCLMatchs
                 .Include(s => s.PCLMatchRoundList)
                 .FirstOrDefaultAsync(s => s.Id == id);
+            if (plcMatch == null) return NotFound();
             if (!await HasPower(plcMatch)) { return false; }
-            if (plcMatch.MatchState != MatchState.Running) { return Problem("比赛未在进行"); }    
+            if (plcMatch.MatchState != MatchState.Running) { return Problem("比赛未在进行"); }
+            var round = plcMatch.PCLMatchRoundList[plcMatch.RoundIdx];
+            if (round.Id != roundId)
+            {
+                return Problem("你这Id有问题啊");
+            }
+            if (round.PCLRoundState != RoundState.Waiting)
+            {
+                return Problem("该轮已经开始");
+            }
+            // 小组赛特判
+            round.PCLRoundState = RoundState.WaitConfirm;
+            await _context.SaveChangesAsync();
 
             return false;
         }

@@ -124,6 +124,12 @@ namespace PokemonIsshoni.Net.Server.Controllers
             {
                 return NotFound();
             }
+            var pclRound = await _context.PCLMatchRounds.Include(s => s.PCLRoundPlayers).FirstOrDefaultAsync(s => s.Id == id);
+
+            if (!await HasPower(pclRound))
+            {
+                return Problem("没有权限");
+            }
             var pCLRoundPlayer = await _context.PCLRoundPlayers.FindAsync(id);
             if (pCLRoundPlayer == null)
             {

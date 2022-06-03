@@ -41,7 +41,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         }
 
         public int Score { get; set; }
-        public int Rank { get; set; }
+        public int Rank { get; set; } = _rnd.Next(2048);
         /// <summary>
         /// 已弃赛
         /// </summary>
