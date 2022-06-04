@@ -22,7 +22,7 @@
 }
 else
 {
-    <MudContainer MaxWidth=MaxWidth.Large>
+    <MudContainer MaxWidth=MaxWidth.Medium>
     <MudPaper Class="tw-p-5">
         <MudText Typo=Typo.h4>@_pclMatch.Name</MudText>
         <MudLink Href=@($"MatchDetail/{Id}") Class="tw-text-sm tw-mt-3"><MudIcon Style="margin-bottom: 0.15rem" Icon=@Icons.Material.Filled.ArrowBack />返回比赛主页</MudLink>
@@ -65,22 +65,26 @@ else
                                     <MudTabs>
                                         <MudTabPanel Text="战绩表">
                                             <MudText Align="Align.Center" Typo="Typo.h4" Class="tw-mt-5 tw-font-extrabold">瑞士轮对阵情况</MudText>
-                                            <MudTable Elevation="0" Dense=true Items="pclRound.PCLRoundPlayers.OrderBy(s => s.Rank)" Class="tw-mt-5">
+                                            <MudTable Elevation="0" Dense=true Items="pclRound.PCLRoundPlayers.OrderBy(s => s.Rank)" Class="tw-mt-5 mud-bold-table">
                                                 <HeaderContent>
-                                                    <MudTh Style="width:30px"></MudTh>
-                                                    <MudTh Style="font-weight:800">排名</MudTh>
-                                                    <MudTh Style="font-weight:800">参赛ID</MudTh>
-                                                    <MudTh Style="font-weight:800">战绩</MudTh>
-                                                    <MudTh Style="font-weight:800">对手胜率</MudTh>
-                                                    <MudTh Style="font-weight:800">对手的对手胜率</MudTh>
+                                                    @*<MudTh Style="width:10px"></MudTh>*@
+                                                    <MudTh Style="font-weight:800; width:100px">排名</MudTh>
+                                                    <MudTh Style="font-weight:800; width:260px">参赛ID</MudTh>
+                                                    <MudTh Style="font-weight:800; width:100px">战绩</MudTh>
+                                                    <MudTh Style="font-weight:800; width:170px">对手胜率</MudTh>
+                                                    <MudTh Style="font-weight:800; width:170px">对手的对手胜率</MudTh>
+                                                    <MudTh></MudTh>
+
                                                 </HeaderContent>
                                                 <RowTemplate>
-                                                     <MudTd />
+                                                     @*<MudTd />*@
                                                     <MudTd DataLabel="排名">@context.Rank</MudTd>
                                                     <MudTd DataLabel="参赛ID">@_matchUserDatasDic[context.UserId].ShadowId</MudTd>
                                                     <MudTd DataLabel="战绩">@($"{context.Win}-{context.Draw}-{context.Lose}")</MudTd>
                                                     <MudTd DataLabel="对手胜率">@context.OppRatio.ToString("P2")</MudTd>
                                                     <MudTd DataLabel="对手的对手胜率">@context.OppOppRatio.ToString("P2")</MudTd>
+                                                     <MudTd />
+
 
                                             </RowTemplate>
                                     </MudTable>

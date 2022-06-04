@@ -39,10 +39,14 @@ namespace PokemonIsshoni.Net.Shared.Models
         public PCLPokeTeam Player2Team { get; set; }
         public int Player2TeamId { get; set; }
         // 比分
+        [ConcurrencyCheck]
         public int Player1Score { get; set; } = 0;
+        [ConcurrencyCheck]
         public int Player2Score { get; set; } = 0;
         // 小分
+        [ConcurrencyCheck]
         public int Player1MiniScore { get; set; } = 0;
+        [ConcurrencyCheck]
         public int Player2MiniScore { get; set; } = 0;
 
         [Column(TypeName = "nvarchar(50)")]
@@ -56,6 +60,21 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 对局Tag 用于保存有用信息 瑞士轮桌号 
         /// </summary>
         public int Tag { get; set; }
+
+        /// <summary>
+        /// BO规则
+        /// </summary>
+        public int BO { get; set; }
+
+        /// <summary>
+        /// 瑞士轮轮号
+        /// </summary>
+        public int SwissRoundIdx { get; set; } = 0;
+        /// <summary>
+        /// 分组Id
+        /// </summary>
+        public int GroupId { get; set; }
+
 
     }
 

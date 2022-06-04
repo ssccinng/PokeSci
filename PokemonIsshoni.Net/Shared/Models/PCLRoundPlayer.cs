@@ -19,9 +19,10 @@ namespace PokemonIsshoni.Net.Shared.Models
 
         //public PCLMatchRound PCLMatchRound { get; set; }
         public int PCLMatchRoundId { get; set; }
+        [NotMapped]
         public List<PCLBattle> PCLBattles { get; set; } = new List<PCLBattle>();
         /// <summary>
-        /// 小组赛模式的组号
+        /// 分组编号
         /// </summary>
         public int GroupId { get; set; }
         [ConcurrencyCheck]

@@ -12,3 +12,10 @@
 .no-border-mud-table .mud-table-cell {
     border-bottom: 0
 }
+.mud-bold-table .mud-table-cell {
+    font-weight: 400
+}
+/*
+body {
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+}*/

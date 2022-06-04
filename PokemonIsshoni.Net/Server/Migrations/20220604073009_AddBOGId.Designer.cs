@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 
@@ -10,9 +11,10 @@ using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 namespace PokemonIsshoni.Net.Server.Migrations
 {
     [DbContext(typeof(PokemonIsshoniNetServerContext))]
-    partial class PokemonIsshoniNetServerContextModelSnapshot : ModelSnapshot
+    [Migration("20220604073009_AddBOGId")]
+    partial class AddBOGId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

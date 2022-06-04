@@ -54,6 +54,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         // PUT: api/PCLBattles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutPCLBattle(int id, PCLBattle pCLBattle)
         {
             if (id != pCLBattle.Id)
@@ -85,6 +86,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         // POST: api/PCLBattles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<PCLBattle>> PostPCLBattle(PCLBattle pCLBattle)
         {
           if (_context.PCLBattles == null)
@@ -99,6 +101,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
         // DELETE: api/PCLBattles/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeletePCLBattle(int id)
         {
             if (_context.PCLBattles == null)
@@ -130,6 +133,19 @@ namespace PokemonIsshoni.Net.Server.Controllers
                 return NotFound();
             }
             return await _context.PCLBattles.Where(s => s.PCLMatchRoundId == roundId).ToListAsync();
+        }
+
+        public async Task<bool> HasPower(PCLMatch match)
+        {
+            if (match == null) return false;
+
+            var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
+            return HttpContext.User.IsInRole("Admin") || match.UserId == uid.Value;
+        }
+        public async Task<bool> HasPower(int matchId)
+        {
+            var plcMatch = await _context.PCLMatchs.FindAsync(matchId);
+            return await HasPower(plcMatch);
         }
     }
 }
