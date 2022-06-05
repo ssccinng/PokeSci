@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 
@@ -10,9 +11,10 @@ using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 namespace PokemonIsshoni.Net.Server.Migrations
 {
     [DbContext(typeof(PokemonIsshoniNetServerContext))]
-    partial class PokemonIsshoniNetServerContextModelSnapshot : ModelSnapshot
+    [Migration("20220605092614_upteamio")]
+    partial class upteamio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -972,11 +974,6 @@ namespace PokemonIsshoni.Net.Server.Migrations
                     b.Property<int>("BO")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp(6)");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
@@ -997,9 +994,11 @@ namespace PokemonIsshoni.Net.Server.Migrations
                         .HasColumnType("varchar(270)");
 
                     b.Property<int>("Player1MiniScore")
+                        .IsConcurrencyToken()
                         .HasColumnType("int");
 
                     b.Property<int>("Player1Score")
+                        .IsConcurrencyToken()
                         .HasColumnType("int");
 
                     b.Property<int>("Player1TeamId")
@@ -1009,15 +1008,18 @@ namespace PokemonIsshoni.Net.Server.Migrations
                         .HasColumnType("varchar(270)");
 
                     b.Property<int>("Player2MiniScore")
+                        .IsConcurrencyToken()
                         .HasColumnType("int");
 
                     b.Property<int>("Player2Score")
+                        .IsConcurrencyToken()
                         .HasColumnType("int");
 
                     b.Property<int>("Player2TeamId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Submitted")
+                        .IsConcurrencyToken()
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("SwissRoundIdx")
@@ -1044,15 +1046,12 @@ namespace PokemonIsshoni.Net.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("AllowGuest")
+                        .IsConcurrencyToken()
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("CanCancelSign")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime>("ConcurrencyToken")
                         .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp(6)");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -1062,6 +1061,7 @@ namespace PokemonIsshoni.Net.Server.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsTeamCompeition")
+                        .IsConcurrencyToken()
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("LimitPlayer")
@@ -1081,6 +1081,7 @@ namespace PokemonIsshoni.Net.Server.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("MatchState")
+                        .IsConcurrencyToken()
                         .HasColumnType("int");
 
                     b.Property<int>("MatchType")
@@ -1098,6 +1099,7 @@ namespace PokemonIsshoni.Net.Server.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<int>("RoundIdx")
+                        .IsConcurrencyToken()
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")

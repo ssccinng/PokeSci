@@ -31,22 +31,22 @@ namespace PokemonIsshoni.Net.Shared.Models
         public string? Player1Id { get; set; }
         [Column(TypeName = "varchar(270)")]
         public string? Player2Id { get; set; }
-
+        //[ConcurrencyCheck]
         public BattleState PCLBattleState { get; set; } = BattleState.Waiting;
 
-        public PCLPokeTeam Player1Team { get; set; }
+        public PCLPokeTeam? Player1Team { get; set; }
         public int Player1TeamId { get; set; }
-        public PCLPokeTeam Player2Team { get; set; }
+        public PCLPokeTeam? Player2Team { get; set; }
         public int Player2TeamId { get; set; }
         // 比分
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public int Player1Score { get; set; } = 0;
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public int Player2Score { get; set; } = 0;
         // 小分
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public int Player1MiniScore { get; set; } = 0;
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public int Player2MiniScore { get; set; } = 0;
 
         [Column(TypeName = "nvarchar(50)")]
@@ -54,7 +54,7 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 是否战绩已经被提交
         /// </summary>
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public bool Submitted { get; set; } = false;
         /// <summary>
         /// 对局Tag 用于保存有用信息 瑞士轮桌号 
@@ -74,7 +74,8 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 分组Id
         /// </summary>
         public int GroupId { get; set; }
-
+        [Timestamp]
+        public byte[] ConcurrencyToken { get; set; }
 
     }
 

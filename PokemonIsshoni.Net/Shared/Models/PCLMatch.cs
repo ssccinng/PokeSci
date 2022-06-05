@@ -52,20 +52,20 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 允许游客参赛
         /// </summary>
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public bool AllowGuest { get; set; } = false;
         /// <summary>
         /// 是否是团赛
         /// </summary>
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public bool IsTeamCompeition { get; set; } = false;
 
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public bool CanCancelSign { get; set; } = false;
         // 加个是否可取消报名（？
         public MatchType MatchType { get; set; } = MatchType.Double;
         public MatchOnline MatchOnline { get; set; } = MatchOnline.Online;
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public MatchState MatchState { get; set; } = MatchState.Registering;
 
         /// <summary>
@@ -90,12 +90,14 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 进行到的阶段数
         /// </summary>
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
         public int RoundIdx { get; set; } = -1;
 
         public bool NeedCheck { get; set; } = false;
 
         public int LimitPlayer { get; set; } = 999;
+        [Timestamp]
+        public byte[] ConcurrencyToken { get; set; }
         // 是否显示在主界面
     }
 }

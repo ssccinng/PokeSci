@@ -172,6 +172,19 @@ namespace PokemonIsshoni.Net.Client.Services
         }
         #endregion
 
+        #region 比赛轮api
+        public async Task<PCLMatchRound> GetRoundByIdAsync(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<PCLMatchRound>($"api/PCLMatchRounds/{id}");
+        }
+
+        public async Task<bool> UpdateBattleAsync(PCLBattle[] pCLBattles)
+        {
+            var res = await _httpClient.PutAsJsonAsync($"api/PCLBattles", pCLBattles);
+            return res.IsSuccessStatusCode;
+        }
+        #endregion
+
         #region 比赛流程控制
         public async Task<bool> PCLMatcStartAsync(PCLMatch pCLMatch)
         {

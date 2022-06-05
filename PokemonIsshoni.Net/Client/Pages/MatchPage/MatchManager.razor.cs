@@ -12,7 +12,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
     public partial class MatchManager
     {
         private PCLMatch _pclMatch;
-
+        private HashSet<PCLBattle> _battleHasChange = new HashSet<PCLBattle>();
         private async Task<IEnumerable<UserInfo>> SearchUser(string value)
         {
             // In real life use an asynchronous function for fetching data from an api.
@@ -296,6 +296,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             if (round.PCLBattles.Any(s => !s.Submitted))
             {
                 PrintInfoBar("还有未提交的对局！");
+                return false;
             }
             if (round.Swissidx == round.SwissCount)
             {
@@ -306,11 +307,71 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                 if (await MatchService.NextSwissAsync(round.Id, round.Swissidx))
                 {
                     // 其实只要更新这轮就好 理论上不需要更新全部比赛
-                    _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+                    _pclMatch.PCLMatchRoundList[_pclMatch.RoundIdx] = await MatchService.GetRoundByIdAsync(Id);
+
+                    //_pclMatch = await MatchService.GetMatchByIdAsync(Id);
 
                 }
 
             }
+            return false;
+        }
+
+        #endregion
+
+        #region 比赛结果控制
+        public bool CalcBattle(PCLBattle pCLBattle)
+        {
+            if (pCLBattle.PCLBattleState != BattleState.Waiting) { return false; }
+            int lim = pCLBattle.BO / 2 + 1;
+
+            if (pCLBattle.Player1Score < lim && pCLBattle.Player2Score < lim)
+            {
+                PrintInfoBar("对局还未完成");
+                return false;
+            }
+            if (pCLBattle.Player1Score == pCLBattle.Player2Score)
+            {
+                pCLBattle.PCLBattleState = BattleState.Draw;
+            }
+            else if (pCLBattle.Player1Score > pCLBattle.Player2Score)
+            {
+                // 玩家1赢
+                pCLBattle.PCLBattleState = BattleState.Player1Win; 
+            }
+            else if (pCLBattle.Player2Score > pCLBattle.Player1Score)
+            {
+                // 玩家2赢
+                pCLBattle.PCLBattleState = BattleState.Player2Win;
+
+            }
+            pCLBattle.Player1MiniScore = pCLBattle.Player1Score - pCLBattle.Player2Score;
+            pCLBattle.Player2MiniScore = -pCLBattle.Player1MiniScore;
+            _battleHasChange.Add(pCLBattle);
+            return true;
+        }
+        public bool CancleBattle(PCLBattle pCLBattle)
+        {
+            if (pCLBattle.Submitted) { return false; }
+            pCLBattle.Player1MiniScore = pCLBattle.Player2MiniScore = 0;
+            pCLBattle.PCLBattleState = BattleState.Waiting;
+            _battleHasChange.Add(pCLBattle);
+
+            return true;
+        }
+        public async Task<bool> SaveBattle()
+        {
+            if (_battleHasChange.Count > 0)
+            {
+                if (await MatchService.UpdateBattleAsync(_battleHasChange.ToArray()))
+                {
+                    _battleHasChange.Clear();
+                    PrintInfoBar("保存成功", "Success");
+                    return true;
+                }
+            }
+            PrintInfoBar("数据可能已经被修改过了哦");
+
             return false;
         }
 

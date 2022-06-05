@@ -82,7 +82,81 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
             return NoContent();
         }
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> PutPCLBattle(PCLBattle[] pCLBattles)
+        {
+            //if (id != pCLBattle.Id)
+            //{
+            //    return BadRequest();
+            //}
+            // 更新
+            for (int i = 0; i < pCLBattles.Length; i++)
+            {
+                _context.Entry(pCLBattles[i]).State = EntityState.Modified;
+                //_context.Entry(pCLBattles[i])
 
+            }
+            //_context.Entry(pCLBattle).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+
+                foreach (var entry in ex.Entries)
+                {
+                    if (entry.Entity is PCLBattle)
+                    {
+                        var proposedValues = entry.CurrentValues;
+                        var databaseValues = entry.GetDatabaseValues();
+                        var oValues = entry.OriginalValues;
+
+                        foreach (var property in proposedValues.Properties)
+                        {
+                            var proposedValue = proposedValues[property];
+                            var databaseValue = databaseValues[property];
+                            var oValue = oValues[property];
+                            Console.WriteLine("property = " + property);
+                            Console.WriteLine("当前值 = " + proposedValue);
+                            Console.WriteLine("数据库值 = " + databaseValue);
+                            Console.WriteLine("原始值 = " + oValue);
+                            //Console.WriteLine(databaseValue);
+                            // TODO: decide which value should be written to database
+                            // proposedValues[property] = <value to be saved>;
+                        }
+
+                        // Refresh original values to bypass next concurrency check
+                        //entry.OriginalValues.SetValues(databaseValues);
+
+                    }
+                    else
+                    {
+                        throw new NotSupportedException(
+                            "Don't know how to handle concurrency conflicts for "
+                            + entry.Metadata.Name);
+                    }
+                    //await _context.SaveChangesAsync();
+
+                }
+                for (int i = 0; i < pCLBattles.Length; i++)
+                {
+                    if (!PCLBattleExists(pCLBattles[i].Id))
+                    {
+                        return NotFound();
+                    }
+
+                }
+                return Problem("已经修改过啦");
+                //{
+                //    throw;
+                //}
+            }
+
+            return NoContent();
+        }
         // POST: api/PCLBattles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
