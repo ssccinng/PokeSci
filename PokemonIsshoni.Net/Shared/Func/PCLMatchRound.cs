@@ -127,7 +127,7 @@ namespace PokemonIsshoni.Net.Shared.Models
                             continue;
                         }
                         // 看看他们有没有打过
-                        var hadBattle = groupPlayer[i].PCLBattles.Any(s =>
+                        var hadBattle = PCLBattles.Any(s =>
                             (s.Player1Id == groupPlayer[i].UserId && s.Player2Id == groupPlayer[j].UserId) ||
                             (s.Player1Id == groupPlayer[j].UserId && s.Player2Id == groupPlayer[i].UserId)
                         //var hadBattle = groupPlayer[i].PCLBattles.Any(s =>
@@ -150,9 +150,10 @@ namespace PokemonIsshoni.Net.Shared.Models
                                     PCLMatchId = PCLMatchId,
                                     Player1TeamId = groupPlayer[i].BattleTeamId,
                                     Player2TeamId = groupPlayer[j].BattleTeamId,
-                                    SwissRoundIdx = Swissidx
+                                    SwissRoundIdx = Swissidx,
+                                    Tag = tableId++
                                 }
-                                );
+                                ) ;
                             // 成功匹配 跳出循环
                             break;
                         }
@@ -162,6 +163,8 @@ namespace PokemonIsshoni.Net.Shared.Models
                     if (!succ)
                     {
                         Console.WriteLine($"已经统计过{visit.Count(s => s)}");
+
+                        // 如果自己已经轮空过了
                         if (groupPlayer[i].HasBye || visit.Count(s => s) == groupPlayer.Count - 1)
                         {
                             // 这个count - 1 似乎是保证只剩两个人一定触发该机制 因为正在搜索的人visit已经被置true  所以-1就够
@@ -171,31 +174,72 @@ namespace PokemonIsshoni.Net.Shared.Models
                             {
                                 if (!groupPlayer[k].HasBye)
                                 {
-                                    qiangDuo = true;
-
                                     // 没有轮空过，抢他对手
                                     // 当然 依然要确定之前是否打过
+                                    var bt = newBattleList.FirstOrDefault(s => s.Player1Id == groupPlayer[k].UserId || s.Player2Id == groupPlayer[k].UserId);
+                                    if (bt == null) continue;
+                                    var oppId = bt.GetOppUserId(groupPlayer[k].UserId);
+                                      var hadBattle = PCLBattles.Any(s =>
+                                            (s.Player1Id == groupPlayer[i].UserId && s.Player2Id == oppId) ||
+                                            (s.Player1Id == oppId && s.Player2Id == groupPlayer[i].UserId)
+                                        );
+                                    if (hadBattle) {
+                                        // 打过了 抢了也没用 啊不
+                                        continue;
+                                    }
+                                    // 抢夺完毕
+                                   if (bt.Player1Id == oppId)
+                                    {
+                                        bt.Player2Id = groupPlayer[i].UserId;
+                                        bt.Player2TeamId = groupPlayer[i].BattleTeamId;
+                                    }
+                                    else
+                                    {
+                                        bt.Player1Id = groupPlayer[i].UserId;
+                                        bt.Player1TeamId = groupPlayer[i].BattleTeamId;
+                                    }
+
+                                    qiangDuo = true;
+                                    // 进入假轮空 从头开始搜， 这里其实会不会 用队列更好 或者优先队列
+                                    visit[k] = false;
+                                    i = -1;
+                                    break;
                                 }
+
+                                
+                            }
+                            if (!qiangDuo)
+                            {
+                                // 没办法 二次轮空了只能
+                                groupPlayer[i].Score += 3;
+                                groupPlayer[i].Win++;
+                                // 为什么没设置轮空
                             }
 
                         }
+                        else
+                        {
+                            groupPlayer[i].Score += 3;
+                            groupPlayer[i].Win++;
+                            groupPlayer[i].HasBye = true;
+                            // 受不了 直接轮空
+                            Console.WriteLine("没办法 只能轮空了");
+                        }
+                    }
+                    
+                }
+                // 遍历一下 确保无误
+                for (int i = 0; i < groupPlayer.Count; ++i)
+                {
+                    if (!visit[i])
+                    {
+                        // 所有没有visit过的 直接投降
+                        groupPlayer[i].Win++;
+                        groupPlayer[i].Score += 3;
+                        groupPlayer[i].HasBye = true;
                     }
                 }
             }
-
-
-
-            //if (Swissidx < SwissCount)
-            //{
-            //    for (int i = 0; i < rankTemp.Count; i++)
-            //    {
-            //        if (visit[i]) continue;
-            //        visit[i] = true;
-            //    }
-            //}
-
-            //if ()
-            //var playerList = 
             return newBattleList;
         }
     }

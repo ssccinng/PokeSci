@@ -57,7 +57,7 @@ namespace PokemonIsshoni.Net.Client.Services
         public async Task<PCLMatchPlayer> RegisterPCLMatch(PCLMatchPlayer pCLMatchPlayer, string pwd = "123")
         {
             // 限制一下数目(? 有必要的话
-            var res = await _httpClient.PostAsJsonAsync($"api/PCLMatches/RegisterUser/{pwd}", pCLMatchPlayer);
+            var res = await _httpClient.PostAsJsonAsync($"api/PCLMatches/RegisterUser/{(pwd == "" ? "123" : pwd)}", pCLMatchPlayer);
             if (!res.IsSuccessStatusCode) return null;
             return await res.Content.ReadFromJsonAsync<PCLMatchPlayer>();
             //return null;
@@ -192,6 +192,19 @@ namespace PokemonIsshoni.Net.Client.Services
         public async Task<bool> PCLRoundStartAsync(int matchId, int roundId)
         {
             var res = await _httpClient.PostAsync($"api/PCLMatches/RoundStart/{matchId}/{roundId}", null);
+
+            return res.IsSuccessStatusCode;
+        }
+        
+        public async Task<bool> PCLRoundConfirmAsync(int matchId, int roundId)
+        {
+            var res = await _httpClient.PostAsync($"api/PCLMatches/RoundConfirm/{matchId}/{roundId}", null);
+
+            return res.IsSuccessStatusCode;
+        }
+        public async Task<bool> NextSwissAsync(int roundId, int swissId)
+        {
+            var res = await _httpClient.PostAsync($"api/PCLMatches/NextSwiss/{roundId}/{swissId}", null);
 
             return res.IsSuccessStatusCode;
         }

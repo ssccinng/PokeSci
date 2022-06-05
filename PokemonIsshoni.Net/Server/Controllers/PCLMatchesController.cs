@@ -57,8 +57,12 @@ namespace PokemonIsshoni.Net.Server.Controllers
           }
             //var pCLMatch = await _context.PCLMatchs.FindAsync(id);
             var pCLMatch = await _context.PCLMatchs
+                                        .AsSplitQuery()
+
                                         .Include(s => s.PCLMatchRoundList)
                                             .ThenInclude(s => s.PCLRoundPlayers) // 这个ok 对战没有必要继续放
+                                        .Include(s => s.PCLMatchRoundList)
+                                            .ThenInclude(s => s.PCLBattles)
                                         .Include(s => s.PCLMatchRefereeList)
                                         //.Include(s=>s.User)
                                         .Include(s => s.PCLMatchPlayerList).FirstOrDefaultAsync(s => s.Id == id);
@@ -120,7 +124,11 @@ namespace PokemonIsshoni.Net.Server.Controllers
                 return Problem("不准动！");
             }
             _context.Entry(pCLMatch).State = EntityState.Modified;
+            for (int i = 0; i < pCLMatch.PCLMatchRoundList.Count; i++)
+            {
+                _context.Entry(pCLMatch.PCLMatchRoundList[i]).State = EntityState.Modified;
 
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -305,6 +313,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
             //    return false;
             //}
             var plcMatch = await _context.PCLMatchs
+
                 .Include(s => s.PCLMatchPlayerList)
                 .Include(s => s.PCLMatchRoundList).FirstOrDefaultAsync(s => s.Id == id);
             if (!await HasPower(plcMatch))
@@ -395,12 +404,83 @@ namespace PokemonIsshoni.Net.Server.Controllers
             var plcMatch = await _context.PCLMatchs
                 .Include(s => s.PCLMatchRoundList)
                 .FirstOrDefaultAsync(s => s.Id == id);
+            var round = await _context.PCLMatchRounds
+                                                    .AsSplitQuery()
+                                                    .Include(s => s.PCLRoundPlayers)
+                                                    .Include(s => s.PCLBattles)
+                                                    .FirstOrDefaultAsync(s => s.Id == roundId);
             if (plcMatch == null) return false;
             if (!await HasPower(plcMatch)) { return false; }
             if (plcMatch.MatchState != MatchState.Running) { return Problem("比赛未在进行"); }
 
+            // 生成对局
+            if (plcMatch.PCLMatchRoundList[plcMatch.RoundIdx].Id != roundId)
+            {
+                return Problem("数据有误");
+            }
+            round.PCLRoundState = RoundState.Running;
+
+            switch (round.PCLRoundType)
+            {
+                case RoundType.Swiss:
+                    if (
+                    (await NextSwiss(roundId, 0)).Value
+                        )
+                    {
+                        await _context.SaveChangesAsync();
+                        return true;
+                    }
+                    break;
+                case RoundType.Robin:
+                    break;
+                case RoundType.Elimination:
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 进入下一轮瑞士轮
+        /// </summary>
+        /// <param name="roundId"></param>
+        /// <param name="swissId"></param>
+        /// <returns></returns>
+        [HttpPost("NextSwiss/{roundId}/{swissId}")]
+        [Authorize]
+        public async Task<ActionResult<bool>> NextSwiss(int roundId, int swissId)
+        {
+            var round = await _context.PCLMatchRounds
+                                                    .AsSplitQuery()
+                                                    .Include(s => s.PCLRoundPlayers)
+                                                    .Include(s => s.PCLBattles)
+                                                    .FirstOrDefaultAsync(s => s.Id == roundId);
+            var plcMatch = await _context.PCLMatchs
+                .Include(s => s.PCLMatchRoundList)
+                .FirstOrDefaultAsync(s => s.Id == round.PCLMatchId);
+            if (plcMatch == null) return false;
+            if (!await HasPower(plcMatch)) { return false; }
+            if (plcMatch.MatchState != MatchState.Running) { return Problem("比赛未在进行"); }
+            if (swissId != round.Swissidx) return Problem("你有点问题.jpg");
+
+            var bl = round.GenNextSwissRoundBattes();
+            if (bl != null)
+            {
+                round.Swissidx++;
+                round.PCLBattles.AddRange(bl);
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            // 生成下一轮对局
+
+
             return false;
         }
+
+
+
         /// <summary>
         /// 该轮对阵清算
         /// </summary>

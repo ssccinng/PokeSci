@@ -19,9 +19,9 @@ namespace PokemonIsshoni.Net.Shared.Models
     public partial class PCLBattle
     {
         public int Id { get; set; }
-        public PCLMatchRound PCLMatchRound { get; set; }
+        //public PCLMatchRound PCLMatchRound { get; set; }
         public int PCLMatchRoundId { get; set; }
-        public PCLMatch PCLMatch { get; set; }
+        //public PCLMatch PCLMatch { get; set; }
         public int PCLMatchId { get; set; }
         //public List<PCLRoundPlayer> PCLRoundPlayers { get; set; } = new List<PCLRoundPlayer>();
 

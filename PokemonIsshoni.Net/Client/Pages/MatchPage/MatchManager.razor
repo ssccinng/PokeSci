@@ -247,25 +247,102 @@ else
                                                         UserInfo userInfo = _userDatasDic[context.UserId];
                                                         PCLMatchPlayer pCLMatchPlayer = _matchUserDatasDic[context.UserId];
 
-                    }
-                    <MudTd></MudTd>
-                    <MudTd DataLabel="昵称">@userInfo.NickName</MudTd>
-                    <MudTd DataLabel="参赛QQ">@pCLMatchPlayer.QQ</MudTd>
-                    <MudTd DataLabel="参赛ID">@pCLMatchPlayer.ShadowId</MudTd>
-                    <MudTd DataLabel="瑞士轮排名">@context.Rank</MudTd>
-                </RowTemplate>
+                                                    }
+                                                    <MudTd></MudTd>
+                                                    <MudTd DataLabel="昵称">@userInfo.NickName</MudTd>
+                                                    <MudTd DataLabel="参赛QQ">@pCLMatchPlayer.QQ</MudTd>
+                                                    <MudTd DataLabel="参赛ID">@pCLMatchPlayer.ShadowId</MudTd>
+                                                    <MudTd DataLabel="瑞士轮排名">@context.Rank</MudTd>
+                                                </RowTemplate>
             </MudTable>
                                             <MudPaper>
                                                                                 <MudGrid Justify=Justify.Center>
                                                                                     <MudItem>
-                                                                                        <MudButton Color=Color.Secondary Variant=Variant.Filled OnClick=@(() => RoundStart(pclRound))>生成对局!</MudButton>
+                                                                                        <MudButton Color=Color.Secondary Variant=Variant.Filled OnClick=@(() => RoundConfirm(pclRound))>生成对局!</MudButton>
 
                                                                                     </MudItem>
                                                                                 </MudGrid>
-                                                                            </MudPaper>
+                                            </MudPaper>
                                         }
                                         break;
                                     case RoundState.Running:
+                                        for (int swidx = 0; swidx < pclRound.Swissidx; ++swidx)
+                                        {
+                                            int sswidx = swidx;
+                                            var blist = pclRound.PCLBattles.OrderBy(s => s.Tag);
+                                            <MudTabs Elevation="0">
+                                                <MudTabPanel Text=@($"{sswidx}")>
+
+                                                    <MudTable Items="blist.Where(s => s.SwissRoundIdx == sswidx)" Striped=true>
+                                                       <ToolBarContent>
+                                                            <MudText Typo="Typo.h6">瑞士轮对局</MudText>
+                                                        </ToolBarContent>
+                                                        <HeaderContent>
+                                                            <MudTh Style="width:30px"></MudTh>
+                                                        @if (pclRound.IsGroup)
+                                                        {
+                                                            <MudTh Style="font-weight:800; width: 70px">组号</MudTh>
+                                                        }
+                                                            <MudTh Style="font-weight:800; width: 70px">桌号</MudTh>
+                                                            <MudTh Style="width: 150px; font-weight:800">选手1</MudTh>
+                                                            <MudTh Style="width: 150px; font-weight:800">选手2</MudTh>
+                                                            <MudTh Style="font-weight:800;">BO</MudTh>
+                                                            <MudTh Style="font-weight:800;">选手1分数</MudTh>
+                                                            <MudTh Style="font-weight:800;">选手2分数</MudTh>
+                                                            <MudTh Style="width: 110px;font-weight:800">状态</MudTh>
+                                                            <MudTh Style="font-weight:800;">结算</MudTh>
+                                                            <MudTh Style="font-weight:800;">约和</MudTh>
+                                                            <MudTh Style="font-weight:800;">双败</MudTh>
+                                                            <MudTh Style="font-weight:800;">提交对局</MudTh>
+                                                        </HeaderContent>
+                                                        <RowTemplate>
+                                                            @{
+                                                                UserInfo userInfo = _userDatasDic[context.Player1Id];
+                                                                PCLMatchPlayer pCLMatchPlayer1 = _matchUserDatasDic[context.Player1Id];
+                                                                PCLMatchPlayer pCLMatchPlayer2 = _matchUserDatasDic[context.Player2Id];
+
+                                                            }
+                                                            <MudTd></MudTd>
+                                                            @if (pclRound.IsGroup)
+                                                            {
+                                                                <MudTd DataLabel="组号">@context.GroupId</MudTd>
+                                                            }
+                                                            <MudTd DataLabel="桌号">@context.Tag</MudTd>
+                                                            <MudTd DataLabel="选手1">@($"{pCLMatchPlayer1.ShadowId}")</MudTd>
+                                                            <MudTd DataLabel="选手2">@($"{pCLMatchPlayer2.ShadowId}")</MudTd>
+                                                            <MudTd DataLabel="BO">@context.BO</MudTd>
+                                                            <MudTd DataLabel="选手1分数">
+                                                                <MudNumericField Class="tw--mt-5" @bind-Value=context.Player1Score IconSize="Size.Small" Min=0 Max=context.BO />
+                                                            </MudTd>
+                                                            <MudTd DataLabel="选手2分数">
+                                                                <MudNumericField Class="tw--mt-5" @bind-Value=context.Player2Score IconSize="Size.Small" Min=0 Max=context.BO/>
+                                                            </MudTd>
+                                                            <MudTd DataLabel="状态">@context.PCLBattleState</MudTd>
+                                                            <MudTd DataLabel="结算">
+                                                                <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Primary" Style="height: 23px; font-size:small">结算</MudButton>
+                                                            </MudTd>
+                                                             <MudTd DataLabel="约和">
+                                                                <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info" Style="height: 23px; font-size:small">约和</MudButton>
+                                                            </MudTd>
+                                                             <MudTd DataLabel="双败">
+                                                                <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info" Style="height: 23px; font-size:small">双败</MudButton>
+                                                            </MudTd>
+                                                             <MudTd DataLabel="双败">
+                                                                <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Dark" Style="height: 23px; font-size:small">提交</MudButton>
+                                                            </MudTd>
+                                                        </RowTemplate>
+                                                    </MudTable>
+                                                </MudTabPanel>
+                                            </MudTabs>
+                                        }
+                                        <MudStack  Row="true" Justify="Justify.Center" Class="tw-bg-white tw-p-3">
+                                                    <MudButton Color=Color.Secondary Variant=Variant.Filled Class="tw-pa-3" FullWidth=false OnClick=@(() => RoundStart(pclRound))>开始下一轮瑞士轮</MudButton>
+                                            </MudStack>
+                                      @*   <MudPaper Class="tw-bg-white tw-pt-5 tw-pb-5" >
+                                            <MudStack  Row="true">
+                                                    <MudButton Color=Color.Secondary Variant=Variant.Filled Class="tw-pa-3" Style="width: 300px" OnClick=@(() => RoundStart(pclRound))>开始下一轮瑞士轮</MudButton>
+                                            </MudStack>
+                                        </MudPaper>*@
                                         break;
                                     case RoundState.TopConfirm:
                                         break;
@@ -275,7 +352,7 @@ else
                                         break;
                                 }
 
-                                <MudTable Items="pclRound.PCLRoundPlayers" RowClass="odd:tw-bg-gray-100">
+                                <MudTable Items="pclRound.PCLRoundPlayers" RowClass="tw-mt-5 odd:tw-bg-gray-100">
                                     <ToolBarContent>
                                         <MudText Typo="Typo.h6">参加此轮的选手</MudText>
                                         <MudSpacer />
@@ -336,7 +413,15 @@ else
                                    OnClick=@(() => { Dialog.Show<TeamDialogCard>("队伍编辑", new DialogParameters { { "PCLPokeTeam", context.BattleTeam } }, new MudBlazor.DialogOptions() { MaxWidth = MaxWidth.Large, FullWidth = true });})>编辑队伍</MudButton>
                     </MudTd>
                     <MudTd DataLabel="管理">
+                        @if (pclRound.PCLRoundState == RoundState.Waiting)
+                                            {
                         <MudIconButton Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick=@(() => DeleteUserFromRound(pclRound, context))>查看队伍</MudIconButton>
+                                            
+                                            }
+                                            else {
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Close" Color="Color.Error" OnClick=@(() => DeleteUserFromRound(pclRound, context))>Dorp</MudButton>
+
+                                            }
                     </MudTd>
                 </RowTemplate>
                 <PagerContent>

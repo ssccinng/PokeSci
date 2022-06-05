@@ -258,6 +258,62 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             PrintInfoBar("开始！", "Success");
             return true;
         }
+
+        private async Task<bool> RoundConfirm(PCLMatchRound round)
+        {
+            var dialog = Dialog.Show<ConfirmDialogCard>("开始确认", new DialogParameters { { "content", $"确认生成对局吗？" } });
+            var res1 = await dialog.Result;
+            if (res1.Cancelled) return false;
+            if (_pclMatch.MatchState != MatchState.Running)
+            {
+                PrintInfoBar("比赛未启动！");
+                return false;
+            }
+
+            if (round.PCLRoundState != RoundState.WaitConfirm)
+            {
+                PrintInfoBar("数据有问题说！");
+                return false;
+
+            }
+            if (await MatchService.PCLRoundConfirmAsync(Id, round.Id))
+            {
+                _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+                PrintInfoBar("开始！", "Success");
+                return true;
+
+
+            }
+            PrintInfoBar("开始失败！");
+
+
+            return true;
+        }
+        // 最好再给个计算swiss胜率的
+        private async Task<bool> NextSwiss(PCLMatchRound round)
+        {
+            if (round.PCLRoundState != RoundState.Running) return false;
+            if (round.PCLBattles.Any(s => !s.Submitted))
+            {
+                PrintInfoBar("还有未提交的对局！");
+            }
+            if (round.Swissidx == round.SwissCount)
+            {
+
+            }
+            else
+            {
+                if (await MatchService.NextSwissAsync(round.Id, round.Swissidx))
+                {
+                    // 其实只要更新这轮就好 理论上不需要更新全部比赛
+                    _pclMatch = await MatchService.GetMatchByIdAsync(Id);
+
+                }
+
+            }
+            return false;
+        }
+
         #endregion
         void PrintInfoBar(string message, string type = "Error")
         {
