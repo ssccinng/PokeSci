@@ -57,6 +57,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [Authorize]
         public async Task<IActionResult> PutPCLBattle(int id, PCLBattle pCLBattle)
         {
+            // 这个更新 问题很大
             if (id != pCLBattle.Id)
             {
                 return BadRequest();
@@ -82,6 +83,25 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
             return NoContent();
         }
+
+        public async Task<IActionResult> UpdatePCLBattles(PCLBattle[] pCLBattles)
+        {
+            if (pCLBattles.Length > 0)
+            {
+                var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattles[0].Id);
+                if (!await HasPower(pclMatch))
+                {
+                    return Problem("达美");
+                }
+            }
+            else
+            {
+                return Problem("达美");
+
+            }
+            return NoContent();
+        }
+
         [HttpPut]
         [Authorize]
         public async Task<IActionResult> PutPCLBattle(PCLBattle[] pCLBattles)
@@ -90,6 +110,19 @@ namespace PokemonIsshoni.Net.Server.Controllers
             //{
             //    return BadRequest();
             //}
+            if (pCLBattles.Length > 0)
+            {
+                var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattles[0].Id);
+                if (!await HasPower(pclMatch))
+                {
+                    return Problem("达美");
+                }
+            }
+            else
+            {
+                return Problem("达美");
+
+            }
             // 更新
             for (int i = 0; i < pCLBattles.Length; i++)
             {
@@ -207,6 +240,15 @@ namespace PokemonIsshoni.Net.Server.Controllers
                 return NotFound();
             }
             return await _context.PCLBattles.Where(s => s.PCLMatchRoundId == roundId).ToListAsync();
+        }
+        [HttpPost("SubmitBattle")]
+        [Authorize]
+        public async Task<ActionResult<PCLRoundPlayer>> SubmitBattle(PCLBattle pCLBattle)
+        {
+            var pclMatch = await _context.PCLBattles.FindAsync(pCLBattle.PCLMatchId);
+            var pclRonud = await _context.PCLMatchRounds.FindAsync(pCLBattle.PCLMatchRoundId);
+
+            return null;
         }
 
         public async Task<bool> HasPower(PCLMatch match)
