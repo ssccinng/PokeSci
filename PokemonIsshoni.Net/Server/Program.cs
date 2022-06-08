@@ -81,6 +81,7 @@ builder.Services.AddServerSideBlazor().AddHubOptions(o =>
 {
     o.MaximumReceiveMessageSize = 10 * 1024 * 1024;
 });
+//builder.WebHost.UseUrls("https://*:443");
 
 
 var app = builder.Build();
@@ -121,7 +122,9 @@ app.UseIdentityServer();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
+app.UseCors(policy =>
+                policy.AllowAnyOrigin()
+                .AllowAnyMethod());
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");

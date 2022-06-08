@@ -18,8 +18,8 @@ await Task.Delay(500);
 await pc.LoginAsync();
 while (true)
 {
-    await Task.Delay(1000);
-    //await pc.GetRoomListAsync();
+    await Task.Delay(5000);
+    await pc.GetRoomListAsync("gen8vgc2022", 1500);
 }
 return;
 
