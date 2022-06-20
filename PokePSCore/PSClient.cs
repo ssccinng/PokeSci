@@ -28,6 +28,7 @@ namespace PokePSCore
 
         private HttpClient _client = new();
         private ClientWebSocket _webSocket = new();
+        private bool _disposed = false;
         private string _psServer =
                     //$"wss://sim.smogon.com/showdown/websocket";
                     $"ws://sim.smogon.com:8000/showdown/websocket";
@@ -53,7 +54,7 @@ namespace PokePSCore
         private async void RecvMessage()
         {
 
-            while (true)
+            while (!_disposed)
             {
                 var rcvBytes = new byte[25000];
                 var rcvBuffer = new ArraySegment<byte>(rcvBytes);
@@ -102,6 +103,7 @@ namespace PokePSCore
             });
             var dd = (await res.Content.ReadAsStringAsync())[1..];
             JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
+            if (!data.GetProperty("curuser").GetProperty("loggedin").GetBoolean()) return false;
             await SendAsync("", $"/trn {userName},0,{data.GetProperty("assertion").GetString()}");
             //await SendMessage("", "/avatar 159");
             await SetAvatarAsync("lillie");
@@ -159,6 +161,11 @@ namespace PokePSCore
             {
                 // 为对战数据
             }
+        }
+        public void DisconnectAsync()
+        {
+            _disposed = true;
+            _webSocket.Dispose();   
         }
 
         private async Task WriteLogAsync(string msg, MsgType type)

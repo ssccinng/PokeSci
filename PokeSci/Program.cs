@@ -12,10 +12,11 @@ using PokeCommon.BattleEngine;
 using System.Diagnostics;
 using PokePSCore;
 
-var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
+var pc = new PSClient("scixing", "11998whs1").LogTo(Console.WriteLine);
 await pc.ConnectAsync();
 await Task.Delay(500);
-await pc.LoginAsync();
+Console.WriteLine(await pc.LoginAsync());
+;
 while (true)
 {
     await Task.Delay(5000);
