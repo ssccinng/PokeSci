@@ -12,15 +12,17 @@ using PokeCommon.BattleEngine;
 using System.Diagnostics;
 using PokePSCore;
 
-var pc = new PSClient("scixing", "11998whs1").LogTo(Console.WriteLine);
+var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
 await pc.ConnectAsync();
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
 ;
+int id = 200;
 while (true)
 {
     await Task.Delay(5000);
     await pc.GetRoomListAsync("gen8vgc2022", 1500);
+    await pc.SetAvatarAsync(id++.ToString());
 }
 return;
 

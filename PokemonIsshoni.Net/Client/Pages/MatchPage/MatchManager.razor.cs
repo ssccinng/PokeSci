@@ -359,6 +359,23 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 
             return true;
         }
+
+        public async Task<bool> SubmitBattle(PCLBattle pCLBattle)
+        {
+            if (pCLBattle.PCLBattleState == BattleState.Waiting) { return false; }
+            if (pCLBattle.Submitted) { return false; }
+            if (await MatchService.SubmitBattleAsync(pCLBattle))
+            {
+                PrintInfoBar("提交成功", "Success");
+                pCLBattle.Submitted = true;
+
+                return true;
+            }
+
+            PrintInfoBar("提交失败");
+
+            return false;
+        }
         public async Task<bool> SaveBattle()
         {
             if (_battleHasChange.Count > 0)

@@ -183,6 +183,11 @@ namespace PokemonIsshoni.Net.Client.Services
             var res = await _httpClient.PutAsJsonAsync($"api/PCLBattles", pCLBattles);
             return res.IsSuccessStatusCode;
         }
+        public async Task<bool> SubmitBattleAsync(PCLBattle pCLBattle)
+        {
+            var res = await _httpClient.PostAsJsonAsync($"api/PCLMatches/SubmitBattlePCLBattle", pCLBattle);
+            return res.IsSuccessStatusCode;
+        }
         #endregion
 
         #region 比赛流程控制

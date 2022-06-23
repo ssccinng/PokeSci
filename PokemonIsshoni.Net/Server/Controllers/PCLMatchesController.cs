@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -491,6 +492,8 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [Authorize]
         public async Task<ActionResult<bool>> RoundCalc(int id, int roundId)
         {
+            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var plcMatch = await _context.PCLMatchs
                 .Include(s => s.PCLMatchRoundList)
                 .FirstOrDefaultAsync(s => s.Id == id);

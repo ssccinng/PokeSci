@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.Net.Client",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.Net.Shared", "PokemonIsshoni.Net\Shared\PokemonIsshoni.Net.Shared.csproj", "{4FC621CE-48B1-4427-9181-45166699F357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokePSCore", "PokePSCore\PokePSCore.csproj", "{A222D747-28E9-445F-9479-E5510BEBC0F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokePSCore", "PokePSCore\PokePSCore.csproj", "{A222D747-28E9-445F-9479-E5510BEBC0F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeCodeGenerator", "PokeCodeGenerator\PokeCodeGenerator.csproj", "{94388F99-F807-4336-B3B9-66856FB44690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -265,6 +267,22 @@ Global
 		{A222D747-28E9-445F-9479-E5510BEBC0F8}.Release|x64.Build.0 = Release|Any CPU
 		{A222D747-28E9-445F-9479-E5510BEBC0F8}.Release|x86.ActiveCfg = Release|Any CPU
 		{A222D747-28E9-445F-9479-E5510BEBC0F8}.Release|x86.Build.0 = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|arm64.Build.0 = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|x64.Build.0 = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Debug|x86.Build.0 = Debug|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|arm64.ActiveCfg = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|arm64.Build.0 = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|x64.ActiveCfg = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|x64.Build.0 = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|x86.ActiveCfg = Release|Any CPU
+		{94388F99-F807-4336-B3B9-66856FB44690}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
