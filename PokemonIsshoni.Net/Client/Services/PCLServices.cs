@@ -185,7 +185,7 @@ namespace PokemonIsshoni.Net.Client.Services
         }
         public async Task<bool> SubmitBattleAsync(PCLBattle pCLBattle)
         {
-            var res = await _httpClient.PostAsJsonAsync($"api/PCLMatches/SubmitBattlePCLBattle", pCLBattle);
+            var res = await _httpClient.PostAsJsonAsync($"api/PCLBattles/SubmitBattle", pCLBattle);
             return res.IsSuccessStatusCode;
         }
         #endregion

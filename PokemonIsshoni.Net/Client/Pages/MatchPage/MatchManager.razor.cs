@@ -307,7 +307,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                 if (await MatchService.NextSwissAsync(round.Id, round.Swissidx))
                 {
                     // 其实只要更新这轮就好 理论上不需要更新全部比赛
-                    _pclMatch.PCLMatchRoundList[_pclMatch.RoundIdx] = await MatchService.GetRoundByIdAsync(Id);
+                    _pclMatch.PCLMatchRoundList[_pclMatch.RoundIdx] = await MatchService.GetRoundByIdAsync(round.Id);
 
                     //_pclMatch = await MatchService.GetMatchByIdAsync(Id);
 

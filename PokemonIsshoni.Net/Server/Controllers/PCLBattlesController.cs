@@ -303,6 +303,8 @@ namespace PokemonIsshoni.Net.Server.Controllers
             }
             try
             {
+                _context.Entry(pCLBattle).State = EntityState.Modified;
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException ex)
