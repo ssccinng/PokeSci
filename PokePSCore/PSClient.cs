@@ -19,6 +19,7 @@ namespace PokePSCore
 
         private Action<string> WriteLog;
         private Action UpdateUser;
+        private Action Challenge;
         private string _challId;
         private string _chall;
         // 设计事件
@@ -152,6 +153,15 @@ namespace PokePSCore
                         default:
                             break;
                     }
+                    break;
+                case "updatechallenges":
+                    if (data[2].Split("\"")[3] != "challengeTo")
+                    {
+                        
+                    }
+                    break;
+                case "pm":
+                    
                     break;
                 default:
                     break;

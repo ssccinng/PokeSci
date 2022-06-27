@@ -22,7 +22,7 @@ while (true)
 {
     await Task.Delay(5000);
     await pc.GetRoomListAsync("gen8vgc2022", 1500);
-    await pc.SetAvatarAsync(id++.ToString());
+    // await pc.SetAvatarAsync(id++.ToString());
 }
 return;
 

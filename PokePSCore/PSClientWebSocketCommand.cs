@@ -67,7 +67,7 @@ namespace PokePSCore
         /// 换人
         /// </summary>
         /// <param name="battleTag"></param>
-        /// <param name="move"></param>
+        /// <param name="pokemon"></param>
         /// <param name="turn"></param>
         /// <returns></returns>
         public async Task SendSwitchAsync(string battleTag, int pokemon, int turn)
@@ -88,7 +88,7 @@ namespace PokePSCore
         /// </summary>
         /// <param name="battleTag"></param>
         /// <returns></returns>
-        public async Task SendjoinAsync(string battleTag)
+        public async Task SendJoinAsync(string battleTag)
         {
             await SendAsync("", $"/join {battleTag}");
         }
