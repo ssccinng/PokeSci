@@ -17,10 +17,20 @@ await pc.ConnectAsync();
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
 ;
+pc.ChallengeAction += async (player, rule) =>
+{
+    if (rule == "gen8randombattle")
+    {
+        await pc.ChatWithIdAsync(player, "随机战斗，玩了");
+        await pc.ChatWithIdAsync(player, "就决定是你了");
+        await pc.ChangeYourTeamAsync("null");
+        await pc.AcceptChallengeAsync(player);
+    }
+};
 int id = 200;
 while (true)
 {
-    await Task.Delay(5000);
+    await Task.Delay(10000000);
     await pc.GetRoomListAsync("gen8vgc2022", 1500);
     // await pc.SetAvatarAsync(id++.ToString());
 }
