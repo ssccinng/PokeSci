@@ -10,4 +10,8 @@
     <Version>1.0.0-beta</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PokeCommon\PokeCommon.csproj" />
+  </ItemGroup>
+
 </Project>

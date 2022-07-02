@@ -9,6 +9,7 @@ namespace PokeCommon.Utils
 {
     public static class PokemonToolsWithoutDB
     {
+        // TODO: 整一个本地数据源
         // 整一个本地数据源
         private static Dictionary<int, Ability> _abilities { get; set; } = new();
         private static Dictionary<string, int> _abilityNameId { get; set; } = new();

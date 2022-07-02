@@ -78,7 +78,7 @@ namespace PokeCommon.Models
         /// </summary>
         public SixDimension Stats { get; private set; }
 
-
+        public Gender Gender { get; set; } = Gender.Random;
         public void UpdateStats()
         {
             Stats = new SixDimension(0)

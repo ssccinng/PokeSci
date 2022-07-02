@@ -12,18 +12,93 @@ using PokeCommon.BattleEngine;
 using System.Diagnostics;
 using PokePSCore;
 
+
+// PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
+// var data = await PokemonHomeTools.GetRankMatchAsync();
+// var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], -1);
+// int aaa = 1;
+// return;
+
+var team1 = await PSConverter.ConvertToPokemonsAsync(@"鳄子 (Feraligatr) @ Life Orb
+Ability: Sheer Force
+Shiny: Yes
+EVs: 30 HP / 204 Atk / 80 Def / 86 SpD / 108 Spe
+Impish Nature
+- Crunch
+- Dragon Dance
+- Ice Punch
+- Waterfall
+
+痞子 (Scrafty) @ Assault Vest
+Ability: Moxie
+Shiny: Yes
+EVs: 8 HP / 210 Atk / 100 Def / 90 SpD / 100 Spe
+Jolly Nature
+IVs: 0 SpA
+- Fake Out
+- Drain Punch
+- Crunch
+- Poison Jab
+
+吓死你 (Krookodile) @ Choice Scarf
+Ability: Moxie
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+IVs: 0 SpA
+- Earthquake
+- Crunch
+- Dragon Tail
+- Facade
+
+幕后黑手 (Tyranitar-Mega) @ Tyranitarite
+Ability: Sand Stream
+Shiny: Yes
+EVs: 144 Atk / 120 Def / 120 SpD / 124 Spe
+Adamant Nature
+IVs: 0 SpA
+- Dragon Dance
+- Rock Slide
+- Crunch
+- Ice Punch
+
+鼹鼠老大（ (Excadrill) @ Choice Band
+Ability: Sand Rush
+Shiny: Yes
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Iron Head
+- Earthquake
+- Brick Break
+- Rock Slide
+
+万金油 (Landorus-Therian) @ Rocky Helmet
+Ability: Intimidate
+Shiny: Yes
+EVs: 8 HP / 120 Atk / 140 Def / 60 SpD / 180 Spe
+Impish Nature
+- Defog
+- Stealth Rock
+- Earthquake
+- U-turn");
+
+
 var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
 await pc.ConnectAsync();
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
 ;
+
+
+
 pc.ChallengeAction += async (player, rule) =>
 {
-    if (rule == "gen8randombattle")
+    // if (rule == "gen8randombattle")
+    if (rule == "gen7vgc2019")
     {
         await pc.ChatWithIdAsync(player, "随机战斗，玩了");
         await pc.ChatWithIdAsync(player, "就决定是你了");
-        await pc.ChangeYourTeamAsync("null");
+        // await pc.ChangeYourTeamAsync("null");
+        await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
         await pc.AcceptChallengeAsync(player);
     }
 };
@@ -38,11 +113,11 @@ return;
 
 //SWSHBattleEngine engine = BattleEngine.CreateBattleEngine(BattleVersion.SWSH) as SWSHBattleEngine;
 //engine.CreateBattle();
-PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
-var data =  await PokemonHomeTools.GetRankMatchAsync();
-var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], 1);
-int aaa = 1;
-return;
+//PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
+//var data =  await PokemonHomeTools.GetRankMatchAsync();
+//var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], 1);
+//int aaa = 1;
+//return;
 
 //var a1 = OCRTools.SplitSWSHTeamPage("test10.jpg");
 //List<string> res = new List<string>();
@@ -251,6 +326,8 @@ foreach (var item in team.GamePokemons)
     }
 
 }
+
+Console.WriteLine(PSConverter.ConvertToPsOneLineAsync(team));
 //OCRTools.SplitSWSHTeamPage();
 
 //BattleEngine.CreateBattleEngine(BattleVersion.DPPt);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Text.RegularExpressions;
+using Microsoft.VisualBasic;
 using PokeCommon.Utils;
 using PokeCommon.Interface;
 
@@ -13,6 +14,11 @@ namespace PokeCommon.PokemonShowdownTools
 {
     public class PSConverter: IPSConverter
     {
+        private static Regex reg = new("[ -]");
+        static string GetLowerLetter(string val)
+        {
+            return reg.Replace(val, "").ToLower();
+        }
         public static async ValueTask<string> ConvertToPsAsync(GamePokemon gamePokemon)
         {
             StringBuilder sb = new();
@@ -245,6 +251,104 @@ namespace PokeCommon.PokemonShowdownTools
             return gamePokeTeam;
         }
 
+        public static async ValueTask<string> ConvertToPsOneLineAsync(GamePokemonTeam gamePokemonTeam)
+        {
+            List<string> psoneline = new();
+            Console.WriteLine( gamePokemonTeam.GamePokemons.Count);
+            for (int i = 0; i < gamePokemonTeam.GamePokemons.Count; i++)
+            {
+                //Console.WriteLine(1);
+                psoneline.Add( await ConvertToPsOneLineAsync(gamePokemonTeam.GamePokemons[i]));
+                //Console.WriteLine($"({psoneline[i]})");
+            }
+
+            return string.Join("]", psoneline);
+        }
+        public static async ValueTask<string> ConvertToPsOneLineAsync(GamePokemon gamePokemon)
+        {
+            
+            if (gamePokemon == null || gamePokemon.MetaPokemon == null)
+            {
+                return "";
+            }
+            // 0：昵称
+            // 1：实际宝 如果没有昵称 这里是空的
+            // 2：道具
+            // 3: 特性
+            // 4: 招式，中间用逗号隔开
+            // 5：性格，有大写
+            // 6：努力值，中间用逗号隔开 全0则为空
+            // 7：性别
+            // 8：个体值，中间用逗号隔开 全31则为空
+            // 9：是否闪光
+            // 10：登记
+            string oneLineFormat = "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}]";
+
+            string[] data = new string[12];
+            for (int i = 0; i < 12; i++)
+            {
+                data[i] = "";
+            }
+            
+             StringBuilder sb = new();
+             if (gamePokemon.NickName != null)
+             {
+                 data[0] = gamePokemon.NickName;
+                 data[1] = GetLowerLetter((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
+             }
+
+             if (gamePokemon.Item != null)
+             {
+                 data[2] = GetLowerLetter(gamePokemon.Item.Name_Eng);
+             }
+
+             if (gamePokemon.Ability != null)
+             {
+                 data[3] = GetLowerLetter(gamePokemon.Ability.Name_Eng);
+             }
+
+             if (gamePokemon.Moves.Count > 0)
+             {
+                 data[4] = string.Join(',', gamePokemon.Moves.Select(s => GetLowerLetter(s.NameEng)));
+             }
+
+             if (gamePokemon.Nature != null)
+             {
+                 data[5] = gamePokemon.Nature.Name_Eng;
+             }
+
+             if (gamePokemon.EVs.Sum > 0)
+             {
+                 data[6] = string.Join(',', gamePokemon.EVs.ToSixArray().Select(s => s > 0 ? s.ToString() : ""));
+             }
+
+             
+             data[7] = gamePokemon.Gender switch
+             {
+                Gender.Female => "F",
+                Gender.Male => "M",
+                _ => "",
+             };
+             
+             if (gamePokemon.IVs.Sum < 186)
+             {
+                 data[8] = string.Join(',', gamePokemon.IVs.ToSixArray().Select(s => s < 31 ? s.ToString() : ""));
+             }
+             if (gamePokemon.Shiny)
+             {
+                 data[9] = "S";
+             }
+             if (gamePokemon.LV != 50)
+            {
+                data[10] = gamePokemon.LV.ToString();
+
+            }
+            // if (gamePokemon.)
+            // 思考昵称加在哪里
+            // 这里要获取PS名字
+            return string.Join("|", data);
+        }
+
         private static (string Name, string NickName, string Item) GetNameAndItem(string data)
         {
             var NI = Regex.Split(data.Trim(), @"\s+@\s+"); // 昵称
@@ -278,5 +382,7 @@ namespace PokeCommon.PokemonShowdownTools
 
             return (name, nickname, item);
         }
+        
+        
     }
 }
