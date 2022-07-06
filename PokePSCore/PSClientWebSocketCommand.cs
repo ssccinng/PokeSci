@@ -15,7 +15,7 @@ namespace PokePSCore
         /// <param name="room">这个只是名字？</param>
         /// <param name="messages"></param>
         /// <returns></returns>
-        private async Task SendAsync(string room, params string[] messages)
+        public async Task SendAsync(string room, params string[] messages)
         {
             string data = $"{room}|{string.Join('|', messages)}";
             await WriteLogAsync(data, MsgType.Send);
@@ -76,14 +76,15 @@ namespace PokePSCore
             // await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
             await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
         }
-        public async Task SendMoveAsync(string battleTag, int turn, params MoveChooseData[] move)
+        public async Task SendMoveAsync(string battleTag, int turn, params ChooseData[] move)
         {
             // dynamax 加入dymax
             Console.WriteLine("准备发招");
             // await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
-            await SendAsync(battleTag, 
-                $"/choose move {string.Join(',', move.Select(s =>{List<string> list = new List<string> {s.MoveId.ToString()};if (s.Target != -1) list.Add(s.Target.ToString());if (s.Dmax) list.Add("dynamax");return string.Join(' ', list);}))}", 
-                turn.ToString());
+            await SendAsync(battleTag, "/choose " + string.Join(',', move.Select(s => s.ToString())), turn.ToString());
+                // await SendAsync(battleTag, 
+                // $"/choose move {string.Join(',', move.Select(s =>{List<string> list = new List<string> {s.MoveId.ToString()};if (s.Target != -1) list.Add(s.Target.ToString());if (s.Dmax) list.Add("dynamax");return string.Join(' ', list);}))}", 
+                // turn.ToString());
         }
         /// <summary>
         /// 换人

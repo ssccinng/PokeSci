@@ -80,8 +80,7 @@ IVs: 0 Atk / 0 Spe
 - Pollen Puff  
 - Rage Powder  
 - Spore  
-- Protect  
-");
+- Protect");
 
 
 var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);

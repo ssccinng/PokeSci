@@ -296,6 +296,10 @@ namespace PokeCommon.PokemonShowdownTools
                  data[0] = gamePokemon.NickName;
                  data[1] = GetLowerLetter((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
              }
+             else
+             {
+                 data[0] = GetLowerLetter((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
+             }
 
              if (gamePokemon.Item != null)
              {

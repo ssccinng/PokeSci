@@ -40,6 +40,11 @@ namespace PokePSCore
         /// </summary>
         public Action<string, string> ChatAction;
         public Action<string, string> RequestsAction;
+        
+        
+        public Action<PsBattle> OnTeampreview;
+        public Action<PsBattle, bool[]> OnForceSwitch;
+        public Action<PsBattle> OnChooseMove;
         /// <summary>
         /// 参数为对战和是否赢了
         /// </summary>
@@ -97,8 +102,8 @@ namespace PokePSCore
 
                 byte[] msgBytes = rcvBuffer.ToArray();
                 var res = Encoding.UTF8.GetString(msgBytes, 0, rcvResult.Count);
-                await ExcuteMessageAsync(res);
                 await WriteLogAsync(res, MsgType.Receive);
+                await ExcuteMessageAsync(res);
 
                 //.Split('|');
             }
@@ -133,6 +138,7 @@ namespace PokePSCore
                 pass = password,
                 challstr = $"{challId}%7C{chall}"
             });
+            Console.WriteLine(res.IsSuccessStatusCode);
             var dd = (await res.Content.ReadAsStringAsync())[1..];
             JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
             if (!data.GetProperty("curuser").GetProperty("loggedin").GetBoolean()) return false;
@@ -151,7 +157,7 @@ namespace PokePSCore
             string[] battleData = msg.Split('\n');
             string tag = battleData[0].Split('|')[0][1..];
             Console.WriteLine($"tag: {tag}");
-            var battle = Battles.GetValueOrDefault(tag) ?? new PsBattle(tag);
+            var battle = Battles.GetValueOrDefault(tag) ?? new PsBattle(this, tag);
             
             for (int i = 1; i < battleData.Length; i++)
             {
@@ -175,7 +181,7 @@ namespace PokePSCore
                             }
                             else
                             {
-                                battle.Turn++;
+                                // battle.Turn++;
                                 battle.Player2 = UserName;
                             }
                         }
@@ -194,7 +200,7 @@ namespace PokePSCore
                     case "request":
                         if (other[0] != "")
                         {
-                            battle.Turn += 2;
+                            // battle.Turn += 2;
 
                             //if (JsonDocument.Parse(other[0]).RootElement.TryGetProperty("forceSwitch", out var c))
                             //{
@@ -204,14 +210,14 @@ namespace PokePSCore
                             // 应该还需要拆分
                             if (other[0].Length == 1)
                             {
-                                battle.RefreshByRequest(other[1].Split('\n')[1]);
-                                RequestsAction?.Invoke(tag, other[1].Split('\n')[1]);
+                                await battle.RefreshByRequestAsync(other[1].Split('\n')[1]);
+                                // RequestsAction?.Invoke(tag, other[1].Split('\n')[1]);
                                 // other[1].split('\n')[1] 为队伍信息
                             }
                             else
                             {
-                                battle.RefreshByRequest(other[0]);
-                                RequestsAction?.Invoke(tag, other[0]);
+                                await battle.RefreshByRequestAsync(other[0]);
+                                // RequestsAction?.Invoke(tag, other[0]);
 
                                 // other[0] 为队伍信息
                             }
@@ -219,7 +225,7 @@ namespace PokePSCore
                         break;
                     case "teampreview":
                         // 后面还有个
-                        battle.OnTeampreview?.Invoke(battle);
+                        OnTeampreview?.Invoke(battle);
                         // 选择队伍
                         // 可能需要事件通知
                         // MakeOrder
@@ -229,7 +235,8 @@ namespace PokePSCore
                         // 做出操作
                         // MakeAction
                         Console.WriteLine("到了turn");
-                        await SendMoveAsync(tag, 1, battle.Turn);
+                        OnChooseMove?.Invoke(battle);
+                        // await SendMoveAsync(tag, 1, battle.Turn);
                         break;
                     case "callback":
                         if (other[0] == "trapped")
