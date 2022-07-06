@@ -76,7 +76,15 @@ namespace PokePSCore
             // await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
             await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
         }
-
+        public async Task SendMoveAsync(string battleTag, int turn, params MoveChooseData[] move)
+        {
+            // dynamax 加入dymax
+            Console.WriteLine("准备发招");
+            // await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
+            await SendAsync(battleTag, 
+                $"/choose move {string.Join(',', move.Select(s =>{List<string> list = new List<string> {s.MoveId.ToString()};if (s.Target != -1) list.Add(s.Target.ToString());if (s.Dmax) list.Add("dynamax");return string.Join(' ', list);}))}", 
+                turn.ToString());
+        }
         /// <summary>
         /// 换人
         /// </summary>
@@ -98,7 +106,11 @@ namespace PokePSCore
         {
             await SendAsync("", $"/leave {battleTag}");
         }
+        public async Task SendTeamOrderAsync(string battleTag, string teamOrder, int turn)
+        {
+            await SendAsync(battleTag, $"/team {teamOrder}", turn.ToString());
 
+        }
         /// <summary>
         /// 加入房间
         /// </summary>

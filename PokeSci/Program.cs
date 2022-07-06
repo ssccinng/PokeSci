@@ -19,67 +19,69 @@ using PokePSCore;
 // int aaa = 1;
 // return;
 
-var team1 = await PSConverter.ConvertToPokemonsAsync(@"鳄子 (Feraligatr) @ Life Orb
-Ability: Sheer Force
-Shiny: Yes
-EVs: 30 HP / 204 Atk / 80 Def / 86 SpD / 108 Spe
-Impish Nature
-- Crunch
-- Dragon Dance
-- Ice Punch
-- Waterfall
+var team1 = await PSConverter.ConvertToPokemonsAsync(@"Kyogre @ Mystic Water  
+Ability: Drizzle  
+Level: 50  
+EVs: 124 HP / 156 SpA / 228 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Water Spout  
+- Origin Pulse  
+- Ice Beam  
+- Protect  
 
-痞子 (Scrafty) @ Assault Vest
-Ability: Moxie
-Shiny: Yes
-EVs: 8 HP / 210 Atk / 100 Def / 90 SpD / 100 Spe
-Jolly Nature
-IVs: 0 SpA
-- Fake Out
-- Drain Punch
-- Crunch
-- Poison Jab
+Zacian-Crowned @ Rusted Sword  
+Ability: Intrepid Sword  
+Level: 50  
+EVs: 188 HP / 164 Atk / 4 Def / 4 SpD / 148 Spe  
+Adamant Nature  
+- Behemoth Blade  
+- Sacred Sword  
+- Play Rough  
+- Protect  
 
-吓死你 (Krookodile) @ Choice Scarf
-Ability: Moxie
-EVs: 252 Atk / 4 Def / 252 Spe
-Adamant Nature
-IVs: 0 SpA
-- Earthquake
-- Crunch
-- Dragon Tail
-- Facade
+Tornadus (M) @ Focus Sash  
+Ability: Prankster  
+Level: 50  
+EVs: 4 HP / 252 SpA / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Hurricane  
+- Icy Wind  
+- Tailwind  
+- Leer  
 
-幕后黑手 (Tyranitar-Mega) @ Tyranitarite
-Ability: Sand Stream
-Shiny: Yes
-EVs: 144 Atk / 120 Def / 120 SpD / 124 Spe
-Adamant Nature
-IVs: 0 SpA
-- Dragon Dance
-- Rock Slide
-- Crunch
-- Ice Punch
+Landorus-Therian (M) @ Life Orb  
+Ability: Intimidate  
+Level: 50  
+EVs: 36 HP / 212 Atk / 4 Def / 4 SpD / 252 Spe  
+Jolly Nature  
+- Rock Slide  
+- Earthquake  
+- Fly  
+- Protect  
 
-鼹鼠老大（ (Excadrill) @ Choice Band
-Ability: Sand Rush
-Shiny: Yes
-EVs: 252 Atk / 4 Def / 252 Spe
-Adamant Nature
-- Iron Head
-- Earthquake
-- Brick Break
-- Rock Slide
+Kartana @ White Herb  
+Ability: Beast Boost  
+Level: 50  
+EVs: 4 HP / 252 Atk / 252 Spe  
+Jolly Nature  
+- Leaf Blade  
+- Sacred Sword  
+- Smart Strike  
+- Aerial Ace  
 
-万金油 (Landorus-Therian) @ Rocky Helmet
-Ability: Intimidate
-Shiny: Yes
-EVs: 8 HP / 120 Atk / 140 Def / 60 SpD / 180 Spe
-Impish Nature
-- Defog
-- Stealth Rock
-- Earthquake
-- U-turn");
+Amoonguss @ Coba Berry  
+Ability: Regenerator  
+Level: 50  
+EVs: 236 HP / 156 Def / 116 SpD  
+Relaxed Nature  
+IVs: 0 Atk / 0 Spe  
+- Pollen Puff  
+- Rage Powder  
+- Spore  
+- Protect  
+");
 
 
 var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
@@ -93,7 +95,8 @@ Console.WriteLine(await pc.LoginAsync());
 pc.ChallengeAction += async (player, rule) =>
 {
     // if (rule == "gen8randombattle")
-    if (rule == "gen7vgc2019")
+    //if (rule == "gen7vgc2019")
+    if (rule == "gen8vgc2022")
     {
         await pc.ChatWithIdAsync(player, "随机战斗，玩了");
         await pc.ChatWithIdAsync(player, "就决定是你了");

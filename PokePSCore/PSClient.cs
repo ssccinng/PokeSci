@@ -31,8 +31,18 @@ namespace PokePSCore
 
         private Action<string> WriteLog;
         public Action UpdateUser;
+        /// <summary>
+        /// 参数为playerid和规则
+        /// </summary>
         public Action<string, string> ChallengeAction;
+        /// <summary>
+        /// 参数为playerid和信息
+        /// </summary>
         public Action<string, string> ChatAction;
+        public Action<string, string> RequestsAction;
+        /// <summary>
+        /// 参数为对战和是否赢了
+        /// </summary>
         public Action<string, bool> BattleEndAction;
         private string _challId;
 
@@ -186,22 +196,30 @@ namespace PokePSCore
                         {
                             battle.Turn += 2;
 
-                            if (JsonDocument.Parse(other[0]).RootElement.TryGetProperty("forceSwitch", out var c))
-                            {
-                                await SendSwitchAsync(tag, ++battle.idx, battle.Turn);
-                            }
+                            //if (JsonDocument.Parse(other[0]).RootElement.TryGetProperty("forceSwitch", out var c))
+                            //{
+                            //    await SendSwitchAsync(tag, ++battle.idx, battle.Turn);
+                            //}
                             // 随机队伍信息
+                            // 应该还需要拆分
                             if (other[0].Length == 1)
                             {
+                                battle.RefreshByRequest(other[1].Split('\n')[1]);
+                                RequestsAction?.Invoke(tag, other[1].Split('\n')[1]);
                                 // other[1].split('\n')[1] 为队伍信息
                             }
                             else
                             {
+                                battle.RefreshByRequest(other[0]);
+                                RequestsAction?.Invoke(tag, other[0]);
+
                                 // other[0] 为队伍信息
                             }
                         }
                         break;
                     case "teampreview":
+                        // 后面还有个
+                        battle.OnTeampreview?.Invoke(battle);
                         // 选择队伍
                         // 可能需要事件通知
                         // MakeOrder
@@ -223,6 +241,7 @@ namespace PokePSCore
                     case "poke":
                         if (battle.PlayerPos.ToString() != other[0])
                         {
+                            // 对手的队伍信息
                             Console.WriteLine("让我康康");
                         }
                         break;
