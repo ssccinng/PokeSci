@@ -252,8 +252,8 @@ namespace PokemonIsshoni.Net.Server.Controllers
             if (pCLBattle.Submitted) return Problem("damei");
             if (pCLBattle.PCLBattleState == BattleState.Waiting) return Problem("desu");
             pCLBattle.Submitted = true;
-            var player1 = await _context.PCLRoundPlayers.FirstAsync(s => s.UserId == pCLBattle.Player1Id);
-            var player2 = await _context.PCLRoundPlayers.FirstAsync(s => s.UserId == pCLBattle.Player2Id);
+            var player1 = await _context.PCLRoundPlayers.FirstAsync(s => s.UserId == pCLBattle.Player1Id && s.PCLMatchRoundId == pclRonud.Id);
+            var player2 = await _context.PCLRoundPlayers.FirstAsync(s => s.UserId == pCLBattle.Player2Id && s.PCLMatchRoundId == pclRonud.Id);
             switch (pclRonud.PCLRoundType)
             {
                 case RoundType.Swiss:
@@ -273,6 +273,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
                         case BattleState.Player2Win:
                             player2.Win++;
                             player1.Lose++;
+                            player2.Score += pclRonud.WinScore;
 
 
                             break;
@@ -303,6 +304,8 @@ namespace PokemonIsshoni.Net.Server.Controllers
             }
             try
             {
+                //var aa = await _context.SaveChangesAsync();
+
                 _context.Entry(pCLBattle).State = EntityState.Modified;
 
                 await _context.SaveChangesAsync();

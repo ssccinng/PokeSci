@@ -46,16 +46,16 @@ else
                             </MudItem>
                             <MudItem md="4" xs="12">
                                 <MudSelect T="string" @bind-Value="PCLMatch.Logo" @key="PCLMatch.Logo" Label="比赛Logo" Class="logoinput" Variant="Variant.Filled">
-                                    <MudSelectItem T="string" Value="@("ServerImage/Default/matchsingle.png")">
+                                    <MudSelectItem T="string" Value="@("ServerImages/Default/matchsingle.png")">
                                         <img src="ServerImage/Default/matchsingle.png" width="100" class="mr-1" />
                                     </MudSelectItem>
-                                    <MudSelectItem T="string" Value="@("ServerImage/Default/matchdouble.png")">
+                                    <MudSelectItem T="string" Value="@("ServerImages/Default/matchdouble.png")">
                                         <img src="ServerImage/Default/matchdouble.png" width="100" class="mr-1" />
                                     </MudSelectItem>
-                                    <MudSelectItem T="string" Value="@("ServerImage/Default/matchgym.png")">
+                                    <MudSelectItem T="string" Value="@("ServerImages/Default/matchgym.png")">
                                         <img src="ServerImage/Default/matchgym.png" width="100" class="mr-1" />
                                     </MudSelectItem>
-                                    <MudSelectItem T="string" Value="@("ServerImage/Default/matchnormal.png")">
+                                    <MudSelectItem T="string" Value="@("ServerImages/Default/matchnormal.png")">
                                         <img src="ServerImage/Default/matchnormal.png" width="100" class="mr-1" />
                                     </MudSelectItem>
                                     @if (!PCLMatch.Logo?.Contains("Default") ?? false)

@@ -348,7 +348,7 @@ else
                                                                 {
                                                                     @if ( context.Submitted)
                                                                    {
-                                    <MudButton Size="Size.Small" Variant="Variant.Filled" Disabled=@(sswidx == pclRound.Swissidx - 1) Color="Color.Dark" Style="height: 23px; font-size:small">撤回结果</MudButton>
+                                    <MudButton Size="Size.Small" Variant="Variant.Filled" Disabled=@(sswidx != pclRound.Swissidx - 1) Color="Color.Dark" Style="height: 23px; font-size:small">撤回结果</MudButton>
                                                                        
                                                                    }
                                                                     else
