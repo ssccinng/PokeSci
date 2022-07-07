@@ -125,6 +125,9 @@ namespace PokePSCore
                     break;
                 case "-message":
                     break;
+                case "-start":
+                    // dynamax状态
+                    break;
                 default:
                     break;
             }

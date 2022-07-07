@@ -31,12 +31,12 @@ public partial class PsBattle
     /// 玩家1名字
     /// </summary>
     public string Player1 { get; set; }
-    public GamePokemonTeam GamePokemonTeam1 { get; set; } = new GamePokemonTeam();
+    public List<BattlePokemon>  GamePokemonTeam1 { get; set; } = new ();
     /// <summary>
     /// 玩家2名字
     /// </summary>
     public string Player2 { get; set; }
-    public GamePokemonTeam GamePokemonTeam2 { get; set; } = new GamePokemonTeam();
+    public List<BattlePokemon>  GamePokemonTeam2 { get; set; } = new ();
 
     /// <summary>
     /// 暂时的 以后需要整合到对战队伍中去
@@ -44,8 +44,8 @@ public partial class PsBattle
     public bool[] Actives { get; set; } = new bool[6];
 
     public JsonElement[] ActiveStatus = new JsonElement[2];
-    public GamePokemonTeam OppTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam2 : GamePokemonTeam1;
-    public GamePokemonTeam MyTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam1 : GamePokemonTeam2;
+    public List<BattlePokemon> OppTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam2 : GamePokemonTeam1;
+    public List<BattlePokemon>  MyTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam1 : GamePokemonTeam2;
 
     /// <summary>
     /// 内部回合数，用于发送命令
@@ -59,8 +59,8 @@ public partial class PsBattle
     {
         Client = client;
         Tag = tag;
-        MyTeam.GamePokemons = new List<GamePokemon>() { null, null, null, null, null, null };
-        OppTeam.GamePokemons = new List<GamePokemon>() { null, null, null, null, null, null };
+        GamePokemonTeam1 = new List<BattlePokemon>() { null, null, null, null, null, null };
+        GamePokemonTeam2 = new List<BattlePokemon>() { null, null, null, null, null, null };
     }
 
     public async Task OrderTeamAsync(string order)
@@ -129,6 +129,7 @@ public partial class PsBattle
             for (int i = 0; i < pokes.GetArrayLength(); i++)
             {
                 Console.WriteLine(pokes[i]);
+                // detail 后面是等级
                 var detail = pokes[i].GetProperty("details").GetString().Split(", ");
                 // var poke = MyTeam.GamePokemons.FirstOrDefault(s =>
                 //     PokemonTools.GetPsPokemonAsync(s.MetaPokemon.Id).Result?.PSName == detail[0]);
@@ -140,8 +141,8 @@ public partial class PsBattle
                 }
                 bool pokeActive = pokes[i].GetProperty("active").GetBoolean();
                 Actives[i] = pokeActive;
-                MyTeam.GamePokemons[i] = (new GamePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
-                MyTeam.GamePokemons[i].NowHp = hp;
+                MyTeam[i] = (new BattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
+                MyTeam[i].NowHp = hp;
                 // if (poke != null)
                 // {
                 //     poke.NowHp = hp;

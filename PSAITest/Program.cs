@@ -93,7 +93,7 @@ pc.OnForceSwitch += async (battle, bools) =>
             int idx = -1;
             for (int j = 0; j < 4; j++)
             {
-                if (battle.Actives[j] == false && !battle.MyTeam.GamePokemons[j].IsDead)
+                if (battle.Actives[j] == false && !battle.MyTeam[j].IsDead)
                 {
                     idx = j;
                     battle.Actives[j] = true;
@@ -166,27 +166,27 @@ pc.OnChooseMove += async battle =>
     //});
     //await battle.SendMoveAsunc(chooseDatas.ToArray());
 };
-int idx = 0;
-pc.BattleStartAction += async battle =>
-{
-    if (idx++ < 4)
-    {
-        await battle.SendTimerOnAsync();
-        await pc.SearchBattleAsync("gen8vgc2022");
+//int idx = 0;
+//pc.BattleStartAction += async battle =>
+//{
+//    if (idx++ < 4)
+//    {
+//        await battle.SendTimerOnAsync();
+//        await pc.SearchBattleAsync("gen8vgc2022");
 
-    }
-};
-await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
-// start再加一个事件
-await pc.SearchBattleAsync("gen8vgc2022");
+//    }
+//};
+//await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+//// start再加一个事件
+//await pc.SearchBattleAsync("gen8vgc2022");
 
 
-pc.BattleEndAction += async (s, b) =>
-{
-    await s.LeaveRoomAsync();
-    //await pc.SearchBattleAsync("gen8vgc2022");
-    idx--;
-};
+//pc.BattleEndAction += async (s, b) =>
+//{
+//    await s.LeaveRoomAsync();
+//    //await pc.SearchBattleAsync("gen8vgc2022");
+//    idx--;
+//};
 int id = 200;
 while (true)
 {
