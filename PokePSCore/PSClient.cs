@@ -48,7 +48,8 @@ namespace PokePSCore
         /// <summary>
         /// 参数为对战和是否赢了
         /// </summary>
-        public Action<string, bool> BattleEndAction;
+        public Action<PsBattle, bool> BattleEndAction;
+        public Action<PsBattle> BattleStartAction;
         private string _challId;
 
         private string _chall;
@@ -169,6 +170,7 @@ namespace PokePSCore
                 {
                     case "init":
                         Battles.TryAdd(tag, battle);
+                        BattleStartAction?.Invoke(battle);
                         break;
                     case "player":
                         if (other[1] == UserName)
@@ -246,7 +248,7 @@ namespace PokePSCore
                         }
                         break;
                     case "poke":
-                        if (battle.PlayerPos.ToString() != other[0])
+                        if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1" ))
                         {
                             // 对手的队伍信息
                             Console.WriteLine("让我康康");
@@ -254,13 +256,14 @@ namespace PokePSCore
                         break;
                     case "win":
                         Console.WriteLine("对战结束");
-                        BattleEndAction?.Invoke(tag, other[0].Contains(UserName));
+                        BattleEndAction?.Invoke(battle, other[0].Contains(UserName));
                         // 对战结束
                         break;
                     case "error":
                         // 出现异常
                         break;
                     default:
+                        battle.LogParse(cmd, other);
                         break;
                 }
             }

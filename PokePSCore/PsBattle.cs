@@ -14,7 +14,7 @@ public enum PlayerPos
     Player2,
 }
 
-public class PsBattle
+public partial class PsBattle
 {
     public PSClient Client;
 
@@ -71,6 +71,14 @@ public class PsBattle
     public async Task SendMoveAsunc(ChooseData[] chooseDatas)
     {
         await Client.SendMoveAsync(Tag, Turn, chooseDatas);
+    }
+    public async Task LeaveRoomAsync()
+    {
+        await Client.SendLeaveAsync(Tag);
+    }
+    public async Task SendTimerOnAsync()
+    {
+        await Client.SendAsync(Tag, "/timer on");
     }
     public void UpdateOppTeam(string name, int lv = 50)
     {

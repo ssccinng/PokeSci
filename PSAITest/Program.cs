@@ -1,73 +1,59 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Text.Json;
 using PokeCommon.PokemonShowdownTools;
 using PokePSCore;
+using PSAITest;
 
-var team1 = await PSConverter.ConvertToPokemonsAsync(@"Kyogre @ Mystic Water  
-Ability: Drizzle  
-Level: 50  
-EVs: 124 HP / 156 SpA / 228 Spe  
-Modest Nature  
-IVs: 0 Atk  
-- Water Spout  
-- Origin Pulse  
-- Ice Beam  
-- Protect  
+AIConfig config = new AIConfig();
 
-Zacian-Crowned @ Rusted Sword  
-Ability: Intrepid Sword  
-Level: 50  
-EVs: 188 HP / 164 Atk / 4 Def / 4 SpD / 148 Spe  
-Adamant Nature  
-- Behemoth Blade  
-- Sacred Sword  
-- Play Rough  
-- Protect  
+if (!File.Exists("AIConfig.json"))
+{
+    File.WriteAllText("AIConfig.json", JsonSerializer.Serialize(config, new JsonSerializerOptions()
+    {
+        WriteIndented = true,
+    }));
 
-Tornadus (M) @ Focus Sash  
-Ability: Prankster  
-Level: 50  
-EVs: 4 HP / 252 SpA / 252 Spe  
-Timid Nature  
-IVs: 0 Atk  
-- Hurricane  
-- Icy Wind  
-- Tailwind  
-- Leer  
+    Console.WriteLine("请在AIConfig.json设置配置...");
+    Console.ReadKey();
+    return;
+}
+else
+{
+    Console.WriteLine("正在读取配置...");
+    config = JsonSerializer.Deserialize<AIConfig>(File.ReadAllText("AIConfig.json"));
 
-Landorus-Therian (M) @ Life Orb  
-Ability: Intimidate  
-Level: 50  
-EVs: 36 HP / 212 Atk / 4 Def / 4 SpD / 252 Spe  
-Jolly Nature  
-- Rock Slide  
-- Earthquake  
-- Fly  
-- Protect  
-
-Kartana @ White Herb  
-Ability: Beast Boost  
-Level: 50  
-EVs: 4 HP / 252 Atk / 252 Spe  
-Jolly Nature  
-- Leaf Blade  
-- Sacred Sword  
-- Smart Strike  
-- Aerial Ace  
-
-Amoonguss @ Coba Berry  
-Ability: Regenerator  
-Level: 50  
-EVs: 236 HP / 156 Def / 116 SpD  
-Relaxed Nature  
-IVs: 0 Atk / 0 Spe  
-- Pollen Puff  
-- Rage Powder  
-- Spore  
-- Protect");
+    Console.WriteLine("队伍:");
+    if (config.Team == "" || config.Team == null)
+    {
+        Console.WriteLine("请输入队伍码.. 在最后输入一个q以确认队伍输入完毕");
+        List<string> list = new List<string>();
+        while (true)
+        {
+            var input = Console.ReadLine();
+            if (input == "q")
+            {
+                config.Team = String.Join('\n', list);
+                break;
+            }
+            list.Add(input);
+        }
+        File.WriteAllText("AIConfig.json", JsonSerializer.Serialize(config, new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+        }));
+        Console.WriteLine("录入完毕...");
+    }
+    Console.WriteLine(config.Team);
+}
 
 
-var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
+
+var team1 = await PSConverter.ConvertToPokemonsAsync(config.Team);
+Console.WriteLine("准备登录");
+
+//var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
+var pc = new PSClient(config.Username, config.Password).LogTo(Console.WriteLine);
 await pc.ConnectAsync();
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
@@ -88,11 +74,12 @@ pc.ChallengeAction += async (player, rule) =>
         await pc.AcceptChallengeAsync(player);
     }
 };
-
+string[] xc = new[] { "234516", "162345" };
 pc.OnTeampreview += async battle =>
 {
-    await battle.SendMessageAsync("让我康康");
-    await battle.OrderTeamAsync("123456");
+    // await battle.SendMessageAsync("让我康康");
+    // await battle.OrderTeamAsync("123456");
+    await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
 };
 
 pc.OnForceSwitch += async (battle, bools) =>
@@ -131,22 +118,74 @@ pc.OnForceSwitch += async (battle, bools) =>
 pc.OnChooseMove += async battle =>
 {
     List<ChooseData> chooseDatas = new List<ChooseData>();
-
+    bool dm = false;
     for (int i = 0; i < battle.ActiveStatus.Length; i++)
     {
-        var target = battle.ActiveStatus[i].GetProperty("moves")[0].GetProperty("target").GetString();
-        if (target == "any" || target == "normal")
+        int moveid = Random.Shared.Next(4);
+        try
         {
-            chooseDatas.Add(new MoveChooseData(1){ Target = 1});
+            var target = battle.ActiveStatus[i].GetProperty("moves")[moveid].GetProperty("target").GetString();
+            if (target == "any" || target == "normal")
+            {
+                chooseDatas.Add(new MoveChooseData(moveid + 1) { Target = Random.Shared.Next(2) + 1 });
 
+            }
+            else
+            {
+
+                chooseDatas.Add(new MoveChooseData(moveid + 1));
+
+            }
         }
-        else
+        catch (global::System.Exception)
         {
             chooseDatas.Add(new MoveChooseData(1));
-
         }
+        
+
+        //if (!dm)
+        //{
+        //    if (battle.ActiveStatus[i].TryGetProperty("canDynamax", out var cdmj))
+        //    {
+        //        if (Random.Shared.Next(2) > 0 && cdmj.GetBoolean())
+        //        {
+        //            (chooseDatas.Last() as MoveChooseData).Dmax = true;
+        //            dm = true;
+        //        }
+        //    }
+            
+        //}
     }
     await battle.SendMoveAsunc(chooseDatas.ToArray());
+    //chooseDatas.ForEach(s =>
+    //{
+    //    if (s is MoveChooseData)
+    //    {
+    //        (s as MoveChooseData).Target = Random.Shared.Next(2) + 1;
+    //    }
+    //});
+    //await battle.SendMoveAsunc(chooseDatas.ToArray());
+};
+int idx = 0;
+pc.BattleStartAction += async battle =>
+{
+    if (idx++ < 4)
+    {
+        await battle.SendTimerOnAsync();
+        await pc.SearchBattleAsync("gen8vgc2022");
+
+    }
+};
+await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+// start再加一个事件
+await pc.SearchBattleAsync("gen8vgc2022");
+
+
+pc.BattleEndAction += async (s, b) =>
+{
+    await s.LeaveRoomAsync();
+    //await pc.SearchBattleAsync("gen8vgc2022");
+    idx--;
 };
 int id = 200;
 while (true)
