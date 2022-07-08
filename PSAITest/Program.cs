@@ -167,26 +167,27 @@ pc.OnChooseMove += async battle =>
     //await battle.SendMoveAsunc(chooseDatas.ToArray());
 };
 //int idx = 0;
-//pc.BattleStartAction += async battle =>
-//{
-//    if (idx++ < 4)
-//    {
-//        await battle.SendTimerOnAsync();
-//        await pc.SearchBattleAsync("gen8vgc2022");
+pc.BattleStartAction += async battle =>
+{
+    await battle.SendTimerOnAsync();
 
-//    }
-//};
-//await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+    //if (idx++ < 4)
+    //{
+    //    await pc.SearchBattleAsync("gen8vgc2022");
+
+    //}
+};
+await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
 //// start再加一个事件
-//await pc.SearchBattleAsync("gen8vgc2022");
+await pc.SearchBattleAsync("gen8vgc2022");
 
 
-//pc.BattleEndAction += async (s, b) =>
-//{
-//    await s.LeaveRoomAsync();
-//    //await pc.SearchBattleAsync("gen8vgc2022");
-//    idx--;
-//};
+pc.BattleEndAction += async (s, b) =>
+{
+    await s.LeaveRoomAsync();
+    await pc.SearchBattleAsync("gen8vgc2022");
+    //idx--;
+};
 int id = 200;
 while (true)
 {

@@ -32,5 +32,10 @@ namespace PokeCommon.Models
         public Status Status { get; set; } = Status.Normal;
         
         public int[][] Buffs { get; set; }
+
+        public void UpdatePokemon()
+        {
+
+        }
     }
 }

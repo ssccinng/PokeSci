@@ -251,7 +251,10 @@ namespace PokePSCore
                         if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1" ))
                         {
                             // 对手的队伍信息
-                            Console.WriteLine("让我康康");
+                            var data = other[1].Split(", ");
+                            // 0 名字 1 等级
+                            Console.WriteLine(other[1]);
+                            //Console.WriteLine("让我康康");
                         }
                         break;
                     case "win":

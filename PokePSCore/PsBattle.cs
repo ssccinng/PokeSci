@@ -47,6 +47,9 @@ public partial class PsBattle
     public List<BattlePokemon> OppTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam2 : GamePokemonTeam1;
     public List<BattlePokemon>  MyTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam1 : GamePokemonTeam2;
 
+
+    public BattlePokemon[] Side1 = new BattlePokemon[2];
+    public BattlePokemon[] Side2 = new BattlePokemon[2];
     /// <summary>
     /// 内部回合数，用于发送命令
     /// </summary>
@@ -129,7 +132,7 @@ public partial class PsBattle
             for (int i = 0; i < pokes.GetArrayLength(); i++)
             {
                 Console.WriteLine(pokes[i]);
-                // detail 后面是等级
+                // detail 后面是等级 detail0 为名字 detail1为等级
                 var detail = pokes[i].GetProperty("details").GetString().Split(", ");
                 // var poke = MyTeam.GamePokemons.FirstOrDefault(s =>
                 //     PokemonTools.GetPsPokemonAsync(s.MetaPokemon.Id).Result?.PSName == detail[0]);
