@@ -61,19 +61,19 @@ Console.WriteLine(await pc.LoginAsync());
 
 
 
-pc.ChallengeAction += async (player, rule) =>
-{
-    // if (rule == "gen8randombattle")
-    //if (rule == "gen7vgc2019")
-    if (rule == "gen8vgc2022")
-    {
-        await pc.ChatWithIdAsync(player, "随机战斗，玩了");
-        await pc.ChatWithIdAsync(player, "就决定是你了");
-        // await pc.ChangeYourTeamAsync("null");
-        await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
-        await pc.AcceptChallengeAsync(player);
-    }
-};
+//pc.ChallengeAction += async (player, rule) =>
+//{
+//    // if (rule == "gen8randombattle")
+//    //if (rule == "gen7vgc2019")
+//    if (rule == "gen8vgc2022")
+//    {
+//        await pc.ChatWithIdAsync(player, "随机战斗，玩了");
+//        await pc.ChatWithIdAsync(player, "就决定是你了");
+//        // await pc.ChangeYourTeamAsync("null");
+//        await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+//        await pc.AcceptChallengeAsync(player);
+//    }
+//};
 string[] xc = new[] { "234516", "162345" };
 pc.OnTeampreview += async battle =>
 {
@@ -122,39 +122,59 @@ pc.OnChooseMove += async battle =>
     for (int i = 0; i < battle.ActiveStatus.Length; i++)
     {
         int moveid = Random.Shared.Next(4);
+        string target;
+        bool dflag = false;
+        Console.WriteLine('1');
+        if (!dm)
+        {
+            if (battle.ActiveStatus[i].TryGetProperty("canDynamax", out var cdmj))
+            {
+                if (Random.Shared.Next(2) > 0 && cdmj.GetBoolean())
+                {
+                    //(chooseDatas.Last() as MoveChooseData).Dmax = true;
+                    dm = true;
+                    dflag = true;
+                    battle.MySide[i].Dynamax = true;
+                }
+            }
+
+        }
         try
         {
-            var target = battle.ActiveStatus[i].GetProperty("moves")[moveid].GetProperty("target").GetString();
-            if (target == "any" || target == "normal")
+
+            if (battle.MySide[i].Dynamax)
             {
-                chooseDatas.Add(new MoveChooseData(moveid + 1) { Target = Random.Shared.Next(2) + 1 });
+                Console.WriteLine( i + "这里dmax了");
+                target = battle.ActiveStatus[i].GetProperty("maxMoves").GetProperty("maxMoves")[moveid].GetProperty("target").GetString();
+
+            }
+            else
+            {
+                target = battle.ActiveStatus[i].GetProperty("moves")[moveid].GetProperty("target").GetString();
+
+            }
+            Console.WriteLine(target);
+            if (target == "any" || target == "normal" || target == "adjacentFoe")
+            {
+                chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag) { Target = Random.Shared.Next(2) + 1 });
 
             }
             else
             {
 
-                chooseDatas.Add(new MoveChooseData(moveid + 1));
+                chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag));
 
             }
         }
-        catch (global::System.Exception)
+        catch (global::System.Exception e)
         {
+            Console.WriteLine(e.Message);
+            Console.WriteLine("异常了");
             chooseDatas.Add(new MoveChooseData(1));
         }
-        
 
-        //if (!dm)
-        //{
-        //    if (battle.ActiveStatus[i].TryGetProperty("canDynamax", out var cdmj))
-        //    {
-        //        if (Random.Shared.Next(2) > 0 && cdmj.GetBoolean())
-        //        {
-        //            (chooseDatas.Last() as MoveChooseData).Dmax = true;
-        //            dm = true;
-        //        }
-        //    }
-            
-        //}
+
+        
     }
     await battle.SendMoveAsunc(chooseDatas.ToArray());
     //chooseDatas.ForEach(s =>
@@ -166,9 +186,11 @@ pc.OnChooseMove += async battle =>
     //});
     //await battle.SendMoveAsunc(chooseDatas.ToArray());
 };
-//int idx = 0;
+int idx = 0;
+bool isSearching = false;   
 pc.BattleStartAction += async battle =>
 {
+    isSearching = false;
     await battle.SendTimerOnAsync();
 
     //if (idx++ < 4)
@@ -177,21 +199,30 @@ pc.BattleStartAction += async battle =>
 
     //}
 };
-await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
-//// start再加一个事件
-await pc.SearchBattleAsync("gen8vgc2022");
+
 
 
 pc.BattleEndAction += async (s, b) =>
 {
     await s.LeaveRoomAsync();
-    await pc.SearchBattleAsync("gen8vgc2022");
-    //idx--;
+    // await pc.SearchBattleAsync("gen8vgc2022");
+    idx--;
 };
-int id = 200;
+int id = config.BattleCnt;
+
 while (true)
 {
-    await Task.Delay(10000000);
-    await pc.GetRoomListAsync("gen8vgc2022", 1500);
+    if (id > 0 && idx < config.OnlineCnt && !isSearching)
+    {
+        isSearching = true;
+        await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+        await pc.SearchBattleAsync("gen8vgc2022");
+        idx++;
+        id--;
+        await Task.Delay(5000);
+    }
+    if (id == 0 && idx == 0) break;
+    //await Task.Delay(10000000);
+    // await pc.GetRoomListAsync("gen8vgc2022", 1500);
     // await pc.SetAvatarAsync(id++.ToString());
 }

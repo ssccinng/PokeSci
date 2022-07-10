@@ -12,7 +12,8 @@ namespace PSAITest
         public string Password { get; set; } = "";
         public string Team { get; set; } = "";
         public List<TeamOrderPolicy> TeamOrderPolicies { get; set; } = new();
-
+        public int OnlineCnt { get; set; } = 5;
+        public int BattleCnt { get; set; } = 10;
 
     }
 }

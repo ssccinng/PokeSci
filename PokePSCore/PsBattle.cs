@@ -31,12 +31,12 @@ public partial class PsBattle
     /// 玩家1名字
     /// </summary>
     public string Player1 { get; set; }
-    public List<BattlePokemon>  GamePokemonTeam1 { get; set; } = new ();
+    public List<PSBattlePokemon>  GamePokemonTeam1 { get; set; } = new ();
     /// <summary>
     /// 玩家2名字
     /// </summary>
     public string Player2 { get; set; }
-    public List<BattlePokemon>  GamePokemonTeam2 { get; set; } = new ();
+    public List<PSBattlePokemon>  GamePokemonTeam2 { get; set; } = new ();
 
     /// <summary>
     /// 暂时的 以后需要整合到对战队伍中去
@@ -44,26 +44,29 @@ public partial class PsBattle
     public bool[] Actives { get; set; } = new bool[6];
 
     public JsonElement[] ActiveStatus = new JsonElement[2];
-    public List<BattlePokemon> OppTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam2 : GamePokemonTeam1;
-    public List<BattlePokemon>  MyTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam1 : GamePokemonTeam2;
+    public List<PSBattlePokemon> OppTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam2 : GamePokemonTeam1;
+    public List<PSBattlePokemon>  MyTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam1 : GamePokemonTeam2;
 
 
-    public BattlePokemon[] Side1 = new BattlePokemon[2];
-    public BattlePokemon[] Side2 = new BattlePokemon[2];
+    public PSBattlePokemon[] Side1 = new PSBattlePokemon[2];
+    public PSBattlePokemon[] Side2 = new PSBattlePokemon[2];
+    
+    public PSBattlePokemon[] MySide => PlayerPos == PlayerPos.Player1 ? Side1 : Side2;
+    public PSBattlePokemon[] OppSide => PlayerPos == PlayerPos.Player1 ? Side2 : Side1;
     /// <summary>
     /// 内部回合数，用于发送命令
     /// </summary>
     public int Turn { get; set; } = 0;
     public int idx = 1;
 
-    
+    public int InitId = 0;
     
     public PsBattle(PSClient client, string tag)
     {
         Client = client;
         Tag = tag;
-        GamePokemonTeam1 = new List<BattlePokemon>() { null, null, null, null, null, null };
-        GamePokemonTeam2 = new List<BattlePokemon>() { null, null, null, null, null, null };
+        GamePokemonTeam1 = new List<PSBattlePokemon>() { null, null, null, null, null, null };
+        GamePokemonTeam2 = new List<PSBattlePokemon>() { null, null, null, null, null, null };
     }
 
     public async Task OrderTeamAsync(string order)
@@ -96,12 +99,13 @@ public partial class PsBattle
     public async Task RefreshByRequestAsync(string request)
     {
         var data = JsonDocument.Parse(request).RootElement;
-
+        // 获取操作id
         if (data.TryGetProperty("rqid", out var jsonId))
         {
             Turn = jsonId.GetInt32();
             // Console.WriteLine(Turn);
         }
+        
         if (data.TryGetProperty("forceSwitch", out var jsongFSwitch))
         {
             bool[] fArray;
@@ -126,13 +130,28 @@ public partial class PsBattle
         }
         if (data.TryGetProperty("side", out var side))
         {
+            if (side.TryGetProperty("id", out var pid))
+            {
+                if (pid.GetString() == "p1")
+                {
+                    PlayerPos = PlayerPos.Player1;
+                }
+                else
+                {
+                    PlayerPos = PlayerPos.Player2;
+
+                }
+                // Console.WriteLine(Turn);
+            }
             Console.WriteLine("side");
             var pokes = side.GetProperty("pokemon");
             Console.WriteLine(pokes.GetArrayLength());
+            
+            
             for (int i = 0; i < pokes.GetArrayLength(); i++)
             {
                 Console.WriteLine(pokes[i]);
-                // detail 后面是等级 detail0 为名字 detail1为等级
+                // detail 后面是等级 detail0 为名字 detail1为等级 m'j'm
                 var detail = pokes[i].GetProperty("details").GetString().Split(", ");
                 // var poke = MyTeam.GamePokemons.FirstOrDefault(s =>
                 //     PokemonTools.GetPsPokemonAsync(s.MetaPokemon.Id).Result?.PSName == detail[0]);
@@ -144,7 +163,36 @@ public partial class PsBattle
                 }
                 bool pokeActive = pokes[i].GetProperty("active").GetBoolean();
                 Actives[i] = pokeActive;
-                MyTeam[i] = (new BattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
+                if (InitId == 0)
+                {
+                    MyTeam[i] = (new PSBattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0]), detail[0]));
+                    // 要记录nickname 虽然也可自取
+                }
+                else if (InitId == 1)
+                {
+                    for (int j = 0; j < MyTeam.Count; j++)
+                    {
+                        if (MyTeam[j].PSName == detail[0])
+                        {
+                            (MyTeam[i], MyTeam[j]) = (MyTeam[j], MyTeam[i]);
+                            break;
+                        }
+                    }
+                    // 更新active
+                    if (i < 2)
+                    {
+                        MySide[i] = MyTeam[i];
+                    }
+                    // 更新顺序
+                }
+                else
+                {
+                    
+                    // 只需更新状态
+                } 
+
+                //MyTeam[i].MetaPokemon = await PokemonTools.GetPokemonFromPsNameAsync(detail[0]);
+                //MyTeam[i] = (new BattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
                 MyTeam[i].NowHp = hp;
                 // if (poke != null)
                 // {
@@ -158,6 +206,8 @@ public partial class PsBattle
                 // }
 
             }
+
+            InitId++;
         }
         if (data.TryGetProperty("active", out var active))
         {

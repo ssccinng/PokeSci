@@ -44,11 +44,40 @@ namespace PokePSCore
                 case "cant":
                     break;
                 case "faint":
+                    if (lines[0][1] == '1')
+                    {
+                        if (Side1[0] != null)
+
+                            if (lines[0][2] == 'a')
+                            {
+                                Side1[0].Dynamax = false;
+                            }
+                            else
+                            {
+                                Side1[1].Dynamax = false;
+                            }
+                    }
+                    else
+                    {
+                        if (Side2[0] != null)
+
+                            if (lines[0][2] == 'a')
+                            {
+                                Side2[0].Dynamax = false;
+
+                            }
+                            else
+                            {
+                                Side2[1].Dynamax = false;
+
+                            }
+                    }
                     break;
                 default:
                     break;
             }
         }
+        // 针对双打
         public void MinorActions(string cmd, string[] lines)
         {
             switch (cmd)
@@ -56,6 +85,33 @@ namespace PokePSCore
                 case "-fail":
                     break;
                 case "-damage":
+                    if (lines[0][1] == '1')
+                    {
+                        if (Side1[0] != null)
+                            if (lines[0][2] == 'a')
+                            {
+                                Side1[0].NowHp = 0;
+                            }
+                            else
+                            {
+                                Side1[1].Dynamax = true;
+                            }
+                    }
+                    else
+                    {
+                        if (Side2[0] != null)
+
+                            if (lines[0][2] == 'a')
+                            {
+                                Side2[0].Dynamax = true;
+
+                            }
+                            else
+                            {
+                                Side2[1].Dynamax = true;
+
+                            }
+                    }
                     // if battle.player_id not in split_line[0]:
                     // name = re.match(r'p\da: (.*)', split_line[0]).group(1)
                     // battle.update_enemy(name, split_line[1])
@@ -126,8 +182,71 @@ namespace PokePSCore
                 case "-message":
                     break;
                 case "-start":
+                    //Console.WriteLine(lines[0]);
+                    //Console.WriteLine(lines[1]);
+                    //if (lines[2] == "Dynamax") { }
+                    if (lines[0][1] == '1')
+                    {
+                        if (Side1[0] != null)
+                        if (lines[0][2] == 'a')
+                        {
+                            Side1[0].Dynamax = true;
+                        }
+                        else
+                        {
+                            Side1[1].Dynamax = true;
+                        }
+                    }
+                    else
+                    {
+                        if (Side2[0] != null)
+
+                            if (lines[0][2] == 'a')
+                        {
+                            Side2[0].Dynamax = true;
+
+                        }
+                        else
+                        {
+                            Side2[1].Dynamax = true;
+
+                        }
+                    }
+                    // 通过nickname判断
                     // dynamax状态
                     break;
+                case "-end":
+                    //Console.WriteLine(lines[0]);
+                    //Console.WriteLine(lines[1]);
+                    if (lines[0][1] == '1')
+                    {
+                        if (Side1[0] != null)
+
+                            if (lines[0][2] == 'a')
+                        {
+                            Side1[0].Dynamax = false;
+                        }
+                        else
+                        {
+                            Side1[1].Dynamax = false;
+                        }
+                    }
+                    else
+                    {
+                        if (Side2[0] != null)
+
+                            if (lines[0][2] == 'a')
+                        {
+                            Side2[0].Dynamax = false;
+
+                        }
+                        else
+                        {
+                            Side2[1].Dynamax = false;
+
+                        }
+                    }
+                    break ;
                 default:
                     break;
             }
