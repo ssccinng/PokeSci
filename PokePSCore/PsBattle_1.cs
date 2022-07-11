@@ -28,10 +28,43 @@ namespace PokePSCore
                     break;
                 case "switch":
                     // Enemy pokemon has switched in
-                    string opPos = PlayerPos == PlayerPos.Player1 ? "p2" : "p1";
-                    if (lines[0] == opPos)
+                    if (lines[0][1] == '1')
                     {
-                        
+                        if (Side1[0] != null)
+                        {
+                            if (lines[0][2] == 'a')
+                            {
+                                //Side1[0].Faint();
+                                //Side1[0].NowHp = 0;
+                            }
+                            else
+                            {
+                                //Side1[1].Faint();
+
+                                //Side1[1].Dynamax = false;
+                                //Side1[0].NowHp = 0;
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Side2[0] != null)
+                        {
+                            if (lines[0][2] == 'a')
+                            {
+                                //Side2[0].Dynamax = false;
+                                //Side2[0].Faint();
+
+                            }
+                            else
+                            {
+                                //Side2[1].Dynamax = false;
+                                //Side2[1].Faint();
+
+                            }
+                        }
+                            
                     }
                     // regex = re.compile(r'p\da: (.*?)\|(.*?), (?:L(\d+), )?.*')
                     // name, variant, level = regex.match('|'.join(split_line[0:2])).groups()
@@ -50,11 +83,16 @@ namespace PokePSCore
 
                             if (lines[0][2] == 'a')
                             {
-                                Side1[0].Dynamax = false;
+                                Side1[0].Faint();
+                                //Side1[0].NowHp = 0;
                             }
                             else
                             {
-                                Side1[1].Dynamax = false;
+                                Side1[1].Faint();
+
+                                //Side1[1].Dynamax = false;
+                                //Side1[0].NowHp = 0;
+
                             }
                     }
                     else
@@ -63,12 +101,14 @@ namespace PokePSCore
 
                             if (lines[0][2] == 'a')
                             {
-                                Side2[0].Dynamax = false;
+                                //Side2[0].Dynamax = false;
+                                Side2[0].Faint();
 
                             }
                             else
                             {
-                                Side2[1].Dynamax = false;
+                                //Side2[1].Dynamax = false;
+                                Side2[1].Faint();
 
                             }
                     }
@@ -85,16 +125,17 @@ namespace PokePSCore
                 case "-fail":
                     break;
                 case "-damage":
+                    // 更新血量
                     if (lines[0][1] == '1')
                     {
                         if (Side1[0] != null)
                             if (lines[0][2] == 'a')
                             {
-                                Side1[0].NowHp = 0;
+                                //Side1[0].NowHp = 0;
                             }
                             else
                             {
-                                Side1[1].Dynamax = true;
+                                //Side1[1].Dynamax = true;
                             }
                     }
                     else
@@ -103,12 +144,12 @@ namespace PokePSCore
 
                             if (lines[0][2] == 'a')
                             {
-                                Side2[0].Dynamax = true;
+                                //Side2[0].Dynamax = true;
 
                             }
                             else
                             {
-                                Side2[1].Dynamax = true;
+                                //Side2[1].Dynamax = true;
 
                             }
                     }

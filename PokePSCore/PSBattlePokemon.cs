@@ -17,5 +17,11 @@ namespace PokePSCore
         public string PSName { get; set; }
         public int ActiveId { get; set; } = -1;
 
+        public void Faint()
+        {
+            Dynamax = false;
+            NowHp = 0;
+        }
+
     }
 }

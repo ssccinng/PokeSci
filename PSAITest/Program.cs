@@ -45,6 +45,10 @@ else
         Console.WriteLine("录入完毕...");
     }
     Console.WriteLine(config.Team);
+    File.WriteAllText("AIConfig.json", JsonSerializer.Serialize(config, new JsonSerializerOptions()
+    {
+        WriteIndented = true,
+    }));
 }
 
 

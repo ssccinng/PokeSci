@@ -88,6 +88,7 @@ public partial class PsBattle
     }
     public void UpdateOppTeam(string name, int lv = 50)
     {
+
         //OppTeam.GamePokemons.Any(s => s.MetaPokemon.)
         // 要getps的id
     }
