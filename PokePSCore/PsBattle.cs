@@ -86,12 +86,17 @@ public partial class PsBattle
     {
         await Client.SendAsync(Tag, "/timer on");
     }
-    public void UpdateOppTeam(string name, int lv = 50)
-    {
 
+    int oppTeamIdx = 0;
+    public async Task InitOppTeamAsync(string name)
+    {
+        name = name.Replace("-*", "");
+        OppTeam[oppTeamIdx++] = new PSBattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(name), name);
+        Console.WriteLine(OppTeam[oppTeamIdx-1].MetaPokemon.FullNameChs);
         //OppTeam.GamePokemons.Any(s => s.MetaPokemon.)
         // 要getps的id
     }
+
 
     public async Task SendMessageAsync(string message)
     {

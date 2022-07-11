@@ -253,6 +253,7 @@ namespace PokePSCore
                             // 对手的队伍信息
                             var data = other[1].Split(", ");
                             // 0 名字 1 等级
+                            await battle.InitOppTeamAsync(data[0]);
                             //battle.OppTeam;
                             Console.WriteLine(other[1]);
                             //Console.WriteLine("让我康康");

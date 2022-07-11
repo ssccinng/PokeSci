@@ -83,6 +83,7 @@ pc.OnTeampreview += async battle =>
 {
     // await battle.SendMessageAsync("让我康康");
     // await battle.OrderTeamAsync("123456");
+
     await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
 };
 
@@ -229,4 +230,21 @@ while (true)
     //await Task.Delay(10000000);
     // await pc.GetRoomListAsync("gen8vgc2022", 1500);
     // await pc.SetAvatarAsync(id++.ToString());
+}
+
+
+string MakeTeamOrder(TeamOrderPolicy teamOrderPolicy, PSBattlePokemon[] pSBattlePokemons)
+{
+    // teamorderpolicy 需要先转化为图鉴id
+    // 如果对手里有符合条件的 则进入下一轮 否则返回
+    if(teamOrderPolicy.Has)
+    {
+
+    }
+    else
+    {
+        // 返回结果
+        return teamOrderPolicy.ChoosePoke[0].Res;
+    }
+    return "123456";
 }

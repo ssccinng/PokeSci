@@ -15,8 +15,14 @@ namespace PSAITest
         /// </summary>
         public bool Has { get; set; } = true;
         
-        public List<string> ChoosePoke { get; set; } = new();
+        public List<PolicyRes> ChoosePoke { get; set; } = new();
         // 对于此策略的子策略树 
-        public List<TeamOrderPolicy> TeamOrderPolices{ get; set; } = new();
+        public List<TeamOrderPolicy> TeamOrderPolices { get; set; } = new();
+    }
+
+    public class PolicyRes
+    {
+       public string Res { get; set; }
+        public int Ratio { get; set; } = 1;
     }
 }
