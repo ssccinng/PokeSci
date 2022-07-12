@@ -22,7 +22,7 @@ namespace PSAITest
 
     public class PolicyRes
     {
-       public string Res { get; set; }
+       public List<string> Res { get; set; }
         public int Ratio { get; set; } = 1;
     }
 }

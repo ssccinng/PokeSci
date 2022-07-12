@@ -78,13 +78,14 @@ Console.WriteLine(await pc.LoginAsync());
 //        await pc.AcceptChallengeAsync(player);
 //    }
 //};
-string[] xc = new[] { "234516", "162345" };
+string[] xc = new[] { "2345", "1623" };
 pc.OnTeampreview += async battle =>
 {
     // await battle.SendMessageAsync("让我康康");
     // await battle.OrderTeamAsync("123456");
+    await battle.OrderTeamAsync(await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
 
-    await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
+    // await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
 };
 
 pc.OnForceSwitch += async (battle, bools) =>
