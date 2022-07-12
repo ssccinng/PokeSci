@@ -232,19 +232,3 @@ while (true)
     // await pc.SetAvatarAsync(id++.ToString());
 }
 
-
-string MakeTeamOrder(TeamOrderPolicy teamOrderPolicy, PSBattlePokemon[] pSBattlePokemons)
-{
-    // teamorderpolicy 需要先转化为图鉴id
-    // 如果对手里有符合条件的 则进入下一轮 否则返回
-    if(teamOrderPolicy.Has)
-    {
-
-    }
-    else
-    {
-        // 返回结果
-        return teamOrderPolicy.ChoosePoke[0].Res;
-    }
-    return "123456";
-}
