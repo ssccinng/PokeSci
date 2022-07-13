@@ -17,6 +17,9 @@ namespace PokeCommon.Models
         SLP = 5,
         FRZ = 6,
     }
+    
+    // 
+    
     public class BattlePokemon: GamePokemon
     {
         public BattlePokemon(Pokemon pokemon) : base(pokemon)

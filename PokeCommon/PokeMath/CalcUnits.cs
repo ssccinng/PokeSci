@@ -105,6 +105,15 @@ namespace PokeCommon.PokeMath
             temp *= 4;
             return (int)Math.Ceiling(temp);
         }
+        /// <summary>
+        /// 通过能力反推种族
+        /// </summary>
+        /// <param name="statValue"></param>
+        /// <param name="baseValue"></param>
+        /// <param name="IV"></param>
+        /// <param name="lv"></param>
+        /// <param name="natureRevise"></param>
+        /// <returns></returns>
         public int GetEVOtherStat(int statValue, int baseValue, int IV, int lv = 50, double natureRevise = 1)
         {
             double temp = statValue / natureRevise - 5;

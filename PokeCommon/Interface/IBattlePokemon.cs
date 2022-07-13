@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokeCommon.Interface
 {
-    internal interface IBattlePokemon
+    public interface IBattlePokemon
     {
 
     }
