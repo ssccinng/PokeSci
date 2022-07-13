@@ -264,6 +264,12 @@ namespace PokeCommon.PokemonShowdownTools
 
             return string.Join("]", psoneline);
         }
+
+        /// <summary>
+        /// 转换为一行ps格式
+        /// </summary>
+        /// <param name="gamePokemon"></param>
+        /// <returns></returns>
         public static async ValueTask<string> ConvertToPsOneLineAsync(GamePokemon gamePokemon)
         {
             

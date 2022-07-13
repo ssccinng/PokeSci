@@ -42,6 +42,6 @@ namespace PokeCommon.Interface
         /// <param name="IV"></param>
         /// <param name="lv"></param>
         /// <returns></returns>
-        public int GetPureBaseOtherStat(int statValue, int IV, int EV, int lv = 50);
+        public int GetPureBaseOtherStat(int statValue, int IV, int EV, int lv = 50, double natureRevise = 1);
     }
 }

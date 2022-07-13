@@ -12,7 +12,19 @@ using PokeCommon.BattleEngine;
 using System.Diagnostics;
 using PokePSCore;
 
+var SWSHTools = PokeCommon.PokeMath.CalcUnits.SWSHTools;
 
+int hp = SWSHTools.GetHP(95, 31, 0);
+int ehb = SWSHTools.GetEVHP(hp, 95, 31);
+int bhb = SWSHTools.GetPureBaseHP(hp, 31, 0);
+int spe = SWSHTools.GetOtherStat(60, 31, 0);
+int bspe = SWSHTools.GetPureBaseOtherStat(spe, 31, 0);
+Console.WriteLine(hp);
+Console.WriteLine(ehb);
+Console.WriteLine(bhb);
+Console.WriteLine(spe);
+Console.WriteLine(bspe);
+return;
 // PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
 // var data = await PokemonHomeTools.GetRankMatchAsync();
 // var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], -1);

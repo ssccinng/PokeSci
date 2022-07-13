@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokePSCore", "PokePSCore\Po
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeCodeGenerator", "PokeCodeGenerator\PokeCodeGenerator.csproj", "{94388F99-F807-4336-B3B9-66856FB44690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSAITest", "PSAITest\PSAITest.csproj", "{BDB056E9-21F1-47D7-A8DD-ECDA72816FDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSAITest", "PSAITest\PSAITest.csproj", "{BDB056E9-21F1-47D7-A8DD-ECDA72816FDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeAI", "PokeAI\PokeAI.csproj", "{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -301,6 +303,22 @@ Global
 		{BDB056E9-21F1-47D7-A8DD-ECDA72816FDA}.Release|x64.Build.0 = Release|Any CPU
 		{BDB056E9-21F1-47D7-A8DD-ECDA72816FDA}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDB056E9-21F1-47D7-A8DD-ECDA72816FDA}.Release|x86.Build.0 = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|arm64.Build.0 = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|x64.Build.0 = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Debug|x86.Build.0 = Debug|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|arm64.ActiveCfg = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|arm64.Build.0 = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|x64.ActiveCfg = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|x64.Build.0 = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|x86.ActiveCfg = Release|Any CPU
+		{EE0001C4-AF27-4766-AB3D-0E6C06499EDB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

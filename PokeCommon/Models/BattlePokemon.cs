@@ -27,6 +27,7 @@ namespace PokeCommon.Models
         /// </summary>
         public Item Item { get; }
         public bool Active { get; set; }
+        // 剑盾独有 这个需重新设计
         public bool Dynamax { get; set; } = false;
         public bool CanDynamax { get; set; } = true;
         public Status Status { get; set; } = Status.Normal;

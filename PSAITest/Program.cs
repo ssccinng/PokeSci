@@ -83,7 +83,8 @@ pc.OnTeampreview += async battle =>
 {
     // await battle.SendMessageAsync("让我康康");
     // await battle.OrderTeamAsync("123456");
-    await battle.OrderTeamAsync(await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
+    await battle.OrderTeamAsync
+    (await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
 
     // await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
 };

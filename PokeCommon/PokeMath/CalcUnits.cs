@@ -47,7 +47,7 @@ namespace PokeCommon.PokeMath
             throw new NotImplementedException();
         }
 
-        public virtual int GetPureBaseOtherStat(int statValue, int IV, int EV, int lv = 50)
+        public virtual int GetPureBaseOtherStat(int statValue, int IV, int EV, int lv = 50, double natureRevise = 1)
         {
             throw new NotImplementedException();
         }
@@ -70,7 +70,7 @@ namespace PokeCommon.PokeMath
                 ) * natureRevise
                 );
         }
-
+        // 再加一个性格
         public override int GetPureBaseHP(int statValue, int IV, int EV = 0, int lv = 50)
         {
             if (statValue == 1) return 1;
@@ -83,13 +83,35 @@ namespace PokeCommon.PokeMath
             return (int)Math.Ceiling(temp);
         }
 
-        public override int GetPureBaseOtherStat(int statValue, int IV, int EV = 0, int lv = 50)
+        public override int GetPureBaseOtherStat(int statValue, int IV, int EV = 0, int lv = 50, double natureRevise = 1)
         {
-            double temp = statValue - 5;
+            double temp = statValue / natureRevise - 5;
             temp *= 100;
             temp /= lv;
             temp -= EV / 4f + IV;
             temp /= 2;
+            return (int)Math.Ceiling(temp);
+        }
+
+        public int GetEVHP(int statValue, int baseValue, int IV, int lv = 50)
+        {
+            if (statValue == 1) return 1;
+            double temp = statValue - 10 - lv;
+            temp *= 100;
+            temp /= lv;
+
+            temp -= baseValue * 2 + IV;
+            Console.WriteLine(temp);
+            temp *= 4;
+            return (int)Math.Ceiling(temp);
+        }
+        public int GetEVOtherStat(int statValue, int baseValue, int IV, int lv = 50, double natureRevise = 1)
+        {
+            double temp = statValue / natureRevise - 5;
+            temp *= 100;
+            temp /= lv;
+            temp -= baseValue * 2 + IV;
+            temp *= 4;
             return (int)Math.Ceiling(temp);
         }
 
