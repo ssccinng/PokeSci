@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
     <Grid x:Name="ContentArea">
         <StackPanel>
@@ -17,6 +17,9 @@
                 <PasswordBox Width="150" Password="{x:Bind ViewModel.Password, Mode=TwoWay}" />
             </StackPanel>
             <Button x:Name="LogToPs" Click="LogToPs_Click" Width="210">登陆</Button>
+            <ListBox x:Name="pmList" ItemsSource="{x:Bind ViewModel.Msgs}">
+                <x:String>1111</x:String>
+            </ListBox>
         </StackPanel>
     </Grid>
 </Page>

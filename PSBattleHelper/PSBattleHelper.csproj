@@ -11,6 +11,9 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Assets\PokeRes.resx" />
+  </ItemGroup>
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
@@ -28,6 +31,29 @@
     <ProjectReference Include="..\PokeCommon\PokeCommon.csproj" />
     <ProjectReference Include="..\PokePSCore\PokePSCore.csproj" />
     <ProjectReference Include="..\PSBattleHelper.Core\PSBattleHelper.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Assets\PokeRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PokeRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Assets\PokeRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PokeRes.resx</DependentUpon>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Assets\PokeRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PokeRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

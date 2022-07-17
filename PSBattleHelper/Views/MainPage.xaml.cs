@@ -34,4 +34,23 @@ public sealed partial class MainPage : Page
             LogToPs.Content = "登陆成功";
         }
     }
+
+    private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (MainViewModel.PSClient == null) return;
+        //MainViewModel.PSClient.ChatAction += AddChatMessage;
+    }
+
+    private void Page_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (MainViewModel.PSClient == null) return;
+
+        //MainViewModel.PSClient.ChatAction -= AddChatMessage;
+
+    }
+
+    public void AddChatMessage(string Id, string Msg)
+    {
+        pmList.Items.Add($"{Id}: {Msg}");
+    }
 }

@@ -67,9 +67,9 @@ namespace PokePSCore
             //$"wss://sim.smogon.com/showdown/websocket";
             $"ws://sim.smogon.com:8000/showdown/websocket";
 
-        private string _loginUrl = "https://play.pokemonshowdown.com/action.php?";
+        private string _loginUrl1 = "https://play.pokemonshowdown.com/action.php?";
 
-        //private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
+        private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
         public PSClient(string userName, string pwd, string wsUrl = $"ws://sim.smogon.com:8000/showdown/websocket")
         {
             _psServer = wsUrl;
@@ -133,13 +133,21 @@ namespace PokePSCore
         /// <returns></returns>
         public async Task<bool> LoginAsync(string userName, string password, string challId, string chall)
         {
-            var res = await _client.PostAsJsonAsync(_loginUrl, new
+
+            var res = await _client.PostAsJsonAsync(_loginUrl1, new
             {
                 act = "login",
                 name = userName,
                 pass = password,
                 challstr = $"{challId}%7C{chall}"
             });
+            //var res = await _client.PostAsync($"{_loginUrl}?", new StringContent($"act=login&name={userName}&pass={password}&challstr={$"{challId}%7C{chall}"}"));
+            //MultipartFormDataContent data1 = new();
+            //data1.Add(new StringContent("login"), "act");
+            //data1.Add(new StringContent(userName), "name");
+            //data1.Add(new StringContent(password), "pass");
+            //data1.Add(new StringContent($"{challId}%7C{chall}"), "challstr");
+            //var res = await _client.PostAsync(_loginUrl, data1);
             Console.WriteLine(res.IsSuccessStatusCode);
             var dd = (await res.Content.ReadAsStringAsync())[1..];
             JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
