@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Diagnostics;
 
 namespace PokePSCore
 {
@@ -297,6 +298,7 @@ namespace PokePSCore
         private async Task ExcuteMessageAsync(string message, Usage usage = Usage.Standby)
         {
             Console.WriteLine(message);
+            Debug.WriteLine(message);
             var data = message.Split('|');
             Console.WriteLine(data[0]);
             if (data[0].Contains("battle"))
