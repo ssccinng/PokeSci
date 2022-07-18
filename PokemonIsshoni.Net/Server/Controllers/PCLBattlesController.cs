@@ -88,7 +88,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         {
             if (pCLBattles.Length > 0)
             {
-                var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattles[0].Id);
+                var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattles[0].PCLMatchId);
                 if (!await HasPower(pclMatch))
                 {
                     return Problem("达美");
@@ -96,7 +96,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
             }
             else
             {
-                return Problem("达美");
+                return Problem("达美da");
 
             }
             return NoContent();
@@ -112,7 +112,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
             //}
             if (pCLBattles.Length > 0)
             {
-                var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattles[0].Id);
+                var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattles[0].PCLMatchId);
                 if (!await HasPower(pclMatch))
                 {
                     return Problem("达美");
@@ -248,7 +248,116 @@ namespace PokemonIsshoni.Net.Server.Controllers
             var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattle.PCLMatchId);
             var pclRonud = await _context.PCLMatchRounds.FindAsync(pCLBattle.PCLMatchRoundId);
             if (!await HasPower(pclMatch)) return Problem("有问题");
-            return null;
+
+            if (pCLBattle.Submitted) return Problem("damei");
+            if (pCLBattle.PCLBattleState == BattleState.Waiting) return Problem("desu");
+            pCLBattle.Submitted = true;
+            var player1 = await _context.PCLRoundPlayers.FirstAsync(s => s.UserId == pCLBattle.Player1Id && s.PCLMatchRoundId == pclRonud.Id);
+            var player2 = await _context.PCLRoundPlayers.FirstAsync(s => s.UserId == pCLBattle.Player2Id && s.PCLMatchRoundId == pclRonud.Id);
+            switch (pclRonud.PCLRoundType)
+            {
+                case RoundType.Swiss:
+                    switch (pCLBattle.PCLBattleState)
+                    {
+                        case BattleState.Waiting:
+                            break;
+                        case BattleState.Player1Win:
+                            player1.Win++;
+                            player2.Lose++;
+
+                            player1.Score += pclRonud.WinScore;
+
+
+                            //player2.Score
+                            break;
+                        case BattleState.Player2Win:
+                            player2.Win++;
+                            player1.Lose++;
+                            player2.Score += pclRonud.WinScore;
+
+
+                            break;
+                        case BattleState.Draw:
+                            player1.Draw++;
+                            player2.Draw++;
+                            player1.Score += pclRonud.DrawScore;
+                            player2.Score += pclRonud.DrawScore;
+
+
+                            break;
+                        case BattleState.AllLose:
+                            player1.Lose++;
+                            player2.Lose++;
+
+
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case RoundType.Robin:
+                    break;
+                case RoundType.Elimination:
+                    break;
+                default:
+                    break;
+            }
+            try
+            {
+                //var aa = await _context.SaveChangesAsync();
+
+                _context.Entry(pCLBattle).State = EntityState.Modified;
+
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+
+                foreach (var entry in ex.Entries)
+                {
+                    if (entry.Entity is PCLBattle)
+                    {
+                        var proposedValues = entry.CurrentValues;
+                        var databaseValues = entry.GetDatabaseValues();
+                        var oValues = entry.OriginalValues;
+
+                        foreach (var property in proposedValues.Properties)
+                        {
+                            var proposedValue = proposedValues[property];
+                            var databaseValue = databaseValues[property];
+                            var oValue = oValues[property];
+                            Console.WriteLine("property = " + property);
+                            Console.WriteLine("当前值 = " + proposedValue);
+                            Console.WriteLine("数据库值 = " + databaseValue);
+                            Console.WriteLine("原始值 = " + oValue);
+                            //Console.WriteLine(databaseValue);
+                            // TODO: decide which value should be written to database
+                            // proposedValues[property] = <value to be saved>;
+                        }
+
+                        // Refresh original values to bypass next concurrency check
+                        //entry.OriginalValues.SetValues(databaseValues);
+
+                    }
+                    else
+                    {
+                        throw new NotSupportedException(
+                            "Don't know how to handle concurrency conflicts for "
+                            + entry.Metadata.Name);
+                    }
+                    //await _context.SaveChangesAsync();
+
+                }
+                if (!PCLBattleExists(pCLBattle.Id))
+                {
+                    return NotFound();
+                }
+                return Problem("已经修改过啦");
+                //{
+                //    throw;
+                //}
+            }
+            return Ok();
         }
 
         public async Task<bool> HasPower(PCLMatch match)

@@ -307,7 +307,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                 if (await MatchService.NextSwissAsync(round.Id, round.Swissidx))
                 {
                     // 其实只要更新这轮就好 理论上不需要更新全部比赛
-                    _pclMatch.PCLMatchRoundList[_pclMatch.RoundIdx] = await MatchService.GetRoundByIdAsync(Id);
+                    _pclMatch.PCLMatchRoundList[_pclMatch.RoundIdx] = await MatchService.GetRoundByIdAsync(round.Id);
 
                     //_pclMatch = await MatchService.GetMatchByIdAsync(Id);
 
@@ -358,6 +358,23 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             _battleHasChange.Add(pCLBattle);
 
             return true;
+        }
+
+        public async Task<bool> SubmitBattle(PCLBattle pCLBattle)
+        {
+            if (pCLBattle.PCLBattleState == BattleState.Waiting) { return false; }
+            if (pCLBattle.Submitted) { return false; }
+            if (await MatchService.SubmitBattleAsync(pCLBattle))
+            {
+                PrintInfoBar("提交成功", "Success");
+                pCLBattle.Submitted = true;
+
+                return true;
+            }
+
+            PrintInfoBar("提交失败");
+
+            return false;
         }
         public async Task<bool> SaveBattle()
         {

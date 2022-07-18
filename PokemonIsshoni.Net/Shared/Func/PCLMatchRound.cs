@@ -13,12 +13,23 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 个人赛瑞士轮胜率计算
         /// </summary>
-        public void SwissRatioCalc()
+        public bool SwissRatioCalc()
         {
-            if (PCLRoundType != RoundType.Swiss) return;
-            if (PCLRoundPlayers is null) return;
+            if (PCLRoundType != RoundType.Swiss) return false;
+            if (PCLRoundPlayers is null) return false;
+            if (PCLBattles is null) return false;
+
             //PCLRoundPlayers.tos
             var playerDict = PCLRoundPlayers.ToDictionary(s => s.UserId);
+            foreach (PCLRoundPlayer pclRoundPlayer in PCLRoundPlayers)
+            {
+                pclRoundPlayer.PCLBattles = PCLBattles
+                    .Where(s =>
+                    s.Player1Id == pclRoundPlayer.UserId ||
+                    s.Player2Id == pclRoundPlayer.UserId)
+                    .ToList();
+            }
+            // 先维护胜率 才能维护对手胜率和对手的对手胜率
             //Dictionary<playerdict.GetType(), int> a;
             foreach (PCLRoundPlayer pclRoundPlayer in PCLRoundPlayers)
             {
@@ -27,7 +38,11 @@ namespace PokemonIsshoni.Net.Shared.Models
                 //    (battle) =>
                 //    {
                 //    });
-                if (pclRoundPlayer.PCLBattles is null) continue;
+                //pclRoundPlayer.PCLBattles = PCLBattles
+                //    .Where(s => 
+                //    s.Player1Id == pclRoundPlayer.UserId || 
+                //    s.Player2Id == pclRoundPlayer.UserId)
+                //    .ToList();
                 decimal oppRatio = 0, oppoppRatio = 0;
                 int oppCnt = pclRoundPlayer.PCLBattles.Count, oppoppCnt = 0;
                 foreach (PCLBattle battle in pclRoundPlayer.PCLBattles)
@@ -51,13 +66,22 @@ namespace PokemonIsshoni.Net.Shared.Models
                         oppoppRatio += Math.Max(0.25m, OppOppRoundData switch
                         {
                             var x when x.IsDrop => Math.Min(0.75m, x.Ratio),
-                            _ => OppRoundData.Ratio,
+                            _ => OppOppRoundData.Ratio,
                         });
                     }
 
                 }
-                pclRoundPlayer.OppRatio = oppRatio / oppCnt;
-                pclRoundPlayer.OppOppRatio = oppoppRatio / oppoppCnt;
+                if (oppCnt > 0)
+                {
+                    pclRoundPlayer.OppRatio = oppRatio / oppCnt;
+                    pclRoundPlayer.OppOppRatio = oppoppRatio / oppoppCnt;
+
+                }
+                else
+                {
+                    //pclRoundPlayer.OppRatio = oppRatio / oppCnt;
+
+                }
 
                 // then SaveChanges
             }
@@ -77,6 +101,7 @@ namespace PokemonIsshoni.Net.Shared.Models
             //{
             //    PCLRoundPlayers[i].Rank = i + 1;
             //}
+            return true;
 
         }
         // 利用swissidx 计算得出下一轮
@@ -91,6 +116,7 @@ namespace PokemonIsshoni.Net.Shared.Models
             if (PCLBattles == null) return null;
 
             List<PCLBattle> newBattleList = new();
+            SwissRatioCalc();
             // 需要吗
             var rankTemp = PCLRoundPlayers.Where(s => !s.IsDrop)
                                           .OrderByDescending(s => s.Score)
@@ -104,7 +130,7 @@ namespace PokemonIsshoni.Net.Shared.Models
             {
                 return null;
             }
-            for (int gid = 0; gid < GroupCnt; gid++)
+            for (int gid = 0; gid < (IsGroup ? GroupCnt : 1); gid++)
             {
                 // 遍历分组
                 int tableId = 1;

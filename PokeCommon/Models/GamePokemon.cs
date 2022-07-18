@@ -78,7 +78,7 @@ namespace PokeCommon.Models
         /// </summary>
         public SixDimension Stats { get; private set; }
 
-
+        public Gender Gender { get; set; } = Gender.Random;
         public void UpdateStats()
         {
             Stats = new SixDimension(0)
@@ -98,7 +98,7 @@ namespace PokeCommon.Models
         /// <summary>
         /// 是否gg
         /// </summary>
-        public bool IsDead => NowHp == 0;
+        public bool IsDead => NowHp <= 0;
         /// <summary>
         /// 回到最开始的状态
         /// </summary>

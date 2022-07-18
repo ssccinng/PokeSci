@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "PSBattleHelper (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "PSBattleHelper (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

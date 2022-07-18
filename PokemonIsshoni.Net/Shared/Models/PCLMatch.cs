@@ -97,7 +97,7 @@ namespace PokemonIsshoni.Net.Shared.Models
 
         public int LimitPlayer { get; set; } = 999;
         [Timestamp]
-        public byte[] ConcurrencyToken { get; set; }
+        public byte[]? ConcurrencyToken { get; set; }
         // 是否显示在主界面
     }
 }

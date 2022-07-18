@@ -16,6 +16,7 @@ namespace PokeCommon.PokemonHome
         // 最新数据
         public List<PokemonHomeSession> PokemonHomeSessions = new();
         public List<PokemonHomeTrainerRankData> PokemonHomeTrainerRankDatas = new();
+        public List<PokemonHomeTrainerRankData> PokemonHomeLastTrainerRankDatas = new();
 
         private Timer _timer;
 
@@ -29,7 +30,8 @@ countrycode: 304
 authorization: Bearer
 langcode: 1
 user-agent: Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Mobile Safari/537.36
-Accept-Encoding: gzip,deflate";
+Accept-Encoding: gzip";
+//Accept-Encoding: gzip";
 //Accept-Encoding: gzip,deflate";
 
         private HttpClient _httpClient = new();
@@ -41,10 +43,14 @@ Accept-Encoding: gzip,deflate";
                 _httpClient.DefaultRequestHeaders.Add(data[0], data[1]);
             }
             if (autoUpdate)
-            _timer = new Timer(new TimerCallback(async _ =>
             {
-                await UpdateRankMatchAsync();
-            }), null, 5000, 10 * 60);
+                UpdateLastRankMatchAsync().Wait();
+                _timer = new Timer(new TimerCallback(async _ =>
+                {
+                    await UpdateRankMatchAsync();
+                }), null, 5000, 10 * 60);
+            }
+            
         }
 
         public void UpdateBundle()
@@ -81,12 +87,17 @@ Accept-Encoding: gzip,deflate";
             return resp;
         }
         // 双打
-        public async Task UpdateRankMatchAsync(BattleType battleType = BattleType.Double)
+        public async Task UpdateLastRankMatchAsync(BattleType battleType = BattleType.Double)
+        {
+            PokemonHomeSessions = await GetRankMatchAsync();
+            PokemonHomeLastTrainerRankDatas = await GetTrainerDataAsync(PokemonHomeSessions.Where(s => s.Type == battleType).ElementAt(1), -1);
+        }
+        public async Task UpdateRankMatchAsync(BattleType battleType = BattleType.Double, bool all = false)
         {
             try
             {
                 PokemonHomeSessions = await GetRankMatchAsync();
-                PokemonHomeTrainerRankDatas = await GetTrainerDataAsync(PokemonHomeSessions.First(s => s.Type == battleType));
+                PokemonHomeTrainerRankDatas = await GetTrainerDataAsync(PokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
 
             }
             catch (Exception e)
@@ -102,21 +113,53 @@ Accept-Encoding: gzip,deflate";
         {
             List<PokemonHomeTrainerRankData> res = new();
             //System.Console.WriteLine(string.Format(url3, stId, rts, ts2, i));
-            var response = await _httpClient.GetAsync(string.Format(_trainerUrl, sessionId, rst, ts1, page));
-            MemoryStream output = new MemoryStream();
-            using var decompressor = new GZipStream(await response.Content.ReadAsStreamAsync(), CompressionMode.Decompress);
-            decompressor.CopyTo(output);
-            var gfata = Encoding.UTF8.GetString(output.ToArray());
-            //System.Console.WriteLine(gfata);
-            //var gd = JsonDocument.Parse(output).RootElement;
-            var gd = JsonDocument.Parse(gfata).RootElement;
-            for (int j = 0; j < gd.GetArrayLength(); j++)
+
+
+            if (page == -1)
             {
-                res.Add(JsonSerializer.Deserialize<PokemonHomeTrainerRankData>(gd[j]));
-                //if (gd[j].GetProperty("lng").GetString() == "7")
-                //{
-                //    System.Console.WriteLine(gd[j]);
-                //}
+                page = 1;
+                while (true)
+                {
+                    var response = await _httpClient.GetAsync(string.Format(_trainerUrl, sessionId, rst, ts1, page));
+                    if (!response.IsSuccessStatusCode) break;
+                    MemoryStream output = new MemoryStream();
+                    using var decompressor = new GZipStream(await response.Content.ReadAsStreamAsync(), CompressionMode.Decompress);
+                    decompressor.CopyTo(output);
+                    var gfata = Encoding.UTF8.GetString(output.ToArray());
+                    //System.Console.WriteLine(gfata);
+                    //var gd = JsonDocument.Parse(output).RootElement;
+                    var gd = JsonDocument.Parse(gfata).RootElement;
+                    for (int j = 0; j < gd.GetArrayLength(); j++)
+                    {
+                        res.Add(JsonSerializer.Deserialize<PokemonHomeTrainerRankData>(gd[j]));
+                        //if (gd[j].GetProperty("lng").GetString() == "7")
+                        //{
+                        //    System.Console.WriteLine(gd[j]);
+                        //}
+                    }
+                    page++;
+                }
+            }
+            else
+            {
+
+            
+                var response = await _httpClient.GetAsync(string.Format(_trainerUrl, sessionId, rst, ts1, page));
+                MemoryStream output = new MemoryStream();
+                using var decompressor = new GZipStream(await response.Content.ReadAsStreamAsync(), CompressionMode.Decompress);
+                decompressor.CopyTo(output);
+                var gfata = Encoding.UTF8.GetString(output.ToArray());
+                //System.Console.WriteLine(gfata);
+                //var gd = JsonDocument.Parse(output).RootElement;
+                var gd = JsonDocument.Parse(gfata).RootElement;
+                for (int j = 0; j < gd.GetArrayLength(); j++)
+                {
+                    res.Add(JsonSerializer.Deserialize<PokemonHomeTrainerRankData>(gd[j]));
+                    //if (gd[j].GetProperty("lng").GetString() == "7")
+                    //{
+                    //    System.Console.WriteLine(gd[j]);
+                    //}
+                }
             }
             return res;
         }

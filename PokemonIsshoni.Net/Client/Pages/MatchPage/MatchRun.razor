@@ -64,8 +64,8 @@ else
                                 {
                                     <MudTabs>
                                         <MudTabPanel Text="战绩表">
-                                            <MudText Align="Align.Center" Typo="Typo.h4" Class="tw-mt-5 tw-font-extrabold">瑞士轮对阵情况</MudText>
-                                            <MudTable Elevation="0" Dense=true Items="pclRound.PCLRoundPlayers.OrderBy(s => s.Rank)" Class="tw-mt-5 mud-bold-table">
+                                            <MudText Align="Align.Center" Typo="Typo.h5" Class="tw-mt-5 tw-font-extrabold">瑞士轮对阵情况</MudText>
+                                            <MudTable Elevation="0" Dense=true Items="pclRound.PCLRoundPlayers.OrderBy(s => s.Rank)" Class="tw-mt-7 mud-bold-table">
                                                 <HeaderContent>
                                                     @*<MudTh Style="width:10px"></MudTh>*@
                                                     <MudTh Style="font-weight:800; width:100px">排名</MudTh>
@@ -90,7 +90,16 @@ else
                                     </MudTable>
                                         </MudTabPanel>
                                     <MudTabPanel Text="对阵表1">
-
+                                        <MudTabs>
+                                            @for (int i = 0; i < pclRound.Swissidx; i++)
+                            {
+                                <MudTabPanel Text=@($"{i + 1}")>
+                                    <MudList>
+                                        
+                                    </MudList>
+                                </MudTabPanel>
+                            }
+                                        </MudTabs>
                                         </MudTabPanel>
                                         <MudTabPanel Text="对阵表2">
 

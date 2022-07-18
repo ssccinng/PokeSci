@@ -12,24 +12,126 @@ using PokeCommon.BattleEngine;
 using System.Diagnostics;
 using PokePSCore;
 
+var SWSHTools = PokeCommon.PokeMath.CalcUnits.SWSHTools;
+
+int hp = SWSHTools.GetHP(95, 31, 0);
+int ehb = SWSHTools.GetEVHP(hp, 95, 31);
+int bhb = SWSHTools.GetPureBaseHP(hp, 31, 0);
+int spe = SWSHTools.GetOtherStat(60, 31, 0);
+int bspe = SWSHTools.GetPureBaseOtherStat(spe, 31, 0);
+Console.WriteLine(hp);
+Console.WriteLine(ehb);
+Console.WriteLine(bhb);
+Console.WriteLine(spe);
+Console.WriteLine(bspe);
+return;
+// PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
+// var data = await PokemonHomeTools.GetRankMatchAsync();
+// var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], -1);
+// int aaa = 1;
+// return;
+
+var team1 = await PSConverter.ConvertToPokemonsAsync(@"Kyogre @ Mystic Water  
+Ability: Drizzle  
+Level: 50  
+EVs: 124 HP / 156 SpA / 228 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Water Spout  
+- Origin Pulse  
+- Ice Beam  
+- Protect  
+
+Zacian-Crowned @ Rusted Sword  
+Ability: Intrepid Sword  
+Level: 50  
+EVs: 188 HP / 164 Atk / 4 Def / 4 SpD / 148 Spe  
+Adamant Nature  
+- Behemoth Blade  
+- Sacred Sword  
+- Play Rough  
+- Protect  
+
+Tornadus (M) @ Focus Sash  
+Ability: Prankster  
+Level: 50  
+EVs: 4 HP / 252 SpA / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Hurricane  
+- Icy Wind  
+- Tailwind  
+- Leer  
+
+Landorus-Therian (M) @ Life Orb  
+Ability: Intimidate  
+Level: 50  
+EVs: 36 HP / 212 Atk / 4 Def / 4 SpD / 252 Spe  
+Jolly Nature  
+- Rock Slide  
+- Earthquake  
+- Fly  
+- Protect  
+
+Kartana @ White Herb  
+Ability: Beast Boost  
+Level: 50  
+EVs: 4 HP / 252 Atk / 252 Spe  
+Jolly Nature  
+- Leaf Blade  
+- Sacred Sword  
+- Smart Strike  
+- Aerial Ace  
+
+Amoonguss @ Coba Berry  
+Ability: Regenerator  
+Level: 50  
+EVs: 236 HP / 156 Def / 116 SpD  
+Relaxed Nature  
+IVs: 0 Atk / 0 Spe  
+- Pollen Puff  
+- Rage Powder  
+- Spore  
+- Protect");
+
+
 var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
 await pc.ConnectAsync();
 await Task.Delay(500);
-await pc.LoginAsync();
+Console.WriteLine(await pc.LoginAsync());
+;
+
+
+
+pc.ChallengeAction += async (player, rule) =>
+{
+    // if (rule == "gen8randombattle")
+    //if (rule == "gen7vgc2019")
+    if (rule == "gen8vgc2022")
+    {
+        await pc.ChatWithIdAsync(player, "随机战斗，玩了");
+        await pc.ChatWithIdAsync(player, "就决定是你了");
+        // await pc.ChangeYourTeamAsync("null");
+        await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+        await pc.AcceptChallengeAsync(player);
+    }
+};
+int id = 200;
 while (true)
 {
-    await Task.Delay(5000);
+    await Task.Delay(10000000);
     await pc.GetRoomListAsync("gen8vgc2022", 1500);
+    // await pc.SetAvatarAsync(id++.ToString());
 }
 return;
 
 //SWSHBattleEngine engine = BattleEngine.CreateBattleEngine(BattleVersion.SWSH) as SWSHBattleEngine;
 //engine.CreateBattle();
-PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
-var data =  await PokemonHomeTools.GetRankMatchAsync();
-var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], 1);
-int aaa = 1;
-return;
+//PokemonHomeTools PokemonHomeTools = new PokemonHomeTools();
+//var data =  await PokemonHomeTools.GetRankMatchAsync();
+//var tdata = await PokemonHomeTools.GetTrainerDataAsync(data[0], 1);
+//int aaa = 1;
+//return;
 
 //var a1 = OCRTools.SplitSWSHTeamPage("test10.jpg");
 //List<string> res = new List<string>();
@@ -238,6 +340,8 @@ foreach (var item in team.GamePokemons)
     }
 
 }
+
+Console.WriteLine(PSConverter.ConvertToPsOneLineAsync(team));
 //OCRTools.SplitSWSHTeamPage();
 
 //BattleEngine.CreateBattleEngine(BattleVersion.DPPt);

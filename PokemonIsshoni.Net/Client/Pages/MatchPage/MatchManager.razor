@@ -266,11 +266,12 @@ else
                                         }
                                         break;
                                     case RoundState.Running:
-                                        for (int swidx = 0; swidx < pclRound.Swissidx; ++swidx)
+                                            <MudTabs Elevation="0" ActivePanelIndex=@(pclRound.Swissidx - 1)>
+
+                                        @for (int swidx = 0; swidx < pclRound.Swissidx; ++swidx)
                                         {
                                             int sswidx = swidx;
                                             var blist = pclRound.PCLBattles.OrderBy(s => s.Tag);
-                                            <MudTabs Elevation="0">
                                                 <MudTabPanel Text=@($"第  {sswidx + 1}轮")>
 
                                                     <MudTable Items="blist.Where(s => s.SwissRoundIdx == sswidx)" Striped=true>
@@ -347,12 +348,12 @@ else
                                                                 {
                                                                     @if ( context.Submitted)
                                                                    {
-                                    <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Dark" Style="height: 23px; font-size:small">撤回结果</MudButton>
+                                    <MudButton Size="Size.Small" Variant="Variant.Filled" Disabled=@(sswidx != pclRound.Swissidx - 1) Color="Color.Dark" Style="height: 23px; font-size:small">撤回结果</MudButton>
                                                                        
                                                                    }
                                                                     else
                                                                     {
-                                    <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Dark" Style="height: 23px; font-size:small">提交</MudButton>
+                                    <MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Dark" Style="height: 23px; font-size:small" OnClick="@(() => SubmitBattle(context))">提交</MudButton>
                                                                     
                                                                     }
                                                                 
@@ -361,8 +362,9 @@ else
                                                         </RowTemplate>
                                                     </MudTable>
                                                 </MudTabPanel>
-                                            </MudTabs>
+                                            
                                         }
+                                        </MudTabs>
                                         <MudStack  Row="true" Justify="Justify.Center" Class="tw-bg-white tw-p-3">
                                                     <MudButton Color=Color.Default Variant=Variant.Filled Class="tw-pa-3" FullWidth=false OnClick=@(() => NextSwiss(pclRound))>开始下一轮瑞士轮</MudButton>
                                             </MudStack>

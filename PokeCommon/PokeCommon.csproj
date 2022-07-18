@@ -10,4 +10,8 @@
     <ProjectReference Include="..\PokemonDataAccess\PokemonDataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\SV" />
+  </ItemGroup>
+
 </Project>
