@@ -245,16 +245,16 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [Authorize]
         public async Task<ActionResult<PCLRoundPlayer>> SubmitBattle(PCLBattle pCLBattle)
         {
-            var pclMatch = await _context.PCLBattles.FindAsync(pCLBattle.PCLMatchId);
+            var pclMatch = await _context.PCLMatchs.FindAsync(pCLBattle.PCLMatchId);
             var pclRonud = await _context.PCLMatchRounds.FindAsync(pCLBattle.PCLMatchRoundId);
-
+            if (!await HasPower(pclMatch)) return Problem("有问题");
             return null;
         }
 
         public async Task<bool> HasPower(PCLMatch match)
         {
             if (match == null) return false;
-
+            // 或者是裁判
             var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
             return HttpContext.User.IsInRole("Admin") || match.UserId == uid.Value;
         }
