@@ -23,114 +23,196 @@
 else
 {
     <MudContainer MaxWidth=MaxWidth.Medium>
-    <MudPaper Class="tw-p-5">
-        <MudText Typo=Typo.h4>@_pclMatch.Name</MudText>
-        <MudLink Href=@($"MatchDetail/{Id}") Class="tw-text-sm tw-mt-3"><MudIcon Style="margin-bottom: 0.15rem" Icon=@Icons.Material.Filled.ArrowBack />返回比赛主页</MudLink>
+        <MudPaper Class="tw-p-5">
+            <MudText Typo=Typo.h4>@_pclMatch.Name</MudText>
+            <MudLink Href=@($"MatchDetail/{Id}") Class="tw-text-sm tw-mt-3"><MudIcon Style="margin-bottom: 0.15rem" Icon=@Icons.Material.Filled.ArrowBack />返回比赛主页</MudLink>
 
-        <MudTabs  Elevation="0" Rounded="true"  Color="@Color.Default" Class="tw-mt-2" @bind-ActivePanelIndex="selectId">
-            <MudTabPanel Text="比赛信息">
-                <MudGrid Class="tw-p-3">
-                    <MudItem xs="12">
-                        <MudText Typo="Typo.h5" Class="tw-mt-5 tw-font-extrabold">已报名选手</MudText>
-                    </MudItem>
-                    <MudItem xs="12">
-                        <MudGrid>
-                            @foreach (var player in _pclMatch.PCLMatchPlayerList)
-                            {
-                                <MudItem xs=12 md=4 lg=3 Class="tw-flex tw-justify-center">
-                                    <PlayerSignInMatchCard PCLMatchPlayer=player />
-                                </MudItem>
-                            }
-                        </MudGrid>
-                    </MudItem>
-
-
-                </MudGrid>
-
-            </MudTabPanel>
-            @{
-                int idx = 1;
-            }
-            @if (_pclMatch.MatchState > MatchState.Registering)
-            {
-                foreach (var pclRound in _pclMatch.PCLMatchRoundList)
-                {
-                    int roundIdx = idx;
-                    switch (pclRound.PCLRoundType)
-                    {
-                        case RoundType.Swiss:
-                            <MudTabPanel Text=@($"{roundIdx}. 瑞士轮")>
-                                @if (pclRound.PCLRoundPlayers != null && pclRound.Swissidx > -1)
+            <MudTabs Elevation="0" Rounded="true" Color="@Color.Default" Class="tw-mt-2" @bind-ActivePanelIndex="selectId">
+                <MudTabPanel Text="比赛信息">
+                    <MudGrid Class="tw-p-3">
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.h5" Class="tw-mt-5 tw-font-extrabold">已报名选手</MudText>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudGrid>
+                                @foreach (var player in _pclMatch.PCLMatchPlayerList)
                                 {
-                                    <MudTabs>
-                                        <MudTabPanel Text="战绩表">
-                                            <MudText Align="Align.Center" Typo="Typo.h5" Class="tw-mt-5 tw-font-extrabold">瑞士轮对阵情况</MudText>
-                                            <MudTable Elevation="0" Dense=true Items="pclRound.PCLRoundPlayers.OrderBy(s => s.Rank)" Class="tw-mt-7 mud-bold-table">
-                                                <HeaderContent>
-                                                    @*<MudTh Style="width:10px"></MudTh>*@
-                                                    <MudTh Style="font-weight:800; width:100px">排名</MudTh>
-                                                    <MudTh Style="font-weight:800; width:260px">参赛ID</MudTh>
-                                                    <MudTh Style="font-weight:800; width:100px">战绩</MudTh>
-                                                    <MudTh Style="font-weight:800; width:170px">对手胜率</MudTh>
-                                                    <MudTh Style="font-weight:800; width:170px">对手的对手胜率</MudTh>
-                                                    <MudTh></MudTh>
-
-                                                </HeaderContent>
-                                                <RowTemplate>
-                                                     @*<MudTd />*@
-                                                    <MudTd DataLabel="排名">@context.Rank</MudTd>
-                                                    <MudTd DataLabel="参赛ID">@_matchUserDatasDic[context.UserId].ShadowId</MudTd>
-                                                    <MudTd DataLabel="战绩">@($"{context.Win}-{context.Draw}-{context.Lose}")</MudTd>
-                                                    <MudTd DataLabel="对手胜率">@context.OppRatio.ToString("P2")</MudTd>
-                                                    <MudTd DataLabel="对手的对手胜率">@context.OppOppRatio.ToString("P2")</MudTd>
-                                                     <MudTd />
+                                    <MudItem xs=12 md=4 lg=3 Class="tw-flex tw-justify-center">
+                                        <PlayerSignInMatchCard PCLMatchPlayer=player />
+                                    </MudItem>
+                                }
+                            </MudGrid>
+                        </MudItem>
 
 
-                                            </RowTemplate>
-                                    </MudTable>
-                                        </MudTabPanel>
-                                    <MudTabPanel Text="对阵表1">
-                                        <MudTabs>
-                                            @for (int i = 0; i < pclRound.Swissidx; i++)
-                            {
-                                <MudTabPanel Text=@($"{i + 1}")>
-                                    <MudList>
-                                        
-                                    </MudList>
-                                </MudTabPanel>
-                            }
-                                        </MudTabs>
-                                        </MudTabPanel>
-                                        <MudTabPanel Text="对阵表2">
+                    </MudGrid>
 
-                                        </MudTabPanel>
-                                        <MudTabPanel Text="对阵表3">
-
-                                        </MudTabPanel>
-                                    
-                                    </MudTabs>
-                                } 
-                            </MudTabPanel>
-                            break;
-                        case RoundType.Robin:
-                            <MudTabPanel Text=@($"{roundIdx}. 循环赛")>
-
-                            </MudTabPanel>
-                            break;
-                        case RoundType.Elimination:
-                            <MudTabPanel Text=@($"{roundIdx}. 淘汰赛")>
-
-                            </MudTabPanel>
-                            break;
-                        default:
-                            break;
-                    }
-
-                    idx++;
+                </MudTabPanel>
+                @{
+                    int idx = 1;
                 }
-            }
-        </MudTabs>
-    </MudPaper>
+                @if (_pclMatch.MatchState > MatchState.Registering)
+                {
+                    foreach (var pclRound in _pclMatch.PCLMatchRoundList)
+                    {
+                        int roundIdx = idx;
+                        switch (pclRound.PCLRoundType)
+                        {
+                            case RoundType.Swiss:
+                                <MudTabPanel Text=@($"{roundIdx}. 瑞士轮")>
+                                    @if (pclRound.PCLRoundPlayers != null && pclRound.Swissidx > -1)
+                                    {
+                                        <MudTabs>
+                                            <MudTabPanel Text="战绩表">
+                                                <MudText Align="Align.Center" Typo="Typo.h5" Class="tw-mt-5 tw-font-extrabold">瑞士轮对阵情况</MudText>
+                                                <MudTable Elevation="0" Dense=true Items="pclRound.PCLRoundPlayers.OrderBy(s => s.Rank)" Class="tw-mt-7 mud-bold-table">
+                                                    <HeaderContent>
+                                                        @*<MudTh Style="width:10px"></MudTh>*@
+                                                        <MudTh Style="font-weight:800; width:100px">排名</MudTh>
+                                                        <MudTh Style="font-weight:800; width:260px">参赛ID</MudTh>
+                                                        <MudTh Style="font-weight:800; width:100px">战绩</MudTh>
+                                                        <MudTh Style="font-weight:800; width:170px">对手胜率</MudTh>
+                                                        <MudTh Style="font-weight:800; width:170px">对手的对手胜率</MudTh>
+                                                        <MudTh></MudTh>
+
+                                                    </HeaderContent>
+                                                    <RowTemplate>
+                                                        @*<MudTd />*@
+                                                        <MudTd DataLabel="排名">@context.Rank</MudTd>
+                                                        <MudTd DataLabel="参赛ID">@_matchUserDatasDic[context.UserId].ShadowId</MudTd>
+                                                        <MudTd DataLabel="战绩">@($"{context.Win}-{context.Draw}-{context.Lose}")</MudTd>
+                                                        <MudTd DataLabel="对手胜率">@context.OppRatio.ToString("P2")</MudTd>
+                                                        <MudTd DataLabel="对手的对手胜率">@context.OppOppRatio.ToString("P2")</MudTd>
+                                                        <MudTd />
+
+
+                                                    </RowTemplate>
+                                                </MudTable>
+                                            </MudTabPanel>
+                                            <MudTabPanel Text="对阵表1">
+                                                <MudTabs>
+                                                    @for (int i = 0; i < pclRound.Swissidx; i++)
+                                                    {
+                                                        int ii = i;
+
+                                                        <MudTabPanel Text=@($"{i + 1}")>
+                                                            <MudList>
+                                                                @*<MudListItem Text="1111"></MudListItem>*@
+
+                                                                @foreach (var pCLBattle in pclRound.PCLBattles.Where(s => s.SwissRoundIdx == ii).OrderBy(s => s.Tag))
+                                                                {
+                                                                    var user1 = pclRound.PCLRoundPlayers.First(s => s.UserId == pCLBattle.Player1Id);
+                                                                    var user2 = pclRound.PCLRoundPlayers.First(s => s.UserId == pCLBattle.Player2Id);
+                                                                    <MudListItem>
+                                                                        <div class="row text-center">
+                                                                            @* <div class="col-md-1 col-sm-12" style="margin-top:10px; line-height:60px; font-size:large;font-weight:bold; color:gray">
+                                            @order.eliBId
+                                            </div> *@
+
+                                                                            <div class="col col-sm-12">
+                                                                            </div>
+
+
+                                                                            <div class="col-md-4 col-sm-12 align-self-center" style="font-weight:@(pCLBattle.PCLBattleState == BattleState.Player1Win ? "bold": ""); color:@((pCLBattle.PCLBattleState == BattleState.Player2Win || pCLBattle.PCLBattleState == BattleState.AllLose) ? "#cccccc": "")">
+                                                                                <p></p>
+                                                                                <div style="font-size:small">@_matchUserDatasDic[pCLBattle.Player1Id].ShadowId</div>
+                                                                                <div style="font-size:x-small">@_matchUserDatasDic[pCLBattle.Player1Id].QQ</div>
+                                                                                <div style="font-size:x-small">@user1.Win-@user1.Draw-@user1.Lose</div>
+                                                                            </div>
+                                                                            <div class="col-md-4 col-xl-4 col-lg-4 col-sm-12  align-self-center" style="">
+                                                                                <div class="col-12 text-center" style="font-weight:bold; font-size:large">@pCLBattle.Tag</div>
+                                                                                <div class="col-12 text-center">@pCLBattle.Player1Score - @pCLBattle.Player2Score</div>
+                                                                            </div>
+                                                                            <div class="col-md-4 col-sm-12  align-self-center" style="font-weight:@(pCLBattle.PCLBattleState == BattleState.Player2Win ? "bold": ""); color:@((pCLBattle.PCLBattleState == BattleState.Player1Win || pCLBattle.PCLBattleState == BattleState.AllLose) ? "#cccccc": "")">
+                                                                                <p></p>
+                                                                                <div style="font-size:small">@_matchUserDatasDic[pCLBattle.Player2Id].ShadowId</div>
+                                                                                <div style="font-size:x-small">@_matchUserDatasDic[pCLBattle.Player2Id].QQ</div>
+                                                                                <div style="font-size:x-small">@user2.Win-@user2.Draw-@user2.Lose</div>
+                                                                            </div>
+                                                                            <div class="col col-sm-12">
+                                                                            </div>
+                                                                        </div>
+                                                                    </MudListItem>
+                                                                }
+                                                            </MudList>
+                                                        </MudTabPanel>
+                                                    }
+                                                </MudTabs>
+                                            </MudTabPanel>
+                                            <MudTabPanel Text="对阵表2">
+                                                <MudTabs>
+
+                                                @for (int i = 0; i < pclRound.Swissidx; i++)
+                                                {
+                                                    int ii = i;
+
+                                                    <MudTabPanel Text=@($"{i + 1}")>
+                                                        <MudList>
+                                                            <MudListItem Text="1111"></MudListItem>
+
+                                                            @foreach (var pCLBattle in pclRound.PCLBattles.Where(s => s.SwissRoundIdx == ii).OrderBy(s => s.Tag))
+                                                            {
+                                                                var user1 = pclRound.PCLRoundPlayers.First(s => s.UserId == pCLBattle.Player1Id);
+                                                                var user2 = pclRound.PCLRoundPlayers.First(s => s.UserId == pCLBattle.Player2Id);
+                                                                <MudListItem>
+                                                                    <div class="row text-center">
+                                                                        <div class="col-md-1 col-sm-12" style="margin-top:10px; line-height:60px; font-size:xx-large;font-weight:bold; color:gray">
+                                                                            @pCLBattle.Tag
+                                                                        </div>
+
+
+
+                                                                        <div class="col-md-4 col-sm-12" style="font-weight:@(pCLBattle.PCLBattleState == BattleState.Player1Win ? "bold": ""); color:@((pCLBattle.PCLBattleState == BattleState.Player2Win || pCLBattle.PCLBattleState == BattleState.AllLose) ? "#cccccc": "")">
+                                                                            <p></p>
+                                                                            <div style="font-size:large">@_matchUserDatasDic[pCLBattle.Player1Id].ShadowId</div>
+                                                                            <div style="font-size:small">@_matchUserDatasDic[pCLBattle.Player1Id].QQ</div>
+                                                                            <div style="font-size:small">@user1.Win-@user1.Draw-@user1.Lose</div>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-xl-2 col-lg-2 col-sm-12" style="font-size: xx-large;display: flex;align-items: center;text-align: justify; justify-content: center;">
+                                                                            @pCLBattle.Player1Score - @pCLBattle.Player2Score
+                                                                        </div>
+                                                                        <div class="col-md-4 col-sm-12" style="font-weight:@(pCLBattle.PCLBattleState == BattleState.Player2Win ? "bold": ""); color:@((pCLBattle.PCLBattleState == BattleState.Player1Win || pCLBattle.PCLBattleState == BattleState.AllLose) ? "#cccccc": "")">
+                                                                            <p></p>
+                                                                            <div style="font-size:large">@_matchUserDatasDic[pCLBattle.Player2Id].ShadowId</div>
+                                                                            <div style="font-size:small">@_matchUserDatasDic[pCLBattle.Player2Id].QQ</div>
+                                                                            <div style="font-size:small">@user2.Win-@user2.Draw-@user2.Lose</div>
+                                                                        </div>
+                                                                      
+                                                                    </div>
+                                                                </MudListItem>
+                                                            }
+                                                        </MudList>
+                                                    </MudTabPanel>
+                                                }
+                                                </MudTabs>
+                                            </MudTabPanel>
+                                            <MudTabPanel Text="对阵表3">
+
+                                            </MudTabPanel>
+
+                                        </MudTabs>
+                                    }
+                                </MudTabPanel>
+                                break;
+                            case RoundType.Robin:
+                                <MudTabPanel Text=@($"{roundIdx}. 循环赛")>
+
+                                </MudTabPanel>
+                                break;
+                            case RoundType.Elimination:
+                                <MudTabPanel Text=@($"{roundIdx}. 淘汰赛")>
+
+                                </MudTabPanel>
+                                break;
+                            default:
+                                break;
+                        }
+
+                        idx++;
+                    }
+                }
+            </MudTabs>
+        </MudPaper>
     </MudContainer>
 }
 

@@ -22,7 +22,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
     {
         private readonly PokemonIsshoniNetServerContext _context;
 
-        private readonly PokemonHomeTools _pokeHomeTools = new(true);
+        private readonly PokemonHomeTools _pokeHomeTools = new(false);
 
         public PCLMatchesController(PokemonIsshoniNetServerContext context)
         {
