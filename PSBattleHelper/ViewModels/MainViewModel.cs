@@ -37,7 +37,7 @@ public class MainViewModel : ObservableRecipient
         await PSClient.ChatWithIdAsync("mooob", "临流");
         PSClient.ChatAction += (sender, args) =>
         {
-            Msgs.Add($"{sender}: {Msgs}");
+            Msgs.Add($"{sender}: {args}");
         };
         //await PSClient.SearchBattleAsync("gen8randombattle");
         return res;

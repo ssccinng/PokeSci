@@ -41,6 +41,7 @@ namespace PokePSCore
         /// </summary>
         public Action<string, string> ChatAction;
         public Action<string, string> RequestsAction;
+        public Action<string> UserDetailsAction;
         
         
         public Action<PsBattle> OnTeampreview;
@@ -134,20 +135,20 @@ namespace PokePSCore
         public async Task<bool> LoginAsync(string userName, string password, string challId, string chall)
         {
 
-            var res = await _client.PostAsJsonAsync(_loginUrl1, new
-            {
-                act = "login",
-                name = userName,
-                pass = password,
-                challstr = $"{challId}%7C{chall}"
-            });
+            //var res = await _client.PostAsJsonAsync(_loginUrl1, new
+            //{
+            //    act = "login",
+            //    name = userName,
+            //    pass = password,
+            //    challstr = $"{challId}%7C{chall}"
+            //});
             //var res = await _client.PostAsync($"{_loginUrl}?", new StringContent($"act=login&name={userName}&pass={password}&challstr={$"{challId}%7C{chall}"}"));
-            //MultipartFormDataContent data1 = new();
-            //data1.Add(new StringContent("login"), "act");
-            //data1.Add(new StringContent(userName), "name");
-            //data1.Add(new StringContent(password), "pass");
-            //data1.Add(new StringContent($"{challId}%7C{chall}"), "challstr");
-            //var res = await _client.PostAsync(_loginUrl, data1);
+            MultipartFormDataContent data1 = new();
+            data1.Add(new StringContent("login"), "act");
+            data1.Add(new StringContent(userName), "name");
+            data1.Add(new StringContent(password), "pass");
+            data1.Add(new StringContent($"{challId}%7C{chall}"), "challstr");
+            var res = await _client.PostAsync(_loginUrl, data1);
             Console.WriteLine(res.IsSuccessStatusCode);
             var dd = (await res.Content.ReadAsStringAsync())[1..];
             JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
@@ -340,6 +341,9 @@ namespace PokePSCore
                             case "roomlist":
                                 // 想办法传回去
                                 break;
+                            case "userdetails":
+                                UserDetailsAction?.Invoke(data[3]);
+                                break;
                             default:
                                 break;
                         }
@@ -422,7 +426,7 @@ namespace PokePSCore
                         }
 
                         break;
-                    case "":
+                    
                     default:
                         break;
                 }

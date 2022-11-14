@@ -5,6 +5,9 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 namespace PokePSCore
 {
     public partial class PSClient
@@ -175,5 +178,31 @@ namespace PokePSCore
             string data = $"/pm {name}, {msg}";
             await SendAsync("", data);
         }
+
+        public async Task GetUserDetails(string name)
+        {
+            string data = $"/cmd userdetails {name}";
+            await SendAsync("", data);
+        }
+
+        public async Task<List<RankData>> GetRankAsync(string name)
+        {
+            var res = await _client.GetAsync($"https://play.pokemonshowdown.com/~~showdown/action.php?act=ladderget&user={name}");
+            
+            var data = (await res.Content.ReadAsStringAsync())[1..];
+            return JsonSerializer.Deserialize<List<RankData>>(data);
+        }
+    }
+
+    public class RankData
+    {
+        [JsonPropertyName("elo")]
+        public string ELO{get;set;}
+        [JsonPropertyName("formatid")]
+        public string FormatId
+        {
+            get;set;
+        }
+
     }
 }

@@ -17,8 +17,9 @@
                 <PasswordBox Width="150" Password="{x:Bind ViewModel.Password, Mode=TwoWay}" />
             </StackPanel>
             <Button x:Name="LogToPs" Click="LogToPs_Click" Width="210">登陆</Button>
-            <ListBox x:Name="pmList" ItemsSource="{x:Bind ViewModel.Msgs}">
-                <x:String>1111</x:String>
+            <Button x:Name="test" Click="test_Click" Width="210">测试</Button>
+            <ListBox x:Name="pmList" >
+                <!--ItemsSource="{x:Bind ViewModel.Msgs}"-->
             </ListBox>
         </StackPanel>
     </Grid>
