@@ -2,11 +2,6 @@
 using PokemonDataAccess;
 using PokemonDataAccess.Interfaces;
 using PokemonDataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeCommon.Utils
 {
@@ -34,12 +29,15 @@ namespace PokeCommon.Utils
 
         private static Dictionary<string, int> _psPokemonId { get; set; } = new();
         private static Dictionary<int, PSPokemon> _pokemonIdPSName { get; set; } = new();
-        
+
         private static Dictionary<int, Nature> _natures { get; set; } = new();
         private static Dictionary<string, int> _natureNameId { get; set; } = new();
 
+        private static Dictionary<int, PokeType> _pokeTypes { get; set; } = new();
+        private static Dictionary<string, int> _pokeTypeNameId { get; set; } = new();
         private static async Task InitAlAsync()
         {
+            // 初始化全部
             var natureList = await PokemonContext.Natures.ToListAsync();
             for (int i = 0; i < natureList.Count; i++)
             {
@@ -51,6 +49,53 @@ namespace PokeCommon.Utils
         }
 
 
+        public static async ValueTask<PokeType?> GetTypeAsync(int id)
+        {
+            if (_pokeTypes.TryGetValue(id, out var type))
+            {
+                return type;
+            }
+            else
+            {
+                var nType = await PokemonContext.PokeTypes.FindAsync(id);
+                if (nType != null)
+                {
+                    _pokeTypes.Add(id, nType);
+                    _pokeTypeNameId.Add(nType.Name_Chs, id);
+                    _pokeTypeNameId.Add(nType.Name_Eng, id);
+                    _pokeTypeNameId.Add(nType.Name_Jpn, id);
+                    return nType;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        public static async ValueTask<PokeType?> GetTypeAsync(string name)
+        {
+            if (_pokeTypeNameId.TryGetValue(name, out var type))
+            {
+                return await GetTypeAsync(type);
+            }
+            else
+            {
+                var nType = await PokemonContext.PokeTypes.FirstOrDefaultAsync
+                    (n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
+                if (nType != null)
+                {
+                    _pokeTypes.Add(nType.Id, nType);
+                    _pokeTypeNameId.Add(nType.Name_Chs, nType.Id);
+                    _pokeTypeNameId.Add(nType.Name_Eng, nType.Id);
+                    _pokeTypeNameId.Add(nType.Name_Jpn, nType.Id);
+                    return nType;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         public static async ValueTask<Nature?> GetNatureAsync(int id)
         {
             if (_natures.TryGetValue(id, out var nature))
@@ -97,7 +142,7 @@ namespace PokeCommon.Utils
                 }
             }
         }
-        
+
         public static async ValueTask<Pokemon?> GetPokemonFromPsNameAsync(string name)
         {
             if (_psPokemonId.TryGetValue(name, out var id))
@@ -250,7 +295,7 @@ namespace PokeCommon.Utils
         public static async ValueTask<Pokemon?> GetPokemonAsync(int id)
         {
             if (_pokemons.TryGetValue(id, out var pokemon))
-                //if (_pokemons[id] != null)
+            //if (_pokemons[id] != null)
             {
                 //return _pokemons[id];
                 return pokemon;
@@ -290,7 +335,7 @@ namespace PokeCommon.Utils
         public static async ValueTask<Item?> GetItemAsync(int id)
         {
             if (_items.TryGetValue(id, out var item))
-                //if (_items[id] != null)
+            //if (_items[id] != null)
             {
                 //return _items[id];
                 return item;
@@ -305,7 +350,7 @@ namespace PokeCommon.Utils
                     _itemNameId[nItem.Name_Jpn] = nItem.ItemId;
                     _itemNameId[nItem.Name_Eng] = nItem.ItemId;
                 }
-                return nItem;   
+                return nItem;
             }
         }
 

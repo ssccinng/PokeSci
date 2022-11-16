@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
-
-
-namespace PokemonIsshoni.Net.Shared.Models
+﻿namespace PokemonIsshoni.Net.Shared.Models
 {
     public partial class PCLMatchRound
     {
@@ -179,7 +171,7 @@ namespace PokemonIsshoni.Net.Shared.Models
                                     SwissRoundIdx = Swissidx,
                                     Tag = tableId++
                                 }
-                                ) ;
+                                );
                             // 成功匹配 跳出循环
                             break;
                         }
@@ -205,16 +197,17 @@ namespace PokemonIsshoni.Net.Shared.Models
                                     var bt = newBattleList.FirstOrDefault(s => s.Player1Id == groupPlayer[k].UserId || s.Player2Id == groupPlayer[k].UserId);
                                     if (bt == null) continue;
                                     var oppId = bt.GetOppUserId(groupPlayer[k].UserId);
-                                      var hadBattle = PCLBattles.Any(s =>
-                                            (s.Player1Id == groupPlayer[i].UserId && s.Player2Id == oppId) ||
-                                            (s.Player1Id == oppId && s.Player2Id == groupPlayer[i].UserId)
-                                        );
-                                    if (hadBattle) {
+                                    var hadBattle = PCLBattles.Any(s =>
+                                          (s.Player1Id == groupPlayer[i].UserId && s.Player2Id == oppId) ||
+                                          (s.Player1Id == oppId && s.Player2Id == groupPlayer[i].UserId)
+                                      );
+                                    if (hadBattle)
+                                    {
                                         // 打过了 抢了也没用 啊不
                                         continue;
                                     }
                                     // 抢夺完毕
-                                   if (bt.Player1Id == oppId)
+                                    if (bt.Player1Id == oppId)
                                     {
                                         bt.Player2Id = groupPlayer[i].UserId;
                                         bt.Player2TeamId = groupPlayer[i].BattleTeamId;
@@ -232,7 +225,7 @@ namespace PokemonIsshoni.Net.Shared.Models
                                     break;
                                 }
 
-                                
+
                             }
                             if (!qiangDuo)
                             {
@@ -252,7 +245,7 @@ namespace PokemonIsshoni.Net.Shared.Models
                             Console.WriteLine("没办法 只能轮空了");
                         }
                     }
-                    
+
                 }
                 // 遍历一下 确保无误
                 for (int i = 0; i < groupPlayer.Count; ++i)

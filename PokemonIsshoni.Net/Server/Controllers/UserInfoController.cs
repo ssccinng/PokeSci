@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
@@ -15,7 +14,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         private readonly PokemonIsshoniNetServerContext _context;
         private readonly IUserStore<PokemonIsshoniNetServerUser> _userStore;
         private readonly IUserEmailStore<PokemonIsshoniNetServerUser> _emailStore;
-        public UserInfoController(UserManager<PokemonIsshoniNetServerUser> userManager, 
+        public UserInfoController(UserManager<PokemonIsshoniNetServerUser> userManager,
             PokemonIsshoniNetServerContext context,
             IUserStore<PokemonIsshoniNetServerUser> userStore
             )
@@ -109,7 +108,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         {
             //var ccq = Request.Body.;
             string abc = "abcdefghijklmnopqrstuvwxyz";
-            Random a = new ();
+            Random a = new();
             var gg = HttpContext;
             var cc = ControllerContext;
             Random rnd = new Random();
@@ -126,11 +125,11 @@ namespace PokemonIsshoni.Net.Server.Controllers
                 var user = Activator.CreateInstance<PokemonIsshoniNetServerUser>();
                 user.QQ = "07910730";
                 //user.UserName = b + "@qq.com";
-                 //user.Email = b + "@qq.com";
-                  user.NickName = $"游客{j}";
-                 user.DOB = DateTime.Now;
-                  user.HomeName = $"游客{j}";
-                  user.City = $"双叶";
+                //user.Email = b + "@qq.com";
+                user.NickName = $"游客{j}";
+                user.DOB = DateTime.Now;
+                user.HomeName = $"游客{j}";
+                user.City = $"双叶";
                 user.TrainerIdInt = rnd.Next(99999999);
                 await _userStore.SetUserNameAsync(user, b + "@qq.com", CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, b + "@qq.com", CancellationToken.None);
@@ -141,7 +140,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
                     UserId = user.Id
                 });
             }
-            
+
             _context.SaveChanges();
         }
         private IUserEmailStore<PokemonIsshoniNetServerUser> GetEmailStore()

@@ -2,12 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +30,10 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -47,7 +47,10 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            public string Email { get; set; }
+            public string Email
+            {
+                get; set;
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -68,7 +71,11 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
                 var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,
-                    values: new { area = "Identity", code },
+                    values: new
+                    {
+                        area = "Identity",
+                        code
+                    },
                     protocol: Request.Scheme);
 
                 await _emailSender.SendEmailAsync(

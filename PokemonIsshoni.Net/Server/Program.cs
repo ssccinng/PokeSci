@@ -1,15 +1,12 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
-using PokemonIsshoni.Net.Server.Data;
-using PokemonIsshoni.Net.Server.Models;
-using Microsoft.AspNetCore.Identity;
-using PokemonIsshoni.Net.Server.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using PokemonIsshoni.Net.Server.Services;
-using PokeCommon.Utils;
 using System.IdentityModel.Tokens.Jwt;
 using Duende.IdentityServer.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using PokeCommon.Utils;
+using PokemonIsshoni.Net.Server.Areas.Identity.Data;
+using PokemonIsshoni.Net.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PokemonIsshoniNetServerContextConnection") ?? throw new InvalidOperationException("Connection string 'PokemonIsshoniNetServerContextConnection' not found.");
@@ -37,7 +34,8 @@ builder.Services.AddDefaultIdentity<PokemonIsshoniNetServerUser>(options => opti
 
 // 身份验证 角色
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>(options => {
+    .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>(options =>
+    {
         options.IdentityResources["openid"].UserClaims.Add("name");
         options.ApiResources.Single().UserClaims.Add("name");
         options.IdentityResources["openid"].UserClaims.Add("role");

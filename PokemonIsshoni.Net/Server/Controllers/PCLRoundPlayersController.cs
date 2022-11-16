@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
@@ -26,10 +21,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PCLRoundPlayer>>> GetPCLRoundPlayers()
         {
-          if (_context.PCLRoundPlayers == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLRoundPlayers == null)
+            {
+                return NotFound();
+            }
             return await _context.PCLRoundPlayers.ToListAsync();
         }
 
@@ -37,10 +32,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PCLRoundPlayer>> GetPCLRoundPlayer(int id)
         {
-          if (_context.PCLRoundPlayers == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLRoundPlayers == null)
+            {
+                return NotFound();
+            }
             var pCLRoundPlayer = await _context.PCLRoundPlayers.FindAsync(id);
 
             if (pCLRoundPlayer == null)
@@ -92,17 +87,17 @@ namespace PokemonIsshoni.Net.Server.Controllers
         public async Task<ActionResult<PCLRoundPlayer>> PostPCLRoundPlayer(PCLRoundPlayer pCLRoundPlayer)
         {
             // 请判断权限
-          if (_context.PCLRoundPlayers == null)
-          {
-              return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLRoundPlayers'  is null.");
-          }
+            if (_context.PCLRoundPlayers == null)
+            {
+                return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLRoundPlayers'  is null.");
+            }
             var pclRound = await _context.PCLMatchRounds.Include(s => s.PCLRoundPlayers).FirstOrDefaultAsync(s => s.Id == pCLRoundPlayer.PCLMatchRoundId);
 
             if (!await HasPower(pclRound))
             {
                 return Problem("没有权限");
             }
-          if (pclRound.PCLRoundPlayers.Any(s => s.UserId == pCLRoundPlayer.UserId))
+            if (pclRound.PCLRoundPlayers.Any(s => s.UserId == pCLRoundPlayer.UserId))
             {
                 return Problem("已经在此轮中");
 

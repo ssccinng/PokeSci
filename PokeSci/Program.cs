@@ -5,11 +5,8 @@
 //    CPUtprt = Convert.ToDouble(Convert.ToDouble(mo.GetPropertyValue("CurrentTemperature").ToString()) - 2732) / 10;
 //    Console.WriteLine("CPU temp : " + CPUtprt.ToString() + " °C");
 //}
-using PokeCommon.PokemonShowdownTools;
-using PokeCommon.PokemonHome;
-using PokeCommon.PokeOCR;
-using PokeCommon.BattleEngine;
 using System.Diagnostics;
+using PokeCommon.PokemonShowdownTools;
 using PokePSCore;
 
 var SWSHTools = PokeCommon.PokeMath.CalcUnits.SWSHTools;
@@ -144,7 +141,7 @@ return;
 //return;
 
 Console.WriteLine(Environment.CurrentDirectory);
- var aa = await PSConverter.ConvertToPokemonAsync(@"sdfsdfsdf (Barraskewda) @ Life Orb
+var aa = await PSConverter.ConvertToPokemonAsync(@"sdfsdfsdf (Barraskewda) @ Life Orb
 Ability: Dark Aura
 Level: 50
 EVs: 4 HP / 4 Def / 252 SpA / 4 SpD / 244 Spe

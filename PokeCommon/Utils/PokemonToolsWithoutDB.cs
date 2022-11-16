@@ -1,9 +1,4 @@
 ﻿using PokemonDataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeCommon.Utils
 {
@@ -38,7 +33,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                    return null;
+                return null;
                 //var nNature = await PokemonContext.Natures.FindAsync(id);
                 //if (nNature != null)
                 //{
@@ -161,7 +156,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null ;
+                return null;
                 //var nAbility = await PokemonContext.Abilities.FindAsync(id);
                 //if (nAbility != null)
                 //{
@@ -207,7 +202,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                    return null;
+                return null;
                 //var nMove = await PokemonContext.Moves.FindAsync(id);
                 //if (nMove != null)
                 //{
@@ -228,7 +223,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                    return null;
+                return null;
                 //var nPokemon = await PokemonContext.Pokemons.FirstOrDefaultAsync(s => s.NameChs == name || s.NameEng == name || s.NameJpn == name);
                 //if (nPokemon != null)
                 //{
@@ -250,7 +245,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                    return null;
+                return null;
                 //var nPokemon = await PokemonContext.Pokemons.FindAsync(id);
                 //if (nPokemon != null)
                 //{
@@ -270,7 +265,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                    return null;
+                return null;
                 //var nItem = await PokemonContext.Items.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
                 //if (nItem != null)
                 //{
@@ -292,7 +287,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                    return null;
+                return null;
                 //var nItem = await PokemonContext.Items.FindAsync(id);
                 //if (nItem != null)
                 //{

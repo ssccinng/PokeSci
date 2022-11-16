@@ -1,7 +1,4 @@
-﻿using Android.App;
-using Android.Runtime;
-
-namespace PokeMaui
+﻿namespace PokeMaui
 {
     [Application]
     public class MainApplication : MauiApplication

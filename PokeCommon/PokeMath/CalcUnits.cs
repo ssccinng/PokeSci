@@ -1,10 +1,5 @@
-﻿ using PokeCommon.Interface;
+﻿using PokeCommon.Interface;
 using PokeCommon.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeCommon.PokeMath
 {

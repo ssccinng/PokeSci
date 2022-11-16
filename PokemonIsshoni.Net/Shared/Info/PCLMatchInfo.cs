@@ -1,9 +1,4 @@
 ﻿using PokemonIsshoni.Net.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MatchType = PokemonIsshoni.Net.Shared.Models.MatchType;
 
 namespace PokemonIsshoni.Net.Shared.Info
@@ -36,10 +31,16 @@ namespace PokemonIsshoni.Net.Shared.Info
             NeedCheck = pCLMatch.NeedCheck;
             LimitPlayer = pCLMatch.LimitPlayer;
         }
-        public UserInfo MatchHostUser { get; set; }
+        public UserInfo MatchHostUser
+        {
+            get; set;
+        }
 
 
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
         /// <summary>
         /// 创办者
         /// </summary>
@@ -48,7 +49,10 @@ namespace PokemonIsshoni.Net.Shared.Info
         /// 创办者Id
         /// </summary>
         //public string UserId { get; set; } = "";
-        public string Name { get; set; }
+        public string Name
+        {
+            get; set;
+        }
 
         public DateTime? MatchStartDate { get; set; } = DateTime.Now; // 比赛日期
         public DateTime? MatchEndDate { get; set; } = DateTime.Now;// 预计结束时间

@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using PokeUI3.MVVM.Model;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -28,21 +16,33 @@ namespace PokeUI3.PokeControl
         }
         public static DependencyProperty HPProperty =
         DependencyProperty.Register("HP", typeof(int), typeof(BSTView), new PropertyMetadata(null));
-        
-        
-     
+
+
+
         public int HP
         {
-            get { return (int)GetValue(HPProperty); }
-            set { SetValue(HPProperty, value); }
+            get
+            {
+                return (int)GetValue(HPProperty);
+            }
+            set
+            {
+                SetValue(HPProperty, value);
+            }
         }
 
 
 
         public int Atk
         {
-            get { return (int)GetValue(AtkProperty); }
-            set { SetValue(AtkProperty, value); }
+            get
+            {
+                return (int)GetValue(AtkProperty);
+            }
+            set
+            {
+                SetValue(AtkProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Atk.  This enables animation, styling, binding, etc...
@@ -54,8 +54,14 @@ namespace PokeUI3.PokeControl
 
         public int Def
         {
-            get { return (int)GetValue(DefProperty); }
-            set { SetValue(DefProperty, value); }
+            get
+            {
+                return (int)GetValue(DefProperty);
+            }
+            set
+            {
+                SetValue(DefProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Def.  This enables animation, styling, binding, etc...
@@ -66,8 +72,14 @@ namespace PokeUI3.PokeControl
 
         public int Spa
         {
-            get { return (int)GetValue(SpaProperty); }
-            set { SetValue(SpaProperty, value); }
+            get
+            {
+                return (int)GetValue(SpaProperty);
+            }
+            set
+            {
+                SetValue(SpaProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Spa.  This enables animation, styling, binding, etc...
@@ -79,8 +91,14 @@ namespace PokeUI3.PokeControl
 
         public int Spd
         {
-            get { return (int)GetValue(SpdProperty); }
-            set { SetValue(SpdProperty, value); }
+            get
+            {
+                return (int)GetValue(SpdProperty);
+            }
+            set
+            {
+                SetValue(SpdProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Spd.  This enables animation, styling, binding, etc...
@@ -91,8 +109,14 @@ namespace PokeUI3.PokeControl
 
         public int Spe
         {
-            get { return (int)GetValue(SpeProperty); }
-            set { SetValue(SpeProperty, value); }
+            get
+            {
+                return (int)GetValue(SpeProperty);
+            }
+            set
+            {
+                SetValue(SpeProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Spe.  This enables animation, styling, binding, etc...
@@ -105,8 +129,14 @@ namespace PokeUI3.PokeControl
 
         public BSTValue BSTValue
         {
-            get { return (BSTValue)GetValue(BSTValueProperty); }
-            set { SetValue(BSTValueProperty, value); }
+            get
+            {
+                return (BSTValue)GetValue(BSTValueProperty);
+            }
+            set
+            {
+                SetValue(BSTValueProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for BSTValue.  This enables animation, styling, binding, etc...

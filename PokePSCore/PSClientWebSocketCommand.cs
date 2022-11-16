@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
+﻿using System.Net.WebSockets;
 using System.Text;
-using System.Threading.Tasks;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -85,9 +81,9 @@ namespace PokePSCore
             Console.WriteLine("准备发招");
             // await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
             await SendAsync(battleTag, "/choose " + string.Join(',', move.Select(s => s.ToString())), turn.ToString());
-                // await SendAsync(battleTag, 
-                // $"/choose move {string.Join(',', move.Select(s =>{List<string> list = new List<string> {s.MoveId.ToString()};if (s.Target != -1) list.Add(s.Target.ToString());if (s.Dmax) list.Add("dynamax");return string.Join(' ', list);}))}", 
-                // turn.ToString());
+            // await SendAsync(battleTag, 
+            // $"/choose move {string.Join(',', move.Select(s =>{List<string> list = new List<string> {s.MoveId.ToString()};if (s.Target != -1) list.Add(s.Target.ToString());if (s.Dmax) list.Add("dynamax");return string.Join(' ', list);}))}", 
+            // turn.ToString());
         }
         /// <summary>
         /// 换人
@@ -188,7 +184,7 @@ namespace PokePSCore
         public async Task<List<RankData>> GetRankAsync(string name)
         {
             var res = await _client.GetAsync($"https://play.pokemonshowdown.com/~~showdown/action.php?act=ladderget&user={name}");
-            
+
             var data = (await res.Content.ReadAsStringAsync())[1..];
             return JsonSerializer.Deserialize<List<RankData>>(data);
         }
@@ -197,11 +193,14 @@ namespace PokePSCore
     public class RankData
     {
         [JsonPropertyName("elo")]
-        public string ELO{get;set;}
+        public string ELO
+        {
+            get; set;
+        }
         [JsonPropertyName("formatid")]
         public string FormatId
         {
-            get;set;
+            get; set;
         }
 
     }

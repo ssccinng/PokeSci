@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net.WebSockets;
-using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json;
-using System.Diagnostics;
 
 namespace PokePSCore
 {
@@ -42,8 +37,8 @@ namespace PokePSCore
         public Action<string, string> ChatAction;
         public Action<string, string> RequestsAction;
         public Action<string> UserDetailsAction;
-        
-        
+
+
         public Action<PsBattle> OnTeampreview;
         public Action<PsBattle, bool[]> OnForceSwitch;
         public Action<PsBattle> OnChooseMove;
@@ -111,7 +106,7 @@ namespace PokePSCore
                 //.Split('|');
             }
         }
-        
+
 
         /// <summary>
         /// 设置log输出位置
@@ -169,7 +164,7 @@ namespace PokePSCore
             string tag = battleData[0].Split('|')[0][1..];
             Console.WriteLine($"tag: {tag}");
             var battle = Battles.GetValueOrDefault(tag) ?? new PsBattle(this, tag);
-            
+
             for (int i = 1; i < battleData.Length; i++)
             {
                 string[] currData = battleData[i].Split('|');
@@ -254,11 +249,11 @@ namespace PokePSCore
                         if (other[0] == "trapped")
                         {
                             // makemove
-                            
+
                         }
                         break;
                     case "poke":
-                        if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1" ))
+                        if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1"))
                         {
                             // 对手的队伍信息
                             var data = other[1].Split(", ");
@@ -283,7 +278,7 @@ namespace PokePSCore
                 }
             }
         }
-        
+
         public async Task<bool> LoginAsync()
         {
             return await LoginAsync(UserName, Password, _challId, _chall);
@@ -426,7 +421,7 @@ namespace PokePSCore
                         }
 
                         break;
-                    
+
                     default:
                         break;
                 }

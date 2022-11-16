@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 using PokemonIsshoni.Net.Shared.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace PokemonIsshoni.Net.Server.Controllers
 {
@@ -26,10 +21,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PCLBattle>>> GetPCLBattles()
         {
-          if (_context.PCLBattles == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLBattles == null)
+            {
+                return NotFound();
+            }
             return await _context.PCLBattles.ToListAsync();
         }
 
@@ -37,10 +32,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PCLBattle>> GetPCLBattle(int id)
         {
-          if (_context.PCLBattles == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLBattles == null)
+            {
+                return NotFound();
+            }
             var pCLBattle = await _context.PCLBattles.FindAsync(id);
 
             if (pCLBattle == null)
@@ -196,10 +191,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [Authorize]
         public async Task<ActionResult<PCLBattle>> PostPCLBattle(PCLBattle pCLBattle)
         {
-          if (_context.PCLBattles == null)
-          {
-              return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLBattles'  is null.");
-          }
+            if (_context.PCLBattles == null)
+            {
+                return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLBattles'  is null.");
+            }
             _context.PCLBattles.Add(pCLBattle);
             await _context.SaveChangesAsync();
 

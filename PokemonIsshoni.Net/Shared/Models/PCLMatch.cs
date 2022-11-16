@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
 namespace PokemonIsshoni.Net.Shared.Models
 {
@@ -30,7 +24,10 @@ namespace PokemonIsshoni.Net.Shared.Models
     public class PCLMatch
     {
 
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
         /// <summary>
         /// 创办者
         /// </summary>
@@ -41,7 +38,10 @@ namespace PokemonIsshoni.Net.Shared.Models
         [Column(TypeName = "varchar(270)")]
         public string UserId { get; set; } = "";
         [Column(TypeName = "nvarchar(30)")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get; set;
+        }
 
         [DataType(DataType.Date)]
         public DateTime? MatchStartDate { get; set; } = DateTime.Now; // 比赛日期
@@ -97,7 +97,10 @@ namespace PokemonIsshoni.Net.Shared.Models
 
         public int LimitPlayer { get; set; } = 999;
         [Timestamp]
-        public byte[]? ConcurrencyToken { get; set; }
+        public byte[]? ConcurrencyToken
+        {
+            get; set;
+        }
         // 是否显示在主界面
     }
 }

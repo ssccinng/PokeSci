@@ -2,7 +2,6 @@
 using Microsoft.UI.Xaml.Controls;
 
 using PSBattleHelper.ViewModels;
-using Windows.UI.Core;
 
 namespace PSBattleHelper.Views;
 

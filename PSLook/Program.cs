@@ -1,9 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Google.Protobuf.WellKnownTypes;
+using System.Text.Json;
 using Mirai.Net.Sessions;
 using Mirai.Net.Sessions.Http.Managers;
-using System.Runtime.Intrinsics.Arm;
-using System.Text.Json;
 //using System.Text.Json.;
 var miraiBot = new MiraiBot
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PokeCommon.Interface;
-using PokeCommon.Models;
+﻿using PokeCommon.Interface;
 
 namespace PokeAI.Interface
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 using PokemonIsshoni.Net.Shared.Models;
@@ -25,10 +20,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PCLMatchRound>>> GetPCLMatchRounds()
         {
-          if (_context.PCLMatchRounds == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLMatchRounds == null)
+            {
+                return NotFound();
+            }
             return await _context.PCLMatchRounds.ToListAsync();
         }
 
@@ -37,10 +32,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PCLMatchRound>> GetPCLMatchRound(int id)
         {
-          if (_context.PCLMatchRounds == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLMatchRounds == null)
+            {
+                return NotFound();
+            }
             //var pCLMatchRound = await _context.PCLMatchRounds.FindAsync(id);
             var pCLMatchRound = await _context.PCLMatchRounds.Include(s => s.PCLBattles).Include(s => s.PCLRoundPlayers).FirstOrDefaultAsync(s => s.Id == id);
 
@@ -88,10 +83,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<PCLMatchRound>> PostPCLMatchRound(PCLMatchRound pCLMatchRound)
         {
-          if (_context.PCLMatchRounds == null)
-          {
-              return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLMatchRounds'  is null.");
-          }
+            if (_context.PCLMatchRounds == null)
+            {
+                return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLMatchRounds'  is null.");
+            }
             _context.PCLMatchRounds.Add(pCLMatchRound);
             await _context.SaveChangesAsync();
 

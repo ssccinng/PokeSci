@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PokemonIsshoni.Net.Shared.Models
 {
@@ -16,7 +11,10 @@ namespace PokemonIsshoni.Net.Shared.Models
     }
     public class PCLReferee
     {
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
 
         //public ApplicationUser User { get; set; }
         //[NotMapped]

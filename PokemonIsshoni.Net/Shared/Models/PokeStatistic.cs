@@ -1,19 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokemonIsshoni.Net.Shared.Models
+﻿namespace PokemonIsshoni.Net.Shared.Models
 {
     public class PokeStatistic
     {
-        public int HP { get; set; }
-        public int Atk { get; set; }
-        public int Def { get; set; }
-        public int Spa { get; set; }
-        public int Spd { get; set; }
-        public int Spe { get; set; }
+        public int HP
+        {
+            get; set;
+        }
+        public int Atk
+        {
+            get; set;
+        }
+        public int Def
+        {
+            get; set;
+        }
+        public int Spa
+        {
+            get; set;
+        }
+        public int Spd
+        {
+            get; set;
+        }
+        public int Spe
+        {
+            get; set;
+        }
         //[NonSerialized]
 
         public PokeStatistic(int val = 0)

@@ -1,10 +1,5 @@
 ﻿using PokeCommon.Utils;
 using PokePSCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSAITest
 {
@@ -39,7 +34,7 @@ namespace PSAITest
             List<int> qs = new();
             teamRes = string.Join("", teamOrderPolicy.ChoosePoke[idx].Res.Select(s => dzb[s]));
             // 先对choose
-           
+
             // teamorderpolicy 需要先转化为图鉴id
             // 如果对手里有符合条件的 则进入下一轮 否则返回
             List<PSBattlePokemon> ids = new();

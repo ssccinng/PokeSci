@@ -2,22 +2,15 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 
 namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
@@ -51,19 +44,28 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public string ReturnUrl { get; set; }
+        public string ReturnUrl
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        public IList<AuthenticationScheme> ExternalLogins
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -79,11 +81,17 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
             [EmailAddress]
             //[RegularExpression(@".+?@linxrobot\.com", ErrorMessage = "请用指定企业邮箱注册")]
             [Display(Name = "邮箱(尽可能不要使用gmail)")]
-            public string Email { get; set; }
+            public string Email
+            {
+                get; set;
+            }
             [Required(ErrorMessage = "{0}字段为必填项")]
             [StringLength(100, ErrorMessage = "长度至少为2", MinimumLength = 2)]
             [Display(Name = "昵称")]
-            public string NickName { get; set; }
+            public string NickName
+            {
+                get; set;
+            }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -93,7 +101,10 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "密码")]
-            public string Password { get; set; }
+            public string Password
+            {
+                get; set;
+            }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -102,31 +113,49 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             [Display(Name = "确认密码")]
             [Compare("Password", ErrorMessage = "输入的密码不匹配")]
-            public string ConfirmPassword { get; set; }
+            public string ConfirmPassword
+            {
+                get; set;
+            }
 
             [Required]
-            [DataType(DataType.Text) ]
+            [DataType(DataType.Text)]
             [Display(Name = "QQ号")]
-            public string QQ { get; set; }
+            public string QQ
+            {
+                get; set;
+            }
 
             [Required]
             [Display(Name = "生日")]
             [DataType(DataType.Date)]
-            public DateTime DOB { get; set; }
+            public DateTime DOB
+            {
+                get; set;
+            }
 
             //[Required]
             [DataType(DataType.Text)]
             [Display(Name = "所在城市")]
-            public string City { get; set; } // 城市
+            public string City
+            {
+                get; set;
+            } // 城市
             //[Required]
             [DataType(DataType.Text)]
             [Display(Name = "游戏内昵称")]
-            public string HomeName { get; set; } // 剑盾游戏名字
+            public string HomeName
+            {
+                get; set;
+            } // 剑盾游戏名字
             //[DataType(DataType.b)]
             [Display(Name = "再问一次，你喜欢宝可梦吗？")]
             //[DataType(DataType.Currency)]
 
-            public bool Ok { get; set; } // 剑盾游戏名字
+            public bool Ok
+            {
+                get; set;
+            } // 剑盾游戏名字
         }
 
 
@@ -171,7 +200,13 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                        values: new
+                        {
+                            area = "Identity",
+                            userId = userId,
+                            code = code,
+                            returnUrl = returnUrl
+                        },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",

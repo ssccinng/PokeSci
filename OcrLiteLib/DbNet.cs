@@ -1,14 +1,14 @@
-﻿using ClipperLib;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using ClipperLib;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace OcrLiteLib
 {
@@ -19,7 +19,9 @@ namespace OcrLiteLib
 
         private InferenceSession dbNet;
 
-        public DbNet() { }
+        public DbNet()
+        {
+        }
 
         ~DbNet()
         {

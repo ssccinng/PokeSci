@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSBattleHelper.Core", "PSBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazor", "..\MudBlazor\src\MudBlazor\MudBlazor.csproj", "{E045E140-8971-4BCE-893D-3F62AAD83E3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSLook", "PSLook\PSLook.csproj", "{BB998A6A-F61D-4B3E-8278-4EA684585BCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSLook", "PSLook\PSLook.csproj", "{BB998A6A-F61D-4B3E-8278-4EA684585BCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVData", "SVData\SVData.csproj", "{8421C5A7-4CCA-4501-A540-BC628407100D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -399,6 +401,22 @@ Global
 		{BB998A6A-F61D-4B3E-8278-4EA684585BCE}.Release|x64.Build.0 = Release|Any CPU
 		{BB998A6A-F61D-4B3E-8278-4EA684585BCE}.Release|x86.ActiveCfg = Release|Any CPU
 		{BB998A6A-F61D-4B3E-8278-4EA684585BCE}.Release|x86.Build.0 = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|arm64.Build.0 = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|x64.Build.0 = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Debug|x86.Build.0 = Debug|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|arm64.ActiveCfg = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|arm64.Build.0 = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|x64.ActiveCfg = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|x64.Build.0 = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|x86.ActiveCfg = Release|Any CPU
+		{8421C5A7-4CCA-4501-A540-BC628407100D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

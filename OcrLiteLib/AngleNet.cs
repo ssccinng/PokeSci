@@ -1,12 +1,12 @@
-﻿using Emgu.CV;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace OcrLiteLib
 {
@@ -19,7 +19,9 @@ namespace OcrLiteLib
         private const int angleCols = 2;
         private InferenceSession angleNet;
 
-        public AngleNet() { }
+        public AngleNet()
+        {
+        }
 
         ~AngleNet()
         {

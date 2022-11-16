@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonIsshoni.Net.Shared.Models
 {
@@ -12,25 +7,46 @@ namespace PokemonIsshoni.Net.Shared.Models
     {
         [NotMapped]
         private static Random _rnd = new();
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
         //public ApplicationUser User { get; set; }
         [Column(TypeName = "varchar(270)")]
-        public string UserId { get; set; }
+        public string UserId
+        {
+            get; set;
+        }
 
         //public PCLMatchRound PCLMatchRound { get; set; }
-        public int PCLMatchRoundId { get; set; }
+        public int PCLMatchRoundId
+        {
+            get; set;
+        }
         [NotMapped]
         public List<PCLBattle> PCLBattles { get; set; } = new List<PCLBattle>();
         /// <summary>
         /// 分组编号
         /// </summary>
-        public int GroupId { get; set; }
+        public int GroupId
+        {
+            get; set;
+        }
         [ConcurrencyCheck]
-        public int Win { get; set; }
+        public int Win
+        {
+            get; set;
+        }
         [ConcurrencyCheck]
-        public int Draw { get; set; }
+        public int Draw
+        {
+            get; set;
+        }
         [ConcurrencyCheck]
-        public int Lose { get; set; }
+        public int Lose
+        {
+            get; set;
+        }
         [NotMapped]
         public decimal Ratio
         {
@@ -41,12 +57,18 @@ namespace PokemonIsshoni.Net.Shared.Models
             }
         }
 
-        public int Score { get; set; }
+        public int Score
+        {
+            get; set;
+        }
         public int Rank { get; set; } = _rnd.Next(2048);
         /// <summary>
         /// 已弃赛
         /// </summary>
-        public bool IsDrop { get; set; }
+        public bool IsDrop
+        {
+            get; set;
+        }
         /// <summary>
         /// 随机tag 备用
         /// </summary>
@@ -54,7 +76,10 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 已经被轮空过了
         /// </summary>
-        public bool HasBye { get; set; }
+        public bool HasBye
+        {
+            get; set;
+        }
 
         #region 瑞士轮
         /// <summary>
@@ -71,12 +96,21 @@ namespace PokemonIsshoni.Net.Shared.Models
         #endregion
 
         #region 循环赛
-        public int MiniScore { get; set; }
+        public int MiniScore
+        {
+            get; set;
+        }
         #endregion
 
 
         // 提交队伍
-        public PCLPokeTeam? BattleTeam { get; set; }
-        public int BattleTeamId { get; set; }
+        public PCLPokeTeam? BattleTeam
+        {
+            get; set;
+        }
+        public int BattleTeamId
+        {
+            get; set;
+        }
     }
 }

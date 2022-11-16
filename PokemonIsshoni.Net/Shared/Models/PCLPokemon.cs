@@ -1,10 +1,4 @@
 ﻿using PokeCommon.Models;
-using PokemonDataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonIsshoni.Net.Shared.Models
 {
@@ -21,7 +15,10 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 昵称
         /// </summary>
-        public string? NickName { get; set; }
+        public string? NickName
+        {
+            get; set;
+        }
         /// <summary>
         /// 个体值
         /// </summary>
@@ -38,17 +35,26 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 性格ID
         /// </summary>
-        public int? NatureId { get; set; }
+        public int? NatureId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 特性ID
         /// </summary>
-        public int? AbilityId { get; set; }
+        public int? AbilityId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 道具
         /// </summary>
-        public int? ItemId { get; set; }
+        public int? ItemId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 技能列表

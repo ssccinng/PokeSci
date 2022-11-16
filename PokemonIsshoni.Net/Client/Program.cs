@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MudBlazor.Services;
 using PokemonIsshoni.Net.Client;
 using PokemonIsshoni.Net.Client.Factory;
 using PokemonIsshoni.Net.Client.Services;

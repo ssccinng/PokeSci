@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using MudBlazor;
+﻿using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.Forms;
 using PokemonIsshoni.Net.Shared;
 using PokemonIsshoni.Net.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 {

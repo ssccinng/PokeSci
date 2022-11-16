@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
 
 namespace PokemonIsshoni.Net.Server.Pages
 {
@@ -8,7 +8,10 @@ namespace PokemonIsshoni.Net.Server.Pages
     [IgnoreAntiforgeryToken]
     public class ErrorModel : PageModel
     {
-        public string? RequestId { get; set; }
+        public string? RequestId
+        {
+            get; set;
+        }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 

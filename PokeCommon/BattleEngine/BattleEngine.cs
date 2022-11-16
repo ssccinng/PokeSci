@@ -2,11 +2,6 @@
 using PokeCommon.GameRule;
 using PokeCommon.Interface;
 using PokeCommon.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeCommon.BattleEngine
 {
@@ -89,8 +84,14 @@ namespace PokeCommon.BattleEngine
     {
         //private static readonly Dictionary<BattleVersion, BattleEngine> _;
 
-        public BattleVersion BattleVersion { get; init; }
-        public string GameName { get; init; }
+        public BattleVersion BattleVersion
+        {
+            get; init;
+        }
+        public string GameName
+        {
+            get; init;
+        }
 
         public IDamageCalc DamageCalc => throw new NotImplementedException();
 
