@@ -3,7 +3,7 @@
 namespace SVData.Models;
 internal class PokeWithMove
 {
-    public Pokemon Pokemon
+    public Name Pokemon
     {
         get; set;
     }

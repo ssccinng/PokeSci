@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SVPokeDex.View.SettingPage"
+             Title="设置"
+             xmlns:viewModel="clr-namespace:SVPokeDex.ViewModel"
+             x:DataType="viewModel:SettingViewModel"
+             >
+    <VerticalStackLayout Padding="0,30" MaximumWidthRequest="500">
+        <Label
+            FontSize="25"
+            SemanticProperties.HeadingLevel="Level2"
+            HorizontalTextAlignment="Center"
+            >个性化你的图鉴！</Label>
+        <Grid RowDefinitions="Auto, Auto, Auto, *, Auto, Auto, Auto"
+          ColumnDefinitions="*, *"
+          Padding="40">
+
+            <Label Text="图鉴主题" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+            <Button Text="{Binding ThemeText}" 
+                    
+                    Command="{Binding ChangeThemeCommand}"
+                    Grid.Row="0" Grid.Column="1" WidthRequest="100" />
+
+            <!--<Label Text="Tip" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="tipOutput" Text="0.00" Grid.Row="1" Grid.Column="1"/>-->
+
+
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
