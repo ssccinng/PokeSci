@@ -19,7 +19,14 @@
                 x:Name="ImageS"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" >
+                <Image.Shadow>
+                    <Shadow Brush="Black"
+                Offset="20,20"
+                Radius="40"
+                Opacity="0.8" />
+                </Image.Shadow>
+            </Image>
 
             <Label
                 Text="欢迎来到朱紫之书"

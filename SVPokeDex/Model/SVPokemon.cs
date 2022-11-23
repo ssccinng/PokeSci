@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SVPokeDex.Model;
-internal class SVPokemon
+public class SVPokemon
 {
+    public string Name
+    {
+        get; set;
+    } = "aa";
 }

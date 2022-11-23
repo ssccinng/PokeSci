@@ -24,7 +24,7 @@ public static class MauiProgram
         builder.Services.AddTransient<SettingPage>();
 
 
-        builder.Services.AddSingleton<PokeDexPage>();
+        builder.Services.AddSingleton<PokeDexViewModel>();
         builder.Services.AddTransient<PokeDexPage>();
 
         //builder.Services.AddSingleton<ShellViewModel>();

@@ -23,8 +23,14 @@
         Title="主页"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+    <ShellContent
+        Title="宝可梦图鉴"
+        ContentTemplate="{DataTemplate view:PokeDexPage}"
+        Route="PokeDexPage" />
     <ShellContent
         Title="设置"
+        Icon="Setting"
         ContentTemplate="{DataTemplate view:SettingPage}"
         Route="SettingPage" />
 </Shell>

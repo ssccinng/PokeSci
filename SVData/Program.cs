@@ -16,11 +16,13 @@ var wazaFileName = "common/wazaname.txt";
 var pokemonFileName = "common/monsname.txt";
 var zknFormName = "common/zkn_form.txt";
 var tokuseiName = "common/tokusei.txt";
+var itemName = "common/itemname.txt";
+
 
 var swshDataPath = "SWSHData.txt";
 
 var basePath = "D:\\QQ\\1078995020\\FileRecv\\message";
-//ReadData(zknFormName, "zkn_form");
+ReadData(itemName, "itemName");
 //return;
 //return;
 //var chineseWazaData = File.ReadAllLines($"{basePath}/{chinesePath}/{wazaFileName}");
@@ -91,13 +93,19 @@ var pokenamemap = names.DistinctBy(s => s.Name_Eng).ToDictionary(s => s.Name_Eng
 var tokuseismap = tokuseis.DistinctBy(s => s.Name_Eng).ToDictionary(s => s.Name_Eng, s => s.Name_Chs);
 
 Dictionary<string, PokeWithMove> pokeWithMoves = new();
+Dictionary<string, SVPokemon> sv = new();
 for (int i = 0; i < names.Count; i++)
 {
     //Console.WriteLine($"{names[i].Name_Chs}-{Forms[i].Name_Chs}");
 }
 foreach (var item in names)
 {
-    
+    sv.Add(item.Name_Chs, new SVPokemon
+    {
+        NameChs = item.Name_Chs,
+        NameEng= item.Name_Eng,
+        NameJpn= item.Name_Chs,
+    });
     pokeWithMoves.TryAdd(item.Name_Chs, new()
     {
         Pokemon = item
@@ -112,6 +120,7 @@ Dictionary<string, string[]> danier = new();
 
 foreach (var poke in pokes)
 {
+    var svpoke = new SVPokemon();
     var lines = poke.Trim().Split("\n");
 
     var basedata = lines[0].Split(" - ");
@@ -268,7 +277,7 @@ foreach (var poke in pokes)
 
 }
 
-
+return;
 foreach (var poke in pokes)
 {
     var lines = poke.Trim().Split("\n");
