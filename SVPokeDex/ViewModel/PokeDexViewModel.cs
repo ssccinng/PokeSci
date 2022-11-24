@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SVPokeDex.Model;
@@ -16,7 +17,7 @@ public partial class PokeDexViewModel : ObservableObject
     ObservableCollection<SVPokemon> _svPokemons = new () { new(), new(), new(), };
 
     [ObservableProperty]
-    List<string> aa = MainPage.imgs.ToList();
+    ObservableCollection<string> aa = MainPage.imgs.ToObservableCollection();
 
     [ObservableProperty]
     string dexImage = "story_img_01.png";
