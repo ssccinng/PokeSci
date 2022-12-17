@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SVPokeDex.ViewModel;
-public partial class PokemonSearchViewModel: ObservableObject
+public sealed partial class SearchHistoryViewModel: ObservableObject
 {
-    [ObservableProperty]
-    public List<string> strings = new List<string>() { "1", "2", "3", "4", };
+    public List<string> SearchHistory
+    {
+    get; set; }
+
+
 }

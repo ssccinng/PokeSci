@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
 using SVPokeDex.ViewModel;
 using SVPokeDex.View;
+
+using Syncfusion.Maui.Core.Hosting;
+using Syncfusion.Maui.ListView.Hosting;
 
 namespace SVPokeDex;
 public static class MauiProgram
@@ -10,7 +12,10 @@ public static class MauiProgram
 
     public static MauiApp CreateMauiApp()
     {
-        var builder = MauiApp.CreateBuilder();
+        var builder = MauiApp.CreateBuilder()
+              .ConfigureSyncfusionCore()
+                .ConfigureSyncfusionListView()
+            ;
         builder.UseMauiApp<App>().ConfigureFonts(fonts =>
         {
             fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -26,6 +31,9 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<PokeDexViewModel>();
         builder.Services.AddTransient<PokeDexPage>();
+
+        builder.Services.AddSingleton<PokemonSearchViewModel>();
+        builder.Services.AddTransient<PokemonSearch>();
 
         //builder.Services.AddSingleton<ShellViewModel>();
         //builder.Services.AddTransient<AppShell>();

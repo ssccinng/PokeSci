@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using MySqlX.XDevAPI.Common;
 using PokeCommon.Utils;
@@ -48,7 +49,7 @@ var moves = JsonSerializer.Deserialize<List<Move>>(File.ReadAllBytes("moves.json
 var names = JsonSerializer.Deserialize<List<Name>>(File.ReadAllBytes("monsname.json"));
 var tokuseis = JsonSerializer.Deserialize<List<Name>>(File.ReadAllBytes("tokusei.json"));
 var Forms = JsonSerializer.Deserialize<List<Name>>(File.ReadAllBytes("zkn_form.json"));
-
+JsonNode jsonObj = JsonNode.Parse(File.ReadAllBytes("idname.json"));
 
 //var swshData = File.ReadAllLines($"{basePath}/{swshDataPath}");
 
@@ -100,7 +101,7 @@ for (int i = 0; i < names.Count; i++)
 }
 foreach (var item in names)
 {
-    sv.Add(item.Name_Chs, new SVPokemon
+    sv.TryAdd(item.Name_Chs, new SVPokemon
     {
         NameChs = item.Name_Chs,
         NameEng= item.Name_Eng,
@@ -117,9 +118,17 @@ var text = File.ReadAllText("learnset.txt");
 var pokes = Regex.Split(text, @"\n\s*?\n");
 
 Dictionary<string, string[]> danier = new();
+int test = 1;
+
+var engnames = pokenamemap.Keys.ToList();
+var tosnames = tokuseismap.Keys.ToList();
+
+var dada = File.Open("pokedatasv", FileMode.Create);
 
 foreach (var poke in pokes)
 {
+    StringBuilder sb = new();
+    Console.WriteLine(test++);
     var svpoke = new SVPokemon();
     var lines = poke.Trim().Split("\n");
 
@@ -133,13 +142,41 @@ foreach (var poke in pokes)
         name = name[..idx];
 
     }
-
+    sb.Append(pokenamemap[name]);
     Console.WriteLine("name: {0}", pokenamemap[name]);
     Console.WriteLine("form: {0}", form);
     Console.WriteLine("bv: {0}", basedata[1]);
     Console.WriteLine("type: {0}", string.Join('/', basedata[2].Trim()
         .Split('/')
         .Select(s => (PokemonTools.GetTypeAsync(s)).Result.Name_Chs)));
+
+    int dexid = engnames.IndexOf(name) + 1;
+
+    if (dexid == 999)
+    {
+        int aa = 0;
+
+
+    }
+    Console.WriteLine("formname: {0}", jsonObj[dexid.ToString("000")][form.ToString("000")]);
+    sb.Append($"-{jsonObj[dexid.ToString("000")][form.ToString("000")]}");
+    sb.Append(',');
+    sb.Append(string.Join(',', basedata[2].Trim()
+        .Split('/')
+        .Select(s => (PokemonTools.GetTypeAsync(s)).Result.Id)));
+    sb.Append(',');
+    sb.Append(basedata[1].Split(' ')[0].Replace('/', ','));
+
+    sb.Append(',');
+
+    sb.Append(string.Join(',',
+        basedata[3].Trim()
+        .Split('/')
+        .Select(s => tosnames.IndexOf(s))));
+    sb.Append(',');
+    sb.Append(dexid);
+
+
     Console.WriteLine("ability: {0}",
         string.Join('/',
         basedata[3].Trim()
@@ -149,6 +186,9 @@ foreach (var poke in pokes)
     var TMMove = Array.Empty<string>(); ;
     List<(string, string)> LvMove = new();
     List<EvolutionData> EvolutionDatas = new();
+    Console.WriteLine(sb.ToString());
+    dada.Write(Encoding.UTF8.GetBytes(sb.ToString()));
+    dada.Write("\n"u8);
     var cc = pokelist.FirstOrDefault(s => s.NameChs == pokenamemap[name] && s.PokeFormId == form);
 
     for (var i = 1; i < lines.Length; i++)
@@ -276,7 +316,11 @@ foreach (var poke in pokes)
     }
 
 }
-
+Console.WriteLine(JsonSerializer.Serialize(pokeWithMoves, new JsonSerializerOptions
+{
+    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+}));
+dada.Close();
 return;
 foreach (var poke in pokes)
 {

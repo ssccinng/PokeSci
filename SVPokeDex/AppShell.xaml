@@ -29,6 +29,10 @@
         ContentTemplate="{DataTemplate view:PokeDexPage}"
         Route="PokeDexPage" />
     <ShellContent
+        Title="宝可梦图鉴检索"
+        ContentTemplate="{DataTemplate view:PokemonSearch}"
+        Route="PokemonSearch" />
+    <ShellContent
         Title="设置"
         Icon="Setting"
         ContentTemplate="{DataTemplate view:SettingPage}"

@@ -2,11 +2,76 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SVPokeDex.View.PokemonSearch"
+             xmlns:inputs="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             
+             xmlns:viewModel="clr-namespace:SVPokeDex.ViewModel"
+             x:DataType="viewModel:PokemonSearchViewModel"
              Title="PokemonSearch">
-    <VerticalStackLayout>
+    <VerticalStackLayout  Padding="0,30" MaximumWidthRequest="500">
         <Label 
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+          ColumnDefinitions="*, *"
+          Padding="40">
+            <Label  VerticalOptions="Center"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    >宝可梦名字</Label>
+            <Entry
+                Grid.Row="0"
+                    Grid.Column="1"
+                Placeholder="asdas"
+                VerticalTextAlignment="Center"
+                
+                >
+                
+                
+            </Entry>
+            
+            <Label  VerticalOptions="Center"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,15,0,0"
+                    >属性1</Label>
+
+            <inputs:SfComboBox 
+                Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,15,0,0"
+                
+                ItemsSource="{Binding Strings}"
+                >
+
+            </inputs:SfComboBox>
+            <Label  VerticalOptions="Center"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="0,15,0,0"
+                    >属性1</Label>
+
+            <inputs:SfComboBox 
+                Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,15,0,0"
+                
+                ItemsSource="{Binding Strings}"
+                >
+
+            </inputs:SfComboBox>
+            
+            <Label  VerticalOptions="Center"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    >宝可梦名字</Label>
+            <Entry
+                Grid.Row="3"
+                    Grid.Column="1"
+                Placeholder="asdas"
+                VerticalTextAlignment="Center"
+                
+                ></Entry>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>
