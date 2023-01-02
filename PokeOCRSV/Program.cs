@@ -6,7 +6,10 @@ using System.Drawing;
 
 Bitmap bitmap = new Bitmap(@"D:\QQ\1078995020\FileRecv\Fk4XK7TagAED2Xt.jfif");
 // 40 100, 1236, 52
-PokeOCRSV.PokeRegion pokeRegion = new(new Point(60, 110));
+//PokeOCRSV.PokeRegion pokeRegion = new(new Point(60, 110));
+//PokeOCRSV.PokeRegion pokeRegion = new(new Point(60, 295));
+//PokeOCRSV.PokeRegion pokeRegion = new(new Point(60, 470));
+PokeOCRSV.PokeRegion pokeRegion = new(new Point(670, 470));
 
 bitmap = CropImage(bitmap, new Rectangle(pokeRegion.BasePoint, new Size(pokeRegion.Width, pokeRegion.Height)));
 //bitmap = CropImage(bitmap, new Rectangle(16, 16, 94, 32));

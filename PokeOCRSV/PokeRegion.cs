@@ -16,7 +16,7 @@ internal class PokeRegion
     public int Width
     {
         get; set;
-    } = 480;
+    } = 490;
     public int Height
     {
         get; set;
