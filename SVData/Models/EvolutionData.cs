@@ -18,7 +18,10 @@ public class EvolutionData
     {
         get; set;
     }
-
+    public int DexId
+    {
+        get; set;
+    }
     public int Form
     {
         get; set;

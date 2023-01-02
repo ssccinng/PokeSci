@@ -7,40 +7,41 @@ internal class PokeWithMove
     {
         get; set;
     }
+    public string Name;
 
-    public string[] EggMoves
+    public List<(string, string)> EggMoves
     {
         get; set;
-    }
-    public string[] TMMoves
+    } = new List<(string, string)>();
+    public List<(string, string)> TMMoves
     {
         get; set;
-    }
-    public string[] LearnMoves
-    {
-        get; set;
-    }
+    } = new List<(string, string)>();
+    public List<(string, string)> LearnMoves { get; set; } = new List<(string, string)>();
 
     public HashSet<string> OtherMoves
     {
         get; set;
     } = new();
-
+    public HashSet<string> BeforeMoves
+    {
+        get; set;
+    } = new();
     public HashSet<string> GetMoveSet()
     {
         HashSet<string> result = new HashSet<string>();
         foreach (var move in EggMoves)
         {
-            result.Add(move);
+            result.Add(move.Item1);
         }
 
         foreach (var move in TMMoves)
         {
-            result.Add(move);
+            result.Add(move.Item1);
         }
         foreach (var move in LearnMoves)
         {
-            result.Add(move);
+            result.Add(move.Item1);
         }
         foreach (var move in OtherMoves)
         {

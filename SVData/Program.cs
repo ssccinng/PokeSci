@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using MySqlX.XDevAPI.Common;
 using PokeCommon.Utils;
 using PokemonDataAccess.Models;
+using SVData;
 using SVData.Models;
 
 //Console.WriteLine("Hello, World!");
@@ -45,6 +46,9 @@ ReadData(itemName, "itemName");
 //    );
 //return;
 
+//var aada = PokemonTools.PokemonContext.PokeTypes.Select(s => s.Name_Chs).ToArray();
+//KurtAnas.RunImgPath(File.ReadAllText("learnsetsv"));
+//return;
 var moves = JsonSerializer.Deserialize<List<Move>>(File.ReadAllBytes("moves.json"));
 var names = JsonSerializer.Deserialize<List<Name>>(File.ReadAllBytes("monsname.json"));
 var tokuseis = JsonSerializer.Deserialize<List<Name>>(File.ReadAllBytes("tokusei.json"));
@@ -120,8 +124,13 @@ var pokes = Regex.Split(text, @"\n\s*?\n");
 Dictionary<string, string[]> danier = new();
 int test = 1;
 
-var engnames = pokenamemap.Keys.ToList();
-var tosnames = tokuseismap.Keys.ToList();
+var engnames = names.Select(s => s.Name_Eng).ToList();
+var tosnames = tokuseis.Select(s => s.Name_Eng).ToList();
+Dictionary<string, List<EvolutionData>> EvolutionDatass = new();
+
+
+//return;
+
 
 var dada = File.Open("pokedatasv", FileMode.Create);
 
@@ -158,7 +167,9 @@ foreach (var poke in pokes)
 
 
     }
-    Console.WriteLine("formname: {0}", jsonObj[dexid.ToString("000")][form.ToString("000")]);
+    var formname = jsonObj[dexid.ToString("000")][form.ToString("000")];
+    Console.WriteLine("formname: {0}", formname);
+    if (formname.GetValue<string>() != "")
     sb.Append($"-{jsonObj[dexid.ToString("000")][form.ToString("000")]}");
     sb.Append(',');
     sb.Append(string.Join(',', basedata[2].Trim()
@@ -222,6 +233,7 @@ foreach (var poke in pokes)
                                 break;
                             case 4:
                                 evolutionData.Species = pokenamemap[data[1].Trim()]; // 这里可以查表
+                                evolutionData.DexId = engnames.IndexOf(data[1].Trim()) + 1;
                                 Console.WriteLine("进化为: {0}", pokenamemap[data[1].Trim()]);
                                 break;
                             case 5:
@@ -262,6 +274,8 @@ foreach (var poke in pokes)
                         case 4:
                             evolutionData.Species = pokenamemap[data[1].Trim()]; // 这里可以查表
                             Console.WriteLine("进化为: {0}", pokenamemap[data[1].Trim()]);
+                            evolutionData.DexId = engnames.IndexOf(data[1].Trim()) + 1;
+
                             break;
                         case 5:
                             evolutionData.Form = int.Parse(data[1].Trim());
@@ -314,12 +328,15 @@ foreach (var poke in pokes)
         }
 
     }
-
+    EvolutionDatass[$"{dexid}+{form}"] = (EvolutionDatas);
 }
 Console.WriteLine(JsonSerializer.Serialize(pokeWithMoves, new JsonSerializerOptions
 {
     Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
 }));
+
+File.WriteAllText("Evo.json", JsonSerializer.Serialize(EvolutionDatass));
+
 dada.Close();
 return;
 foreach (var poke in pokes)
