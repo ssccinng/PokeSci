@@ -32,7 +32,7 @@ builder.Services.AddDefaultIdentity<PokemonIsshoniNetServerUser>(options => opti
 //builder.Services.AddIdentityServer()
 //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-// Éí·ÝÑéÖ¤ ½ÇÉ«
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ ï¿½ï¿½É«
 builder.Services.AddIdentityServer()
     .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>(options =>
     {
@@ -44,7 +44,7 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddTransient<IProfileService, ProfileService>();
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
-// ÓÊ¼þ
+// ï¿½Ê¼ï¿½
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 

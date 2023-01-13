@@ -462,10 +462,6 @@ internal class KurtAnas
             string[] abli = null;
             string ev = null;
             string[] eggroup = null;
-            if (dexid == 707)
-            {
-                int a1a = 1;
-            }
 
             le[$"{dexid}+{formId}"] = pokeWithMove;
 

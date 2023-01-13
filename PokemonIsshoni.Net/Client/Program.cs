@@ -14,12 +14,12 @@ builder.Services.AddHttpClient("PokemonIsshoni.Net.ServerAPI", client => client.
 
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("PokemonIsshoni.Net.ServerAPI"));
-// ÄäÃû·ÃÎÊ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 builder.Services.AddHttpClient("PokemonIsshoni.Net.ServerAPI.Anonymous", client =>
 {
     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
 });
-#region ×Ô¶¨Òå·þÎñ
+#region ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 builder.Services.AddScoped<UserInfoServices>();
 builder.Services.AddScoped<PCLServices>();
 #endregion
