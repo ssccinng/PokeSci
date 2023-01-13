@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SixLabors.ImageSharp;
 
 namespace PokeOCRSV;
 internal class PokeRegion
@@ -29,7 +29,7 @@ internal class PokeRegion
     public Rectangle Item
     {
         get; set;
-    } = new Rectangle(new Point(35, 110), new Size(170, 32));
+    } = new Rectangle(new Point(35, 110), new Size(150, 30));
 
     public Rectangle Ability
     {
@@ -38,7 +38,7 @@ internal class PokeRegion
     public Rectangle RectangleMove
     {
         get; set;
-    } = new Rectangle(new Point(350, 0), new Size(200, 150));
+    } = new Rectangle(new Point(350, 0), new Size(200, 140));
     public PokeRegion(Point point)
     {
         BasePoint = point;

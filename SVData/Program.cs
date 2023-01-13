@@ -13,7 +13,13 @@ using SVData.Models;
 
 var englishPath = "English";
 var chinesePath = "Simp_Chinese";
+var chtPath = "Trad_Chinese";
 var jpnPath = "JPN";
+var itaPath = "Italian";
+var korPath = "Korean";
+var FrePath = "French";
+var SpaPath = "Spanish";
+var GerPath = "German";
 var wazaFileName = "common/wazaname.txt";
 var pokemonFileName = "common/monsname.txt";
 var zknFormName = "common/zkn_form.txt";
@@ -24,7 +30,9 @@ var itemName = "common/itemname.txt";
 var swshDataPath = "SWSHData.txt";
 
 var basePath = "D:\\QQ\\1078995020\\FileRecv\\message";
-ReadData(itemName, "itemName");
+ReadData1(wazaFileName, "wazanameall");
+return;
+//ReadData(itemName, "itemName");
 //return;
 //return;
 //var chineseWazaData = File.ReadAllLines($"{basePath}/{chinesePath}/{wazaFileName}");
@@ -577,6 +585,38 @@ void ReadData(string filename, string dani)
             Name_Chs = chineseWazaData[i].Trim(),
             Name_Eng = englishWazaData[i].Trim(),
             Name_Jpn = jpnWazaData[i].Trim(),
+        });
+    }
+    File.WriteAllText($"{dani}.json",
+    JsonSerializer.Serialize(moves)
+        );
+}
+void ReadData1(string filename, string dani)
+{
+    var chineseWazaData = File.ReadAllLines($"{basePath}/{chinesePath}/{filename}");
+    var englishWazaData = File.ReadAllLines($"{basePath}/{englishPath}/{filename}");
+    var jpnWazaData = File.ReadAllLines($"{basePath}/{jpnPath}/{filename}");
+    var chtWazaData = File.ReadAllLines($"{basePath}/{chtPath}/{filename}");
+    var KorWazaData = File.ReadAllLines($"{basePath}/{korPath}/{filename}");
+    var GerWazaData = File.ReadAllLines($"{basePath}/{GerPath}/{filename}");
+    var ItaWazaData = File.ReadAllLines($"{basePath}/{itaPath}/{filename}");
+    var FreWazaData = File.ReadAllLines($"{basePath}/{FrePath}/{filename}");
+    var SpaWazaData = File.ReadAllLines($"{basePath}/{SpaPath}/{filename}");
+    List<object> moves = new();
+    for (var i = 1; i < chineseWazaData.Length; i++)
+    {
+        moves.Add(new
+        {
+            MoveId = i - 1,
+            Name_Chs = chineseWazaData[i].Trim(),
+            Name_Cht = chtWazaData[i].Trim(),
+            Name_Eng = englishWazaData[i].Trim(),
+            Name_Jpn = jpnWazaData[i].Trim(),
+            Name_Kor = KorWazaData[i].Trim(),
+            Name_Ita = ItaWazaData[i].Trim(),
+            Name_Fre = FreWazaData[i].Trim(),
+            Name_Ger = GerWazaData[i].Trim(),
+            Name_Span = SpaWazaData[i].Trim(),
         });
     }
     File.WriteAllText($"{dani}.json",
