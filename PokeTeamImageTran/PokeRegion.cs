@@ -38,7 +38,7 @@ internal class PokeRegion
     public Rectangle RectangleMove
     {
         get; set;
-    } = new Rectangle(new Point(350, 0), new Size(200, 140));
+    } = new Rectangle(new Point(345, 0), new Size(200, 140));
     public PokeRegion(Point point)
     {
         BasePoint = point;

@@ -48,6 +48,8 @@ public class PokemonImageController : ControllerBase
         {
             return "图片为空";
         }
+        if (img.Width != 1280 || img.Height != 720)
+            img.Mutate(s => s.Resize(new Size(1280, 720)));
         //img.Mutate(x => x.Crop(new Rectangle(100,100, 100, 100)));
         //img.SaveAsPng(path + "/Test1.png");
         for (int i = 0; i < 6; i++)
@@ -108,7 +110,7 @@ public class PokemonImageController : ControllerBase
                 }
                 else if (item.EndsWith("move.png"))
                 {
-                    sb.AppendLine("技能: ");
+                    sb.AppendLine("招式: ");
                     type = 4;
                 }
 
