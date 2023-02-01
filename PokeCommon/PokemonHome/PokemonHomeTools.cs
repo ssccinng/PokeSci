@@ -171,7 +171,7 @@ Accept-Encoding: gzip";
                 }
                 else
                 {
-                    SVSinglePokemonHomeTrainerRankDatas = await GetSVTrainerDataAsync(PokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
+                    SVSinglePokemonHomeTrainerRankDatas = await GetSVTrainerDataAsync(SVPokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
 
                 }
             }
