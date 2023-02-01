@@ -14,9 +14,11 @@ namespace PokeCommon.PokemonHome
         public List<SVPokemonHomeSession> SVPokemonHomeSessions = new();
         public List<PokemonHomeTrainerRankData> PokemonHomeTrainerRankDatas = new();
         public List<PokemonHomeTrainerRankData> SinglePokemonHomeTrainerRankDatas = new();
+        public List<SVPokemonHomeTrainerRankData> SVSinglePokemonHomeTrainerRankDatas = new();
         public List<SVPokemonHomeTrainerRankData> SVPokemonHomeTrainerRankDatas = new();
         public List<PokemonHomeTrainerRankData> PokemonHomeLastTrainerRankDatas = new();
         public List<PokemonHomeTrainerRankData> SinglePokemonHomeLastTrainerRankDatas = new();
+        public List<SVPokemonHomeTrainerRankData> SVSinglePokemonHomeLastTrainerRankDatas = new();
         public List<SVPokemonHomeTrainerRankData> SVPokemonHomeLastTrainerRankDatas = new();
 
         private Timer _timer;
@@ -47,13 +49,11 @@ Accept-Encoding: gzip";
             }
             if (autoUpdate)
             {
-                UpdateLastRankMatchAsync().Wait();
                 //UpdateLastRankMatchAsync(battleType: BattleType.Single).Wait();
                 UpdateSVLastRankMatchAsync().Wait();
                 _timer = new Timer(new TimerCallback(async _ =>
                 {
-                    await UpdateRankMatchAsync();
-                    await UpdateRankMatchAsync(battleType: BattleType.Single);
+                    await UpdateSVRankMatchAsync(battleType: BattleType.Single);
 
                     await UpdateSVRankMatchAsync();
                 }), null, 5000, 10 * 60);
