@@ -159,14 +159,21 @@ Accept-Encoding: gzip";
             }
 
         }
-
         public async Task UpdateSVRankMatchAsync(BattleType battleType = BattleType.Double, bool all = false)
         {
             try
             {
                 SVPokemonHomeSessions = await GetSVRankMatchAsync();
-                SVPokemonHomeTrainerRankDatas = await GetSVTrainerDataAsync(SVPokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
+                if (battleType == BattleType.Double)
+                {
+                    SVPokemonHomeTrainerRankDatas = await GetSVTrainerDataAsync(SVPokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
 
+                }
+                else
+                {
+                    SVSinglePokemonHomeTrainerRankDatas = await GetSVTrainerDataAsync(PokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
+
+                }
             }
             catch (Exception e)
             {
@@ -176,6 +183,7 @@ Accept-Encoding: gzip";
             }
 
         }
+
         public async Task<List<SVPokemonHomeTrainerRankData>> GetSVTrainerDataAsync(string sessionId, int rst, int ts1, int page = 1)
         {
             List<SVPokemonHomeTrainerRankData> res = new();
