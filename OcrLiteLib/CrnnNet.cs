@@ -1,12 +1,12 @@
-﻿using Emgu.CV;
-using Microsoft.ML.OnnxRuntime;
-using Microsoft.ML.OnnxRuntime.Tensors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Emgu.CV;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace OcrLiteLib
 {
@@ -20,7 +20,9 @@ namespace OcrLiteLib
         private InferenceSession crnnNet;
         private List<string> keys;
 
-        public CrnnNet() { }
+        public CrnnNet()
+        {
+        }
 
         ~CrnnNet()
         {

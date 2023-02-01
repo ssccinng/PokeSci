@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SVPokeDex.View.PokeDexPage"
+             xmlns:viewModel="clr-namespace:SVPokeDex.ViewModel"
+             xmlns:model="clr-namespace:SVPokeDex.Model"
+             x:DataType="viewModel:PokeDexViewModel"
+             x:Name="Page"
+             Title="PokeDex">
+    <Grid RowDefinitions="{x:OnPlatform WinUI='300,70,*,30', Android='60,150,*,30'}">
+        <VerticalStackLayout Padding="0,30"
+                         HeightRequest="{Binding Source={x:Reference Page}, Path=HeightRequest}">
+            <Label 
+            Text="帕底亚宝可梦图鉴"
+            FontSize="20"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+            <Image
+                Grid.Row="1"
+                Source="{Binding DexImage}"
+                x:Name="ImageS"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="{x:OnPlatform Android=100, WinUI=200}"
+            Margin="0,5,0,0"
+                HorizontalOptions="Center" >
+                <Image.Shadow>
+                    <Shadow Brush="Black"
+                Offset="20,20"
+                Radius="40"
+                Opacity="0.8" />
+                </Image.Shadow>
+            </Image>
+        </VerticalStackLayout>
+        <Border StrokeShape="RoundRectangle 10,10,10,10"
+                Grid.Row="2"
+                Margin="20,0,20,0"
+                Stroke="{DynamicResource Primary}"
+                MaximumWidthRequest="500">
+            
+        
+        <ListView ItemsSource="{Binding Aa}"  
+                  MaximumWidthRequest="500" ItemSelected="ListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:SVPokemon">
+                        <!--<Label>1</Label>-->
+                        
+                    <ViewCell>
+                        
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image MaximumWidthRequest="{x:OnPlatform WinUI=50, Android=30}"
+                                   Margin="0,-8,0,0"
+                                   Source="{Binding}" 
+                                   IsAnimationPlaying="False">
+                                    
+                            </Image>
+                            <Label Grid.Column="1"
+           
+                           Text="{Binding .}"
+                           FontAttributes="Bold"
+                                   VerticalTextAlignment="Center" />
+                            
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </Border>
+    </Grid>
+    <!--<VerticalStackLayout Padding="0,30"
+                         HeightRequest="{Binding Source={x:Reference Page}, Path=HeightRequest}">
+        <Label 
+            Text="帕底亚宝可梦图鉴"
+            FontSize="20"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Image
+                Source="story_img_01.png"
+                x:Name="ImageS"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+            Margin="0,50,0,0"
+                HorizontalOptions="Center" >
+            <Image.Shadow>
+                <Shadow Brush="Black"
+                Offset="20,20"
+                Radius="40"
+                Opacity="0.8" />
+            </Image.Shadow>
+        </Image>
+        --><!--<ScrollView MaximumHeightRequest="500">--><!--
+            
+        
+        <ListView ItemsSource="{Binding Aa}" MaximumWidthRequest="500" MaximumHeightRequest="500">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:SVPokemon">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image MaximumWidthRequest="50" Source="{Binding}" IsAnimationPlaying="True">
+                                
+                            </Image>
+                            <Label Grid.Column="1"
+                           Text="{Binding }"
+                           FontAttributes="Bold"
+                                   VerticalTextAlignment="Center" />
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        --><!--</ScrollView>-->
+        <!--<CollectionView ItemsSource="{Binding Aa}" MaximumWidthRequest="500">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <SwipeView>
+                            --><!--<Label Text="{Binding Name}" FontSize="24" TextColor="Black"></Label>--><!--
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <Image MaximumWidthRequest="50" Source="{Binding}">
+
+                                </Image>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>--><!--
+    </VerticalStackLayout>-->
+</ContentPage>

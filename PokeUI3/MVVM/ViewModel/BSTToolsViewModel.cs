@@ -1,20 +1,16 @@
 ﻿using PokemonDataAccess.Models;
 using PokeUI3.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using static PokeMath.CalcUnits;
 
-using PokeMath;
-
 namespace PokeUI3.MVVM.ViewModel
 {
-    public class BSTToolsViewModel: ObservableObject
+    public class BSTToolsViewModel : ObservableObject
     {
-        public Pokemon Pokemon { get; set; }
+        public Pokemon Pokemon
+        {
+            get; set;
+        }
         //public SWSHTools SWSHTools { get; set; } = new SWSHTools();
 
         public int StatHP => SWSHTools.GetHP(Pokemon.BaseHP, IVHP, EVHP);
@@ -22,21 +18,32 @@ namespace PokeUI3.MVVM.ViewModel
         public int PureMinHP => SWSHTools.GetPureBaseHP((int)(StatHP * HPGain), 0);
 
         private int _evHP;
-            
+
         public int EVHP
         {
-            get { return _evHP; }
-            set { _evHP = value;
+            get
+            {
+                return _evHP;
+            }
+            set
+            {
+                _evHP = value;
                 OnPropertyChanged("StatHP");
                 OnPropertyChanged("PureMaxHP");
                 OnPropertyChanged("PureMinHP");
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
         private int _ivHP = 31;
         public int IVHP
         {
-            get { return _ivHP; }
-            set { _ivHP = value; OnPropertyChanged("StatHP"); OnPropertyChanged("StatHP");
+            get
+            {
+                return _ivHP;
+            }
+            set
+            {
+                _ivHP = value; OnPropertyChanged("StatHP"); OnPropertyChanged("StatHP");
                 OnPropertyChanged("PureMaxHP");
                 OnPropertyChanged("PureMinHP");
                 OnPropertyChanged();
@@ -50,18 +57,29 @@ namespace PokeUI3.MVVM.ViewModel
         private int _evATK;
         public int EVATK
         {
-            get { return _evATK; }
-            set { _evATK = value;
+            get
+            {
+                return _evATK;
+            }
+            set
+            {
+                _evATK = value;
                 OnPropertyChanged("StatATK");
                 OnPropertyChanged("PureMaxATK");
                 OnPropertyChanged("PureMinATK");
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
         private int _ivATK = 31;
         public int IVATK
         {
-            get { return _ivATK; }
-            set { _ivATK = value; OnPropertyChanged("StatATK"); OnPropertyChanged("StatATK");
+            get
+            {
+                return _ivATK;
+            }
+            set
+            {
+                _ivATK = value; OnPropertyChanged("StatATK"); OnPropertyChanged("StatATK");
                 OnPropertyChanged("PureMaxATK");
                 OnPropertyChanged("PureMinATK");
                 OnPropertyChanged();
@@ -75,18 +93,29 @@ namespace PokeUI3.MVVM.ViewModel
         private int _evDEF;
         public int EVDEF
         {
-            get { return _evDEF; }
-            set { _evDEF = value;
+            get
+            {
+                return _evDEF;
+            }
+            set
+            {
+                _evDEF = value;
                 OnPropertyChanged("StatDEF");
                 OnPropertyChanged("PureMaxDEF");
                 OnPropertyChanged("PureMinDEF");
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
         private int _ivDEF = 31;
         public int IVDEF
         {
-            get { return _ivDEF; }
-            set { _ivDEF = value; OnPropertyChanged("StatDEF"); OnPropertyChanged("StatDEF");
+            get
+            {
+                return _ivDEF;
+            }
+            set
+            {
+                _ivDEF = value; OnPropertyChanged("StatDEF"); OnPropertyChanged("StatDEF");
                 OnPropertyChanged("PureMaxDEF");
                 OnPropertyChanged("PureMinDEF");
                 OnPropertyChanged();
@@ -100,18 +129,29 @@ namespace PokeUI3.MVVM.ViewModel
         private int _evSPATK;
         public int EVSPATK
         {
-            get { return _evSPATK; }
-            set { _evSPATK = value;
+            get
+            {
+                return _evSPATK;
+            }
+            set
+            {
+                _evSPATK = value;
                 OnPropertyChanged("StatSPATK");
                 OnPropertyChanged("PureMaxSPATK");
                 OnPropertyChanged("PureMinSPATK");
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
         private int _ivSPATK = 31;
         public int IVSPATK
         {
-            get { return _ivSPATK; }
-            set { _ivSPATK = value; OnPropertyChanged("StatSPATK"); OnPropertyChanged("StatSPATK");
+            get
+            {
+                return _ivSPATK;
+            }
+            set
+            {
+                _ivSPATK = value; OnPropertyChanged("StatSPATK"); OnPropertyChanged("StatSPATK");
                 OnPropertyChanged("PureMaxSPATK");
                 OnPropertyChanged("PureMinSPATK");
                 OnPropertyChanged();
@@ -125,18 +165,29 @@ namespace PokeUI3.MVVM.ViewModel
         private int _evSPDEF;
         public int EVSPDEF
         {
-            get { return _evSPDEF; }
-            set { _evSPDEF = value;
+            get
+            {
+                return _evSPDEF;
+            }
+            set
+            {
+                _evSPDEF = value;
                 OnPropertyChanged("StatSPDEF");
                 OnPropertyChanged("PureMaxSPDEF");
                 OnPropertyChanged("PureMinSPDEF");
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
         private int _ivSPDEF = 31;
         public int IVSPDEF
         {
-            get { return _ivSPDEF; }
-            set { _ivSPDEF = value; OnPropertyChanged("StatSPDEF"); OnPropertyChanged("StatSPDEF");
+            get
+            {
+                return _ivSPDEF;
+            }
+            set
+            {
+                _ivSPDEF = value; OnPropertyChanged("StatSPDEF"); OnPropertyChanged("StatSPDEF");
                 OnPropertyChanged("PureMaxSPDEF");
                 OnPropertyChanged("PureMinSPDEF");
                 OnPropertyChanged();
@@ -150,29 +201,43 @@ namespace PokeUI3.MVVM.ViewModel
         private int _evSPE;
         public int EVSPE
         {
-            get { return _evSPE; }
-            set { _evSPE = value;
+            get
+            {
+                return _evSPE;
+            }
+            set
+            {
+                _evSPE = value;
                 OnPropertyChanged("StatSPE");
                 OnPropertyChanged("PureMaxSPE");
                 OnPropertyChanged("PureMinSPE");
-                OnPropertyChanged(); }
+                OnPropertyChanged();
+            }
         }
         private int _ivSPE = 31;
         public int IVSPE
         {
-            get { return _ivSPE; }
-            set { _ivSPE = value; OnPropertyChanged("StatSPE"); OnPropertyChanged("StatSPE");
+            get
+            {
+                return _ivSPE;
+            }
+            set
+            {
+                _ivSPE = value; OnPropertyChanged("StatSPE"); OnPropertyChanged("StatSPE");
                 OnPropertyChanged("PureMaxSPE");
                 OnPropertyChanged("PureMinSPE");
                 OnPropertyChanged();
             }
         }
         public double HPGain => HPOtherGain;
-        public double HPOtherGain {
-            get {
+        public double HPOtherGain
+        {
+            get
+            {
                 return _hpOtherGain;
             }
-            set {
+            set
+            {
                 _hpOtherGain = value;
                 OnPropertyChanged();
                 OnPropertyChanged("PureMaxHP");

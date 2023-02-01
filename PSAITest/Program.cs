@@ -104,16 +104,16 @@ pc.OnForceSwitch += async (battle, bools) =>
                 {
                     idx = j;
                     battle.Actives[j] = true;
-                    break;;
+                    break; ;
                 }
             }
             if (idx == -1)
             {
-                chooseDatas.Add(new SwitchData{IsPass = true});
+                chooseDatas.Add(new SwitchData { IsPass = true });
             }
             else
             {
-                chooseDatas.Add(new SwitchData{PokeId = idx + 1});
+                chooseDatas.Add(new SwitchData { PokeId = idx + 1 });
 
             }
         }
@@ -151,7 +151,7 @@ pc.OnChooseMove += async battle =>
 
             if (battle.MySide[i].Dynamax)
             {
-                Console.WriteLine( i + "这里dmax了");
+                Console.WriteLine(i + "这里dmax了");
                 target = battle.ActiveStatus[i].GetProperty("maxMoves").GetProperty("maxMoves")[moveid].GetProperty("target").GetString();
 
             }
@@ -181,7 +181,7 @@ pc.OnChooseMove += async battle =>
         }
 
 
-        
+
     }
     await battle.SendMoveAsunc(chooseDatas.ToArray());
     //chooseDatas.ForEach(s =>
@@ -194,7 +194,7 @@ pc.OnChooseMove += async battle =>
     //await battle.SendMoveAsunc(chooseDatas.ToArray());
 };
 int idx = 0;
-bool isSearching = false;   
+bool isSearching = false;
 pc.BattleStartAction += async battle =>
 {
     isSearching = false;

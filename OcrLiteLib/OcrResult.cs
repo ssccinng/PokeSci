@@ -1,14 +1,20 @@
-﻿using Emgu.CV;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using Emgu.CV;
 
 namespace OcrLiteLib
 {
     public sealed class TextBox
     {
-        public List<Point> Points { get; set; }
-        public float Score { get; set; }
+        public List<Point> Points
+        {
+            get; set;
+        }
+        public float Score
+        {
+            get; set;
+        }
         public override string ToString()
         {
             return $"TextBox[score({Score}),[x: {Points[0].X}, y: {Points[0].Y}], [x: {Points[1].X}, y: {Points[1].Y}], [x: {Points[2].X}, y: {Points[2].Y}], [x: {Points[3].X}, y: {Points[3].Y}]]";
@@ -17,9 +23,18 @@ namespace OcrLiteLib
 
     public sealed class Angle
     {
-        public int Index { get; set; }
-        public float Score { get; set; }
-        public float Time { get; set; }
+        public int Index
+        {
+            get; set;
+        }
+        public float Score
+        {
+            get; set;
+        }
+        public float Time
+        {
+            get; set;
+        }
         public override string ToString()
         {
             string header = Index >= 0 ? "Angle" : "AngleDisabled";
@@ -28,9 +43,18 @@ namespace OcrLiteLib
     }
     public sealed class TextLine
     {
-        public string Text { get; set; }
-        public List<float> CharScores { get; set; }
-        public float Time { get; set; }
+        public string Text
+        {
+            get; set;
+        }
+        public List<float> CharScores
+        {
+            get; set;
+        }
+        public float Time
+        {
+            get; set;
+        }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -40,15 +64,42 @@ namespace OcrLiteLib
     }
     public sealed class TextBlock
     {
-        public List<Point> BoxPoints { get; set; }
-        public float BoxScore { get; set; }
-        public int AngleIndex { get; set; }
-        public float AngleScore { get; set; }
-        public float AngleTime { get; set; }
-        public string Text { get; set; }
-        public List<float> CharScores { get; set; }
-        public float CrnnTime { get; set; }
-        public float BlockTime { get; set; }
+        public List<Point> BoxPoints
+        {
+            get; set;
+        }
+        public float BoxScore
+        {
+            get; set;
+        }
+        public int AngleIndex
+        {
+            get; set;
+        }
+        public float AngleScore
+        {
+            get; set;
+        }
+        public float AngleTime
+        {
+            get; set;
+        }
+        public string Text
+        {
+            get; set;
+        }
+        public List<float> CharScores
+        {
+            get; set;
+        }
+        public float CrnnTime
+        {
+            get; set;
+        }
+        public float BlockTime
+        {
+            get; set;
+        }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -68,11 +119,26 @@ namespace OcrLiteLib
     }
     public sealed class OcrResult
     {
-        public List<TextBlock> TextBlocks { get; set; }
-        public float DbNetTime { get; set; }
-        public Mat BoxImg { get; set; }
-        public float DetectTime { get; set; }
-        public string StrRes { get; set; }
+        public List<TextBlock> TextBlocks
+        {
+            get; set;
+        }
+        public float DbNetTime
+        {
+            get; set;
+        }
+        public Mat BoxImg
+        {
+            get; set;
+        }
+        public float DetectTime
+        {
+            get; set;
+        }
+        public string StrRes
+        {
+            get; set;
+        }
 
         public override string ToString()
         {

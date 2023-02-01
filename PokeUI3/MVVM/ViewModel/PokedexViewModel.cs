@@ -1,19 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PokemonDataAccess;
 using PokemonDataAccess.Models;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeUI3.MVVM.ViewModel
 {
     public class PokedexViewModel
     {
-        public PokemonContext Context { get; set; }
-        public List<Pokemon> Pokemons { get; set; }
+        public PokemonContext Context
+        {
+            get; set;
+        }
+        public List<Pokemon> Pokemons
+        {
+            get; set;
+        }
         //public List<Pokemon> PokemonDisplays { get; set; }
 
         public PokedexViewModel()

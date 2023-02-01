@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PokemonIsshoni.Net.Shared.Models
 {
     public class PCLPokeTeam
     {
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
         // 需要吗
         /// <summary>
         /// PS格式数据

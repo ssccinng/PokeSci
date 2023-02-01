@@ -2,18 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
 
 namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
@@ -34,26 +27,38 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        public IList<AuthenticationScheme> ExternalLogins
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public string ReturnUrl { get; set; }
+        public string ReturnUrl
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [TempData]
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage
+        {
+            get; set;
+        }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -68,7 +73,10 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             [Display(Name = "邮箱")]
-            public string Email { get; set; }
+            public string Email
+            {
+                get; set;
+            }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -77,14 +85,20 @@ namespace PokemonIsshoni.Net.Server.Areas.Identity.Pages.Account
             [Required]
             [DataType(DataType.Password)]
             [Display(Name = "密码")]
-            public string Password { get; set; }
+            public string Password
+            {
+                get; set;
+            }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Display(Name = "记住我?")]
-            public bool RememberMe { get; set; }
+            public bool RememberMe
+            {
+                get; set;
+            }
         }
 
         public async Task OnGetAsync(string returnUrl = null)

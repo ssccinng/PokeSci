@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SVPokeDex.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:SVPokeDex"
+    xmlns:view="clr-namespace:SVPokeDex.View"
+    xmlns:viewMoce="clr-namespace:SVPokeDex.ViewModel"
+    FlyoutIcon="sun.png"
+    x:DataType="viewMoce:ShellViewModel"
+    >
+    <Shell.FlyoutHeader>
+        <Grid>
+            <Image  Source="title_scarlet.png" />
+        </Grid>
+    </Shell.FlyoutHeader>
+    <Shell.FlyoutFooter>
+        <Grid>
+            <Image  Source="title_violet.png" />
+        </Grid>
+    </Shell.FlyoutFooter>
+    <ShellContent
+        Title="主页"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="宝可梦图鉴"
+        ContentTemplate="{DataTemplate view:PokeDexPage}"
+        Route="PokeDexPage" />
+    <ShellContent
+        Title="宝可梦图鉴检索"
+        ContentTemplate="{DataTemplate view:PokemonSearch}"
+        Route="PokemonSearch" />
+    <ShellContent
+        Title="设置"
+        Icon="Setting"
+        ContentTemplate="{DataTemplate view:SettingPage}"
+        Route="SettingPage" />
+</Shell>

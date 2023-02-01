@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokeCommon.Models;
 using PokeCommon.PokemonHome;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
-using PokemonIsshoni.Net.Shared.Info;
 using PokemonIsshoni.Net.Shared.Models;
 
 namespace PokemonIsshoni.Net.Server.Controllers
@@ -35,10 +28,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
         public async Task<ActionResult<IEnumerable<PCLMatch>>> GetPCLMatchs()
         {
-          if (_context.PCLMatchs == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLMatchs == null)
+            {
+                return NotFound();
+            }
             var res = await _context.PCLMatchs.ToListAsync();
             res.ForEach(s => s.Password = "");
             return res;
@@ -48,14 +41,14 @@ namespace PokemonIsshoni.Net.Server.Controllers
         //[AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<PCLMatch>> GetPCLMatch(int id)
-        
+
         {
             var b = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
 
             if (_context.PCLMatchs == null)
-          {
-              return NotFound();
-          }
+            {
+                return NotFound();
+            }
             //var pCLMatch = await _context.PCLMatchs.FindAsync(id);
             var pCLMatch = await _context.PCLMatchs
                                         .AsSplitQuery()
@@ -165,10 +158,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
             Console.WriteLine(b.Value);
             Debug.WriteLine(b.Value);
             //string uid = b.Value;
-          if (_context.PCLMatchs == null)
-          {
-              return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLMatchs'  is null.");
-          }
+            if (_context.PCLMatchs == null)
+            {
+                return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLMatchs'  is null.");
+            }
             _context.PCLMatchs.Add(pCLMatch);
             await _context.SaveChangesAsync();
 
@@ -219,7 +212,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
                 return Problem("人数已满！");
             }
             if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId || s.ShadowId == user.ShadowId))
-                //if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId))
+            //if (pCLMatch.PCLMatchPlayerList.Any(s => s.UserId == user.UserId))
             {
                 // 已报名 或者同名 这个可能要分开
                 return Problem("已经报名，或者有同名人");
@@ -321,7 +314,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
             {
                 return false;
             }
-            
+
             // 比赛合理性检查
             if (plcMatch.MatchState != MatchState.Registering)
             {

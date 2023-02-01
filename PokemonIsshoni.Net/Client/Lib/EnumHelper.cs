@@ -1,9 +1,5 @@
 ﻿
 using PokemonIsshoni.Net.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MatchType = PokemonIsshoni.Net.Shared.Models.MatchType;
 
 namespace PokemonIsshoni.Net.Client.Lib

@@ -1,11 +1,6 @@
-﻿using MudBlazor;
-using PokemonIsshoni.Net.Client.Pages.MudDialogCard;
+﻿using PokemonIsshoni.Net.Client.Pages.MudDialogCard;
 using PokemonIsshoni.Net.Shared.Info;
 using PokemonIsshoni.Net.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 {
@@ -337,7 +332,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
             else if (pCLBattle.Player1Score > pCLBattle.Player2Score)
             {
                 // 玩家1赢
-                pCLBattle.PCLBattleState = BattleState.Player1Win; 
+                pCLBattle.PCLBattleState = BattleState.Player1Win;
             }
             else if (pCLBattle.Player2Score > pCLBattle.Player1Score)
             {

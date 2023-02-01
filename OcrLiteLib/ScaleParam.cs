@@ -1,5 +1,5 @@
-﻿using Emgu.CV;
-using System;
+﻿using System;
+using Emgu.CV;
 
 namespace OcrLiteLib
 {
@@ -12,12 +12,30 @@ namespace OcrLiteLib
         float scaleWidth;
         float scaleHeight;
 
-        public int SrcWidth { get => srcWidth; set => srcWidth = value; }
-        public int SrcHeight { get => srcHeight; set => srcHeight = value; }
-        public int DstWidth { get => dstWidth; set => dstWidth = value; }
-        public int DstHeight { get => dstHeight; set => dstHeight = value; }
-        public float ScaleWidth { get => scaleWidth; set => scaleWidth = value; }
-        public float ScaleHeight { get => scaleHeight; set => scaleHeight = value; }
+        public int SrcWidth
+        {
+            get => srcWidth; set => srcWidth = value;
+        }
+        public int SrcHeight
+        {
+            get => srcHeight; set => srcHeight = value;
+        }
+        public int DstWidth
+        {
+            get => dstWidth; set => dstWidth = value;
+        }
+        public int DstHeight
+        {
+            get => dstHeight; set => dstHeight = value;
+        }
+        public float ScaleWidth
+        {
+            get => scaleWidth; set => scaleWidth = value;
+        }
+        public float ScaleHeight
+        {
+            get => scaleHeight; set => scaleHeight = value;
+        }
 
         public ScaleParam(int srcWidth, int srcHeight, int dstWidth, int dstHeight, float scaleWidth, float scaleHeight)
         {

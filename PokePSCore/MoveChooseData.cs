@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokePSCore
+﻿namespace PokePSCore
 {
-    public class MoveChooseData: ChooseData
+    public class MoveChooseData : ChooseData
     {
-        
+
         public int MoveId { get; set; } = 0;
         public int Target { get; set; } = 999;
         public bool Dmax { get; set; } = false;

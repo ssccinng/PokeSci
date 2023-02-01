@@ -1,6 +1,6 @@
-﻿using PokeCommon.Models;
+﻿using System.Net.Http.Json;
+using PokeCommon.Models;
 using PokemonIsshoni.Net.Shared.Models;
-using System.Net.Http.Json;
 
 namespace PokemonIsshoni.Net.Client.Services
 {
@@ -12,7 +12,7 @@ namespace PokemonIsshoni.Net.Client.Services
         private readonly HttpClient _httpClientAnonymous;
 
         //public bool IsAnonymous = false;  
-        public static bool IsAnonymous = false;  
+        public static bool IsAnonymous = false;
         public PCLServices(HttpClient httpClient, IHttpClientFactory factory)
         {
             _httpClientAu = httpClient;
@@ -201,7 +201,7 @@ namespace PokemonIsshoni.Net.Client.Services
         public async Task<bool> PCLMatcStartAsync(int id)
         {
             // 限制一下数目(? 有必要的话
-            var res = await _httpClient.PostAsync($"api/PCLMatches/MatchStart/{id}", null );
+            var res = await _httpClient.PostAsync($"api/PCLMatches/MatchStart/{id}", null);
 
             return res.IsSuccessStatusCode;
             //return null;
@@ -213,7 +213,7 @@ namespace PokemonIsshoni.Net.Client.Services
 
             return res.IsSuccessStatusCode;
         }
-        
+
         public async Task<bool> PCLRoundConfirmAsync(int matchId, int roundId)
         {
             var res = await _httpClient.PostAsync($"api/PCLMatches/RoundConfirm/{matchId}/{roundId}", null);

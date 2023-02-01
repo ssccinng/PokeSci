@@ -1,9 +1,4 @@
 ﻿using PokemonDataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeCommon.Models
 {
@@ -15,11 +10,20 @@ namespace PokeCommon.Models
         /// <summary>
         /// 攻击方
         /// </summary>
-        public BattlePokemon SourcePokemon { get; }
+        public BattlePokemon SourcePokemon
+        {
+            get;
+        }
         /// <summary>
         /// 防御方
         /// </summary>
-        public BattlePokemon TargetPokemon { get; }
-        public Move AtkMove { get; }
+        public BattlePokemon TargetPokemon
+        {
+            get;
+        }
+        public Move AtkMove
+        {
+            get;
+        }
     }
 }

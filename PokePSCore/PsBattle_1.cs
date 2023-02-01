@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokePSCore
+﻿namespace PokePSCore
 {
     public partial class PsBattle
     {
@@ -64,7 +58,7 @@ namespace PokePSCore
 
                             }
                         }
-                            
+
                     }
                     // regex = re.compile(r'p\da: (.*?)\|(.*?), (?:L(\d+), )?.*')
                     // name, variant, level = regex.match('|'.join(split_line[0:2])).groups()
@@ -229,29 +223,29 @@ namespace PokePSCore
                     if (lines[0][1] == '1')
                     {
                         if (Side1[0] != null)
-                        if (lines[0][2] == 'a')
-                        {
-                            Side1[0].Dynamax = true;
-                        }
-                        else
-                        {
-                            Side1[1].Dynamax = true;
-                        }
+                            if (lines[0][2] == 'a')
+                            {
+                                Side1[0].Dynamax = true;
+                            }
+                            else
+                            {
+                                Side1[1].Dynamax = true;
+                            }
                     }
                     else
                     {
                         if (Side2[0] != null)
 
                             if (lines[0][2] == 'a')
-                        {
-                            Side2[0].Dynamax = true;
+                            {
+                                Side2[0].Dynamax = true;
 
-                        }
-                        else
-                        {
-                            Side2[1].Dynamax = true;
+                            }
+                            else
+                            {
+                                Side2[1].Dynamax = true;
 
-                        }
+                            }
                     }
                     // 通过nickname判断
                     // dynamax状态
@@ -264,30 +258,30 @@ namespace PokePSCore
                         if (Side1[0] != null)
 
                             if (lines[0][2] == 'a')
-                        {
-                            Side1[0].Dynamax = false;
-                        }
-                        else
-                        {
-                            Side1[1].Dynamax = false;
-                        }
+                            {
+                                Side1[0].Dynamax = false;
+                            }
+                            else
+                            {
+                                Side1[1].Dynamax = false;
+                            }
                     }
                     else
                     {
                         if (Side2[0] != null)
 
                             if (lines[0][2] == 'a')
-                        {
-                            Side2[0].Dynamax = false;
+                            {
+                                Side2[0].Dynamax = false;
 
-                        }
-                        else
-                        {
-                            Side2[1].Dynamax = false;
+                            }
+                            else
+                            {
+                                Side2[1].Dynamax = false;
 
-                        }
+                            }
                     }
-                    break ;
+                    break;
                 default:
                     break;
             }

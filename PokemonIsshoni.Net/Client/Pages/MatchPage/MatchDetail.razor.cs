@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MudBlazor;
-using PokemonIsshoni.Net.Shared.Models;
+﻿using PokemonIsshoni.Net.Shared.Models;
 
 namespace PokemonIsshoni.Net.Client.Pages.MatchPage
 {
@@ -23,7 +18,7 @@ namespace PokemonIsshoni.Net.Client.Pages.MatchPage
                 }
                 //PrintInfoBar("比赛准备创建", "Success");
                 player.PreTeam = new PCLPokeTeam();
-                
+
                 //if (!await MatchService.CheckPCLMatchPwd(Id, password.Value))
                 //{
                 //    PrintInfoBar("密语错误");

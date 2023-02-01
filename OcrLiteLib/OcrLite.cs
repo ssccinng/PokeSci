@@ -1,16 +1,22 @@
-﻿using Emgu.CV;
-using Emgu.CV.CvEnum;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
 
 namespace OcrLiteLib
 {
     public class OcrLite
     {
-        public bool isPartImg { get; set; }
-        public bool isDebugImg { get; set; }
+        public bool isPartImg
+        {
+            get; set;
+        }
+        public bool isDebugImg
+        {
+            get; set;
+        }
         private string dbNetPath, angleNetPath, crnnNetPath, keysPath;
         private DbNet dbNet;
         private AngleNet angleNet;
@@ -23,11 +29,11 @@ namespace OcrLiteLib
             crnnNet = new CrnnNet();
         }
 
-        public void InitModels(string detPath,string clsPath,string recPath,string keysPath,int numThread)
+        public void InitModels(string detPath, string clsPath, string recPath, string keysPath, int numThread)
         {
             try
             {
-                dbNet.InitModel(detPath,numThread);
+                dbNet.InitModel(detPath, numThread);
                 angleNet.InitModel(clsPath, numThread);
                 crnnNet.InitModel(recPath, keysPath, numThread);
             }
@@ -38,7 +44,7 @@ namespace OcrLiteLib
             }
         }
 
-        public OcrResult Detect(string img, int padding, int imgResize, float boxScoreThresh, float boxThresh, 
+        public OcrResult Detect(string img, int padding, int imgResize, float boxScoreThresh, float boxThresh,
                               float unClipRatio, bool doAngle, bool mostAngle)
         {
             Mat brgSrc = CvInvoke.Imread(img, ImreadModes.Color);//default : BGR

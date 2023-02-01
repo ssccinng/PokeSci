@@ -1,25 +1,28 @@
 ﻿using PokemonDataAccess.Models;
 using PokeUI3.Core;
 using PokeUI3.MVVM.Model;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace PokeUI3.MVVM.ViewModel
 {
-    internal class PokeDetailViewModel: ObservableObject
+    internal class PokeDetailViewModel : ObservableObject
     {
-        public Pokemon Pokemon { get; set; }
+        public Pokemon Pokemon
+        {
+            get; set;
+        }
         private BSTValue _bstValue = new BSTValue();
-            
+
         public BSTValue BSTValue
         {
-            get { return _bstValue; }
-            set { _bstValue = value; OnPropertyChanged(); }
+            get
+            {
+                return _bstValue;
+            }
+            set
+            {
+                _bstValue = value; OnPropertyChanged();
+            }
         }
         public void BSTViewChange()
         {
@@ -44,8 +47,14 @@ namespace PokeUI3.MVVM.ViewModel
 
         public int MyProperty
         {
-            get { return myVar; }
-            set { myVar  = value; OnPropertyChanged(); }
+            get
+            {
+                return myVar;
+            }
+            set
+            {
+                myVar = value; OnPropertyChanged();
+            }
         }
 
         public string PokeColor => "#1096E0";

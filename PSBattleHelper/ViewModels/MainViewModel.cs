@@ -9,7 +9,10 @@ public class MainViewModel : ObservableRecipient
     private static string _psId;
     private static string _psPwd;
     public static List<string> _msgs { get; set; } = new();
-    public static PokePSCore.PSClient PSClient { get; set; }
+    public static PokePSCore.PSClient PSClient
+    {
+        get; set;
+    }
 
     public string PSId
     {
@@ -33,11 +36,11 @@ public class MainViewModel : ObservableRecipient
         PSClient = new(PSId, Password);
         await PSClient.ConnectAsync();
         await Task.Delay(500);
-        var res= await PSClient.LoginAsync();
+        var res = await PSClient.LoginAsync();
         await PSClient.ChatWithIdAsync("mooob", "临流");
         PSClient.ChatAction += (sender, args) =>
         {
-            Msgs.Add($"{sender}: {Msgs}");
+            Msgs.Add($"{sender}: {args}");
         };
         //await PSClient.SearchBattleAsync("gen8randombattle");
         return res;

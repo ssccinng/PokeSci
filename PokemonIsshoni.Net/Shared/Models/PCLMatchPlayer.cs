@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PokemonIsshoni.Net.Shared.Models
 {
@@ -13,7 +7,10 @@ namespace PokemonIsshoni.Net.Shared.Models
     /// </summary>
     public class PCLMatchPlayer
     {
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
         /// <summary>
         /// 选手Id
         /// </summary>
@@ -28,7 +25,10 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 比赛Id
         /// </summary>
         //public PCLMatch PCLMatch { get; set; }
-        public int PCLMatchId { get; set; }
+        public int PCLMatchId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 参赛宣言
@@ -40,7 +40,10 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 马甲
         /// </summary>
         [Column(TypeName = "nvarchar(20)")]
-        public string ShadowId { get; set; }
+        public string ShadowId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 备注
@@ -50,12 +53,24 @@ namespace PokemonIsshoni.Net.Shared.Models
 
         // 团赛所属队伍
 
-        public PCLMatchTeamGroup? PCLMatchTeamGroup { get; set; }
-        public int? PCLMatchTeamGroupId { get; set; }
+        public PCLMatchTeamGroup? PCLMatchTeamGroup
+        {
+            get; set;
+        }
+        public int? PCLMatchTeamGroupId
+        {
+            get; set;
+        }
 
         [Column(TypeName = "varchar(15)")]
-        public string QQ { get; set; } // QQ
-        public bool IsChecked { get; set; }
+        public string QQ
+        {
+            get; set;
+        } // QQ
+        public bool IsChecked
+        {
+            get; set;
+        }
 
         // 预提交队伍
         public PCLPokeTeam PreTeam { get; set; } = new();
@@ -63,7 +78,10 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// <summary>
         /// 预提队伍Id
         /// </summary>
-        public int PreTeamId { get; set; }
+        public int PreTeamId
+        {
+            get; set;
+        }
 
     }
 }

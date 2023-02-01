@@ -1,10 +1,5 @@
 ﻿using PokeCommon.Interface;
 using PokeCommon.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeCommon.BattleEngine
 {
@@ -42,10 +37,19 @@ namespace PokeCommon.BattleEngine
         }
 
         public int Turn { get; protected set; } = 0;
-        public BattleType Type { get; }
+        public BattleType Type
+        {
+            get;
+        }
 
-        public BattlePokemon[] BattlePokemons { get; protected set; }
-        public List<GamePokemonTeam> PlayerTeams { get; set; }
+        public BattlePokemon[] BattlePokemons
+        {
+            get; protected set;
+        }
+        public List<GamePokemonTeam> PlayerTeams
+        {
+            get; set;
+        }
 
         //public BattleType BattleType { get; protected set; }
 
@@ -86,7 +90,7 @@ namespace PokeCommon.BattleEngine
     {
         internal SWSHBattle(BattleEngine battleEngine, BattleType battleType) : base(battleEngine, battleType)
         {
-           //battleType = battleType;
+            //battleType = battleType;
         }
 
         public SWSHBattleEngine SWSHBattleEngine => (_battleEngine as SWSHBattleEngine)!;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
@@ -26,10 +21,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PCLReferee>>> GetPCLReferees()
         {
-          if (_context.PCLReferees == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLReferees == null)
+            {
+                return NotFound();
+            }
             return await _context.PCLReferees.ToListAsync();
         }
 
@@ -37,10 +32,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PCLReferee>> GetReferee(int id)
         {
-          if (_context.PCLReferees == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLReferees == null)
+            {
+                return NotFound();
+            }
             var referee = await _context.PCLReferees.FindAsync(id);
 
             if (referee == null)
@@ -88,10 +83,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [Authorize]
         public async Task<ActionResult<PCLReferee>> PostReferee(PCLReferee referee)
         {
-          if (_context.PCLReferees == null)
-          {
-              return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLReferees'  is null.");
-          }
+            if (_context.PCLReferees == null)
+            {
+                return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLReferees'  is null.");
+            }
             var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
             // 或者admin也行 要加入函数！
             var plcMatch = await _context.PCLMatchs.FindAsync(referee.PCLMatchId);

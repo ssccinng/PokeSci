@@ -1,10 +1,5 @@
 ﻿using PokeCommon.GameRule;
 using PokemonDataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeCommon.Models
 {
@@ -13,14 +8,14 @@ namespace PokeCommon.Models
     /// </summary>
     public class GamePokemon
     {
-        
+
 
         public GamePokemon(Pokemon pokemon, EV eV = null, IV iV = null)
         {
             MetaPokemon = pokemon;
             if (eV != null) EVs = eV;
             if (iV != null) IVs = iV;
-            
+
 
         }
 
@@ -32,23 +27,38 @@ namespace PokeCommon.Models
         /// <summary>
         /// 昵称
         /// </summary>
-        public string NickName { get; set; }
+        public string NickName
+        {
+            get; set;
+        }
         /// <summary>
         /// 携带道具
         /// </summary>
-        public Item Item { get; set; }
+        public Item Item
+        {
+            get; set;
+        }
         /// <summary>
         /// 是否闪光
         /// </summary>
-        public bool Shiny { get; set; }
+        public bool Shiny
+        {
+            get; set;
+        }
         /// <summary>
         /// 性格
         /// </summary>
-        public Nature Nature { get; set; }
+        public Nature Nature
+        {
+            get; set;
+        }
         /// <summary>
         /// 特性
         /// </summary>
-        public Ability Ability { get; set; }
+        public Ability Ability
+        {
+            get; set;
+        }
         /// <summary>
         /// 是否能超级巨化
         /// </summary>
@@ -76,7 +86,10 @@ namespace PokeCommon.Models
         /// <summary>
         /// 能力值
         /// </summary>
-        public SixDimension Stats { get; private set; }
+        public SixDimension Stats
+        {
+            get; private set;
+        }
 
         public Gender Gender { get; set; } = Gender.Random;
         public void UpdateStats()
@@ -94,7 +107,10 @@ namespace PokeCommon.Models
         /// <summary>
         /// 当前血量
         /// </summary>
-        public int NowHp { get; set; }
+        public int NowHp
+        {
+            get; set;
+        }
         /// <summary>
         /// 是否gg
         /// </summary>

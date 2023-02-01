@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PokemonIsshoni.Net.Shared.Models
 {
@@ -56,17 +51,29 @@ namespace PokemonIsshoni.Net.Shared.Models
     }
     public partial class PCLMatchRound
     {
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
         //public PCLMatch PCLMatch { get; set; }
-        public int PCLMatchId { get; set; }
+        public int PCLMatchId
+        {
+            get; set;
+        }
 
 
-        public RoundType PCLRoundType { get; set; }
+        public RoundType PCLRoundType
+        {
+            get; set;
+        }
         /// <summary>
         /// 是否是小组赛
         /// </summary>
         [ConcurrencyCheck]
-        public bool IsGroup { get; set; }
+        public bool IsGroup
+        {
+            get; set;
+        }
         /// <summary>
         /// 分多少组
         /// </summary>
@@ -79,20 +86,32 @@ namespace PokemonIsshoni.Net.Shared.Models
         /// 比赛状态
         /// </summary>、
         [ConcurrencyCheck]
-        public RoundState PCLRoundState { get; set; }
+        public RoundState PCLRoundState
+        {
+            get; set;
+        }
         /// <summary>
         /// 是否锁队
         /// </summary>
-        public bool LockTeam { get; set; }
+        public bool LockTeam
+        {
+            get; set;
+        }
         /// <summary>
         /// 允许提交队伍
         /// </summary>
-        public bool AcceptTeamSubmit { get; set; }
+        public bool AcceptTeamSubmit
+        {
+            get; set;
+        }
         // 加入比赛标识（？
         /// <summary>
         /// 是否剋以看对手队伍
         /// </summary>
-        public bool CanSeeOppTeam { get; set; }
+        public bool CanSeeOppTeam
+        {
+            get; set;
+        }
         /// <summary>
         /// BO几定胜负
         /// </summary>

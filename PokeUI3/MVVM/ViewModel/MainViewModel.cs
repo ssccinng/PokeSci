@@ -1,24 +1,27 @@
-﻿using PokeUI3.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System;
 using System.IO;
-
 using PokemonDataAccess;
 using PokeUI3.Assets;
+using PokeUI3.Core;
 
 namespace PokeUI3.MVVM.ViewModel
 {
-    internal class MainViewModel: ObservableObject
+    internal class MainViewModel : ObservableObject
     {
-        public PokemonContext Context { get; set; }
-        public PokedexViewModel PokemonVM { get; set; }
+        public PokemonContext Context
+        {
+            get; set;
+        }
+        public PokedexViewModel PokemonVM
+        {
+            get; set;
+        }
 
-        public static MainViewModel Instance { get; set; }
-        
+        public static MainViewModel Instance
+        {
+            get; set;
+        }
+
 
         public MainViewModel()
         {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokeCommon.Models
+﻿namespace PokeCommon.Models
 {
     public enum SixDimensionValueType
     {
@@ -52,54 +46,78 @@ namespace PokeCommon.Models
             {
                 switch (Index)
                 {
-                    case 0: HP = value; 
+                    case 0:
+                        HP = value;
                         //ValueChange?.Invoke(SixDimensionValueType.HP); 
                         break;
-                    case 1: Atk = value; 
+                    case 1:
+                        Atk = value;
                         //ValueChange?.Invoke(SixDimensionValueType.Atk); 
                         break;
-                    case 2: Def = value; 
+                    case 2:
+                        Def = value;
                         //ValueChange?.Invoke(SixDimensionValueType.Def); 
                         break;
-                    case 3: Spa = value; 
+                    case 3:
+                        Spa = value;
                         //ValueChange?.Invoke(SixDimensionValueType.Spa); 
                         break;
-                    case 4: Spd = value; 
+                    case 4:
+                        Spd = value;
                         //ValueChange?.Invoke(SixDimensionValueType.Spd);
                         break;
-                    case 5: Spe = value; 
+                    case 5:
+                        Spe = value;
                         //ValueChange?.Invoke(SixDimensionValueType.Spe); 
                         break;
                     default:
                         break;
                 }
-                
+
             }
         }
         /// <summary>
         /// HP  
         /// </summary>
-        public int HP { get; set; }
+        public int HP
+        {
+            get; set;
+        }
         /// <summary>
         /// 攻击
         /// </summary>
-        public int Atk { get; set; }
+        public int Atk
+        {
+            get; set;
+        }
         /// <summary>
         /// 防御
         /// </summary>
-        public int Def { get; set; }
+        public int Def
+        {
+            get; set;
+        }
         /// <summary>
         /// 特攻
         /// </summary>
-        public int Spa { get; set; }
+        public int Spa
+        {
+            get; set;
+        }
         /// <summary>
         /// 特防
         /// </summary>
-        public int Spd { get; set; }
+        public int Spd
+        {
+            get; set;
+        }
         /// <summary>
         /// 速度
         /// </summary>
-        public int Spe { get; set; }
+        public int Spe
+        {
+            get; set;
+        }
         /// <summary>
         /// 总和
         /// </summary>
@@ -152,13 +170,13 @@ namespace PokeCommon.Models
         /// 根据个体计算出
         /// </summary>
         /// <returns></returns>
-       
+
     }
 
     /// <summary>
     /// 个体值
     /// </summary>
-    public class IV: SixDimension
+    public class IV : SixDimension
     {
         public IV(int value) : base(value) { }
         public IV(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0) : base(hp, atk, def, spa, spd, spe) { }
@@ -191,9 +209,9 @@ namespace PokeCommon.Models
         }
     }
 
-    public class EV: SixDimension
+    public class EV : SixDimension
     {
         public EV(int value) : base(value) { }
-        public EV(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0): base(hp, atk, def, spa, spd, spe) { }
+        public EV(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0) : base(hp, atk, def, spa, spd, spe) { }
     }
 }

@@ -38,19 +38,37 @@ public sealed partial class MainPage : Page
     private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         if (MainViewModel.PSClient == null) return;
-        //MainViewModel.PSClient.ChatAction += AddChatMessage;
+        MainViewModel.PSClient.ChatAction += AddChatMessage;
     }
 
     private void Page_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         if (MainViewModel.PSClient == null) return;
 
-        //MainViewModel.PSClient.ChatAction -= AddChatMessage;
+        MainViewModel.PSClient.ChatAction -= AddChatMessage;
 
     }
 
     public void AddChatMessage(string Id, string Msg)
     {
-        pmList.Items.Add($"{Id}: {Msg}");
+
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            pmList.Items.Add($"{Id}: {Msg}");
+
+        });
+        //pmList.ItemsSource.
+        //System.Diagnostics.Debug.WriteLine(Dispatcher);
+        //_ = pmList.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+        //{
+        //    pmList.Items.Add($"{Id}: {Msg}");
+
+        //});
+    }
+
+    private void test_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+
+        pmList.Items.Add($"临流");
     }
 }

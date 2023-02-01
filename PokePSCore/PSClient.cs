@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net.WebSockets;
-using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json;
-using System.Diagnostics;
 
 namespace PokePSCore
 {
@@ -41,8 +36,9 @@ namespace PokePSCore
         /// </summary>
         public Action<string, string> ChatAction;
         public Action<string, string> RequestsAction;
-        
-        
+        public Action<string> UserDetailsAction;
+
+
         public Action<PsBattle> OnTeampreview;
         public Action<PsBattle, bool[]> OnForceSwitch;
         public Action<PsBattle> OnChooseMove;
@@ -110,7 +106,7 @@ namespace PokePSCore
                 //.Split('|');
             }
         }
-        
+
 
         /// <summary>
         /// 设置log输出位置
@@ -134,20 +130,20 @@ namespace PokePSCore
         public async Task<bool> LoginAsync(string userName, string password, string challId, string chall)
         {
 
-            var res = await _client.PostAsJsonAsync(_loginUrl1, new
-            {
-                act = "login",
-                name = userName,
-                pass = password,
-                challstr = $"{challId}%7C{chall}"
-            });
+            //var res = await _client.PostAsJsonAsync(_loginUrl1, new
+            //{
+            //    act = "login",
+            //    name = userName,
+            //    pass = password,
+            //    challstr = $"{challId}%7C{chall}"
+            //});
             //var res = await _client.PostAsync($"{_loginUrl}?", new StringContent($"act=login&name={userName}&pass={password}&challstr={$"{challId}%7C{chall}"}"));
-            //MultipartFormDataContent data1 = new();
-            //data1.Add(new StringContent("login"), "act");
-            //data1.Add(new StringContent(userName), "name");
-            //data1.Add(new StringContent(password), "pass");
-            //data1.Add(new StringContent($"{challId}%7C{chall}"), "challstr");
-            //var res = await _client.PostAsync(_loginUrl, data1);
+            MultipartFormDataContent data1 = new();
+            data1.Add(new StringContent("login"), "act");
+            data1.Add(new StringContent(userName), "name");
+            data1.Add(new StringContent(password), "pass");
+            data1.Add(new StringContent($"{challId}%7C{chall}"), "challstr");
+            var res = await _client.PostAsync(_loginUrl, data1);
             Console.WriteLine(res.IsSuccessStatusCode);
             var dd = (await res.Content.ReadAsStringAsync())[1..];
             JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
@@ -168,7 +164,7 @@ namespace PokePSCore
             string tag = battleData[0].Split('|')[0][1..];
             Console.WriteLine($"tag: {tag}");
             var battle = Battles.GetValueOrDefault(tag) ?? new PsBattle(this, tag);
-            
+
             for (int i = 1; i < battleData.Length; i++)
             {
                 string[] currData = battleData[i].Split('|');
@@ -253,11 +249,11 @@ namespace PokePSCore
                         if (other[0] == "trapped")
                         {
                             // makemove
-                            
+
                         }
                         break;
                     case "poke":
-                        if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1" ))
+                        if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1"))
                         {
                             // 对手的队伍信息
                             var data = other[1].Split(", ");
@@ -282,7 +278,7 @@ namespace PokePSCore
                 }
             }
         }
-        
+
         public async Task<bool> LoginAsync()
         {
             return await LoginAsync(UserName, Password, _challId, _chall);
@@ -339,6 +335,9 @@ namespace PokePSCore
                         {
                             case "roomlist":
                                 // 想办法传回去
+                                break;
+                            case "userdetails":
+                                UserDetailsAction?.Invoke(data[3]);
                                 break;
                             default:
                                 break;
@@ -422,7 +421,7 @@ namespace PokePSCore
                         }
 
                         break;
-                    case "":
+
                     default:
                         break;
                 }

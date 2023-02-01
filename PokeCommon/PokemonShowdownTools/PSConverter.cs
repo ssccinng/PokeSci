@@ -1,18 +1,12 @@
-﻿using PokeCommon.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.VisualBasic;
-using PokeCommon.Utils;
 using PokeCommon.Interface;
+using PokeCommon.Models;
+using PokeCommon.Utils;
 
 namespace PokeCommon.PokemonShowdownTools
 {
-    public class PSConverter: IPSConverter
+    public class PSConverter : IPSConverter
     {
         private static Regex reg = new("[ -]");
         static string GetLowerLetter(string val)
@@ -58,7 +52,7 @@ namespace PokeCommon.PokemonShowdownTools
                 sb.AppendLine();
             }
 
-            
+
 
             if (gamePokemon.Shiny)
             {
@@ -97,7 +91,7 @@ namespace PokeCommon.PokemonShowdownTools
                     // 这个地方 用id特判
                     if (move.NameChs.StartsWith("觉醒力量"))
                     {
-                        
+
                     }
                     else
                     {
@@ -191,7 +185,7 @@ namespace PokeCommon.PokemonShowdownTools
                         {
                             gamePokemon.Nature = await PokemonTools.GetNatureAsync(temp1[0]) ?? (await PokemonTools.GetNatureAsync(1)!);
                         }
-                        else if(temp1[0][0] == '-')
+                        else if (temp1[0][0] == '-')
                         {
                             //string move1 = Regex.Replace(data[i].Trim(), @"\s*-\s+", "");
                             string move1 = data[i][1..].Trim();
@@ -254,11 +248,11 @@ namespace PokeCommon.PokemonShowdownTools
         public static async ValueTask<string> ConvertToPsOneLineAsync(GamePokemonTeam gamePokemonTeam)
         {
             List<string> psoneline = new();
-            Console.WriteLine( gamePokemonTeam.GamePokemons.Count);
+            Console.WriteLine(gamePokemonTeam.GamePokemons.Count);
             for (int i = 0; i < gamePokemonTeam.GamePokemons.Count; i++)
             {
                 //Console.WriteLine(1);
-                psoneline.Add( await ConvertToPsOneLineAsync(gamePokemonTeam.GamePokemons[i]));
+                psoneline.Add(await ConvertToPsOneLineAsync(gamePokemonTeam.GamePokemons[i]));
                 //Console.WriteLine($"({psoneline[i]})");
             }
 
@@ -272,7 +266,7 @@ namespace PokeCommon.PokemonShowdownTools
         /// <returns></returns>
         public static async ValueTask<string> ConvertToPsOneLineAsync(GamePokemon gamePokemon)
         {
-            
+
             if (gamePokemon == null || gamePokemon.MetaPokemon == null)
             {
                 return "";
@@ -295,60 +289,60 @@ namespace PokeCommon.PokemonShowdownTools
             {
                 data[i] = "";
             }
-            
-             StringBuilder sb = new();
-             if (gamePokemon.NickName != null)
-             {
-                 data[0] = gamePokemon.NickName;
-                 data[1] = GetLowerLetter((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
-             }
-             else
-             {
-                 data[0] = GetLowerLetter((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
-             }
 
-             if (gamePokemon.Item != null)
-             {
-                 data[2] = GetLowerLetter(gamePokemon.Item.Name_Eng);
-             }
+            StringBuilder sb = new();
+            if (gamePokemon.NickName != null)
+            {
+                data[0] = gamePokemon.NickName;
+                data[1] = GetLowerLetter((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
+            }
+            else
+            {
+                data[0] = GetLowerLetter((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSName);
+            }
 
-             if (gamePokemon.Ability != null)
-             {
-                 data[3] = GetLowerLetter(gamePokemon.Ability.Name_Eng);
-             }
+            if (gamePokemon.Item != null)
+            {
+                data[2] = GetLowerLetter(gamePokemon.Item.Name_Eng);
+            }
 
-             if (gamePokemon.Moves.Count > 0)
-             {
-                 data[4] = string.Join(',', gamePokemon.Moves.Select(s => GetLowerLetter(s.NameEng)));
-             }
+            if (gamePokemon.Ability != null)
+            {
+                data[3] = GetLowerLetter(gamePokemon.Ability.Name_Eng);
+            }
 
-             if (gamePokemon.Nature != null)
-             {
-                 data[5] = gamePokemon.Nature.Name_Eng;
-             }
+            if (gamePokemon.Moves.Count > 0)
+            {
+                data[4] = string.Join(',', gamePokemon.Moves.Select(s => GetLowerLetter(s.NameEng)));
+            }
 
-             if (gamePokemon.EVs.Sum > 0)
-             {
-                 data[6] = string.Join(',', gamePokemon.EVs.ToSixArray().Select(s => s > 0 ? s.ToString() : ""));
-             }
+            if (gamePokemon.Nature != null)
+            {
+                data[5] = gamePokemon.Nature.Name_Eng;
+            }
 
-             
-             data[7] = gamePokemon.Gender switch
-             {
+            if (gamePokemon.EVs.Sum > 0)
+            {
+                data[6] = string.Join(',', gamePokemon.EVs.ToSixArray().Select(s => s > 0 ? s.ToString() : ""));
+            }
+
+
+            data[7] = gamePokemon.Gender switch
+            {
                 Gender.Female => "F",
                 Gender.Male => "M",
                 _ => "",
-             };
-             
-             if (gamePokemon.IVs.Sum < 186)
-             {
-                 data[8] = string.Join(',', gamePokemon.IVs.ToSixArray().Select(s => s < 31 ? s.ToString() : ""));
-             }
-             if (gamePokemon.Shiny)
-             {
-                 data[9] = "S";
-             }
-             if (gamePokemon.LV != 50)
+            };
+
+            if (gamePokemon.IVs.Sum < 186)
+            {
+                data[8] = string.Join(',', gamePokemon.IVs.ToSixArray().Select(s => s < 31 ? s.ToString() : ""));
+            }
+            if (gamePokemon.Shiny)
+            {
+                data[9] = "S";
+            }
+            if (gamePokemon.LV != 50)
             {
                 data[10] = gamePokemon.LV.ToString();
 
@@ -392,7 +386,7 @@ namespace PokeCommon.PokemonShowdownTools
 
             return (name, nickname, item);
         }
-        
-        
+
+
     }
 }

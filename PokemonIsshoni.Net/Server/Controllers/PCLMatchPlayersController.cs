@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokemonIsshoni.Net.Server.Areas.Identity.Data;
@@ -26,10 +21,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PCLMatchPlayer>>> GetPCLMatchPlayers()
         {
-          if (_context.PCLMatchPlayers == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLMatchPlayers == null)
+            {
+                return NotFound();
+            }
             return await _context.PCLMatchPlayers.ToListAsync();
         }
 
@@ -37,10 +32,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PCLMatchPlayer>> GetPCLMatchPlayer(int id)
         {
-          if (_context.PCLMatchPlayers == null)
-          {
-              return NotFound();
-          }
+            if (_context.PCLMatchPlayers == null)
+            {
+                return NotFound();
+            }
             var pCLMatchPlayer = await _context.PCLMatchPlayers.FindAsync(id);
 
             if (pCLMatchPlayer == null)
@@ -91,10 +86,10 @@ namespace PokemonIsshoni.Net.Server.Controllers
 
         public async Task<ActionResult<PCLMatchPlayer>> PostPCLMatchPlayer(PCLMatchPlayer pCLMatchPlayer)
         {
-          if (_context.PCLMatchPlayers == null)
-          {
-              return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLMatchPlayers'  is null.");
-          }
+            if (_context.PCLMatchPlayers == null)
+            {
+                return Problem("Entity set 'PokemonIsshoniNetServerContext.PCLMatchPlayers'  is null.");
+            }
             _context.PCLMatchPlayers.Add(pCLMatchPlayer);
             await _context.SaveChangesAsync();
 
@@ -108,7 +103,7 @@ namespace PokemonIsshoni.Net.Server.Controllers
         public async Task<IActionResult> DeletePCLMatchPlayer(int id)
         {
             var uid = HttpContext.User.Claims.FirstOrDefault(s => s.Type.EndsWith("nameidentifier"));
-           
+
             if (_context.PCLMatchPlayers == null)
             {
                 return NotFound();

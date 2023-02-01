@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokeUI3.MVVM.Model
+﻿namespace PokeUI3.MVVM.Model
 {
     public class BSTValue
     {

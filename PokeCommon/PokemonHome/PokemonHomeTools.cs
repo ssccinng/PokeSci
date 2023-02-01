@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO.Compression;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
-using PokeCommon.Models;
-using System.IO.Compression;
 using PokeCommon.BattleEngine;
+using PokeCommon.Models;
 
 namespace PokeCommon.PokemonHome
 {
@@ -33,8 +29,8 @@ authorization: Bearer
 langcode: 1
 user-agent: Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Mobile Safari/537.36
 Accept-Encoding: gzip";
-//Accept-Encoding: gzip";
-//Accept-Encoding: gzip,deflate";
+        //Accept-Encoding: gzip";
+        //Accept-Encoding: gzip,deflate";
 
         private HttpClient _httpClient = new();
         public PokemonHomeTools(bool autoUpdate = false)
@@ -55,7 +51,7 @@ Accept-Encoding: gzip";
 
                 }), null, 5000, 10 * 60);
             }
-            
+
         }
 
         public void UpdateBundle()
@@ -156,7 +152,7 @@ Accept-Encoding: gzip";
             else
             {
 
-            
+
                 var response = await _httpClient.GetAsync(string.Format(_trainerUrl, sessionId, rst, ts1, page));
                 MemoryStream output = new MemoryStream();
                 using var decompressor = new GZipStream(await response.Content.ReadAsStreamAsync(), CompressionMode.Decompress);

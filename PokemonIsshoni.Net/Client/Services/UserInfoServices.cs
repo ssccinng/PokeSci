@@ -1,5 +1,5 @@
-﻿using PokemonIsshoni.Net.Shared.Info;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
+using PokemonIsshoni.Net.Shared.Info;
 
 namespace PokemonIsshoni.Net.Client.Services
 {
@@ -23,7 +23,8 @@ namespace PokemonIsshoni.Net.Client.Services
         public async Task<UserInfo> GetUserByNameAsync(string name)
         {
             return await _httpClient.GetFromJsonAsync<UserInfo>($"/api/userinfo/GetUserByName/{name}");
-        }public async Task<UserInfo> GetUserByIdAsync(string id)
+        }
+        public async Task<UserInfo> GetUserByIdAsync(string id)
         {
             return await _httpClient.GetFromJsonAsync<UserInfo>($"/api/userinfo/GetUserById/{id}");
         }

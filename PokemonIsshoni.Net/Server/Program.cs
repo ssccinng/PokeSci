@@ -1,15 +1,12 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
-using PokemonIsshoni.Net.Server.Data;
-using PokemonIsshoni.Net.Server.Models;
-using Microsoft.AspNetCore.Identity;
-using PokemonIsshoni.Net.Server.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using PokemonIsshoni.Net.Server.Services;
-using PokeCommon.Utils;
 using System.IdentityModel.Tokens.Jwt;
 using Duende.IdentityServer.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using PokeCommon.Utils;
+using PokemonIsshoni.Net.Server.Areas.Identity.Data;
+using PokemonIsshoni.Net.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PokemonIsshoniNetServerContextConnection") ?? throw new InvalidOperationException("Connection string 'PokemonIsshoniNetServerContextConnection' not found.");
@@ -35,9 +32,10 @@ builder.Services.AddDefaultIdentity<PokemonIsshoniNetServerUser>(options => opti
 //builder.Services.AddIdentityServer()
 //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-// Éí·ÝÑéÖ¤ ½ÇÉ«
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ ï¿½ï¿½É«
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>(options => {
+    .AddApiAuthorization<PokemonIsshoniNetServerUser, PokemonIsshoniNetServerContext>(options =>
+    {
         options.IdentityResources["openid"].UserClaims.Add("name");
         options.ApiResources.Single().UserClaims.Add("name");
         options.IdentityResources["openid"].UserClaims.Add("role");
@@ -46,7 +44,7 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddTransient<IProfileService, ProfileService>();
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
-// ÓÊ¼þ
+// ï¿½Ê¼ï¿½
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
