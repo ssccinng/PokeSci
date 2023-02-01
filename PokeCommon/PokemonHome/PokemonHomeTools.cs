@@ -13,8 +13,10 @@ namespace PokeCommon.PokemonHome
         public List<PokemonHomeSession> PokemonHomeSessions = new();
         public List<SVPokemonHomeSession> SVPokemonHomeSessions = new();
         public List<PokemonHomeTrainerRankData> PokemonHomeTrainerRankDatas = new();
+        public List<PokemonHomeTrainerRankData> SinglePokemonHomeTrainerRankDatas = new();
         public List<SVPokemonHomeTrainerRankData> SVPokemonHomeTrainerRankDatas = new();
         public List<PokemonHomeTrainerRankData> PokemonHomeLastTrainerRankDatas = new();
+        public List<PokemonHomeTrainerRankData> SinglePokemonHomeLastTrainerRankDatas = new();
         public List<SVPokemonHomeTrainerRankData> SVPokemonHomeLastTrainerRankDatas = new();
 
         private Timer _timer;
@@ -45,9 +47,14 @@ Accept-Encoding: gzip";
             }
             if (autoUpdate)
             {
+                UpdateLastRankMatchAsync().Wait();
+                //UpdateLastRankMatchAsync(battleType: BattleType.Single).Wait();
                 UpdateSVLastRankMatchAsync().Wait();
                 _timer = new Timer(new TimerCallback(async _ =>
                 {
+                    await UpdateRankMatchAsync();
+                    await UpdateRankMatchAsync(battleType: BattleType.Single);
+
                     await UpdateSVRankMatchAsync();
                 }), null, 5000, 10 * 60);
             }
@@ -133,8 +140,16 @@ Accept-Encoding: gzip";
             try
             {
                 PokemonHomeSessions = await GetRankMatchAsync();
-                PokemonHomeTrainerRankDatas = await GetTrainerDataAsync(PokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
+                if (battleType == BattleType.Double)
+                {
+                    PokemonHomeTrainerRankDatas = await GetTrainerDataAsync(PokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
 
+                }
+                else
+                {
+                    SinglePokemonHomeTrainerRankDatas = await GetTrainerDataAsync(PokemonHomeSessions.First(s => s.Type == battleType), all == true ? -1 : 1);
+
+                }
             }
             catch (Exception e)
             {
