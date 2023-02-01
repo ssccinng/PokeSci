@@ -9,6 +9,15 @@ using System.Diagnostics;
 using PokeCommon.PokemonShowdownTools;
 using PokePSCore;
 
+var pc1 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);
+await pc1.ConnectAsync();
+await Task.Delay(1000);
+PokeCommon.PokemonHome.PokemonHomeTools PokemonHomeTools = new();
+await PokemonHomeTools.UpdateSVLastRankMatchAsync();
+
+Console.WriteLine(await pc1.LoginAsync());
+return;
+
 var SWSHTools = PokeCommon.PokeMath.CalcUnits.SWSHTools;
 
 int hp = SWSHTools.GetHP(95, 31, 0);

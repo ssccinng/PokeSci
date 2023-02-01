@@ -61,4 +61,17 @@ namespace PokeCommon.Models
             get; set;
         }
     }
+
+    public class SVPokemonHomeSession : PokemonHomeSession
+    {
+        public new string SeasonId
+        {
+            get; set;
+        }
+        [JsonPropertyName("cId")]
+        public string CId
+        {
+            get; set;
+        }
+    }
 }

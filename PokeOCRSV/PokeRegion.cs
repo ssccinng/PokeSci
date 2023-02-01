@@ -25,20 +25,20 @@ internal class PokeRegion
     public Rectangle Name
     {
         get; set;
-    } = new Rectangle(new Point(0, 0), new Size(150, 32));
+    } = new Rectangle(new Point(0, 0), new Size(180, 32));
     public Rectangle Item
     {
         get; set;
-    } = new Rectangle(new Point(35, 110), new Size(170, 32));
+    } = new Rectangle(new Point(35, 110), new Size(180, 30));
 
     public Rectangle Ability
     {
         get; set;
-    } = new Rectangle(new Point(0, 73), new Size(170, 32));
+    } = new Rectangle(new Point(0, 73), new Size(180, 32));
     public Rectangle RectangleMove
     {
         get; set;
-    } = new Rectangle(new Point(350, 0), new Size(200, 150));
+    } = new Rectangle(new Point(345, 0), new Size(200, 140));
     public PokeRegion(Point point)
     {
         BasePoint = point;
@@ -46,6 +46,6 @@ internal class PokeRegion
 
     //public Bitmap GetMoveBitmap(Bitmap bitmap1)
     //{
-    
+
     //}
 }

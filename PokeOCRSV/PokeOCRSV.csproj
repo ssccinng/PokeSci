@@ -12,4 +12,8 @@
     <PackageReference Include="IronOcr.Languages.Japanese" Version="2020.11.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PokeTeamImageTran\PokeTeamImageTran.csproj" />
+  </ItemGroup>
+
 </Project>

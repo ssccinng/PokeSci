@@ -46,7 +46,16 @@
                 Text="试试你的手气！"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                ContentLayout="Left, 200"
+                
+                >
+
+                <!--<Button.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property=""
+                    </Style>
+                </Button.Resources>-->
+            </Button>
 
         </VerticalStackLayout>
     </ScrollView>

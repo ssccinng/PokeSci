@@ -52,4 +52,39 @@ namespace PokeCommon.Models
             get => ((int)LanguageType).ToString(); set => LanguageType = (LanguageType)int.Parse(value);
         }
     }
+
+    public class SVPokemonHomeTrainerRankData
+    {
+        [JsonPropertyName("rank")]
+        public int Rank
+        {
+            get; set;
+        }
+        [JsonPropertyName("rating_value")]
+        public int RatingValue
+        {
+            get; set;
+        }
+
+        [JsonPropertyName("icon")]
+        public string Icon
+        {
+            get; set;
+        }
+        [JsonPropertyName("name")]
+        public string Name
+        {
+            get; set;
+        }
+        //[JsonPropertyName("lng")]
+        public LanguageType LanguageType
+        {
+            get; set;
+        }
+        [JsonPropertyName("lng")]
+        public string lng
+        {
+            get => ((int)LanguageType).ToString(); set => LanguageType = (LanguageType)int.Parse(value);
+        }
+    }
 }
