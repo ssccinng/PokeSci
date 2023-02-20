@@ -46,6 +46,7 @@
                 Text="试试你的手气！"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
+                
                 ContentLayout="Left, 200"
                 
                 >
