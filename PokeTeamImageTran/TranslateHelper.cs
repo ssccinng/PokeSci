@@ -28,6 +28,8 @@ public static class TranslateHelper
                 res = models.OrderByDescending(x => findSimilarity(text, x.Name_Jpn));
                 return res.First().Name_Chs;
             case "ch":
+                res = models.OrderByDescending(x => findSimilarity(text, x.Name_Chs));
+                return res.First().Name_Chs;
                 break;
             case "en":
                 res = models.OrderByDescending(x => findSimilarity(text, x.Name_Eng));

@@ -47,6 +47,7 @@ Accept-Encoding: gzip";
                 var data = item.Split(": ");
                 _httpClient.DefaultRequestHeaders.Add(data[0], data[1]);
             }
+            //var aa = _httpClient.GetAsync(_bundleUrl).Result.Content.ReadAsStringAsync().Result;
             if (autoUpdate)
             {
                 //UpdateLastRankMatchAsync(battleType: BattleType.Single).Wait();
