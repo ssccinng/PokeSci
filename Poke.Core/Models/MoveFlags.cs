@@ -5,226 +5,184 @@
 /// </summary>
 public class MoveFlags
 {
-    /// <summary>
-    /// Ignores a target's substitute.
-    /// </summary>
     public bool Bypasssub { get; set; } = false;
 
-    public bool Bite { get; set; } =
-        false; // Power is multiplied by 1.5 when used by a Pokemon with the Ability Strong Jaw.
+    public bool Bite { get; set; } = false;
 
-    public bool Bullet { get; set; } =
-        false; // Has no effect on Pokemon with the Ability Bulletproof.
+    public bool Bullet { get; set; } = false;
 
-    public bool Charge { get; set; } =
-        false; // The user is unable to make a move between turns.
+    public bool Charge { get; set; } = false;
 
-    public bool Contact { get; set; } =
-        false; // Makes contact.
+    public bool Contact { get; set; } = false;
 
-    public bool Dance { get; set; } =
-        false; // When used by a Pokemon, other Pokemon with the Ability Dancer can attempt to execute the same move.
+    public bool Dance { get; set; } = false;
 
-    public bool Defrost { get; set; } =
-        false; // Thaws the user if executed successfully while the user is frozen.
+    public bool Defrost { get; set; } = false;
 
-    public bool Distance { get; set; } =
-        false; // Can target a Pokemon positioned anywhere in a Triple Battle.
+    public bool Distance { get; set; } = false;
 
-    public bool Gravity { get; set; } =
-        false; // Prevented from being executed or selected during Gravity's effect.
+    public bool Gravity { get; set; } = false;
 
-    public bool Heal { get; set; } =
-        false; // Prevented from being executed or selected during Heal Block's effect.
+    public bool Heal { get; set; } = false;
 
-    public bool Mirror { get; set; } =
-        false; // Can be copied by Mirror Move.
+    public bool Mirror { get; set; } = false;
 
-    public bool Allyanim { get; set; } =
-        false; // The move has an animation when used on an ally.
+    public bool Allyanim { get; set; } = false;
 
-    public bool Nonsky { get; set; } =
-        false; // Prevented from being executed or selected in a Sky Battle.
+    public bool Nonsky { get; set; } = false;
+    
+    public bool Powder { get; set; } = false;
 
-    public bool Powder { get; set; } =
-        false; // Has no effect on Pokemon which are Grass-type, have the Ability Overcoat, or hold Safety Goggles.
+    public bool Protect { get; set; } = false;
 
-    public bool Protect { get; set; } =
-        false; // Blocked by Detect, Protect, Spiky Shield, and if not a Status move, King's Shield.
+    public bool Pulse { get; set; } = false;
 
-    public bool Pulse { get; set; } =
-        false; // Power is multiplied by 1.5 when used by a Pokemon with the Ability Mega Launcher.
+    public bool Punch { get; set; } = false;
 
-    public bool Punch { get; set; } =
-        false; // Power is multiplied by 1.2 when used by a Pokemon with the Ability Iron Fist.
+    public bool Recharge { get; set; } = false;
 
-    public bool Recharge { get; set; } =
-        false; // If this move is successful, the user must recharge on the following turn and cannot make a move.
+    public bool Reflectable { get; set; } = false;
 
-    public bool Reflectable { get; set; } =
-        false; // Bounced back to the original user by Magic Coat or the Ability Magic Bounce.
+    public bool Slicing { get; set; } = false;
 
-    public bool Slicing { get; set; } =
-        false; // Power is multiplied by 1.5 when used by a Pokemon with the Ability Sharpness.
+    public bool Snatch { get; set; } = false;
 
-    public bool Snatch { get; set; } =
-        false; // Can be stolen from the original user and instead used by another Pokemon using Snatch.
+    public bool Sound { get; set; } = false;
 
-    public bool Sound { get; set; } =
-        false; // Has no effect on Pokemon with the Ability Soundproof.
-
-    public bool Wind { get; set; } =
-        false; // Activates the Wind Power and Wind Rider Abilities.
+    public bool Wind { get; set; } = false;
 }
 
 public interface IMoveFlags
 {
-    bool Bypasssub
-    {
-        get;
-        set;
-    } // Ignores a target's substitute.
+    /// <summary>
+    /// 是否无视替身
+    /// Ignores a target's substitute.
+    /// </summary>
+    bool Bypasssub { get; set; }
 
+    /// <summary>
+    /// 强壮下颚威力*1.5
+    /// Power is multiplied by 1.5 when used by a Pokemon with the Ability Strong Jaw.
+    /// </summary>
+    bool Bite { get; set; }
 
-    bool Bite
-    {
-        get;
-        set;
-    } // Power is multiplied by 1.5 when used by a Pokemon with the Ability Strong Jaw.
+    /// <summary>
+    /// 弹类节能
+    /// Has no effect on Pokemon with the Ability Bulletproof.
+    /// </summary>
+    bool Bullet { get; set; }
 
-    bool Bullet
-    {
-        get;
-        set;
-    } // Has no effect on Pokemon with the Ability Bulletproof.
+    /// <summary>
+    /// 
+    /// The user is unable to make a move between turns.
+    /// </summary>
+    bool Charge { get; set; }
 
-    bool Charge
-    {
-        get;
-        set;
-    } // The user is unable to make a move between turns.
+    /// <summary>
+    /// 接触技能
+    /// Makes contact.
+    /// </summary>
+    bool Contact { get; set; }
 
-    bool Contact { get; set; } // Makes contact.
+    /// <summary>
+    /// 是否是起舞类技能
+    /// When used by a Pokemon, other Pokemon with the Ability Dancer can attempt to execute the same move.
+    /// </summary>
+    bool Dance { get; set; }
 
-    bool
-        Dance
-    {
-        get;
-        set;
-    } // When used by a Pokemon, other Pokemon with the Ability Dancer can attempt to execute the same move.
+    /// <summary>
+    /// 解除冰冻
+    /// Thaws the user if executed successfully while the user is frozen.
+    /// </summary>
+    bool Defrost { get; set; }
 
-    bool
-        Defrost
-    {
-        get;
-        set;
-    } // Thaws the user if executed successfully while the user is frozen.
+    /// <summary>
+    /// 是否在三打中能够打到任何一个人
+    /// // Can target a Pokemon positioned anywhere in a Triple Battle.
+    /// </summary>
+    bool Distance { get; set; }
 
-    bool
-        Distance
-    {
-        get;
-        set;
-    } // Can target a Pokemon positioned anywhere in a Triple Battle.
+    /// <summary>
+    /// Prevented from being executed or selected during Gravity's effect.
+    /// </summary>
+    bool Gravity { get; set; }
 
-    bool
-        Gravity
-    {
-        get;
-        set;
-    } // Prevented from being executed or selected during Gravity's effect.
+    /// <summary>
+    /// Prevented from being executed or selected during Heal Block's effect.
+    /// </summary>
+    bool Heal { get; set; }
 
-    bool
-        Heal
-    {
-        get;
-        set;
-    } // Prevented from being executed or selected during Heal Block's effect.
+    /// <summary>
+    /// Can be copied by Mirror Move.
+    /// </summary>
+    bool Mirror { get; set; }
 
-    bool Mirror
-    {
-        get;
-        set;
-    } // Can be copied by Mirror Move.
+    /// <summary>
+    /// 对队友使用是否有动画
+    /// The move has an animation when used on an ally.
+    /// </summary>
+    bool Allyanim { get; set; }
 
-    bool Allyanim
-    {
-        get;
-        set;
-    } // The move has an animation when used on an ally.
+    /// <summary>
+    /// Prevented from being executed or selected in a Sky Battle.
+    /// </summary>
+    bool Nonsky { get; set; }
 
-    bool
-        Nonsky
-    {
-        get;
-        set;
-    } // Prevented from being executed or selected in a Sky Battle.
+    /// <summary>
+    /// 花粉类技能
+    /// Has no effect on Pokemon which are Grass-type, have the Ability Overcoat, or hold Safety Goggles.
+    /// </summary>
+    bool Powder { get; set; }
 
-    bool
-        Powder
-    {
-        get;
-        set;
-    } // Has no effect on Pokemon which are Grass-type, have the Ability Overcoat, or hold Safety Goggles.
+    /// <summary>
+    /// 保护类技能
+    /// Blocked by Detect, Protect, Spiky Shield, and if not a Status move, King's Shield.
+    /// </summary>
+    bool Protect { get; set; }
 
-    bool
-        Protect
-    {
-        get;
-        set;
-    } // Blocked by Detect, Protect, Spiky Shield, and if not a Status move, King's Shield.
+    /// <summary>
+    /// 波动类技能
+    /// Power is multiplied by 1.5 when used by a Pokemon with the Ability Mega Launcher.
+    /// </summary>
+    bool Pulse { get; set; }
 
-    bool
-        Pulse
-    {
-        get;
-        set;
-    } // Power is multiplied by 1.5 when used by a Pokemon with the Ability Mega Launcher.
+    /// <summary>
+    /// 拳类技能
+    /// Power is multiplied by 1.2 when used by a Pokemon with the Ability Iron Fist.
+    /// </summary>
+    bool Punch { get; set; }
 
-    bool
-        Punch
-    {
-        get;
-        set;
-    } // Power is multiplied by 1.2 when used by a Pokemon with the Ability Iron Fist.
+    /// <summary>
+    /// 使用成功后则下一回合不能行动
+    /// If this move is successful
+    /// the user must recharge on the following turn and cannot make a move.
+    /// </summary>
+    bool Recharge { get; set; }
 
-    bool
-        Recharge
-    {
-        get;
-        set;
-    } // If this move is successful, the user must recharge on the following turn and cannot make a move.
+    /// <summary>
+    /// 是否可以被反弹
+    /// Bounced back to the original user by Magic Coat or the Ability Magic Bounce.
+    /// </summary>
+    bool Reflectable { get; set; }
 
-    bool
-        Reflectable
-    {
-        get;
-        set;
-    } // Bounced back to the original user by Magic Coat or the Ability Magic Bounce.
+    /// <summary>
+    /// Power is multiplied by 1.5 when used by a Pokemon with the Ability Sharpness.
+    /// </summary>
+    bool Slicing { get; set; }
 
-    bool
-        Slicing
-    {
-        get;
-        set;
-    } // Power is multiplied by 1.5 when used by a Pokemon with the Ability Sharpness.
+    /// <summary>
+    /// Can be stolen from the original user and instead used by another Pokemon using Snatch.
+    /// </summary>
+    bool Snatch { get; set; }
 
-    bool
-        Snatch
-    {
-        get;
-        set;
-    } // Can be stolen from the original user and instead used by another Pokemon using Snatch.
+    /// <summary>
+    /// 声音类技能
+    /// Has no effect on Pokemon with the Ability Soundproof.
+    /// </summary>
+    bool Sound { get; set; }
 
-    bool Sound
-    {
-        get;
-        set;
-    } // Has no effect on Pokemon with the Ability Soundproof.
-
-    bool Wind
-    {
-        get;
-        set;
-    } // Activates the Wind Power and Wind Rider Abilities.
+    /// <summary>
+    /// Activates the Wind Power and Wind Rider Abilities.
+    /// </summary>
+    bool Wind { get; set; }
 }
