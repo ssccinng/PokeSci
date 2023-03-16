@@ -41,7 +41,7 @@
         <ListView ItemsSource="{Binding Aa}"  
                   MaximumWidthRequest="500" ItemSelected="ListView_ItemSelected">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:SVPokemon">
+                <DataTemplate>
                         <!--<Label>1</Label>-->
                         
                     <ViewCell>
