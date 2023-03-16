@@ -1,6 +1,6 @@
 ﻿namespace Poke.Core.Models;
 
-public class MoveMethods
+public interface MoveMethods
 {
-    
+    void a();
 }

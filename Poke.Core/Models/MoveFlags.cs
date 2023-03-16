@@ -51,7 +51,9 @@ public class MoveFlags
 
     public bool Wind { get; set; } = false;
 }
-
+/// <summary>
+/// 技能flag
+/// </summary>
 public interface IMoveFlags
 {
     /// <summary>
