@@ -133,7 +133,7 @@ Accept-Encoding: gzip";
         public async Task UpdateSVLastRankMatchAsync(BattleType battleType = BattleType.Double)
         {
             SVPokemonHomeSessions = await GetSVRankMatchAsync();
-            SVPokemonHomeTrainerRankDatas = await GetSVTrainerDataAsync(SVPokemonHomeSessions.Where(s => s.Type == battleType).ElementAt(1), -1);
+            SVPokemonHomeLastTrainerRankDatas = await GetSVTrainerDataAsync(SVPokemonHomeSessions.Where(s => s.Type == battleType).ElementAt(1), -1);
         }
         public async Task UpdateRankMatchAsync(BattleType battleType = BattleType.Double, bool all = false)
         {
