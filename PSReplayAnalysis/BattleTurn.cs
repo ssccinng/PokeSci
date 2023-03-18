@@ -27,15 +27,17 @@ public class BattleTurn
     /// 玩家2场地状态
     /// </summary>
     public OneSideBattleField Side2Field { get; set; } = new();
-    
-    
+
+    public List<PokemonStatus> Side1Pokes { get; set; } = new();
+    public List<PokemonStatus> Side2Pokes { get; set; } = new();
+
 
     public BattleTurn NextTurn()
     {
         BattleTurn next = new();
         next.TurnId++;
-        
-        
+
+
 
         return next;
     }
@@ -44,8 +46,9 @@ public class BattleTurn
 
 public class BattleEvent
 {
-    
+
 }
+// 技能选择失败后 还需要再选 
 // 要考虑pp变化
 public class PokemonStatus
 {
@@ -56,7 +59,7 @@ public class PokemonStatus
     public int SpaBuff { get; set; }
     public int SpdBuff { get; set; }
     public int SpeBuff { get; set; }
-    
+
     public int AccBuff { get; set; }
     public int EvaBuff { get; set; }
     #endregion
@@ -64,7 +67,7 @@ public class PokemonStatus
     #region 向对手施加的状态变化
 
 
-    
+
     /// <summary>
     /// 混乱
     /// </summary>
@@ -184,117 +187,164 @@ public class PokemonStatus
     #endregion
 
     #region 向己方施加的状态变化
-/// <summary>
-/// 易中要害	击中对手要害的几率变高。
-/// </summary>
+    /// <summary>
+    /// 易中要害	击中对手要害的几率变高。
+    /// </summary>
     public int CriticalHitsUP { get; set; }
-/// <summary>
-/// 怨念	因对手的招式而濒死时，该招式的ＰＰ会变为０。
-/// </summary>
+    /// <summary>
+    /// 怨念	因对手的招式而濒死时，该招式的ＰＰ会变为０。
+    /// </summary>
     public int Grudge { get; set; }
-/// <summary>
-/// 充电	下次使出的电属性的招式威力会变为２倍。
-/// </summary>
+    /// <summary>
+    /// 充电	下次使出的电属性的招式威力会变为２倍。
+    /// </summary>
     public int Charge { get; set; }
-/// <summary>
-/// 蓄力	在蓄力的时候，防御和特防会提高。
-/// </summary>
+    /// <summary>
+    /// 蓄力	在蓄力的时候，防御和特防会提高。
+    /// </summary>
     public int Stockpile { get; set; }
-/// <summary>
-/// 电磁飘浮	在５回合内，地面属性的招式会变得无法击中。
-/// </summary>
+    /// <summary>
+    /// 电磁飘浮	在５回合内，地面属性的招式会变得无法击中。
+    /// </summary>
     public int MagnetRise { get; set; }
-/// <summary>
-/// 扎根	在每回合结束时回复ＨＰ。扎根的宝可梦无法替换。
-/// </summary>
+    /// <summary>
+    /// 扎根	在每回合结束时回复ＨＰ。扎根的宝可梦无法替换。
+    /// </summary>
     public int Ingrain { get; set; }
-/// <summary>
-/// 封印	宝可梦使出封印后，其所学会的招式，对手的宝可梦将无法使出。
-/// </summary>
+    /// <summary>
+    /// 封印	宝可梦使出封印后，其所学会的招式，对手的宝可梦将无法使出。
+    /// </summary>
     public int Imprison { get; set; }
-/// <summary>
-/// 同命	让自己陷入濒死的对手，也会一同陷入濒死。
-/// </summary>
+    /// <summary>
+    /// 同命	让自己陷入濒死的对手，也会一同陷入濒死。
+    /// </summary>
     public int DestinyBond { get; set; }
-/// <summary>
-/// 忍耐	在２回合内忍受攻击，受到的伤害会２倍返还给对手。
-/// </summary>
+    /// <summary>
+    /// 忍耐	在２回合内忍受攻击，受到的伤害会２倍返还给对手。
+    /// </summary>
     public int Bide { get; set; }
-/// <summary>
-/// 逆鳞	在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
-/// </summary>
+    /// <summary>
+    /// 逆鳞	在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
+    /// </summary>
     public int Outrage { get; set; }
-/// <summary>
-/// 大闹一番	因处于大闹状态，在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
-/// </summary>
+    /// <summary>
+    /// 大闹一番	因处于大闹状态，在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
+    /// </summary>
     public int Thrash { get; set; }
-/// <summary>
-/// 花瓣舞	在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
-/// </summary>
+    /// <summary>
+    /// 花瓣舞	在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
+    /// </summary>
     public int PetalDance { get; set; }
-/// <summary>
-/// 大愤慨	在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
-/// </summary>
+    /// <summary>
+    /// 大愤慨	在２～３回合内，乱打一气地进行攻击。大闹一番后自己会陷入混乱。
+    /// </summary>
     public int RagingFury { get; set; }
-/// <summary>
-/// 水流环	在自己身体的周围覆盖用水制造的幕。每回合回复ＨＰ。
-/// </summary>
+    /// <summary>
+    /// 水流环	在自己身体的周围覆盖用水制造的幕。每回合回复ＨＰ。
+    /// </summary>
     public int AquaRing { get; set; }
-/// <summary>
-/// 幸运咒语 变得不会被对手的招式击中要害。
-/// </summary>
+    /// <summary>
+    /// 幸运咒语 变得不会被对手的招式击中要害。
+    /// </summary>
     public int LuckyChant { get; set; }
-/// <summary>
-/// 身体轻量化 速度会大幅度提高，体重也会变轻。
-/// </summary>
+    /// <summary>
+    /// 身体轻量化 速度会大幅度提高，体重也会变轻。
+    /// </summary>
     public int Autotomize { get; set; }
-/// <summary>
-/// 磨砺 在使用磨砺的下一回合，招式必定会击中要害。
-/// </summary>
+    /// <summary>
+    /// 磨砺 在使用磨砺的下一回合，招式必定会击中要害。
+    /// </summary>
     public int LaserFocus { get; set; }
-// 仅限阿尔宙斯
 
-/// <summary>
-/// 热衷	会热衷于最近一次使用的招式。所热衷的招式造成的伤害会增加。同时自己受到的伤害也会增加。
-/// </summary>
+    // 仅限阿尔宙斯
+
+    /// <summary>
+    /// 热衷	会热衷于最近一次使用的招式。所热衷的招式造成的伤害会增加。同时自己受到的伤害也会增加。
+    /// </summary>
     public int Fixated { get; set; }
-/// <summary>
-/// 烟幕	让自己被烟雾包裹，对手的招式将变得不易命中。
-/// </summary>
+    /// <summary>
+    /// 烟幕	让自己被烟雾包裹，对手的招式将变得不易命中。
+    /// </summary>
     public int Obscured { get; set; }
-/// <summary>
-/// 加倍	摆起强而有力的架势增加造成的伤害。
-/// </summary>
+    /// <summary>
+    /// 加倍	摆起强而有力的架势增加造成的伤害。
+    /// </summary>
     public int Primed { get; set; }
-/// <summary>
-/// 
-/// </summary>
+    /// <summary>
+    /// 攻守转换
+    /// </summary>
     public int StanceSwap { get; set; }
-    
+    /// <summary>
+    /// 慢启动
+    /// </summary>
     public int SlowStart { get; set; }
+    /// <summary>
+    /// 狂猛之力
+    /// </summary>
     public int FrenziedMight { get; set; }
+    /// <summary>
+    /// 伟大之力
+    /// </summary>
     public int TerrificMight { get; set; }
+    /// <summary>
+    /// 野性之力
+    /// </summary>
     public int WildMight { get; set; }
+    /// <summary>
+    /// 惊骇之力
+    /// </summary>
     public int TerribleMight { get; set; }
-    
+    /// <summary>
+    /// 替身 可以防住攻击，受到一定的伤害后就会消失。
+    /// </summary>
     public int Substitute { get; set; }
+    /// <summary>
+    /// 变小 身体变小，被特定招式攻击时受到的伤害会变为２倍。
+    /// </summary>
     public int Minimize { get; set; }
+    /// <summary>
+    /// 变圆 身体变圆，特定招式的威力会变为２倍
+    /// </summary>
     public int DefenseCurl { get; set; }
+    /// <summary>
+    /// 愤怒 受到攻击时，会因愤怒的力量而提高攻击。
+    /// </summary>
     public int Rage { get; set; }
     /// <summary>
     /// 魔法反射 可能不用
     /// </summary>
     public int MagicCoat { get; set; }
+    /// <summary>
+    /// 力量戏法 攻击和防御互换。
+    /// </summary>
     public int PowerTrick { get; set; }
+    /// <summary>
+    /// 变身
+    /// </summary>
     public int Transform { get; set; }
+    /// <summary>
+    /// 飞翔 了，对方的大部分招式不会命中自己。下一回合将进行攻击。
+    /// </summary>
     public int Fly { get; set; }
+    /// <summary>
+    /// 挖洞 了，对方的大部分招式不会命中自己。下一回合将进行攻击。
+    /// </summary>
     public int Dig { get; set; }
+    /// <summary>
+    /// 潜水 了，对方的大部分招式不会命中自己。下一回合将进行攻击。
+    /// </summary>
     public int Dive { get; set; }
+    /// <summary>
+    /// 暗影潜袭 了，对方的大部分招式不会命中自己。下一回合将进行攻击。
+    /// </summary>
     public int ShadowForce { get; set; }
+    /// <summary>
+    /// 吃饱 宝可梦吃掉了树果，可以使出打嗝
+    /// </summary>
     public int Chibao { get; set; }
 
     #endregion
-    
+
 }
 
 

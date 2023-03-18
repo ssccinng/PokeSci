@@ -32,6 +32,12 @@ public class BattleData
     /// 玩家2队伍
     /// </summary>
     public Team Player2Team { get; set; } = new Team();
+    public BattleEndReason BattleEndResult { get; set; }
+}
+
+public enum BattleEndReason
+{
+
 }
 
 public enum BattleResult
@@ -55,4 +61,18 @@ public class Pokemon
     /// 宝可梦id
     /// </summary>
     public int Id { get; set; }
+    /// <summary>
+    /// 最高为48
+    /// </summary>
+    public int HPRemain { get; set; } = 100;
+    /// <summary>
+    /// shi'f可以太晶
+    /// </summary>
+    public bool CanTear { get; set; } = true;
+    /// <summary>
+    /// 已经太晶 （需要修改属性吗？
+    /// </summary>
+    public int IsTear { get; set; }
+    public int NowPos { get; set; }
 }
+

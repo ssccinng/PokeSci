@@ -1,0 +1,10386 @@
+[
+  {
+    "Id": "1",
+    "PSName": "Bulbasaur",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "318",
+    "PokemonId": "1"
+  },
+  {
+    "Id": "2",
+    "PSName": "Ivysaur",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "2"
+  },
+  {
+    "Id": "3",
+    "PSName": "Venusaur",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "3"
+  },
+  {
+    "Id": "4",
+    "PSName": "Venusaur-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "625",
+    "PokemonId": "4"
+  },
+  {
+    "Id": "5",
+    "PSName": "Venusaur-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "5"
+  },
+  {
+    "Id": "6",
+    "PSName": "Charmander",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "309",
+    "PokemonId": "6"
+  },
+  {
+    "Id": "7",
+    "PSName": "Charmeleon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "7"
+  },
+  {
+    "Id": "8",
+    "PSName": "Charizard",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "534",
+    "PokemonId": "8"
+  },
+  {
+    "Id": "9",
+    "PSName": "Charizard-Mega-X",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "634",
+    "PokemonId": "9"
+  },
+  {
+    "Id": "10",
+    "PSName": "Charizard-Mega-Y",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "634",
+    "PokemonId": "10"
+  },
+  {
+    "Id": "11",
+    "PSName": "Charizard-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "534",
+    "PokemonId": "11"
+  },
+  {
+    "Id": "12",
+    "PSName": "Squirtle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "314",
+    "PokemonId": "12"
+  },
+  {
+    "Id": "13",
+    "PSName": "Wartortle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "13"
+  },
+  {
+    "Id": "14",
+    "PSName": "Blastoise",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "14"
+  },
+  {
+    "Id": "15",
+    "PSName": "Blastoise-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "630",
+    "PokemonId": "15"
+  },
+  {
+    "Id": "16",
+    "PSName": "Blastoise-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "16"
+  },
+  {
+    "Id": "17",
+    "PSName": "Caterpie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "195",
+    "PokemonId": "17"
+  },
+  {
+    "Id": "18",
+    "PSName": "Metapod",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "205",
+    "PokemonId": "18"
+  },
+  {
+    "Id": "19",
+    "PSName": "Butterfree",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "395",
+    "PokemonId": "19"
+  },
+  {
+    "Id": "20",
+    "PSName": "Butterfree-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "395",
+    "PokemonId": "20"
+  },
+  {
+    "Id": "21",
+    "PSName": "Weedle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "195",
+    "PokemonId": "21"
+  },
+  {
+    "Id": "22",
+    "PSName": "Kakuna",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "205",
+    "PokemonId": "22"
+  },
+  {
+    "Id": "23",
+    "PSName": "Beedrill",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "395",
+    "PokemonId": "23"
+  },
+  {
+    "Id": "24",
+    "PSName": "Beedrill-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "24"
+  },
+  {
+    "Id": "25",
+    "PSName": "Pidgey",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "251",
+    "PokemonId": "25"
+  },
+  {
+    "Id": "26",
+    "PSName": "Pidgeotto",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "349",
+    "PokemonId": "26"
+  },
+  {
+    "Id": "27",
+    "PSName": "Pidgeot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "479",
+    "PokemonId": "27"
+  },
+  {
+    "Id": "28",
+    "PSName": "Pidgeot-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "579",
+    "PokemonId": "28"
+  },
+  {
+    "Id": "29",
+    "PSName": "Rattata",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "253",
+    "PokemonId": "29"
+  },
+  {
+    "Id": "30",
+    "PSName": "Rattata-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "253",
+    "PokemonId": "30"
+  },
+  {
+    "Id": "31",
+    "PSName": "Raticate",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "413",
+    "PokemonId": "31"
+  },
+  {
+    "Id": "32",
+    "PSName": "Raticate-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "413",
+    "PokemonId": "32"
+  },
+  {
+    "Id": "33",
+    "PSName": "Raticate-Alola-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "413",
+    "PokemonId": "33"
+  },
+  {
+    "Id": "34",
+    "PSName": "Spearow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "262",
+    "PokemonId": "34"
+  },
+  {
+    "Id": "35",
+    "PSName": "Fearow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "442",
+    "PokemonId": "35"
+  },
+  {
+    "Id": "36",
+    "PSName": "Ekans",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "288",
+    "PokemonId": "36"
+  },
+  {
+    "Id": "37",
+    "PSName": "Arbok",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "448",
+    "PokemonId": "37"
+  },
+  {
+    "Id": "38",
+    "PSName": "Pikachu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "38"
+  },
+  {
+    "Id": "39",
+    "PSName": "Pikachu-Cosplay",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "39"
+  },
+  {
+    "Id": "40",
+    "PSName": "Pikachu-Rock-Star",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "40"
+  },
+  {
+    "Id": "41",
+    "PSName": "Pikachu-Belle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "41"
+  },
+  {
+    "Id": "42",
+    "PSName": "Pikachu-Pop-Star",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "42"
+  },
+  {
+    "Id": "43",
+    "PSName": "Pikachu-PhD",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "43"
+  },
+  {
+    "Id": "44",
+    "PSName": "Pikachu-Libre",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "44"
+  },
+  {
+    "Id": "45",
+    "PSName": "Pikachu-Original",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "45"
+  },
+  {
+    "Id": "46",
+    "PSName": "Pikachu-Hoenn",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "46"
+  },
+  {
+    "Id": "47",
+    "PSName": "Pikachu-Sinnoh",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "47"
+  },
+  {
+    "Id": "48",
+    "PSName": "Pikachu-Unova",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "48"
+  },
+  {
+    "Id": "49",
+    "PSName": "Pikachu-Kalos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "49"
+  },
+  {
+    "Id": "50",
+    "PSName": "Pikachu-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "50"
+  },
+  {
+    "Id": "51",
+    "PSName": "Pikachu-Partner",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "51"
+  },
+  {
+    "Id": "52",
+    "PSName": "Pikachu-Starter",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "52"
+  },
+  {
+    "Id": "53",
+    "PSName": "Pikachu-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "53"
+  },
+  {
+    "Id": "54",
+    "PSName": "Pikachu-World",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "54"
+  },
+  {
+    "Id": "55",
+    "PSName": "Raichu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "55"
+  },
+  {
+    "Id": "56",
+    "PSName": "Raichu-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "56"
+  },
+  {
+    "Id": "57",
+    "PSName": "Sandshrew",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "57"
+  },
+  {
+    "Id": "58",
+    "PSName": "Sandshrew-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "58"
+  },
+  {
+    "Id": "59",
+    "PSName": "Sandslash",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "59"
+  },
+  {
+    "Id": "60",
+    "PSName": "Sandslash-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "60"
+  },
+  {
+    "Id": "61",
+    "PSName": "Nidoran-F",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "275",
+    "PokemonId": "61"
+  },
+  {
+    "Id": "62",
+    "PSName": "Nidorina",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "365",
+    "PokemonId": "62"
+  },
+  {
+    "Id": "63",
+    "PSName": "Nidoqueen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "63"
+  },
+  {
+    "Id": "64",
+    "PSName": "Nidoran-M",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "273",
+    "PokemonId": "64"
+  },
+  {
+    "Id": "65",
+    "PSName": "Nidorino",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "365",
+    "PokemonId": "65"
+  },
+  {
+    "Id": "66",
+    "PSName": "Nidoking",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "66"
+  },
+  {
+    "Id": "67",
+    "PSName": "Clefairy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "323",
+    "PokemonId": "67"
+  },
+  {
+    "Id": "68",
+    "PSName": "Clefable",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "483",
+    "PokemonId": "68"
+  },
+  {
+    "Id": "69",
+    "PSName": "Vulpix",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "299",
+    "PokemonId": "69"
+  },
+  {
+    "Id": "70",
+    "PSName": "Vulpix-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "299",
+    "PokemonId": "70"
+  },
+  {
+    "Id": "71",
+    "PSName": "Ninetales",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "71"
+  },
+  {
+    "Id": "72",
+    "PSName": "Ninetales-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "72"
+  },
+  {
+    "Id": "73",
+    "PSName": "Jigglypuff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "73"
+  },
+  {
+    "Id": "74",
+    "PSName": "Wigglytuff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "435",
+    "PokemonId": "74"
+  },
+  {
+    "Id": "75",
+    "PSName": "Zubat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "245",
+    "PokemonId": "75"
+  },
+  {
+    "Id": "76",
+    "PSName": "Golbat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "76"
+  },
+  {
+    "Id": "77",
+    "PSName": "Oddish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "77"
+  },
+  {
+    "Id": "78",
+    "PSName": "Gloom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "395",
+    "PokemonId": "78"
+  },
+  {
+    "Id": "79",
+    "PSName": "Vileplume",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "79"
+  },
+  {
+    "Id": "80",
+    "PSName": "Paras",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "285",
+    "PokemonId": "80"
+  },
+  {
+    "Id": "81",
+    "PSName": "Parasect",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "81"
+  },
+  {
+    "Id": "82",
+    "PSName": "Venonat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "82"
+  },
+  {
+    "Id": "83",
+    "PSName": "Venomoth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "83"
+  },
+  {
+    "Id": "84",
+    "PSName": "Diglett",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "265",
+    "PokemonId": "84"
+  },
+  {
+    "Id": "85",
+    "PSName": "Diglett-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "265",
+    "PokemonId": "85"
+  },
+  {
+    "Id": "86",
+    "PSName": "Dugtrio",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "86"
+  },
+  {
+    "Id": "87",
+    "PSName": "Dugtrio-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "87"
+  },
+  {
+    "Id": "88",
+    "PSName": "Meowth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "88"
+  },
+  {
+    "Id": "89",
+    "PSName": "Meowth-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "89"
+  },
+  {
+    "Id": "90",
+    "PSName": "Meowth-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "90"
+  },
+  {
+    "Id": "91",
+    "PSName": "Meowth-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "91"
+  },
+  {
+    "Id": "92",
+    "PSName": "Persian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "92"
+  },
+  {
+    "Id": "93",
+    "PSName": "Persian-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "93"
+  },
+  {
+    "Id": "94",
+    "PSName": "Psyduck",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "94"
+  },
+  {
+    "Id": "95",
+    "PSName": "Golduck",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "95"
+  },
+  {
+    "Id": "96",
+    "PSName": "Mankey",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "96"
+  },
+  {
+    "Id": "97",
+    "PSName": "Primeape",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "97"
+  },
+  {
+    "Id": "98",
+    "PSName": "Growlithe",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "98"
+  },
+  {
+    "Id": "99",
+    "PSName": "Growlithe-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "99"
+  },
+  {
+    "Id": "100",
+    "PSName": "Arcanine",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "555",
+    "PokemonId": "100"
+  },
+  {
+    "Id": "101",
+    "PSName": "Arcanine-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "555",
+    "PokemonId": "101"
+  },
+  {
+    "Id": "102",
+    "PSName": "Poliwag",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "102"
+  },
+  {
+    "Id": "103",
+    "PSName": "Poliwhirl",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "385",
+    "PokemonId": "103"
+  },
+  {
+    "Id": "104",
+    "PSName": "Poliwrath",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "104"
+  },
+  {
+    "Id": "105",
+    "PSName": "Abra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "105"
+  },
+  {
+    "Id": "106",
+    "PSName": "Kadabra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "400",
+    "PokemonId": "106"
+  },
+  {
+    "Id": "107",
+    "PSName": "Alakazam",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "107"
+  },
+  {
+    "Id": "108",
+    "PSName": "Alakazam-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "108"
+  },
+  {
+    "Id": "109",
+    "PSName": "Machop",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "109"
+  },
+  {
+    "Id": "110",
+    "PSName": "Machoke",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "110"
+  },
+  {
+    "Id": "111",
+    "PSName": "Machamp",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "111"
+  },
+  {
+    "Id": "112",
+    "PSName": "Machamp-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "112"
+  },
+  {
+    "Id": "113",
+    "PSName": "Bellsprout",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "113"
+  },
+  {
+    "Id": "114",
+    "PSName": "Weepinbell",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "114"
+  },
+  {
+    "Id": "115",
+    "PSName": "Victreebel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "115"
+  },
+  {
+    "Id": "116",
+    "PSName": "Tentacool",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "116"
+  },
+  {
+    "Id": "117",
+    "PSName": "Tentacruel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "117"
+  },
+  {
+    "Id": "118",
+    "PSName": "Geodude",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "118"
+  },
+  {
+    "Id": "119",
+    "PSName": "Geodude-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "119"
+  },
+  {
+    "Id": "120",
+    "PSName": "Graveler",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "120"
+  },
+  {
+    "Id": "121",
+    "PSName": "Graveler-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "121"
+  },
+  {
+    "Id": "122",
+    "PSName": "Golem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "122"
+  },
+  {
+    "Id": "123",
+    "PSName": "Golem-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "123"
+  },
+  {
+    "Id": "124",
+    "PSName": "Ponyta",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "124"
+  },
+  {
+    "Id": "125",
+    "PSName": "Ponyta-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "125"
+  },
+  {
+    "Id": "126",
+    "PSName": "Rapidash",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "126"
+  },
+  {
+    "Id": "127",
+    "PSName": "Rapidash-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "127"
+  },
+  {
+    "Id": "128",
+    "PSName": "Slowpoke",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "315",
+    "PokemonId": "128"
+  },
+  {
+    "Id": "129",
+    "PSName": "Slowpoke-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "315",
+    "PokemonId": "129"
+  },
+  {
+    "Id": "130",
+    "PSName": "Slowbro",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "130"
+  },
+  {
+    "Id": "131",
+    "PSName": "Slowbro-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "590",
+    "PokemonId": "131"
+  },
+  {
+    "Id": "132",
+    "PSName": "Slowbro-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "132"
+  },
+  {
+    "Id": "133",
+    "PSName": "Magnemite",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "133"
+  },
+  {
+    "Id": "134",
+    "PSName": "Magneton",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "465",
+    "PokemonId": "134"
+  },
+  {
+    "Id": "135",
+    "PSName": "Farfetch’d",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "377",
+    "PokemonId": "135"
+  },
+  {
+    "Id": "136",
+    "PSName": "Farfetch’d-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "377",
+    "PokemonId": "136"
+  },
+  {
+    "Id": "137",
+    "PSName": "Doduo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "137"
+  },
+  {
+    "Id": "138",
+    "PSName": "Dodrio",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "138"
+  },
+  {
+    "Id": "139",
+    "PSName": "Seel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "139"
+  },
+  {
+    "Id": "140",
+    "PSName": "Dewgong",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "140"
+  },
+  {
+    "Id": "141",
+    "PSName": "Grimer",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "141"
+  },
+  {
+    "Id": "142",
+    "PSName": "Grimer-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "142"
+  },
+  {
+    "Id": "143",
+    "PSName": "Muk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "143"
+  },
+  {
+    "Id": "144",
+    "PSName": "Muk-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "144"
+  },
+  {
+    "Id": "145",
+    "PSName": "Shellder",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "145"
+  },
+  {
+    "Id": "146",
+    "PSName": "Cloyster",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "146"
+  },
+  {
+    "Id": "147",
+    "PSName": "Gastly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "147"
+  },
+  {
+    "Id": "148",
+    "PSName": "Haunter",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "148"
+  },
+  {
+    "Id": "149",
+    "PSName": "Gengar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "149"
+  },
+  {
+    "Id": "150",
+    "PSName": "Gengar-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "150"
+  },
+  {
+    "Id": "151",
+    "PSName": "Gengar-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "151"
+  },
+  {
+    "Id": "152",
+    "PSName": "Onix",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "385",
+    "PokemonId": "152"
+  },
+  {
+    "Id": "153",
+    "PSName": "Drowzee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "328",
+    "PokemonId": "153"
+  },
+  {
+    "Id": "154",
+    "PSName": "Hypno",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "483",
+    "PokemonId": "154"
+  },
+  {
+    "Id": "155",
+    "PSName": "Krabby",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "155"
+  },
+  {
+    "Id": "156",
+    "PSName": "Kingler",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "156"
+  },
+  {
+    "Id": "157",
+    "PSName": "Kingler-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "157"
+  },
+  {
+    "Id": "158",
+    "PSName": "Voltorb",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "158"
+  },
+  {
+    "Id": "159",
+    "PSName": "Voltorb-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "159"
+  },
+  {
+    "Id": "160",
+    "PSName": "Electrode",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "160"
+  },
+  {
+    "Id": "161",
+    "PSName": "Electrode-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "161"
+  },
+  {
+    "Id": "162",
+    "PSName": "Exeggcute",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "162"
+  },
+  {
+    "Id": "163",
+    "PSName": "Exeggutor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "163"
+  },
+  {
+    "Id": "164",
+    "PSName": "Exeggutor-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "164"
+  },
+  {
+    "Id": "165",
+    "PSName": "Cubone",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "165"
+  },
+  {
+    "Id": "166",
+    "PSName": "Marowak",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "166"
+  },
+  {
+    "Id": "167",
+    "PSName": "Marowak-Alola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "167"
+  },
+  {
+    "Id": "168",
+    "PSName": "Marowak-Alola-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "168"
+  },
+  {
+    "Id": "169",
+    "PSName": "Hitmonlee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "169"
+  },
+  {
+    "Id": "170",
+    "PSName": "Hitmonchan",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "170"
+  },
+  {
+    "Id": "171",
+    "PSName": "Lickitung",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "385",
+    "PokemonId": "171"
+  },
+  {
+    "Id": "172",
+    "PSName": "Koffing",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "172"
+  },
+  {
+    "Id": "173",
+    "PSName": "Weezing",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "173"
+  },
+  {
+    "Id": "174",
+    "PSName": "Weezing-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "174"
+  },
+  {
+    "Id": "175",
+    "PSName": "Rhyhorn",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "345",
+    "PokemonId": "175"
+  },
+  {
+    "Id": "176",
+    "PSName": "Rhydon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "176"
+  },
+  {
+    "Id": "177",
+    "PSName": "Chansey",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "177"
+  },
+  {
+    "Id": "178",
+    "PSName": "Tangela",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "435",
+    "PokemonId": "178"
+  },
+  {
+    "Id": "179",
+    "PSName": "Kangaskhan",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "179"
+  },
+  {
+    "Id": "180",
+    "PSName": "Kangaskhan-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "590",
+    "PokemonId": "180"
+  },
+  {
+    "Id": "181",
+    "PSName": "Horsea",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "295",
+    "PokemonId": "181"
+  },
+  {
+    "Id": "182",
+    "PSName": "Seadra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "182"
+  },
+  {
+    "Id": "183",
+    "PSName": "Goldeen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "183"
+  },
+  {
+    "Id": "184",
+    "PSName": "Seaking",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "184"
+  },
+  {
+    "Id": "185",
+    "PSName": "Staryu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "185"
+  },
+  {
+    "Id": "186",
+    "PSName": "Starmie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "186"
+  },
+  {
+    "Id": "187",
+    "PSName": "Mr. Mime",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "187"
+  },
+  {
+    "Id": "188",
+    "PSName": "Mr. Mime-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "188"
+  },
+  {
+    "Id": "189",
+    "PSName": "Scyther",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "189"
+  },
+  {
+    "Id": "190",
+    "PSName": "Jynx",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "190"
+  },
+  {
+    "Id": "191",
+    "PSName": "Electabuzz",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "191"
+  },
+  {
+    "Id": "192",
+    "PSName": "Magmar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "192"
+  },
+  {
+    "Id": "193",
+    "PSName": "Pinsir",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "193"
+  },
+  {
+    "Id": "194",
+    "PSName": "Pinsir-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "194"
+  },
+  {
+    "Id": "195",
+    "PSName": "Tauros",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "195"
+  },
+  {
+    "Id": "196",
+    "PSName": "Tauros-Paldea",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "196"
+  },
+  {
+    "Id": "197",
+    "PSName": "Tauros-Paldea-Fire",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "197"
+  },
+  {
+    "Id": "198",
+    "PSName": "Tauros-Paldea-Water",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "198"
+  },
+  {
+    "Id": "199",
+    "PSName": "Magikarp",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "200",
+    "PokemonId": "199"
+  },
+  {
+    "Id": "200",
+    "PSName": "Gyarados",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "200"
+  },
+  {
+    "Id": "201",
+    "PSName": "Gyarados-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "640",
+    "PokemonId": "201"
+  },
+  {
+    "Id": "202",
+    "PSName": "Lapras",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "202"
+  },
+  {
+    "Id": "203",
+    "PSName": "Lapras-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "203"
+  },
+  {
+    "Id": "204",
+    "PSName": "Ditto",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "288",
+    "PokemonId": "204"
+  },
+  {
+    "Id": "205",
+    "PSName": "Eevee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "205"
+  },
+  {
+    "Id": "206",
+    "PSName": "Eevee-Starter",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "435",
+    "PokemonId": "206"
+  },
+  {
+    "Id": "207",
+    "PSName": "Eevee-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "207"
+  },
+  {
+    "Id": "208",
+    "PSName": "Vaporeon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "208"
+  },
+  {
+    "Id": "209",
+    "PSName": "Jolteon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "209"
+  },
+  {
+    "Id": "210",
+    "PSName": "Flareon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "210"
+  },
+  {
+    "Id": "211",
+    "PSName": "Porygon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "395",
+    "PokemonId": "211"
+  },
+  {
+    "Id": "212",
+    "PSName": "Omanyte",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "212"
+  },
+  {
+    "Id": "213",
+    "PSName": "Omastar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "213"
+  },
+  {
+    "Id": "214",
+    "PSName": "Kabuto",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "214"
+  },
+  {
+    "Id": "215",
+    "PSName": "Kabutops",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "215"
+  },
+  {
+    "Id": "216",
+    "PSName": "Aerodactyl",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "216"
+  },
+  {
+    "Id": "217",
+    "PSName": "Aerodactyl-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "615",
+    "PokemonId": "217"
+  },
+  {
+    "Id": "218",
+    "PSName": "Snorlax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "218"
+  },
+  {
+    "Id": "219",
+    "PSName": "Snorlax-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "219"
+  },
+  {
+    "Id": "220",
+    "PSName": "Articuno",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "220"
+  },
+  {
+    "Id": "221",
+    "PSName": "Articuno-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "221"
+  },
+  {
+    "Id": "222",
+    "PSName": "Zapdos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "222"
+  },
+  {
+    "Id": "223",
+    "PSName": "Zapdos-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "223"
+  },
+  {
+    "Id": "224",
+    "PSName": "Moltres",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "224"
+  },
+  {
+    "Id": "225",
+    "PSName": "Moltres-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "225"
+  },
+  {
+    "Id": "226",
+    "PSName": "Dratini",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "226"
+  },
+  {
+    "Id": "227",
+    "PSName": "Dragonair",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "227"
+  },
+  {
+    "Id": "228",
+    "PSName": "Dragonite",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "228"
+  },
+  {
+    "Id": "229",
+    "PSName": "Mewtwo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "229"
+  },
+  {
+    "Id": "230",
+    "PSName": "Mewtwo-Mega-X",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "780",
+    "PokemonId": "230"
+  },
+  {
+    "Id": "231",
+    "PSName": "Mewtwo-Mega-Y",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "780",
+    "PokemonId": "231"
+  },
+  {
+    "Id": "232",
+    "PSName": "Mew",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "232"
+  },
+  {
+    "Id": "233",
+    "PSName": "Chikorita",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "318",
+    "PokemonId": "233"
+  },
+  {
+    "Id": "234",
+    "PSName": "Bayleef",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "234"
+  },
+  {
+    "Id": "235",
+    "PSName": "Meganium",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "235"
+  },
+  {
+    "Id": "236",
+    "PSName": "Cyndaquil",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "309",
+    "PokemonId": "236"
+  },
+  {
+    "Id": "237",
+    "PSName": "Quilava",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "237"
+  },
+  {
+    "Id": "238",
+    "PSName": "Typhlosion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "534",
+    "PokemonId": "238"
+  },
+  {
+    "Id": "239",
+    "PSName": "Typhlosion-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "534",
+    "PokemonId": "239"
+  },
+  {
+    "Id": "240",
+    "PSName": "Totodile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "314",
+    "PokemonId": "240"
+  },
+  {
+    "Id": "241",
+    "PSName": "Croconaw",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "241"
+  },
+  {
+    "Id": "242",
+    "PSName": "Feraligatr",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "242"
+  },
+  {
+    "Id": "243",
+    "PSName": "Sentret",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "215",
+    "PokemonId": "243"
+  },
+  {
+    "Id": "244",
+    "PSName": "Furret",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "415",
+    "PokemonId": "244"
+  },
+  {
+    "Id": "245",
+    "PSName": "Hoothoot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "262",
+    "PokemonId": "245"
+  },
+  {
+    "Id": "246",
+    "PSName": "Noctowl",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "452",
+    "PokemonId": "246"
+  },
+  {
+    "Id": "247",
+    "PSName": "Ledyba",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "265",
+    "PokemonId": "247"
+  },
+  {
+    "Id": "248",
+    "PSName": "Ledian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "248"
+  },
+  {
+    "Id": "249",
+    "PSName": "Spinarak",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "249"
+  },
+  {
+    "Id": "250",
+    "PSName": "Ariados",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "400",
+    "PokemonId": "250"
+  },
+  {
+    "Id": "251",
+    "PSName": "Crobat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "251"
+  },
+  {
+    "Id": "252",
+    "PSName": "Chinchou",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "252"
+  },
+  {
+    "Id": "253",
+    "PSName": "Lanturn",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "253"
+  },
+  {
+    "Id": "254",
+    "PSName": "Pichu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "205",
+    "PokemonId": "254"
+  },
+  {
+    "Id": "255",
+    "PSName": "Pichu-Spiky-eared",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "205",
+    "PokemonId": "255"
+  },
+  {
+    "Id": "256",
+    "PSName": "Cleffa",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "218",
+    "PokemonId": "256"
+  },
+  {
+    "Id": "257",
+    "PSName": "Igglybuff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "210",
+    "PokemonId": "257"
+  },
+  {
+    "Id": "258",
+    "PSName": "Togepi",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "245",
+    "PokemonId": "258"
+  },
+  {
+    "Id": "259",
+    "PSName": "Togetic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "259"
+  },
+  {
+    "Id": "260",
+    "PSName": "Natu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "260"
+  },
+  {
+    "Id": "261",
+    "PSName": "Xatu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "261"
+  },
+  {
+    "Id": "262",
+    "PSName": "Mareep",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "262"
+  },
+  {
+    "Id": "263",
+    "PSName": "Flaaffy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "365",
+    "PokemonId": "263"
+  },
+  {
+    "Id": "264",
+    "PSName": "Ampharos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "264"
+  },
+  {
+    "Id": "265",
+    "PSName": "Ampharos-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "610",
+    "PokemonId": "265"
+  },
+  {
+    "Id": "266",
+    "PSName": "Bellossom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "266"
+  },
+  {
+    "Id": "267",
+    "PSName": "Marill",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "267"
+  },
+  {
+    "Id": "268",
+    "PSName": "Azumarill",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "268"
+  },
+  {
+    "Id": "269",
+    "PSName": "Sudowoodo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "269"
+  },
+  {
+    "Id": "270",
+    "PSName": "Politoed",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "270"
+  },
+  {
+    "Id": "271",
+    "PSName": "Hoppip",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "271"
+  },
+  {
+    "Id": "272",
+    "PSName": "Skiploom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "272"
+  },
+  {
+    "Id": "273",
+    "PSName": "Jumpluff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "273"
+  },
+  {
+    "Id": "274",
+    "PSName": "Aipom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "360",
+    "PokemonId": "274"
+  },
+  {
+    "Id": "275",
+    "PSName": "Sunkern",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "180",
+    "PokemonId": "275"
+  },
+  {
+    "Id": "276",
+    "PSName": "Sunflora",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "276"
+  },
+  {
+    "Id": "277",
+    "PSName": "Yanma",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "277"
+  },
+  {
+    "Id": "278",
+    "PSName": "Wooper",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "210",
+    "PokemonId": "278"
+  },
+  {
+    "Id": "279",
+    "PSName": "Wooper-Paldea",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "210",
+    "PokemonId": "279"
+  },
+  {
+    "Id": "280",
+    "PSName": "Quagsire",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "280"
+  },
+  {
+    "Id": "281",
+    "PSName": "Espeon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "281"
+  },
+  {
+    "Id": "282",
+    "PSName": "Umbreon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "282"
+  },
+  {
+    "Id": "283",
+    "PSName": "Murkrow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "283"
+  },
+  {
+    "Id": "284",
+    "PSName": "Slowking",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "284"
+  },
+  {
+    "Id": "285",
+    "PSName": "Slowking-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "285"
+  },
+  {
+    "Id": "286",
+    "PSName": "Misdreavus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "435",
+    "PokemonId": "286"
+  },
+  {
+    "Id": "287",
+    "PSName": "Unown",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "336",
+    "PokemonId": "287"
+  },
+  {
+    "Id": "288",
+    "PSName": "Wobbuffet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "288"
+  },
+  {
+    "Id": "289",
+    "PSName": "Girafarig",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "289"
+  },
+  {
+    "Id": "290",
+    "PSName": "Pineco",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "290"
+  },
+  {
+    "Id": "291",
+    "PSName": "Forretress",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "465",
+    "PokemonId": "291"
+  },
+  {
+    "Id": "292",
+    "PSName": "Dunsparce",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "415",
+    "PokemonId": "292"
+  },
+  {
+    "Id": "293",
+    "PSName": "Gligar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "293"
+  },
+  {
+    "Id": "294",
+    "PSName": "Steelix",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "294"
+  },
+  {
+    "Id": "295",
+    "PSName": "Steelix-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "610",
+    "PokemonId": "295"
+  },
+  {
+    "Id": "296",
+    "PSName": "Snubbull",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "296"
+  },
+  {
+    "Id": "297",
+    "PSName": "Granbull",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "297"
+  },
+  {
+    "Id": "298",
+    "PSName": "Qwilfish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "298"
+  },
+  {
+    "Id": "299",
+    "PSName": "Qwilfish-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "299"
+  },
+  {
+    "Id": "300",
+    "PSName": "Scizor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "300"
+  },
+  {
+    "Id": "301",
+    "PSName": "Scizor-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "301"
+  },
+  {
+    "Id": "302",
+    "PSName": "Shuckle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "302"
+  },
+  {
+    "Id": "303",
+    "PSName": "Heracross",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "303"
+  },
+  {
+    "Id": "304",
+    "PSName": "Heracross-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "304"
+  },
+  {
+    "Id": "305",
+    "PSName": "Sneasel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "305"
+  },
+  {
+    "Id": "306",
+    "PSName": "Sneasel-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "306"
+  },
+  {
+    "Id": "307",
+    "PSName": "Teddiursa",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "307"
+  },
+  {
+    "Id": "308",
+    "PSName": "Ursaring",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "308"
+  },
+  {
+    "Id": "309",
+    "PSName": "Slugma",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "309"
+  },
+  {
+    "Id": "310",
+    "PSName": "Magcargo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "310"
+  },
+  {
+    "Id": "311",
+    "PSName": "Swinub",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "311"
+  },
+  {
+    "Id": "312",
+    "PSName": "Piloswine",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "312"
+  },
+  {
+    "Id": "313",
+    "PSName": "Corsola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "313"
+  },
+  {
+    "Id": "314",
+    "PSName": "Corsola-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "314"
+  },
+  {
+    "Id": "315",
+    "PSName": "Remoraid",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "315"
+  },
+  {
+    "Id": "316",
+    "PSName": "Octillery",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "316"
+  },
+  {
+    "Id": "317",
+    "PSName": "Delibird",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "317"
+  },
+  {
+    "Id": "318",
+    "PSName": "Mantine",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "318"
+  },
+  {
+    "Id": "319",
+    "PSName": "Skarmory",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "465",
+    "PokemonId": "319"
+  },
+  {
+    "Id": "320",
+    "PSName": "Houndour",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "320"
+  },
+  {
+    "Id": "321",
+    "PSName": "Houndoom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "321"
+  },
+  {
+    "Id": "322",
+    "PSName": "Houndoom-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "322"
+  },
+  {
+    "Id": "323",
+    "PSName": "Kingdra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "323"
+  },
+  {
+    "Id": "324",
+    "PSName": "Phanpy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "324"
+  },
+  {
+    "Id": "325",
+    "PSName": "Donphan",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "325"
+  },
+  {
+    "Id": "326",
+    "PSName": "Porygon2",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "326"
+  },
+  {
+    "Id": "327",
+    "PSName": "Stantler",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "465",
+    "PokemonId": "327"
+  },
+  {
+    "Id": "328",
+    "PSName": "Smeargle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "328"
+  },
+  {
+    "Id": "329",
+    "PSName": "Tyrogue",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "210",
+    "PokemonId": "329"
+  },
+  {
+    "Id": "330",
+    "PSName": "Hitmontop",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "330"
+  },
+  {
+    "Id": "331",
+    "PSName": "Smoochum",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "331"
+  },
+  {
+    "Id": "332",
+    "PSName": "Elekid",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "360",
+    "PokemonId": "332"
+  },
+  {
+    "Id": "333",
+    "PSName": "Magby",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "365",
+    "PokemonId": "333"
+  },
+  {
+    "Id": "334",
+    "PSName": "Miltank",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "334"
+  },
+  {
+    "Id": "335",
+    "PSName": "Blissey",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "335"
+  },
+  {
+    "Id": "336",
+    "PSName": "Raikou",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "336"
+  },
+  {
+    "Id": "337",
+    "PSName": "Entei",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "337"
+  },
+  {
+    "Id": "338",
+    "PSName": "Suicune",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "338"
+  },
+  {
+    "Id": "339",
+    "PSName": "Larvitar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "339"
+  },
+  {
+    "Id": "340",
+    "PSName": "Pupitar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "340"
+  },
+  {
+    "Id": "341",
+    "PSName": "Tyranitar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "341"
+  },
+  {
+    "Id": "342",
+    "PSName": "Tyranitar-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "342"
+  },
+  {
+    "Id": "343",
+    "PSName": "Lugia",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "343"
+  },
+  {
+    "Id": "344",
+    "PSName": "Ho-Oh",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "344"
+  },
+  {
+    "Id": "345",
+    "PSName": "Celebi",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "345"
+  },
+  {
+    "Id": "346",
+    "PSName": "Treecko",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "346"
+  },
+  {
+    "Id": "347",
+    "PSName": "Grovyle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "347"
+  },
+  {
+    "Id": "348",
+    "PSName": "Sceptile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "348"
+  },
+  {
+    "Id": "349",
+    "PSName": "Sceptile-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "630",
+    "PokemonId": "349"
+  },
+  {
+    "Id": "350",
+    "PSName": "Torchic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "350"
+  },
+  {
+    "Id": "351",
+    "PSName": "Combusken",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "351"
+  },
+  {
+    "Id": "352",
+    "PSName": "Blaziken",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "352"
+  },
+  {
+    "Id": "353",
+    "PSName": "Blaziken-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "630",
+    "PokemonId": "353"
+  },
+  {
+    "Id": "354",
+    "PSName": "Mudkip",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "354"
+  },
+  {
+    "Id": "355",
+    "PSName": "Marshtomp",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "355"
+  },
+  {
+    "Id": "356",
+    "PSName": "Swampert",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "356"
+  },
+  {
+    "Id": "357",
+    "PSName": "Swampert-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "635",
+    "PokemonId": "357"
+  },
+  {
+    "Id": "358",
+    "PSName": "Poochyena",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "220",
+    "PokemonId": "358"
+  },
+  {
+    "Id": "359",
+    "PSName": "Mightyena",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "359"
+  },
+  {
+    "Id": "360",
+    "PSName": "Zigzagoon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "240",
+    "PokemonId": "360"
+  },
+  {
+    "Id": "361",
+    "PSName": "Zigzagoon-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "240",
+    "PokemonId": "361"
+  },
+  {
+    "Id": "362",
+    "PSName": "Linoone",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "362"
+  },
+  {
+    "Id": "363",
+    "PSName": "Linoone-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "363"
+  },
+  {
+    "Id": "364",
+    "PSName": "Wurmple",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "195",
+    "PokemonId": "364"
+  },
+  {
+    "Id": "365",
+    "PSName": "Silcoon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "205",
+    "PokemonId": "365"
+  },
+  {
+    "Id": "366",
+    "PSName": "Beautifly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "395",
+    "PokemonId": "366"
+  },
+  {
+    "Id": "367",
+    "PSName": "Cascoon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "205",
+    "PokemonId": "367"
+  },
+  {
+    "Id": "368",
+    "PSName": "Dustox",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "385",
+    "PokemonId": "368"
+  },
+  {
+    "Id": "369",
+    "PSName": "Lotad",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "220",
+    "PokemonId": "369"
+  },
+  {
+    "Id": "370",
+    "PSName": "Lombre",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "370"
+  },
+  {
+    "Id": "371",
+    "PSName": "Ludicolo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "371"
+  },
+  {
+    "Id": "372",
+    "PSName": "Seedot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "220",
+    "PokemonId": "372"
+  },
+  {
+    "Id": "373",
+    "PSName": "Nuzleaf",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "373"
+  },
+  {
+    "Id": "374",
+    "PSName": "Shiftry",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "374"
+  },
+  {
+    "Id": "375",
+    "PSName": "Taillow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "375"
+  },
+  {
+    "Id": "376",
+    "PSName": "Swellow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "376"
+  },
+  {
+    "Id": "377",
+    "PSName": "Wingull",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "377"
+  },
+  {
+    "Id": "378",
+    "PSName": "Pelipper",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "378"
+  },
+  {
+    "Id": "379",
+    "PSName": "Ralts",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "198",
+    "PokemonId": "379"
+  },
+  {
+    "Id": "380",
+    "PSName": "Kirlia",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "278",
+    "PokemonId": "380"
+  },
+  {
+    "Id": "381",
+    "PSName": "Gardevoir",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "518",
+    "PokemonId": "381"
+  },
+  {
+    "Id": "382",
+    "PSName": "Gardevoir-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "618",
+    "PokemonId": "382"
+  },
+  {
+    "Id": "383",
+    "PSName": "Surskit",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "269",
+    "PokemonId": "383"
+  },
+  {
+    "Id": "384",
+    "PSName": "Masquerain",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "454",
+    "PokemonId": "384"
+  },
+  {
+    "Id": "385",
+    "PSName": "Shroomish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "295",
+    "PokemonId": "385"
+  },
+  {
+    "Id": "386",
+    "PSName": "Breloom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "386"
+  },
+  {
+    "Id": "387",
+    "PSName": "Slakoth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "387"
+  },
+  {
+    "Id": "388",
+    "PSName": "Vigoroth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "388"
+  },
+  {
+    "Id": "389",
+    "PSName": "Slaking",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "670",
+    "PokemonId": "389"
+  },
+  {
+    "Id": "390",
+    "PSName": "Nincada",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "266",
+    "PokemonId": "390"
+  },
+  {
+    "Id": "391",
+    "PSName": "Ninjask",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "456",
+    "PokemonId": "391"
+  },
+  {
+    "Id": "392",
+    "PSName": "Shedinja",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "236",
+    "PokemonId": "392"
+  },
+  {
+    "Id": "393",
+    "PSName": "Whismur",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "240",
+    "PokemonId": "393"
+  },
+  {
+    "Id": "394",
+    "PSName": "Loudred",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "360",
+    "PokemonId": "394"
+  },
+  {
+    "Id": "395",
+    "PSName": "Exploud",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "395"
+  },
+  {
+    "Id": "396",
+    "PSName": "Makuhita",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "237",
+    "PokemonId": "396"
+  },
+  {
+    "Id": "397",
+    "PSName": "Hariyama",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "474",
+    "PokemonId": "397"
+  },
+  {
+    "Id": "398",
+    "PSName": "Azurill",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "190",
+    "PokemonId": "398"
+  },
+  {
+    "Id": "399",
+    "PSName": "Nosepass",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "375",
+    "PokemonId": "399"
+  },
+  {
+    "Id": "400",
+    "PSName": "Skitty",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "260",
+    "PokemonId": "400"
+  },
+  {
+    "Id": "401",
+    "PSName": "Delcatty",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "400",
+    "PokemonId": "401"
+  },
+  {
+    "Id": "402",
+    "PSName": "Sableye",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "380",
+    "PokemonId": "402"
+  },
+  {
+    "Id": "403",
+    "PSName": "Sableye-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "403"
+  },
+  {
+    "Id": "404",
+    "PSName": "Mawile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "380",
+    "PokemonId": "404"
+  },
+  {
+    "Id": "405",
+    "PSName": "Mawile-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "405"
+  },
+  {
+    "Id": "406",
+    "PSName": "Aron",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "406"
+  },
+  {
+    "Id": "407",
+    "PSName": "Lairon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "407"
+  },
+  {
+    "Id": "408",
+    "PSName": "Aggron",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "408"
+  },
+  {
+    "Id": "409",
+    "PSName": "Aggron-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "630",
+    "PokemonId": "409"
+  },
+  {
+    "Id": "410",
+    "PSName": "Meditite",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "410"
+  },
+  {
+    "Id": "411",
+    "PSName": "Medicham",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "411"
+  },
+  {
+    "Id": "412",
+    "PSName": "Medicham-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "412"
+  },
+  {
+    "Id": "413",
+    "PSName": "Electrike",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "295",
+    "PokemonId": "413"
+  },
+  {
+    "Id": "414",
+    "PSName": "Manectric",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "414"
+  },
+  {
+    "Id": "415",
+    "PSName": "Manectric-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "575",
+    "PokemonId": "415"
+  },
+  {
+    "Id": "416",
+    "PSName": "Plusle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "416"
+  },
+  {
+    "Id": "417",
+    "PSName": "Minun",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "417"
+  },
+  {
+    "Id": "418",
+    "PSName": "Volbeat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "418"
+  },
+  {
+    "Id": "419",
+    "PSName": "Illumise",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "419"
+  },
+  {
+    "Id": "420",
+    "PSName": "Roselia",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "400",
+    "PokemonId": "420"
+  },
+  {
+    "Id": "421",
+    "PSName": "Gulpin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "302",
+    "PokemonId": "421"
+  },
+  {
+    "Id": "422",
+    "PSName": "Swalot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "467",
+    "PokemonId": "422"
+  },
+  {
+    "Id": "423",
+    "PSName": "Carvanha",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "423"
+  },
+  {
+    "Id": "424",
+    "PSName": "Sharpedo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "424"
+  },
+  {
+    "Id": "425",
+    "PSName": "Sharpedo-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "560",
+    "PokemonId": "425"
+  },
+  {
+    "Id": "426",
+    "PSName": "Wailmer",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "400",
+    "PokemonId": "426"
+  },
+  {
+    "Id": "427",
+    "PSName": "Wailord",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "427"
+  },
+  {
+    "Id": "428",
+    "PSName": "Numel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "428"
+  },
+  {
+    "Id": "429",
+    "PSName": "Camerupt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "429"
+  },
+  {
+    "Id": "430",
+    "PSName": "Camerupt-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "560",
+    "PokemonId": "430"
+  },
+  {
+    "Id": "431",
+    "PSName": "Torkoal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "431"
+  },
+  {
+    "Id": "432",
+    "PSName": "Spoink",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "432"
+  },
+  {
+    "Id": "433",
+    "PSName": "Grumpig",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "433"
+  },
+  {
+    "Id": "434",
+    "PSName": "Spinda",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "360",
+    "PokemonId": "434"
+  },
+  {
+    "Id": "435",
+    "PSName": "Trapinch",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "435"
+  },
+  {
+    "Id": "436",
+    "PSName": "Vibrava",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "436"
+  },
+  {
+    "Id": "437",
+    "PSName": "Flygon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "437"
+  },
+  {
+    "Id": "438",
+    "PSName": "Cacnea",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "438"
+  },
+  {
+    "Id": "439",
+    "PSName": "Cacturne",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "439"
+  },
+  {
+    "Id": "440",
+    "PSName": "Swablu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "440"
+  },
+  {
+    "Id": "441",
+    "PSName": "Altaria",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "441"
+  },
+  {
+    "Id": "442",
+    "PSName": "Altaria-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "590",
+    "PokemonId": "442"
+  },
+  {
+    "Id": "443",
+    "PSName": "Zangoose",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "458",
+    "PokemonId": "443"
+  },
+  {
+    "Id": "444",
+    "PSName": "Seviper",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "458",
+    "PokemonId": "444"
+  },
+  {
+    "Id": "445",
+    "PSName": "Lunatone",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "445"
+  },
+  {
+    "Id": "446",
+    "PSName": "Solrock",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "446"
+  },
+  {
+    "Id": "447",
+    "PSName": "Barboach",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "288",
+    "PokemonId": "447"
+  },
+  {
+    "Id": "448",
+    "PSName": "Whiscash",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "468",
+    "PokemonId": "448"
+  },
+  {
+    "Id": "449",
+    "PSName": "Corphish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "308",
+    "PokemonId": "449"
+  },
+  {
+    "Id": "450",
+    "PSName": "Crawdaunt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "468",
+    "PokemonId": "450"
+  },
+  {
+    "Id": "451",
+    "PSName": "Baltoy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "451"
+  },
+  {
+    "Id": "452",
+    "PSName": "Claydol",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "452"
+  },
+  {
+    "Id": "453",
+    "PSName": "Lileep",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "453"
+  },
+  {
+    "Id": "454",
+    "PSName": "Cradily",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "454"
+  },
+  {
+    "Id": "455",
+    "PSName": "Anorith",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "455"
+  },
+  {
+    "Id": "456",
+    "PSName": "Armaldo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "456"
+  },
+  {
+    "Id": "457",
+    "PSName": "Feebas",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "200",
+    "PokemonId": "457"
+  },
+  {
+    "Id": "458",
+    "PSName": "Milotic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "458"
+  },
+  {
+    "Id": "459",
+    "PSName": "Castform",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "459"
+  },
+  {
+    "Id": "460",
+    "PSName": "Castform-Sunny",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "460"
+  },
+  {
+    "Id": "461",
+    "PSName": "Castform-Rainy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "461"
+  },
+  {
+    "Id": "462",
+    "PSName": "Castform-Snowy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "462"
+  },
+  {
+    "Id": "463",
+    "PSName": "Kecleon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "463"
+  },
+  {
+    "Id": "464",
+    "PSName": "Shuppet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "295",
+    "PokemonId": "464"
+  },
+  {
+    "Id": "465",
+    "PSName": "Banette",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "465"
+  },
+  {
+    "Id": "466",
+    "PSName": "Banette-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "555",
+    "PokemonId": "466"
+  },
+  {
+    "Id": "467",
+    "PSName": "Duskull",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "295",
+    "PokemonId": "467"
+  },
+  {
+    "Id": "468",
+    "PSName": "Dusclops",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "468"
+  },
+  {
+    "Id": "469",
+    "PSName": "Tropius",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "469"
+  },
+  {
+    "Id": "470",
+    "PSName": "Chimecho",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "470"
+  },
+  {
+    "Id": "471",
+    "PSName": "Absol",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "465",
+    "PokemonId": "471"
+  },
+  {
+    "Id": "472",
+    "PSName": "Absol-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "565",
+    "PokemonId": "472"
+  },
+  {
+    "Id": "473",
+    "PSName": "Wynaut",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "260",
+    "PokemonId": "473"
+  },
+  {
+    "Id": "474",
+    "PSName": "Snorunt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "474"
+  },
+  {
+    "Id": "475",
+    "PSName": "Glalie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "475"
+  },
+  {
+    "Id": "476",
+    "PSName": "Glalie-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "476"
+  },
+  {
+    "Id": "477",
+    "PSName": "Spheal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "477"
+  },
+  {
+    "Id": "478",
+    "PSName": "Sealeo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "478"
+  },
+  {
+    "Id": "479",
+    "PSName": "Walrein",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "479"
+  },
+  {
+    "Id": "480",
+    "PSName": "Clamperl",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "345",
+    "PokemonId": "480"
+  },
+  {
+    "Id": "481",
+    "PSName": "Huntail",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "481"
+  },
+  {
+    "Id": "482",
+    "PSName": "Gorebyss",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "482"
+  },
+  {
+    "Id": "483",
+    "PSName": "Relicanth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "483"
+  },
+  {
+    "Id": "484",
+    "PSName": "Luvdisc",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "484"
+  },
+  {
+    "Id": "485",
+    "PSName": "Bagon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "485"
+  },
+  {
+    "Id": "486",
+    "PSName": "Shelgon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "486"
+  },
+  {
+    "Id": "487",
+    "PSName": "Salamence",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "487"
+  },
+  {
+    "Id": "488",
+    "PSName": "Salamence-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "488"
+  },
+  {
+    "Id": "489",
+    "PSName": "Beldum",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "489"
+  },
+  {
+    "Id": "490",
+    "PSName": "Metang",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "490"
+  },
+  {
+    "Id": "491",
+    "PSName": "Metagross",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "491"
+  },
+  {
+    "Id": "492",
+    "PSName": "Metagross-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "492"
+  },
+  {
+    "Id": "493",
+    "PSName": "Regirock",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "493"
+  },
+  {
+    "Id": "494",
+    "PSName": "Regice",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "494"
+  },
+  {
+    "Id": "495",
+    "PSName": "Registeel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "495"
+  },
+  {
+    "Id": "496",
+    "PSName": "Latias",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "496"
+  },
+  {
+    "Id": "497",
+    "PSName": "Latias-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "497"
+  },
+  {
+    "Id": "498",
+    "PSName": "Latios",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "498"
+  },
+  {
+    "Id": "499",
+    "PSName": "Latios-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "499"
+  },
+  {
+    "Id": "500",
+    "PSName": "Kyogre",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "670",
+    "PokemonId": "500"
+  },
+  {
+    "Id": "501",
+    "PSName": "Kyogre-Primal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "770",
+    "PokemonId": "501"
+  },
+  {
+    "Id": "502",
+    "PSName": "Groudon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "670",
+    "PokemonId": "502"
+  },
+  {
+    "Id": "503",
+    "PSName": "Groudon-Primal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "770",
+    "PokemonId": "503"
+  },
+  {
+    "Id": "504",
+    "PSName": "Rayquaza",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "504"
+  },
+  {
+    "Id": "505",
+    "PSName": "Rayquaza-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "780",
+    "PokemonId": "505"
+  },
+  {
+    "Id": "506",
+    "PSName": "Jirachi",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "506"
+  },
+  {
+    "Id": "507",
+    "PSName": "Deoxys",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "507"
+  },
+  {
+    "Id": "508",
+    "PSName": "Deoxys-Attack",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "508"
+  },
+  {
+    "Id": "509",
+    "PSName": "Deoxys-Defense",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "509"
+  },
+  {
+    "Id": "510",
+    "PSName": "Deoxys-Speed",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "510"
+  },
+  {
+    "Id": "511",
+    "PSName": "Turtwig",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "318",
+    "PokemonId": "511"
+  },
+  {
+    "Id": "512",
+    "PSName": "Grotle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "512"
+  },
+  {
+    "Id": "513",
+    "PSName": "Torterra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "513"
+  },
+  {
+    "Id": "514",
+    "PSName": "Chimchar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "309",
+    "PokemonId": "514"
+  },
+  {
+    "Id": "515",
+    "PSName": "Monferno",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "515"
+  },
+  {
+    "Id": "516",
+    "PSName": "Infernape",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "534",
+    "PokemonId": "516"
+  },
+  {
+    "Id": "517",
+    "PSName": "Piplup",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "314",
+    "PokemonId": "517"
+  },
+  {
+    "Id": "518",
+    "PSName": "Prinplup",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "518"
+  },
+  {
+    "Id": "519",
+    "PSName": "Empoleon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "519"
+  },
+  {
+    "Id": "520",
+    "PSName": "Starly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "245",
+    "PokemonId": "520"
+  },
+  {
+    "Id": "521",
+    "PSName": "Staravia",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "521"
+  },
+  {
+    "Id": "522",
+    "PSName": "Staraptor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "522"
+  },
+  {
+    "Id": "523",
+    "PSName": "Bidoof",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "523"
+  },
+  {
+    "Id": "524",
+    "PSName": "Bibarel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "524"
+  },
+  {
+    "Id": "525",
+    "PSName": "Kricketot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "194",
+    "PokemonId": "525"
+  },
+  {
+    "Id": "526",
+    "PSName": "Kricketune",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "384",
+    "PokemonId": "526"
+  },
+  {
+    "Id": "527",
+    "PSName": "Shinx",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "263",
+    "PokemonId": "527"
+  },
+  {
+    "Id": "528",
+    "PSName": "Luxio",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "363",
+    "PokemonId": "528"
+  },
+  {
+    "Id": "529",
+    "PSName": "Luxray",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "523",
+    "PokemonId": "529"
+  },
+  {
+    "Id": "530",
+    "PSName": "Budew",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "530"
+  },
+  {
+    "Id": "531",
+    "PSName": "Roserade",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "531"
+  },
+  {
+    "Id": "532",
+    "PSName": "Cranidos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "532"
+  },
+  {
+    "Id": "533",
+    "PSName": "Rampardos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "533"
+  },
+  {
+    "Id": "534",
+    "PSName": "Shieldon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "534"
+  },
+  {
+    "Id": "535",
+    "PSName": "Bastiodon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "535"
+  },
+  {
+    "Id": "536",
+    "PSName": "Burmy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "224",
+    "PokemonId": "536"
+  },
+  {
+    "Id": "537",
+    "PSName": "Wormadam",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "424",
+    "PokemonId": "537"
+  },
+  {
+    "Id": "538",
+    "PSName": "Wormadam-Sandy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "424",
+    "PokemonId": "538"
+  },
+  {
+    "Id": "539",
+    "PSName": "Wormadam-Trash",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "424",
+    "PokemonId": "539"
+  },
+  {
+    "Id": "540",
+    "PSName": "Mothim",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "424",
+    "PokemonId": "540"
+  },
+  {
+    "Id": "541",
+    "PSName": "Combee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "244",
+    "PokemonId": "541"
+  },
+  {
+    "Id": "542",
+    "PSName": "Vespiquen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "474",
+    "PokemonId": "542"
+  },
+  {
+    "Id": "543",
+    "PSName": "Pachirisu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "543"
+  },
+  {
+    "Id": "544",
+    "PSName": "Buizel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "544"
+  },
+  {
+    "Id": "545",
+    "PSName": "Floatzel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "545"
+  },
+  {
+    "Id": "546",
+    "PSName": "Cherubi",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "275",
+    "PokemonId": "546"
+  },
+  {
+    "Id": "547",
+    "PSName": "Cherrim",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "547"
+  },
+  {
+    "Id": "548",
+    "PSName": "Cherrim-Sunshine",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "548"
+  },
+  {
+    "Id": "549",
+    "PSName": "Shellos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "549"
+  },
+  {
+    "Id": "550",
+    "PSName": "Gastrodon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "550"
+  },
+  {
+    "Id": "551",
+    "PSName": "Ambipom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "482",
+    "PokemonId": "551"
+  },
+  {
+    "Id": "552",
+    "PSName": "Drifloon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "348",
+    "PokemonId": "552"
+  },
+  {
+    "Id": "553",
+    "PSName": "Drifblim",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "498",
+    "PokemonId": "553"
+  },
+  {
+    "Id": "554",
+    "PSName": "Buneary",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "554"
+  },
+  {
+    "Id": "555",
+    "PSName": "Lopunny",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "555"
+  },
+  {
+    "Id": "556",
+    "PSName": "Lopunny-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "556"
+  },
+  {
+    "Id": "557",
+    "PSName": "Mismagius",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "557"
+  },
+  {
+    "Id": "558",
+    "PSName": "Honchkrow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "558"
+  },
+  {
+    "Id": "559",
+    "PSName": "Glameow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "559"
+  },
+  {
+    "Id": "560",
+    "PSName": "Purugly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "452",
+    "PokemonId": "560"
+  },
+  {
+    "Id": "561",
+    "PSName": "Chingling",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "285",
+    "PokemonId": "561"
+  },
+  {
+    "Id": "562",
+    "PSName": "Stunky",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "329",
+    "PokemonId": "562"
+  },
+  {
+    "Id": "563",
+    "PSName": "Skuntank",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "479",
+    "PokemonId": "563"
+  },
+  {
+    "Id": "564",
+    "PSName": "Bronzor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "564"
+  },
+  {
+    "Id": "565",
+    "PSName": "Bronzong",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "565"
+  },
+  {
+    "Id": "566",
+    "PSName": "Bonsly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "566"
+  },
+  {
+    "Id": "567",
+    "PSName": "Mime Jr.",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "567"
+  },
+  {
+    "Id": "568",
+    "PSName": "Happiny",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "220",
+    "PokemonId": "568"
+  },
+  {
+    "Id": "569",
+    "PSName": "Chatot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "411",
+    "PokemonId": "569"
+  },
+  {
+    "Id": "570",
+    "PSName": "Spiritomb",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "570"
+  },
+  {
+    "Id": "571",
+    "PSName": "Gible",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "571"
+  },
+  {
+    "Id": "572",
+    "PSName": "Gabite",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "572"
+  },
+  {
+    "Id": "573",
+    "PSName": "Garchomp",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "573"
+  },
+  {
+    "Id": "574",
+    "PSName": "Garchomp-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "574"
+  },
+  {
+    "Id": "575",
+    "PSName": "Munchlax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "575"
+  },
+  {
+    "Id": "576",
+    "PSName": "Riolu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "285",
+    "PokemonId": "576"
+  },
+  {
+    "Id": "577",
+    "PSName": "Lucario",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "577"
+  },
+  {
+    "Id": "578",
+    "PSName": "Lucario-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "625",
+    "PokemonId": "578"
+  },
+  {
+    "Id": "579",
+    "PSName": "Hippopotas",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "579"
+  },
+  {
+    "Id": "580",
+    "PSName": "Hippowdon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "580"
+  },
+  {
+    "Id": "581",
+    "PSName": "Skorupi",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "581"
+  },
+  {
+    "Id": "582",
+    "PSName": "Drapion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "582"
+  },
+  {
+    "Id": "583",
+    "PSName": "Croagunk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "583"
+  },
+  {
+    "Id": "584",
+    "PSName": "Toxicroak",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "584"
+  },
+  {
+    "Id": "585",
+    "PSName": "Carnivine",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "454",
+    "PokemonId": "585"
+  },
+  {
+    "Id": "586",
+    "PSName": "Finneon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "586"
+  },
+  {
+    "Id": "587",
+    "PSName": "Lumineon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "587"
+  },
+  {
+    "Id": "588",
+    "PSName": "Mantyke",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "345",
+    "PokemonId": "588"
+  },
+  {
+    "Id": "589",
+    "PSName": "Snover",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "334",
+    "PokemonId": "589"
+  },
+  {
+    "Id": "590",
+    "PSName": "Abomasnow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "494",
+    "PokemonId": "590"
+  },
+  {
+    "Id": "591",
+    "PSName": "Abomasnow-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "594",
+    "PokemonId": "591"
+  },
+  {
+    "Id": "592",
+    "PSName": "Weavile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "592"
+  },
+  {
+    "Id": "593",
+    "PSName": "Magnezone",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "593"
+  },
+  {
+    "Id": "594",
+    "PSName": "Lickilicky",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "594"
+  },
+  {
+    "Id": "595",
+    "PSName": "Rhyperior",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "595"
+  },
+  {
+    "Id": "596",
+    "PSName": "Tangrowth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "596"
+  },
+  {
+    "Id": "597",
+    "PSName": "Electivire",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "597"
+  },
+  {
+    "Id": "598",
+    "PSName": "Magmortar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "598"
+  },
+  {
+    "Id": "599",
+    "PSName": "Togekiss",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "545",
+    "PokemonId": "599"
+  },
+  {
+    "Id": "600",
+    "PSName": "Yanmega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "600"
+  },
+  {
+    "Id": "601",
+    "PSName": "Leafeon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "601"
+  },
+  {
+    "Id": "602",
+    "PSName": "Glaceon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "602"
+  },
+  {
+    "Id": "603",
+    "PSName": "Gliscor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "603"
+  },
+  {
+    "Id": "604",
+    "PSName": "Mamoswine",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "604"
+  },
+  {
+    "Id": "605",
+    "PSName": "Porygon-Z",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "605"
+  },
+  {
+    "Id": "606",
+    "PSName": "Gallade",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "518",
+    "PokemonId": "606"
+  },
+  {
+    "Id": "607",
+    "PSName": "Gallade-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "618",
+    "PokemonId": "607"
+  },
+  {
+    "Id": "608",
+    "PSName": "Probopass",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "608"
+  },
+  {
+    "Id": "609",
+    "PSName": "Dusknoir",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "609"
+  },
+  {
+    "Id": "610",
+    "PSName": "Froslass",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "610"
+  },
+  {
+    "Id": "611",
+    "PSName": "Rotom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "611"
+  },
+  {
+    "Id": "612",
+    "PSName": "Rotom-Heat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "612"
+  },
+  {
+    "Id": "613",
+    "PSName": "Rotom-Wash",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "613"
+  },
+  {
+    "Id": "614",
+    "PSName": "Rotom-Frost",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "614"
+  },
+  {
+    "Id": "615",
+    "PSName": "Rotom-Fan",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "615"
+  },
+  {
+    "Id": "616",
+    "PSName": "Rotom-Mow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "616"
+  },
+  {
+    "Id": "617",
+    "PSName": "Uxie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "617"
+  },
+  {
+    "Id": "618",
+    "PSName": "Mesprit",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "618"
+  },
+  {
+    "Id": "619",
+    "PSName": "Azelf",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "619"
+  },
+  {
+    "Id": "620",
+    "PSName": "Dialga",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "620"
+  },
+  {
+    "Id": "621",
+    "PSName": "Dialga-Origin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "621"
+  },
+  {
+    "Id": "622",
+    "PSName": "Palkia",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "622"
+  },
+  {
+    "Id": "623",
+    "PSName": "Palkia-Origin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "623"
+  },
+  {
+    "Id": "624",
+    "PSName": "Heatran",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "624"
+  },
+  {
+    "Id": "625",
+    "PSName": "Regigigas",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "670",
+    "PokemonId": "625"
+  },
+  {
+    "Id": "626",
+    "PSName": "Giratina",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "626"
+  },
+  {
+    "Id": "627",
+    "PSName": "Giratina-Origin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "627"
+  },
+  {
+    "Id": "628",
+    "PSName": "Cresselia",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "628"
+  },
+  {
+    "Id": "629",
+    "PSName": "Phione",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "629"
+  },
+  {
+    "Id": "630",
+    "PSName": "Manaphy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "630"
+  },
+  {
+    "Id": "631",
+    "PSName": "Darkrai",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "631"
+  },
+  {
+    "Id": "632",
+    "PSName": "Shaymin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "632"
+  },
+  {
+    "Id": "633",
+    "PSName": "Shaymin-Sky",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "633"
+  },
+  {
+    "Id": "634",
+    "PSName": "Arceus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "634"
+  },
+  {
+    "Id": "635",
+    "PSName": "Arceus-Bug",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "635"
+  },
+  {
+    "Id": "636",
+    "PSName": "Arceus-Dark",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "636"
+  },
+  {
+    "Id": "637",
+    "PSName": "Arceus-Dragon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "637"
+  },
+  {
+    "Id": "638",
+    "PSName": "Arceus-Electric",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "638"
+  },
+  {
+    "Id": "639",
+    "PSName": "Arceus-Fairy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "639"
+  },
+  {
+    "Id": "640",
+    "PSName": "Arceus-Fighting",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "640"
+  },
+  {
+    "Id": "641",
+    "PSName": "Arceus-Fire",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "641"
+  },
+  {
+    "Id": "642",
+    "PSName": "Arceus-Flying",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "642"
+  },
+  {
+    "Id": "643",
+    "PSName": "Arceus-Ghost",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "643"
+  },
+  {
+    "Id": "644",
+    "PSName": "Arceus-Grass",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "644"
+  },
+  {
+    "Id": "645",
+    "PSName": "Arceus-Ground",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "645"
+  },
+  {
+    "Id": "646",
+    "PSName": "Arceus-Ice",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "646"
+  },
+  {
+    "Id": "647",
+    "PSName": "Arceus-Poison",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "647"
+  },
+  {
+    "Id": "648",
+    "PSName": "Arceus-Psychic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "648"
+  },
+  {
+    "Id": "649",
+    "PSName": "Arceus-Rock",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "649"
+  },
+  {
+    "Id": "650",
+    "PSName": "Arceus-Steel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "650"
+  },
+  {
+    "Id": "651",
+    "PSName": "Arceus-Water",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "720",
+    "PokemonId": "651"
+  },
+  {
+    "Id": "652",
+    "PSName": "Victini",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "652"
+  },
+  {
+    "Id": "653",
+    "PSName": "Snivy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "308",
+    "PokemonId": "653"
+  },
+  {
+    "Id": "654",
+    "PSName": "Servine",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "413",
+    "PokemonId": "654"
+  },
+  {
+    "Id": "655",
+    "PSName": "Serperior",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "528",
+    "PokemonId": "655"
+  },
+  {
+    "Id": "656",
+    "PSName": "Tepig",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "308",
+    "PokemonId": "656"
+  },
+  {
+    "Id": "657",
+    "PSName": "Pignite",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "418",
+    "PokemonId": "657"
+  },
+  {
+    "Id": "658",
+    "PSName": "Emboar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "528",
+    "PokemonId": "658"
+  },
+  {
+    "Id": "659",
+    "PSName": "Oshawott",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "308",
+    "PokemonId": "659"
+  },
+  {
+    "Id": "660",
+    "PSName": "Dewott",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "413",
+    "PokemonId": "660"
+  },
+  {
+    "Id": "661",
+    "PSName": "Samurott",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "528",
+    "PokemonId": "661"
+  },
+  {
+    "Id": "662",
+    "PSName": "Samurott-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "528",
+    "PokemonId": "662"
+  },
+  {
+    "Id": "663",
+    "PSName": "Patrat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "255",
+    "PokemonId": "663"
+  },
+  {
+    "Id": "664",
+    "PSName": "Watchog",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "664"
+  },
+  {
+    "Id": "665",
+    "PSName": "Lillipup",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "275",
+    "PokemonId": "665"
+  },
+  {
+    "Id": "666",
+    "PSName": "Herdier",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "370",
+    "PokemonId": "666"
+  },
+  {
+    "Id": "667",
+    "PSName": "Stoutland",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "667"
+  },
+  {
+    "Id": "668",
+    "PSName": "Purrloin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "281",
+    "PokemonId": "668"
+  },
+  {
+    "Id": "669",
+    "PSName": "Liepard",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "446",
+    "PokemonId": "669"
+  },
+  {
+    "Id": "670",
+    "PSName": "Pansage",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "316",
+    "PokemonId": "670"
+  },
+  {
+    "Id": "671",
+    "PSName": "Simisage",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "498",
+    "PokemonId": "671"
+  },
+  {
+    "Id": "672",
+    "PSName": "Pansear",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "316",
+    "PokemonId": "672"
+  },
+  {
+    "Id": "673",
+    "PSName": "Simisear",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "498",
+    "PokemonId": "673"
+  },
+  {
+    "Id": "674",
+    "PSName": "Panpour",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "316",
+    "PokemonId": "674"
+  },
+  {
+    "Id": "675",
+    "PSName": "Simipour",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "498",
+    "PokemonId": "675"
+  },
+  {
+    "Id": "676",
+    "PSName": "Munna",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "292",
+    "PokemonId": "676"
+  },
+  {
+    "Id": "677",
+    "PSName": "Musharna",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "487",
+    "PokemonId": "677"
+  },
+  {
+    "Id": "678",
+    "PSName": "Pidove",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "264",
+    "PokemonId": "678"
+  },
+  {
+    "Id": "679",
+    "PSName": "Tranquill",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "358",
+    "PokemonId": "679"
+  },
+  {
+    "Id": "680",
+    "PSName": "Unfezant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "488",
+    "PokemonId": "680"
+  },
+  {
+    "Id": "681",
+    "PSName": "Blitzle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "295",
+    "PokemonId": "681"
+  },
+  {
+    "Id": "682",
+    "PSName": "Zebstrika",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "497",
+    "PokemonId": "682"
+  },
+  {
+    "Id": "683",
+    "PSName": "Roggenrola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "683"
+  },
+  {
+    "Id": "684",
+    "PSName": "Boldore",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "684"
+  },
+  {
+    "Id": "685",
+    "PSName": "Gigalith",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "685"
+  },
+  {
+    "Id": "686",
+    "PSName": "Woobat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "323",
+    "PokemonId": "686"
+  },
+  {
+    "Id": "687",
+    "PSName": "Swoobat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "687"
+  },
+  {
+    "Id": "688",
+    "PSName": "Drilbur",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "328",
+    "PokemonId": "688"
+  },
+  {
+    "Id": "689",
+    "PSName": "Excadrill",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "508",
+    "PokemonId": "689"
+  },
+  {
+    "Id": "690",
+    "PSName": "Audino",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "445",
+    "PokemonId": "690"
+  },
+  {
+    "Id": "691",
+    "PSName": "Audino-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "545",
+    "PokemonId": "691"
+  },
+  {
+    "Id": "692",
+    "PSName": "Timburr",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "692"
+  },
+  {
+    "Id": "693",
+    "PSName": "Gurdurr",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "693"
+  },
+  {
+    "Id": "694",
+    "PSName": "Conkeldurr",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "694"
+  },
+  {
+    "Id": "695",
+    "PSName": "Tympole",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "294",
+    "PokemonId": "695"
+  },
+  {
+    "Id": "696",
+    "PSName": "Palpitoad",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "384",
+    "PokemonId": "696"
+  },
+  {
+    "Id": "697",
+    "PSName": "Seismitoad",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "509",
+    "PokemonId": "697"
+  },
+  {
+    "Id": "698",
+    "PSName": "Throh",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "465",
+    "PokemonId": "698"
+  },
+  {
+    "Id": "699",
+    "PSName": "Sawk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "465",
+    "PokemonId": "699"
+  },
+  {
+    "Id": "700",
+    "PSName": "Sewaddle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "700"
+  },
+  {
+    "Id": "701",
+    "PSName": "Swadloon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "380",
+    "PokemonId": "701"
+  },
+  {
+    "Id": "702",
+    "PSName": "Leavanny",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "702"
+  },
+  {
+    "Id": "703",
+    "PSName": "Venipede",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "260",
+    "PokemonId": "703"
+  },
+  {
+    "Id": "704",
+    "PSName": "Whirlipede",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "360",
+    "PokemonId": "704"
+  },
+  {
+    "Id": "705",
+    "PSName": "Scolipede",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "705"
+  },
+  {
+    "Id": "706",
+    "PSName": "Cottonee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "706"
+  },
+  {
+    "Id": "707",
+    "PSName": "Whimsicott",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "707"
+  },
+  {
+    "Id": "708",
+    "PSName": "Petilil",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "708"
+  },
+  {
+    "Id": "709",
+    "PSName": "Lilligant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "709"
+  },
+  {
+    "Id": "710",
+    "PSName": "Lilligant-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "710"
+  },
+  {
+    "Id": "711",
+    "PSName": "Basculin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "711"
+  },
+  {
+    "Id": "712",
+    "PSName": "Basculin-Blue-Striped",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "712"
+  },
+  {
+    "Id": "713",
+    "PSName": "Basculin-White-Striped",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "713"
+  },
+  {
+    "Id": "714",
+    "PSName": "Sandile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "292",
+    "PokemonId": "714"
+  },
+  {
+    "Id": "715",
+    "PSName": "Krokorok",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "351",
+    "PokemonId": "715"
+  },
+  {
+    "Id": "716",
+    "PSName": "Krookodile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "519",
+    "PokemonId": "716"
+  },
+  {
+    "Id": "717",
+    "PSName": "Darumaka",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "315",
+    "PokemonId": "717"
+  },
+  {
+    "Id": "718",
+    "PSName": "Darumaka-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "315",
+    "PokemonId": "718"
+  },
+  {
+    "Id": "719",
+    "PSName": "Darmanitan",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "719"
+  },
+  {
+    "Id": "720",
+    "PSName": "Darmanitan-Zen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "720"
+  },
+  {
+    "Id": "721",
+    "PSName": "Darmanitan-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "721"
+  },
+  {
+    "Id": "722",
+    "PSName": "Darmanitan-Galar-Zen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "722"
+  },
+  {
+    "Id": "723",
+    "PSName": "Maractus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "461",
+    "PokemonId": "723"
+  },
+  {
+    "Id": "724",
+    "PSName": "Dwebble",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "724"
+  },
+  {
+    "Id": "725",
+    "PSName": "Crustle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "725"
+  },
+  {
+    "Id": "726",
+    "PSName": "Scraggy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "348",
+    "PokemonId": "726"
+  },
+  {
+    "Id": "727",
+    "PSName": "Scrafty",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "488",
+    "PokemonId": "727"
+  },
+  {
+    "Id": "728",
+    "PSName": "Sigilyph",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "728"
+  },
+  {
+    "Id": "729",
+    "PSName": "Yamask",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "303",
+    "PokemonId": "729"
+  },
+  {
+    "Id": "730",
+    "PSName": "Yamask-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "303",
+    "PokemonId": "730"
+  },
+  {
+    "Id": "731",
+    "PSName": "Cofagrigus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "483",
+    "PokemonId": "731"
+  },
+  {
+    "Id": "732",
+    "PSName": "Tirtouga",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "732"
+  },
+  {
+    "Id": "733",
+    "PSName": "Carracosta",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "733"
+  },
+  {
+    "Id": "734",
+    "PSName": "Archen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "401",
+    "PokemonId": "734"
+  },
+  {
+    "Id": "735",
+    "PSName": "Archeops",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "567",
+    "PokemonId": "735"
+  },
+  {
+    "Id": "736",
+    "PSName": "Trubbish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "329",
+    "PokemonId": "736"
+  },
+  {
+    "Id": "737",
+    "PSName": "Garbodor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "474",
+    "PokemonId": "737"
+  },
+  {
+    "Id": "738",
+    "PSName": "Garbodor-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "474",
+    "PokemonId": "738"
+  },
+  {
+    "Id": "739",
+    "PSName": "Zorua",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "739"
+  },
+  {
+    "Id": "740",
+    "PSName": "Zorua-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "740"
+  },
+  {
+    "Id": "741",
+    "PSName": "Zoroark",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "741"
+  },
+  {
+    "Id": "742",
+    "PSName": "Zoroark-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "742"
+  },
+  {
+    "Id": "743",
+    "PSName": "Minccino",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "743"
+  },
+  {
+    "Id": "744",
+    "PSName": "Cinccino",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "744"
+  },
+  {
+    "Id": "745",
+    "PSName": "Gothita",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "745"
+  },
+  {
+    "Id": "746",
+    "PSName": "Gothorita",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "390",
+    "PokemonId": "746"
+  },
+  {
+    "Id": "747",
+    "PSName": "Gothitelle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "747"
+  },
+  {
+    "Id": "748",
+    "PSName": "Solosis",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "748"
+  },
+  {
+    "Id": "749",
+    "PSName": "Duosion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "370",
+    "PokemonId": "749"
+  },
+  {
+    "Id": "750",
+    "PSName": "Reuniclus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "750"
+  },
+  {
+    "Id": "751",
+    "PSName": "Ducklett",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "751"
+  },
+  {
+    "Id": "752",
+    "PSName": "Swanna",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "473",
+    "PokemonId": "752"
+  },
+  {
+    "Id": "753",
+    "PSName": "Vanillite",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "753"
+  },
+  {
+    "Id": "754",
+    "PSName": "Vanillish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "395",
+    "PokemonId": "754"
+  },
+  {
+    "Id": "755",
+    "PSName": "Vanilluxe",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "755"
+  },
+  {
+    "Id": "756",
+    "PSName": "Deerling",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "756"
+  },
+  {
+    "Id": "757",
+    "PSName": "Sawsbuck",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "757"
+  },
+  {
+    "Id": "758",
+    "PSName": "Emolga",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "428",
+    "PokemonId": "758"
+  },
+  {
+    "Id": "759",
+    "PSName": "Karrablast",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "315",
+    "PokemonId": "759"
+  },
+  {
+    "Id": "760",
+    "PSName": "Escavalier",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "760"
+  },
+  {
+    "Id": "761",
+    "PSName": "Foongus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "294",
+    "PokemonId": "761"
+  },
+  {
+    "Id": "762",
+    "PSName": "Amoonguss",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "464",
+    "PokemonId": "762"
+  },
+  {
+    "Id": "763",
+    "PSName": "Frillish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "763"
+  },
+  {
+    "Id": "764",
+    "PSName": "Jellicent",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "764"
+  },
+  {
+    "Id": "765",
+    "PSName": "Alomomola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "765"
+  },
+  {
+    "Id": "766",
+    "PSName": "Joltik",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "319",
+    "PokemonId": "766"
+  },
+  {
+    "Id": "767",
+    "PSName": "Galvantula",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "472",
+    "PokemonId": "767"
+  },
+  {
+    "Id": "768",
+    "PSName": "Ferroseed",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "768"
+  },
+  {
+    "Id": "769",
+    "PSName": "Ferrothorn",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "489",
+    "PokemonId": "769"
+  },
+  {
+    "Id": "770",
+    "PSName": "Klink",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "770"
+  },
+  {
+    "Id": "771",
+    "PSName": "Klang",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "771"
+  },
+  {
+    "Id": "772",
+    "PSName": "Klinklang",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "772"
+  },
+  {
+    "Id": "773",
+    "PSName": "Tynamo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "275",
+    "PokemonId": "773"
+  },
+  {
+    "Id": "774",
+    "PSName": "Eelektrik",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "774"
+  },
+  {
+    "Id": "775",
+    "PSName": "Eelektross",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "775"
+  },
+  {
+    "Id": "776",
+    "PSName": "Elgyem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "776"
+  },
+  {
+    "Id": "777",
+    "PSName": "Beheeyem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "777"
+  },
+  {
+    "Id": "778",
+    "PSName": "Litwick",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "275",
+    "PokemonId": "778"
+  },
+  {
+    "Id": "779",
+    "PSName": "Lampent",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "370",
+    "PokemonId": "779"
+  },
+  {
+    "Id": "780",
+    "PSName": "Chandelure",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "780"
+  },
+  {
+    "Id": "781",
+    "PSName": "Axew",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "781"
+  },
+  {
+    "Id": "782",
+    "PSName": "Fraxure",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "782"
+  },
+  {
+    "Id": "783",
+    "PSName": "Haxorus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "783"
+  },
+  {
+    "Id": "784",
+    "PSName": "Cubchoo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "784"
+  },
+  {
+    "Id": "785",
+    "PSName": "Beartic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "785"
+  },
+  {
+    "Id": "786",
+    "PSName": "Cryogonal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "786"
+  },
+  {
+    "Id": "787",
+    "PSName": "Shelmet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "787"
+  },
+  {
+    "Id": "788",
+    "PSName": "Accelgor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "788"
+  },
+  {
+    "Id": "789",
+    "PSName": "Stunfisk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "471",
+    "PokemonId": "789"
+  },
+  {
+    "Id": "790",
+    "PSName": "Stunfisk-Galar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "471",
+    "PokemonId": "790"
+  },
+  {
+    "Id": "791",
+    "PSName": "Mienfoo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "791"
+  },
+  {
+    "Id": "792",
+    "PSName": "Mienshao",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "792"
+  },
+  {
+    "Id": "793",
+    "PSName": "Druddigon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "793"
+  },
+  {
+    "Id": "794",
+    "PSName": "Golett",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "303",
+    "PokemonId": "794"
+  },
+  {
+    "Id": "795",
+    "PSName": "Golurk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "483",
+    "PokemonId": "795"
+  },
+  {
+    "Id": "796",
+    "PSName": "Pawniard",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "796"
+  },
+  {
+    "Id": "797",
+    "PSName": "Bisharp",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "797"
+  },
+  {
+    "Id": "798",
+    "PSName": "Bouffalant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "798"
+  },
+  {
+    "Id": "799",
+    "PSName": "Rufflet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "799"
+  },
+  {
+    "Id": "800",
+    "PSName": "Braviary",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "800"
+  },
+  {
+    "Id": "801",
+    "PSName": "Braviary-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "801"
+  },
+  {
+    "Id": "802",
+    "PSName": "Vullaby",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "370",
+    "PokemonId": "802"
+  },
+  {
+    "Id": "803",
+    "PSName": "Mandibuzz",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "803"
+  },
+  {
+    "Id": "804",
+    "PSName": "Heatmor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "484",
+    "PokemonId": "804"
+  },
+  {
+    "Id": "805",
+    "PSName": "Durant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "484",
+    "PokemonId": "805"
+  },
+  {
+    "Id": "806",
+    "PSName": "Deino",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "806"
+  },
+  {
+    "Id": "807",
+    "PSName": "Zweilous",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "807"
+  },
+  {
+    "Id": "808",
+    "PSName": "Hydreigon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "808"
+  },
+  {
+    "Id": "809",
+    "PSName": "Larvesta",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "360",
+    "PokemonId": "809"
+  },
+  {
+    "Id": "810",
+    "PSName": "Volcarona",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "810"
+  },
+  {
+    "Id": "811",
+    "PSName": "Cobalion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "811"
+  },
+  {
+    "Id": "812",
+    "PSName": "Terrakion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "812"
+  },
+  {
+    "Id": "813",
+    "PSName": "Virizion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "813"
+  },
+  {
+    "Id": "814",
+    "PSName": "Tornadus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "814"
+  },
+  {
+    "Id": "815",
+    "PSName": "Tornadus-Therian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "815"
+  },
+  {
+    "Id": "816",
+    "PSName": "Thundurus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "816"
+  },
+  {
+    "Id": "817",
+    "PSName": "Thundurus-Therian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "817"
+  },
+  {
+    "Id": "818",
+    "PSName": "Reshiram",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "818"
+  },
+  {
+    "Id": "819",
+    "PSName": "Zekrom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "819"
+  },
+  {
+    "Id": "820",
+    "PSName": "Landorus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "820"
+  },
+  {
+    "Id": "821",
+    "PSName": "Landorus-Therian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "821"
+  },
+  {
+    "Id": "822",
+    "PSName": "Kyurem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "660",
+    "PokemonId": "822"
+  },
+  {
+    "Id": "823",
+    "PSName": "Kyurem-Black",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "823"
+  },
+  {
+    "Id": "824",
+    "PSName": "Kyurem-White",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "824"
+  },
+  {
+    "Id": "825",
+    "PSName": "Keldeo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "825"
+  },
+  {
+    "Id": "826",
+    "PSName": "Keldeo-Resolute",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "826"
+  },
+  {
+    "Id": "827",
+    "PSName": "Meloetta",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "827"
+  },
+  {
+    "Id": "828",
+    "PSName": "Meloetta-Pirouette",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "828"
+  },
+  {
+    "Id": "829",
+    "PSName": "Genesect",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "829"
+  },
+  {
+    "Id": "830",
+    "PSName": "Genesect-Douse",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "830"
+  },
+  {
+    "Id": "831",
+    "PSName": "Genesect-Shock",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "831"
+  },
+  {
+    "Id": "832",
+    "PSName": "Genesect-Burn",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "832"
+  },
+  {
+    "Id": "833",
+    "PSName": "Genesect-Chill",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "833"
+  },
+  {
+    "Id": "834",
+    "PSName": "Chespin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "313",
+    "PokemonId": "834"
+  },
+  {
+    "Id": "835",
+    "PSName": "Quilladin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "835"
+  },
+  {
+    "Id": "836",
+    "PSName": "Chesnaught",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "836"
+  },
+  {
+    "Id": "837",
+    "PSName": "Fennekin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "307",
+    "PokemonId": "837"
+  },
+  {
+    "Id": "838",
+    "PSName": "Braixen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "409",
+    "PokemonId": "838"
+  },
+  {
+    "Id": "839",
+    "PSName": "Delphox",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "534",
+    "PokemonId": "839"
+  },
+  {
+    "Id": "840",
+    "PSName": "Froakie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "314",
+    "PokemonId": "840"
+  },
+  {
+    "Id": "841",
+    "PSName": "Frogadier",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "841"
+  },
+  {
+    "Id": "842",
+    "PSName": "Greninja",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "842"
+  },
+  {
+    "Id": "843",
+    "PSName": "Greninja-Ash",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "640",
+    "PokemonId": "843"
+  },
+  {
+    "Id": "844",
+    "PSName": "Bunnelby",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "237",
+    "PokemonId": "844"
+  },
+  {
+    "Id": "845",
+    "PSName": "Diggersby",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "423",
+    "PokemonId": "845"
+  },
+  {
+    "Id": "846",
+    "PSName": "Fletchling",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "278",
+    "PokemonId": "846"
+  },
+  {
+    "Id": "847",
+    "PSName": "Fletchinder",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "382",
+    "PokemonId": "847"
+  },
+  {
+    "Id": "848",
+    "PSName": "Talonflame",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "499",
+    "PokemonId": "848"
+  },
+  {
+    "Id": "849",
+    "PSName": "Scatterbug",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "200",
+    "PokemonId": "849"
+  },
+  {
+    "Id": "850",
+    "PSName": "Spewpa",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "213",
+    "PokemonId": "850"
+  },
+  {
+    "Id": "851",
+    "PSName": "Vivillon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "411",
+    "PokemonId": "851"
+  },
+  {
+    "Id": "852",
+    "PSName": "Vivillon-Fancy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "411",
+    "PokemonId": "852"
+  },
+  {
+    "Id": "853",
+    "PSName": "Vivillon-Pokeball",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "411",
+    "PokemonId": "853"
+  },
+  {
+    "Id": "854",
+    "PSName": "Litleo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "369",
+    "PokemonId": "854"
+  },
+  {
+    "Id": "855",
+    "PSName": "Pyroar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "507",
+    "PokemonId": "855"
+  },
+  {
+    "Id": "856",
+    "PSName": "Flabébé",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "303",
+    "PokemonId": "856"
+  },
+  {
+    "Id": "857",
+    "PSName": "Floette",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "371",
+    "PokemonId": "857"
+  },
+  {
+    "Id": "858",
+    "PSName": "Floette-Eternal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "551",
+    "PokemonId": "858"
+  },
+  {
+    "Id": "859",
+    "PSName": "Florges",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "552",
+    "PokemonId": "859"
+  },
+  {
+    "Id": "860",
+    "PSName": "Skiddo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "860"
+  },
+  {
+    "Id": "861",
+    "PSName": "Gogoat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "531",
+    "PokemonId": "861"
+  },
+  {
+    "Id": "862",
+    "PSName": "Pancham",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "348",
+    "PokemonId": "862"
+  },
+  {
+    "Id": "863",
+    "PSName": "Pangoro",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "863"
+  },
+  {
+    "Id": "864",
+    "PSName": "Furfrou",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "472",
+    "PokemonId": "864"
+  },
+  {
+    "Id": "865",
+    "PSName": "Espurr",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "865"
+  },
+  {
+    "Id": "866",
+    "PSName": "Meowstic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "466",
+    "PokemonId": "866"
+  },
+  {
+    "Id": "867",
+    "PSName": "Meowstic-F",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "466",
+    "PokemonId": "867"
+  },
+  {
+    "Id": "868",
+    "PSName": "Honedge",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "325",
+    "PokemonId": "868"
+  },
+  {
+    "Id": "869",
+    "PSName": "Doublade",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "448",
+    "PokemonId": "869"
+  },
+  {
+    "Id": "870",
+    "PSName": "Aegislash",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "870"
+  },
+  {
+    "Id": "871",
+    "PSName": "Aegislash-Blade",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "871"
+  },
+  {
+    "Id": "872",
+    "PSName": "Spritzee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "341",
+    "PokemonId": "872"
+  },
+  {
+    "Id": "873",
+    "PSName": "Aromatisse",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "462",
+    "PokemonId": "873"
+  },
+  {
+    "Id": "874",
+    "PSName": "Swirlix",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "341",
+    "PokemonId": "874"
+  },
+  {
+    "Id": "875",
+    "PSName": "Slurpuff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "875"
+  },
+  {
+    "Id": "876",
+    "PSName": "Inkay",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "288",
+    "PokemonId": "876"
+  },
+  {
+    "Id": "877",
+    "PSName": "Malamar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "482",
+    "PokemonId": "877"
+  },
+  {
+    "Id": "878",
+    "PSName": "Binacle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "306",
+    "PokemonId": "878"
+  },
+  {
+    "Id": "879",
+    "PSName": "Barbaracle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "879"
+  },
+  {
+    "Id": "880",
+    "PSName": "Skrelp",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "880"
+  },
+  {
+    "Id": "881",
+    "PSName": "Dragalge",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "494",
+    "PokemonId": "881"
+  },
+  {
+    "Id": "882",
+    "PSName": "Clauncher",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "882"
+  },
+  {
+    "Id": "883",
+    "PSName": "Clawitzer",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "883"
+  },
+  {
+    "Id": "884",
+    "PSName": "Helioptile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "289",
+    "PokemonId": "884"
+  },
+  {
+    "Id": "885",
+    "PSName": "Heliolisk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "481",
+    "PokemonId": "885"
+  },
+  {
+    "Id": "886",
+    "PSName": "Tyrunt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "362",
+    "PokemonId": "886"
+  },
+  {
+    "Id": "887",
+    "PSName": "Tyrantrum",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "521",
+    "PokemonId": "887"
+  },
+  {
+    "Id": "888",
+    "PSName": "Amaura",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "362",
+    "PokemonId": "888"
+  },
+  {
+    "Id": "889",
+    "PSName": "Aurorus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "521",
+    "PokemonId": "889"
+  },
+  {
+    "Id": "890",
+    "PSName": "Sylveon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "890"
+  },
+  {
+    "Id": "891",
+    "PSName": "Hawlucha",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "891"
+  },
+  {
+    "Id": "892",
+    "PSName": "Dedenne",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "431",
+    "PokemonId": "892"
+  },
+  {
+    "Id": "893",
+    "PSName": "Carbink",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "893"
+  },
+  {
+    "Id": "894",
+    "PSName": "Goomy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "894"
+  },
+  {
+    "Id": "895",
+    "PSName": "Sliggoo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "452",
+    "PokemonId": "895"
+  },
+  {
+    "Id": "896",
+    "PSName": "Sliggoo-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "452",
+    "PokemonId": "896"
+  },
+  {
+    "Id": "897",
+    "PSName": "Goodra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "897"
+  },
+  {
+    "Id": "898",
+    "PSName": "Goodra-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "898"
+  },
+  {
+    "Id": "899",
+    "PSName": "Klefki",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "899"
+  },
+  {
+    "Id": "900",
+    "PSName": "Phantump",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "309",
+    "PokemonId": "900"
+  },
+  {
+    "Id": "901",
+    "PSName": "Trevenant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "474",
+    "PokemonId": "901"
+  },
+  {
+    "Id": "902",
+    "PSName": "Pumpkaboo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "902"
+  },
+  {
+    "Id": "903",
+    "PSName": "Pumpkaboo-Small",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "903"
+  },
+  {
+    "Id": "904",
+    "PSName": "Pumpkaboo-Large",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "904"
+  },
+  {
+    "Id": "905",
+    "PSName": "Pumpkaboo-Super",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "905"
+  },
+  {
+    "Id": "906",
+    "PSName": "Gourgeist",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "494",
+    "PokemonId": "906"
+  },
+  {
+    "Id": "907",
+    "PSName": "Gourgeist-Small",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "494",
+    "PokemonId": "907"
+  },
+  {
+    "Id": "908",
+    "PSName": "Gourgeist-Large",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "494",
+    "PokemonId": "908"
+  },
+  {
+    "Id": "909",
+    "PSName": "Gourgeist-Super",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "494",
+    "PokemonId": "909"
+  },
+  {
+    "Id": "910",
+    "PSName": "Bergmite",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "304",
+    "PokemonId": "910"
+  },
+  {
+    "Id": "911",
+    "PSName": "Avalugg",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "514",
+    "PokemonId": "911"
+  },
+  {
+    "Id": "912",
+    "PSName": "Avalugg-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "514",
+    "PokemonId": "912"
+  },
+  {
+    "Id": "913",
+    "PSName": "Noibat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "245",
+    "PokemonId": "913"
+  },
+  {
+    "Id": "914",
+    "PSName": "Noivern",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "914"
+  },
+  {
+    "Id": "915",
+    "PSName": "Xerneas",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "915"
+  },
+  {
+    "Id": "916",
+    "PSName": "Xerneas-Neutral",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "916"
+  },
+  {
+    "Id": "917",
+    "PSName": "Yveltal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "917"
+  },
+  {
+    "Id": "918",
+    "PSName": "Zygarde",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "918"
+  },
+  {
+    "Id": "919",
+    "PSName": "Zygarde-10%",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "486",
+    "PokemonId": "919"
+  },
+  {
+    "Id": "920",
+    "PSName": "Zygarde-Complete",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "708",
+    "PokemonId": "920"
+  },
+  {
+    "Id": "921",
+    "PSName": "Diancie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "921"
+  },
+  {
+    "Id": "922",
+    "PSName": "Diancie-Mega",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "922"
+  },
+  {
+    "Id": "923",
+    "PSName": "Hoopa",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "923"
+  },
+  {
+    "Id": "924",
+    "PSName": "Hoopa-Unbound",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "924"
+  },
+  {
+    "Id": "925",
+    "PSName": "Volcanion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "925"
+  },
+  {
+    "Id": "926",
+    "PSName": "Rowlet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "926"
+  },
+  {
+    "Id": "927",
+    "PSName": "Dartrix",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "927"
+  },
+  {
+    "Id": "928",
+    "PSName": "Decidueye",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "928"
+  },
+  {
+    "Id": "929",
+    "PSName": "Decidueye-Hisui",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "929"
+  },
+  {
+    "Id": "930",
+    "PSName": "Litten",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "930"
+  },
+  {
+    "Id": "931",
+    "PSName": "Torracat",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "931"
+  },
+  {
+    "Id": "932",
+    "PSName": "Incineroar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "932"
+  },
+  {
+    "Id": "933",
+    "PSName": "Popplio",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "933"
+  },
+  {
+    "Id": "934",
+    "PSName": "Brionne",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "934"
+  },
+  {
+    "Id": "935",
+    "PSName": "Primarina",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "935"
+  },
+  {
+    "Id": "936",
+    "PSName": "Pikipek",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "265",
+    "PokemonId": "936"
+  },
+  {
+    "Id": "937",
+    "PSName": "Trumbeak",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "937"
+  },
+  {
+    "Id": "938",
+    "PSName": "Toucannon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "938"
+  },
+  {
+    "Id": "939",
+    "PSName": "Yungoos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "253",
+    "PokemonId": "939"
+  },
+  {
+    "Id": "940",
+    "PSName": "Gumshoos",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "418",
+    "PokemonId": "940"
+  },
+  {
+    "Id": "941",
+    "PSName": "Gumshoos-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "418",
+    "PokemonId": "941"
+  },
+  {
+    "Id": "942",
+    "PSName": "Grubbin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "942"
+  },
+  {
+    "Id": "943",
+    "PSName": "Charjabug",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "400",
+    "PokemonId": "943"
+  },
+  {
+    "Id": "944",
+    "PSName": "Vikavolt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "944"
+  },
+  {
+    "Id": "945",
+    "PSName": "Vikavolt-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "945"
+  },
+  {
+    "Id": "946",
+    "PSName": "Crabrawler",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "338",
+    "PokemonId": "946"
+  },
+  {
+    "Id": "947",
+    "PSName": "Crabominable",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "478",
+    "PokemonId": "947"
+  },
+  {
+    "Id": "948",
+    "PSName": "Oricorio",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "948"
+  },
+  {
+    "Id": "949",
+    "PSName": "Oricorio-Pom-Pom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "949"
+  },
+  {
+    "Id": "950",
+    "PSName": "Oricorio-Pa'u",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "950"
+  },
+  {
+    "Id": "951",
+    "PSName": "Oricorio-Sensu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "951"
+  },
+  {
+    "Id": "952",
+    "PSName": "Cutiefly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "304",
+    "PokemonId": "952"
+  },
+  {
+    "Id": "953",
+    "PSName": "Ribombee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "464",
+    "PokemonId": "953"
+  },
+  {
+    "Id": "954",
+    "PSName": "Ribombee-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "464",
+    "PokemonId": "954"
+  },
+  {
+    "Id": "955",
+    "PSName": "Rockruff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "955"
+  },
+  {
+    "Id": "956",
+    "PSName": "Lycanroc",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "487",
+    "PokemonId": "956"
+  },
+  {
+    "Id": "957",
+    "PSName": "Lycanroc-Midnight",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "487",
+    "PokemonId": "957"
+  },
+  {
+    "Id": "958",
+    "PSName": "Lycanroc-Dusk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "487",
+    "PokemonId": "958"
+  },
+  {
+    "Id": "959",
+    "PSName": "Wishiwashi",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "175",
+    "PokemonId": "959"
+  },
+  {
+    "Id": "960",
+    "PSName": "Wishiwashi-School",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "620",
+    "PokemonId": "960"
+  },
+  {
+    "Id": "961",
+    "PSName": "Mareanie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "961"
+  },
+  {
+    "Id": "962",
+    "PSName": "Toxapex",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "962"
+  },
+  {
+    "Id": "963",
+    "PSName": "Mudbray",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "385",
+    "PokemonId": "963"
+  },
+  {
+    "Id": "964",
+    "PSName": "Mudsdale",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "964"
+  },
+  {
+    "Id": "965",
+    "PSName": "Dewpider",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "269",
+    "PokemonId": "965"
+  },
+  {
+    "Id": "966",
+    "PSName": "Araquanid",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "454",
+    "PokemonId": "966"
+  },
+  {
+    "Id": "967",
+    "PSName": "Araquanid-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "454",
+    "PokemonId": "967"
+  },
+  {
+    "Id": "968",
+    "PSName": "Fomantis",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "968"
+  },
+  {
+    "Id": "969",
+    "PSName": "Lurantis",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "969"
+  },
+  {
+    "Id": "970",
+    "PSName": "Lurantis-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "970"
+  },
+  {
+    "Id": "971",
+    "PSName": "Morelull",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "285",
+    "PokemonId": "971"
+  },
+  {
+    "Id": "972",
+    "PSName": "Shiinotic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "405",
+    "PokemonId": "972"
+  },
+  {
+    "Id": "973",
+    "PSName": "Salandit",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "973"
+  },
+  {
+    "Id": "974",
+    "PSName": "Salazzle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "974"
+  },
+  {
+    "Id": "975",
+    "PSName": "Salazzle-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "975"
+  },
+  {
+    "Id": "976",
+    "PSName": "Stufful",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "976"
+  },
+  {
+    "Id": "977",
+    "PSName": "Bewear",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "977"
+  },
+  {
+    "Id": "978",
+    "PSName": "Bounsweet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "210",
+    "PokemonId": "978"
+  },
+  {
+    "Id": "979",
+    "PSName": "Steenee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "979"
+  },
+  {
+    "Id": "980",
+    "PSName": "Tsareena",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "980"
+  },
+  {
+    "Id": "981",
+    "PSName": "Comfey",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "981"
+  },
+  {
+    "Id": "982",
+    "PSName": "Oranguru",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "982"
+  },
+  {
+    "Id": "983",
+    "PSName": "Passimian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "983"
+  },
+  {
+    "Id": "984",
+    "PSName": "Wimpod",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "230",
+    "PokemonId": "984"
+  },
+  {
+    "Id": "985",
+    "PSName": "Golisopod",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "985"
+  },
+  {
+    "Id": "986",
+    "PSName": "Sandygast",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "986"
+  },
+  {
+    "Id": "987",
+    "PSName": "Palossand",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "987"
+  },
+  {
+    "Id": "988",
+    "PSName": "Pyukumuku",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "988"
+  },
+  {
+    "Id": "989",
+    "PSName": "Type: Null",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "534",
+    "PokemonId": "989"
+  },
+  {
+    "Id": "990",
+    "PSName": "Silvally",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "990"
+  },
+  {
+    "Id": "991",
+    "PSName": "Silvally-Bug",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "991"
+  },
+  {
+    "Id": "992",
+    "PSName": "Silvally-Dark",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "992"
+  },
+  {
+    "Id": "993",
+    "PSName": "Silvally-Dragon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "993"
+  },
+  {
+    "Id": "994",
+    "PSName": "Silvally-Electric",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "994"
+  },
+  {
+    "Id": "995",
+    "PSName": "Silvally-Fairy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "995"
+  },
+  {
+    "Id": "996",
+    "PSName": "Silvally-Fighting",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "996"
+  },
+  {
+    "Id": "997",
+    "PSName": "Silvally-Fire",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "997"
+  },
+  {
+    "Id": "998",
+    "PSName": "Silvally-Flying",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "998"
+  },
+  {
+    "Id": "999",
+    "PSName": "Silvally-Ghost",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "999"
+  },
+  {
+    "Id": "1000",
+    "PSName": "Silvally-Grass",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1000"
+  },
+  {
+    "Id": "1001",
+    "PSName": "Silvally-Ground",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1001"
+  },
+  {
+    "Id": "1002",
+    "PSName": "Silvally-Ice",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1002"
+  },
+  {
+    "Id": "1003",
+    "PSName": "Silvally-Poison",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1003"
+  },
+  {
+    "Id": "1004",
+    "PSName": "Silvally-Psychic",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1004"
+  },
+  {
+    "Id": "1005",
+    "PSName": "Silvally-Rock",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1005"
+  },
+  {
+    "Id": "1006",
+    "PSName": "Silvally-Steel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1006"
+  },
+  {
+    "Id": "1007",
+    "PSName": "Silvally-Water",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1007"
+  },
+  {
+    "Id": "1008",
+    "PSName": "Minior",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1008"
+  },
+  {
+    "Id": "1009",
+    "PSName": "Minior-Meteor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "1009"
+  },
+  {
+    "Id": "1010",
+    "PSName": "Komala",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "1010"
+  },
+  {
+    "Id": "1011",
+    "PSName": "Turtonator",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1011"
+  },
+  {
+    "Id": "1012",
+    "PSName": "Togedemaru",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "435",
+    "PokemonId": "1012"
+  },
+  {
+    "Id": "1013",
+    "PSName": "Togedemaru-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "435",
+    "PokemonId": "1013"
+  },
+  {
+    "Id": "1014",
+    "PSName": "Mimikyu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "1014"
+  },
+  {
+    "Id": "1015",
+    "PSName": "Mimikyu-Busted",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "1015"
+  },
+  {
+    "Id": "1016",
+    "PSName": "Mimikyu-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "1016"
+  },
+  {
+    "Id": "1017",
+    "PSName": "Mimikyu-Busted-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "476",
+    "PokemonId": "1017"
+  },
+  {
+    "Id": "1018",
+    "PSName": "Bruxish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1018"
+  },
+  {
+    "Id": "1019",
+    "PSName": "Drampa",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1019"
+  },
+  {
+    "Id": "1020",
+    "PSName": "Dhelmise",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "517",
+    "PokemonId": "1020"
+  },
+  {
+    "Id": "1021",
+    "PSName": "Jangmo-o",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "1021"
+  },
+  {
+    "Id": "1022",
+    "PSName": "Hakamo-o",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "1022"
+  },
+  {
+    "Id": "1023",
+    "PSName": "Kommo-o",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1023"
+  },
+  {
+    "Id": "1024",
+    "PSName": "Kommo-o-Totem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1024"
+  },
+  {
+    "Id": "1025",
+    "PSName": "Tapu Koko",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1025"
+  },
+  {
+    "Id": "1026",
+    "PSName": "Tapu Lele",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1026"
+  },
+  {
+    "Id": "1027",
+    "PSName": "Tapu Bulu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1027"
+  },
+  {
+    "Id": "1028",
+    "PSName": "Tapu Fini",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1028"
+  },
+  {
+    "Id": "1029",
+    "PSName": "Cosmog",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "200",
+    "PokemonId": "1029"
+  },
+  {
+    "Id": "1030",
+    "PSName": "Cosmoem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "400",
+    "PokemonId": "1030"
+  },
+  {
+    "Id": "1031",
+    "PSName": "Solgaleo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "1031"
+  },
+  {
+    "Id": "1032",
+    "PSName": "Lunala",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "1032"
+  },
+  {
+    "Id": "1033",
+    "PSName": "Nihilego",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1033"
+  },
+  {
+    "Id": "1034",
+    "PSName": "Buzzwole",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1034"
+  },
+  {
+    "Id": "1035",
+    "PSName": "Pheromosa",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1035"
+  },
+  {
+    "Id": "1036",
+    "PSName": "Xurkitree",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1036"
+  },
+  {
+    "Id": "1037",
+    "PSName": "Celesteela",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1037"
+  },
+  {
+    "Id": "1038",
+    "PSName": "Kartana",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1038"
+  },
+  {
+    "Id": "1039",
+    "PSName": "Guzzlord",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1039"
+  },
+  {
+    "Id": "1040",
+    "PSName": "Necrozma",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1040"
+  },
+  {
+    "Id": "1041",
+    "PSName": "Necrozma-Dusk-Mane",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "1041"
+  },
+  {
+    "Id": "1042",
+    "PSName": "Necrozma-Dawn-Wings",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "1042"
+  },
+  {
+    "Id": "1043",
+    "PSName": "Necrozma-Ultra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "754",
+    "PokemonId": "1043"
+  },
+  {
+    "Id": "1044",
+    "PSName": "Magearna",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1044"
+  },
+  {
+    "Id": "1045",
+    "PSName": "Magearna-Original",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1045"
+  },
+  {
+    "Id": "1046",
+    "PSName": "Marshadow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1046"
+  },
+  {
+    "Id": "1047",
+    "PSName": "Poipole",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "1047"
+  },
+  {
+    "Id": "1048",
+    "PSName": "Naganadel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "540",
+    "PokemonId": "1048"
+  },
+  {
+    "Id": "1049",
+    "PSName": "Stakataka",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1049"
+  },
+  {
+    "Id": "1050",
+    "PSName": "Blacephalon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1050"
+  },
+  {
+    "Id": "1051",
+    "PSName": "Zeraora",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1051"
+  },
+  {
+    "Id": "1052",
+    "PSName": "Meltan",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "1052"
+  },
+  {
+    "Id": "1053",
+    "PSName": "Melmetal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1053"
+  },
+  {
+    "Id": "1054",
+    "PSName": "Melmetal-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1054"
+  },
+  {
+    "Id": "1055",
+    "PSName": "Grookey",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "1055"
+  },
+  {
+    "Id": "1056",
+    "PSName": "Thwackey",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "1056"
+  },
+  {
+    "Id": "1057",
+    "PSName": "Rillaboom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1057"
+  },
+  {
+    "Id": "1058",
+    "PSName": "Rillaboom-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1058"
+  },
+  {
+    "Id": "1059",
+    "PSName": "Scorbunny",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "1059"
+  },
+  {
+    "Id": "1060",
+    "PSName": "Raboot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "1060"
+  },
+  {
+    "Id": "1061",
+    "PSName": "Cinderace",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1061"
+  },
+  {
+    "Id": "1062",
+    "PSName": "Cinderace-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1062"
+  },
+  {
+    "Id": "1063",
+    "PSName": "Sobble",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "1063"
+  },
+  {
+    "Id": "1064",
+    "PSName": "Drizzile",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "420",
+    "PokemonId": "1064"
+  },
+  {
+    "Id": "1065",
+    "PSName": "Inteleon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1065"
+  },
+  {
+    "Id": "1066",
+    "PSName": "Inteleon-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1066"
+  },
+  {
+    "Id": "1067",
+    "PSName": "Skwovet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "275",
+    "PokemonId": "1067"
+  },
+  {
+    "Id": "1068",
+    "PSName": "Greedent",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "1068"
+  },
+  {
+    "Id": "1069",
+    "PSName": "Rookidee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "245",
+    "PokemonId": "1069"
+  },
+  {
+    "Id": "1070",
+    "PSName": "Corvisquire",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "365",
+    "PokemonId": "1070"
+  },
+  {
+    "Id": "1071",
+    "PSName": "Corviknight",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "1071"
+  },
+  {
+    "Id": "1072",
+    "PSName": "Corviknight-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "1072"
+  },
+  {
+    "Id": "1073",
+    "PSName": "Blipbug",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "180",
+    "PokemonId": "1073"
+  },
+  {
+    "Id": "1074",
+    "PSName": "Dottler",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "1074"
+  },
+  {
+    "Id": "1075",
+    "PSName": "Orbeetle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "1075"
+  },
+  {
+    "Id": "1076",
+    "PSName": "Orbeetle-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "1076"
+  },
+  {
+    "Id": "1077",
+    "PSName": "Nickit",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "245",
+    "PokemonId": "1077"
+  },
+  {
+    "Id": "1078",
+    "PSName": "Thievul",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "455",
+    "PokemonId": "1078"
+  },
+  {
+    "Id": "1079",
+    "PSName": "Gossifleur",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "250",
+    "PokemonId": "1079"
+  },
+  {
+    "Id": "1080",
+    "PSName": "Eldegoss",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "460",
+    "PokemonId": "1080"
+  },
+  {
+    "Id": "1081",
+    "PSName": "Wooloo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "1081"
+  },
+  {
+    "Id": "1082",
+    "PSName": "Dubwool",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "1082"
+  },
+  {
+    "Id": "1083",
+    "PSName": "Chewtle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "284",
+    "PokemonId": "1083"
+  },
+  {
+    "Id": "1084",
+    "PSName": "Drednaw",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1084"
+  },
+  {
+    "Id": "1085",
+    "PSName": "Drednaw-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1085"
+  },
+  {
+    "Id": "1086",
+    "PSName": "Yamper",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "1086"
+  },
+  {
+    "Id": "1087",
+    "PSName": "Boltund",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "1087"
+  },
+  {
+    "Id": "1088",
+    "PSName": "Rolycoly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "240",
+    "PokemonId": "1088"
+  },
+  {
+    "Id": "1089",
+    "PSName": "Carkol",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "1089"
+  },
+  {
+    "Id": "1090",
+    "PSName": "Coalossal",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1090"
+  },
+  {
+    "Id": "1091",
+    "PSName": "Coalossal-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1091"
+  },
+  {
+    "Id": "1092",
+    "PSName": "Applin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "260",
+    "PokemonId": "1092"
+  },
+  {
+    "Id": "1093",
+    "PSName": "Flapple",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1093"
+  },
+  {
+    "Id": "1094",
+    "PSName": "Flapple-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1094"
+  },
+  {
+    "Id": "1095",
+    "PSName": "Appletun",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1095"
+  },
+  {
+    "Id": "1096",
+    "PSName": "Appletun-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1096"
+  },
+  {
+    "Id": "1097",
+    "PSName": "Silicobra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "315",
+    "PokemonId": "1097"
+  },
+  {
+    "Id": "1098",
+    "PSName": "Sandaconda",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1098"
+  },
+  {
+    "Id": "1099",
+    "PSName": "Sandaconda-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1099"
+  },
+  {
+    "Id": "1100",
+    "PSName": "Cramorant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1100"
+  },
+  {
+    "Id": "1101",
+    "PSName": "Cramorant-Gulping",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1101"
+  },
+  {
+    "Id": "1102",
+    "PSName": "Cramorant-Gorging",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1102"
+  },
+  {
+    "Id": "1103",
+    "PSName": "Arrokuda",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "1103"
+  },
+  {
+    "Id": "1104",
+    "PSName": "Barraskewda",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "1104"
+  },
+  {
+    "Id": "1105",
+    "PSName": "Toxel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "242",
+    "PokemonId": "1105"
+  },
+  {
+    "Id": "1106",
+    "PSName": "Toxtricity",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "502",
+    "PokemonId": "1106"
+  },
+  {
+    "Id": "1107",
+    "PSName": "Toxtricity-Low-Key",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "502",
+    "PokemonId": "1107"
+  },
+  {
+    "Id": "1108",
+    "PSName": "Toxtricity-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "502",
+    "PokemonId": "1108"
+  },
+  {
+    "Id": "1109",
+    "PSName": "Toxtricity-Low-Key-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "502",
+    "PokemonId": "1109"
+  },
+  {
+    "Id": "1110",
+    "PSName": "Sizzlipede",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "1110"
+  },
+  {
+    "Id": "1111",
+    "PSName": "Centiskorch",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "1111"
+  },
+  {
+    "Id": "1112",
+    "PSName": "Centiskorch-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "1112"
+  },
+  {
+    "Id": "1113",
+    "PSName": "Clobbopus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "1113"
+  },
+  {
+    "Id": "1114",
+    "PSName": "Grapploct",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "1114"
+  },
+  {
+    "Id": "1115",
+    "PSName": "Sinistea",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "308",
+    "PokemonId": "1115"
+  },
+  {
+    "Id": "1116",
+    "PSName": "Sinistea-Antique",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "308",
+    "PokemonId": "1116"
+  },
+  {
+    "Id": "1117",
+    "PSName": "Polteageist",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "508",
+    "PokemonId": "1117"
+  },
+  {
+    "Id": "1118",
+    "PSName": "Polteageist-Antique",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "508",
+    "PokemonId": "1118"
+  },
+  {
+    "Id": "1119",
+    "PSName": "Hatenna",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "265",
+    "PokemonId": "1119"
+  },
+  {
+    "Id": "1120",
+    "PSName": "Hattrem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "370",
+    "PokemonId": "1120"
+  },
+  {
+    "Id": "1121",
+    "PSName": "Hatterene",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1121"
+  },
+  {
+    "Id": "1122",
+    "PSName": "Hatterene-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1122"
+  },
+  {
+    "Id": "1123",
+    "PSName": "Impidimp",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "265",
+    "PokemonId": "1123"
+  },
+  {
+    "Id": "1124",
+    "PSName": "Morgrem",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "370",
+    "PokemonId": "1124"
+  },
+  {
+    "Id": "1125",
+    "PSName": "Grimmsnarl",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1125"
+  },
+  {
+    "Id": "1126",
+    "PSName": "Grimmsnarl-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1126"
+  },
+  {
+    "Id": "1127",
+    "PSName": "Obstagoon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "1127"
+  },
+  {
+    "Id": "1128",
+    "PSName": "Perrserker",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "440",
+    "PokemonId": "1128"
+  },
+  {
+    "Id": "1129",
+    "PSName": "Cursola",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1129"
+  },
+  {
+    "Id": "1130",
+    "PSName": "Sirfetch’d",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "507",
+    "PokemonId": "1130"
+  },
+  {
+    "Id": "1131",
+    "PSName": "Mr. Rime",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "1131"
+  },
+  {
+    "Id": "1132",
+    "PSName": "Runerigus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "483",
+    "PokemonId": "1132"
+  },
+  {
+    "Id": "1133",
+    "PSName": "Milcery",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "1133"
+  },
+  {
+    "Id": "1134",
+    "PSName": "Alcremie",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "1134"
+  },
+  {
+    "Id": "1135",
+    "PSName": "Alcremie-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "1135"
+  },
+  {
+    "Id": "1136",
+    "PSName": "Falinks",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "1136"
+  },
+  {
+    "Id": "1137",
+    "PSName": "Pincurchin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "435",
+    "PokemonId": "1137"
+  },
+  {
+    "Id": "1138",
+    "PSName": "Snom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "185",
+    "PokemonId": "1138"
+  },
+  {
+    "Id": "1139",
+    "PSName": "Frosmoth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1139"
+  },
+  {
+    "Id": "1140",
+    "PSName": "Stonjourner",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "1140"
+  },
+  {
+    "Id": "1141",
+    "PSName": "Eiscue",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "1141"
+  },
+  {
+    "Id": "1142",
+    "PSName": "Eiscue-Noice",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "1142"
+  },
+  {
+    "Id": "1143",
+    "PSName": "Indeedee",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1143"
+  },
+  {
+    "Id": "1144",
+    "PSName": "Indeedee-F",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1144"
+  },
+  {
+    "Id": "1145",
+    "PSName": "Morpeko",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "436",
+    "PokemonId": "1145"
+  },
+  {
+    "Id": "1146",
+    "PSName": "Morpeko-Hangry",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "436",
+    "PokemonId": "1146"
+  },
+  {
+    "Id": "1147",
+    "PSName": "Cufant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "330",
+    "PokemonId": "1147"
+  },
+  {
+    "Id": "1148",
+    "PSName": "Copperajah",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1148"
+  },
+  {
+    "Id": "1149",
+    "PSName": "Copperajah-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1149"
+  },
+  {
+    "Id": "1150",
+    "PSName": "Dracozolt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "1150"
+  },
+  {
+    "Id": "1151",
+    "PSName": "Arctozolt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "1151"
+  },
+  {
+    "Id": "1152",
+    "PSName": "Dracovish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "1152"
+  },
+  {
+    "Id": "1153",
+    "PSName": "Arctovish",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "1153"
+  },
+  {
+    "Id": "1154",
+    "PSName": "Duraludon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "1154"
+  },
+  {
+    "Id": "1155",
+    "PSName": "Duraludon-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "1155"
+  },
+  {
+    "Id": "1156",
+    "PSName": "Dreepy",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "1156"
+  },
+  {
+    "Id": "1157",
+    "PSName": "Drakloak",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "1157"
+  },
+  {
+    "Id": "1158",
+    "PSName": "Dragapult",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1158"
+  },
+  {
+    "Id": "1159",
+    "PSName": "Zacian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "660",
+    "PokemonId": "1159"
+  },
+  {
+    "Id": "1160",
+    "PSName": "Zacian-Crowned",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "1160"
+  },
+  {
+    "Id": "1161",
+    "PSName": "Zamazenta",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "660",
+    "PokemonId": "1161"
+  },
+  {
+    "Id": "1162",
+    "PSName": "Zamazenta-Crowned",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "700",
+    "PokemonId": "1162"
+  },
+  {
+    "Id": "1163",
+    "PSName": "Eternatus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "690",
+    "PokemonId": "1163"
+  },
+  {
+    "Id": "1164",
+    "PSName": "Eternatus-Eternamax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "1125",
+    "PokemonId": "1164"
+  },
+  {
+    "Id": "1165",
+    "PSName": "Kubfu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "385",
+    "PokemonId": "1165"
+  },
+  {
+    "Id": "1166",
+    "PSName": "Urshifu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "1166"
+  },
+  {
+    "Id": "1167",
+    "PSName": "Urshifu-Rapid-Strike",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "1167"
+  },
+  {
+    "Id": "1168",
+    "PSName": "Urshifu-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "1168"
+  },
+  {
+    "Id": "1169",
+    "PSName": "Urshifu-Rapid-Strike-Gmax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "1169"
+  },
+  {
+    "Id": "1170",
+    "PSName": "Zarude",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1170"
+  },
+  {
+    "Id": "1171",
+    "PSName": "Zarude-Dada",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1171"
+  },
+  {
+    "Id": "1172",
+    "PSName": "Regieleki",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "1172"
+  },
+  {
+    "Id": "1173",
+    "PSName": "Regidrago",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "1173"
+  },
+  {
+    "Id": "1174",
+    "PSName": "Glastrier",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "1174"
+  },
+  {
+    "Id": "1175",
+    "PSName": "Spectrier",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "1175"
+  },
+  {
+    "Id": "1176",
+    "PSName": "Calyrex",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1176"
+  },
+  {
+    "Id": "1177",
+    "PSName": "Calyrex-Ice",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "1177"
+  },
+  {
+    "Id": "1178",
+    "PSName": "Calyrex-Shadow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "680",
+    "PokemonId": "1178"
+  },
+  {
+    "Id": "1179",
+    "PSName": "Wyrdeer",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "1179"
+  },
+  {
+    "Id": "1180",
+    "PSName": "Kleavor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1180"
+  },
+  {
+    "Id": "1181",
+    "PSName": "Ursaluna",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "1181"
+  },
+  {
+    "Id": "1182",
+    "PSName": "Basculegion",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1182"
+  },
+  {
+    "Id": "1183",
+    "PSName": "Basculegion-F",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1183"
+  },
+  {
+    "Id": "1184",
+    "PSName": "Sneasler",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1184"
+  },
+  {
+    "Id": "1185",
+    "PSName": "Overqwil",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1185"
+  },
+  {
+    "Id": "1186",
+    "PSName": "Enamorus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "1186"
+  },
+  {
+    "Id": "1187",
+    "PSName": "Enamorus-Therian",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "580",
+    "PokemonId": "1187"
+  },
+  {
+    "Id": "1188",
+    "PSName": "Sprigatito",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "1188"
+  },
+  {
+    "Id": "1189",
+    "PSName": "Floragato",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "1189"
+  },
+  {
+    "Id": "1190",
+    "PSName": "Meowscarada",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1190"
+  },
+  {
+    "Id": "1191",
+    "PSName": "Fuecoco",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "1191"
+  },
+  {
+    "Id": "1192",
+    "PSName": "Crocalor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "411",
+    "PokemonId": "1192"
+  },
+  {
+    "Id": "1193",
+    "PSName": "Skeledirge",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1193"
+  },
+  {
+    "Id": "1194",
+    "PSName": "Quaxly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "310",
+    "PokemonId": "1194"
+  },
+  {
+    "Id": "1195",
+    "PSName": "Quaxwell",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "410",
+    "PokemonId": "1195"
+  },
+  {
+    "Id": "1196",
+    "PSName": "Quaquaval",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1196"
+  },
+  {
+    "Id": "1197",
+    "PSName": "Lechonk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "254",
+    "PokemonId": "1197"
+  },
+  {
+    "Id": "1198",
+    "PSName": "Oinkologne",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "489",
+    "PokemonId": "1198"
+  },
+  {
+    "Id": "1199",
+    "PSName": "Oinkologne-F",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "489",
+    "PokemonId": "1199"
+  },
+  {
+    "Id": "1200",
+    "PSName": "Tarountula",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "210",
+    "PokemonId": "1200"
+  },
+  {
+    "Id": "1201",
+    "PSName": "Spidops",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "404",
+    "PokemonId": "1201"
+  },
+  {
+    "Id": "1202",
+    "PSName": "Nymble",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "210",
+    "PokemonId": "1202"
+  },
+  {
+    "Id": "1203",
+    "PSName": "Lokix",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "1203"
+  },
+  {
+    "Id": "1204",
+    "PSName": "Pawmi",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "240",
+    "PokemonId": "1204"
+  },
+  {
+    "Id": "1205",
+    "PSName": "Pawmo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "1205"
+  },
+  {
+    "Id": "1206",
+    "PSName": "Pawmot",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "1206"
+  },
+  {
+    "Id": "1207",
+    "PSName": "Tandemaus",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "305",
+    "PokemonId": "1207"
+  },
+  {
+    "Id": "1208",
+    "PSName": "Maushold",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "1208"
+  },
+  {
+    "Id": "1209",
+    "PSName": "Maushold-Four",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "1209"
+  },
+  {
+    "Id": "1210",
+    "PSName": "Fidough",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "312",
+    "PokemonId": "1210"
+  },
+  {
+    "Id": "1211",
+    "PSName": "Dachsbun",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "477",
+    "PokemonId": "1211"
+  },
+  {
+    "Id": "1212",
+    "PSName": "Smoliv",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "260",
+    "PokemonId": "1212"
+  },
+  {
+    "Id": "1213",
+    "PSName": "Dolliv",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "354",
+    "PokemonId": "1213"
+  },
+  {
+    "Id": "1214",
+    "PSName": "Arboliva",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "510",
+    "PokemonId": "1214"
+  },
+  {
+    "Id": "1215",
+    "PSName": "Squawkabilly",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "417",
+    "PokemonId": "1215"
+  },
+  {
+    "Id": "1216",
+    "PSName": "Squawkabilly-Blue",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "417",
+    "PokemonId": "1216"
+  },
+  {
+    "Id": "1217",
+    "PSName": "Squawkabilly-Yellow",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "417",
+    "PokemonId": "1217"
+  },
+  {
+    "Id": "1218",
+    "PSName": "Squawkabilly-White",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "417",
+    "PokemonId": "1218"
+  },
+  {
+    "Id": "1219",
+    "PSName": "Nacli",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "1219"
+  },
+  {
+    "Id": "1220",
+    "PSName": "Naclstack",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "355",
+    "PokemonId": "1220"
+  },
+  {
+    "Id": "1221",
+    "PSName": "Garganacl",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1221"
+  },
+  {
+    "Id": "1222",
+    "PSName": "Charcadet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "255",
+    "PokemonId": "1222"
+  },
+  {
+    "Id": "1223",
+    "PSName": "Armarouge",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "1223"
+  },
+  {
+    "Id": "1224",
+    "PSName": "Ceruledge",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "1224"
+  },
+  {
+    "Id": "1225",
+    "PSName": "Tadbulb",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "272",
+    "PokemonId": "1225"
+  },
+  {
+    "Id": "1226",
+    "PSName": "Bellibolt",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "495",
+    "PokemonId": "1226"
+  },
+  {
+    "Id": "1227",
+    "PSName": "Wattrel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "280",
+    "PokemonId": "1227"
+  },
+  {
+    "Id": "1228",
+    "PSName": "Kilowattrel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "490",
+    "PokemonId": "1228"
+  },
+  {
+    "Id": "1229",
+    "PSName": "Maschiff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "340",
+    "PokemonId": "1229"
+  },
+  {
+    "Id": "1230",
+    "PSName": "Mabosstiff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "505",
+    "PokemonId": "1230"
+  },
+  {
+    "Id": "1231",
+    "PSName": "Shroodle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "1231"
+  },
+  {
+    "Id": "1232",
+    "PSName": "Grafaiai",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1232"
+  },
+  {
+    "Id": "1233",
+    "PSName": "Bramblin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "275",
+    "PokemonId": "1233"
+  },
+  {
+    "Id": "1234",
+    "PSName": "Brambleghast",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "1234"
+  },
+  {
+    "Id": "1235",
+    "PSName": "Toedscool",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "335",
+    "PokemonId": "1235"
+  },
+  {
+    "Id": "1236",
+    "PSName": "Toedscruel",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "515",
+    "PokemonId": "1236"
+  },
+  {
+    "Id": "1237",
+    "PSName": "Klawf",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "450",
+    "PokemonId": "1237"
+  },
+  {
+    "Id": "1238",
+    "PSName": "Capsakid",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "306",
+    "PokemonId": "1238"
+  },
+  {
+    "Id": "1239",
+    "PSName": "Scovillain",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "486",
+    "PokemonId": "1239"
+  },
+  {
+    "Id": "1240",
+    "PSName": "Rellor",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "270",
+    "PokemonId": "1240"
+  },
+  {
+    "Id": "1241",
+    "PSName": "Rabsca",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "470",
+    "PokemonId": "1241"
+  },
+  {
+    "Id": "1242",
+    "PSName": "Flittle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "265",
+    "PokemonId": "1242"
+  },
+  {
+    "Id": "1243",
+    "PSName": "Espathra",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "481",
+    "PokemonId": "1243"
+  },
+  {
+    "Id": "1244",
+    "PSName": "Tinkatink",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "297",
+    "PokemonId": "1244"
+  },
+  {
+    "Id": "1245",
+    "PSName": "Tinkatuff",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "380",
+    "PokemonId": "1245"
+  },
+  {
+    "Id": "1246",
+    "PSName": "Tinkaton",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "506",
+    "PokemonId": "1246"
+  },
+  {
+    "Id": "1247",
+    "PSName": "Wiglett",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "245",
+    "PokemonId": "1247"
+  },
+  {
+    "Id": "1248",
+    "PSName": "Wugtrio",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "425",
+    "PokemonId": "1248"
+  },
+  {
+    "Id": "1249",
+    "PSName": "Bombirdier",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "485",
+    "PokemonId": "1249"
+  },
+  {
+    "Id": "1250",
+    "PSName": "Finizen",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "315",
+    "PokemonId": "1250"
+  },
+  {
+    "Id": "1251",
+    "PSName": "Palafin",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "457",
+    "PokemonId": "1251"
+  },
+  {
+    "Id": "1252",
+    "PSName": "Palafin-Hero",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "650",
+    "PokemonId": "1252"
+  },
+  {
+    "Id": "1253",
+    "PSName": "Varoom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "1253"
+  },
+  {
+    "Id": "1254",
+    "PSName": "Revavroom",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1254"
+  },
+  {
+    "Id": "1255",
+    "PSName": "Cyclizar",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "501",
+    "PokemonId": "1255"
+  },
+  {
+    "Id": "1256",
+    "PSName": "Orthworm",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "480",
+    "PokemonId": "1256"
+  },
+  {
+    "Id": "1257",
+    "PSName": "Glimmet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "350",
+    "PokemonId": "1257"
+  },
+  {
+    "Id": "1258",
+    "PSName": "Glimmora",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "525",
+    "PokemonId": "1258"
+  },
+  {
+    "Id": "1259",
+    "PSName": "Greavard",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "290",
+    "PokemonId": "1259"
+  },
+  {
+    "Id": "1260",
+    "PSName": "Houndstone",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "488",
+    "PokemonId": "1260"
+  },
+  {
+    "Id": "1261",
+    "PSName": "Flamigo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "500",
+    "PokemonId": "1261"
+  },
+  {
+    "Id": "1262",
+    "PSName": "Cetoddle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "334",
+    "PokemonId": "1262"
+  },
+  {
+    "Id": "1263",
+    "PSName": "Cetitan",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "521",
+    "PokemonId": "1263"
+  },
+  {
+    "Id": "1264",
+    "PSName": "Veluza",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "478",
+    "PokemonId": "1264"
+  },
+  {
+    "Id": "1265",
+    "PSName": "Dondozo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "530",
+    "PokemonId": "1265"
+  },
+  {
+    "Id": "1266",
+    "PSName": "Tatsugiri",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "475",
+    "PokemonId": "1266"
+  },
+  {
+    "Id": "1267",
+    "PSName": "Annihilape",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "535",
+    "PokemonId": "1267"
+  },
+  {
+    "Id": "1268",
+    "PSName": "Clodsire",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "430",
+    "PokemonId": "1268"
+  },
+  {
+    "Id": "1269",
+    "PSName": "Farigiraf",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "1269"
+  },
+  {
+    "Id": "1270",
+    "PSName": "Dudunsparce",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "1270"
+  },
+  {
+    "Id": "1271",
+    "PSName": "Dudunsparce-Three-Segment",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "520",
+    "PokemonId": "1271"
+  },
+  {
+    "Id": "1272",
+    "PSName": "Kingambit",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "1272"
+  },
+  {
+    "Id": "1273",
+    "PSName": "Great Tusk",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1273"
+  },
+  {
+    "Id": "1274",
+    "PSName": "Scream Tail",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1274"
+  },
+  {
+    "Id": "1275",
+    "PSName": "Brute Bonnet",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1275"
+  },
+  {
+    "Id": "1276",
+    "PSName": "Flutter Mane",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1276"
+  },
+  {
+    "Id": "1277",
+    "PSName": "Slither Wing",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1277"
+  },
+  {
+    "Id": "1278",
+    "PSName": "Sandy Shocks",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1278"
+  },
+  {
+    "Id": "1279",
+    "PSName": "Iron Treads",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1279"
+  },
+  {
+    "Id": "1280",
+    "PSName": "Iron Bundle",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1280"
+  },
+  {
+    "Id": "1281",
+    "PSName": "Iron Hands",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1281"
+  },
+  {
+    "Id": "1282",
+    "PSName": "Iron Jugulis",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1282"
+  },
+  {
+    "Id": "1283",
+    "PSName": "Iron Moth",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1283"
+  },
+  {
+    "Id": "1284",
+    "PSName": "Iron Thorns",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1284"
+  },
+  {
+    "Id": "1285",
+    "PSName": "Frigibax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "320",
+    "PokemonId": "1285"
+  },
+  {
+    "Id": "1286",
+    "PSName": "Arctibax",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "423",
+    "PokemonId": "1286"
+  },
+  {
+    "Id": "1287",
+    "PSName": "Baxcalibur",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "600",
+    "PokemonId": "1287"
+  },
+  {
+    "Id": "1288",
+    "PSName": "Gimmighoul",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "1288"
+  },
+  {
+    "Id": "1289",
+    "PSName": "Gimmighoul-Roaming",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "300",
+    "PokemonId": "1289"
+  },
+  {
+    "Id": "1290",
+    "PSName": "Gholdengo",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "550",
+    "PokemonId": "1290"
+  },
+  {
+    "Id": "1291",
+    "PSName": "Wo-Chien",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1291"
+  },
+  {
+    "Id": "1292",
+    "PSName": "Chien-Pao",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1292"
+  },
+  {
+    "Id": "1293",
+    "PSName": "Ting-Lu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1293"
+  },
+  {
+    "Id": "1294",
+    "PSName": "Chi-Yu",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "570",
+    "PokemonId": "1294"
+  },
+  {
+    "Id": "1295",
+    "PSName": "Roaring Moon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "590",
+    "PokemonId": "1295"
+  },
+  {
+    "Id": "1296",
+    "PSName": "Iron Valiant",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "590",
+    "PokemonId": "1296"
+  },
+  {
+    "Id": "1297",
+    "PSName": "Koraidon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "670",
+    "PokemonId": "1297"
+  },
+  {
+    "Id": "1298",
+    "PSName": "Miraidon",
+    "PSImgName": null,
+    "PSChsName": null,
+    "AllValue": "670",
+    "PokemonId": "1298"
+  }
+]

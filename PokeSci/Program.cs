@@ -6,8 +6,24 @@
 //    Console.WriteLine("CPU temp : " + CPUtprt.ToString() + " °C");
 //}
 using System.Diagnostics;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 using PokeCommon.PokemonShowdownTools;
 using PokePSCore;
+using PSReplayAnalysis;
+
+var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6");
+List<BattleData> batches = new List<BattleData>();
+foreach (var file in files)
+{
+    var test = PSReplayAnalysis.PSReplayAnalysis.ConvFile(file);
+    var cc = Regex.Replace(test, @"\S*?$", "");
+    BattleData a = PSReplayAnalysis.PSReplayAnalysis.Thonk(cc);
+    batches.Add(a);
+
+}
+File.WriteAllText("test.json", JsonSerializer.Serialize(batches));
+return; 
 
 var pc1 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);
 await pc1.ConnectAsync();
