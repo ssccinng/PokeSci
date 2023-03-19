@@ -22,7 +22,11 @@ foreach (var file in files)
     batches.Add(a);
 
 }
-File.WriteAllText("test.json", JsonSerializer.Serialize(batches));
+File.WriteAllText("test.json", JsonSerializer.Serialize(batches, new JsonSerializerOptions
+{
+    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
+    WriteIndented = true
+})); ;
 return; 
 
 var pc1 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);

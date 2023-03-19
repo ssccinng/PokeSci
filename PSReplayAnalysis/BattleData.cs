@@ -1,10 +1,16 @@
-﻿namespace PSReplayAnalysis;
+﻿using System.Text.Json.Serialization;
+
+namespace PSReplayAnalysis;
 
 /// <summary>
 /// 对战数据
 /// </summary>
-public class BattleData
+public struct BattleData
 {
+    public BattleData()
+    {
+        
+    }
     /// <summary>
     /// 玩家1分数
     /// </summary>
@@ -18,7 +24,8 @@ public class BattleData
     /// <summary>
     /// 每回合数据
     /// </summary>
-    public List<BattleTurn> BattleTurns { get; set; } = new();
+    [JsonInclude]
+    public List<BattleTurn> BattleTurns = new();
 
     /// <summary>
     /// 谁赢了
@@ -33,6 +40,8 @@ public class BattleData
     /// </summary>
     public Team Player2Team { get; set; } = new Team();
     public BattleEndReason BattleEndResult { get; set; }
+    public string Player1Id { get; set; }
+    public string Player2Id { get; set; }
 }
 
 public enum BattleEndReason
@@ -50,17 +59,26 @@ public enum BattleResult
 /// <summary>
 /// 队伍
 /// </summary>
-public class Team
+public struct Team
 {
-    public List<Pokemon> Pokemons { get; set; } = new();
+    public Team()
+    {
+    }
+    [JsonInclude]
+    public List<Pokemon> Pokemons = new();
 }
 
-public class Pokemon
+public record Pokemon
 {
+    public Pokemon()
+    {
+    }
+
     /// <summary>
     /// 宝可梦id
     /// </summary>
-    public int Id { get; set; }
+    [JsonInclude]
+    public int Id;
     /// <summary>
     /// 最高为48
     /// </summary>
@@ -73,6 +91,9 @@ public class Pokemon
     /// 已经太晶 （需要修改属性吗？
     /// </summary>
     public int IsTear { get; set; }
-    public int NowPos { get; set; }
+    [JsonInclude]
+    public int NowPos;
+
+
 }
 

@@ -1,10 +1,17 @@
-﻿namespace PSReplayAnalysis;
+﻿using System.Text.Json.Serialization;
+
+namespace PSReplayAnalysis;
 
 /// <summary>
 /// 对战单回合数据
 /// </summary>
-public class BattleTurn
+[Serializable]
+public struct BattleTurn
 {
+    public BattleTurn()
+    {
+    }
+
     /// <summary>
     /// 回合数
     /// </summary>
@@ -14,31 +21,48 @@ public class BattleTurn
     /// 本轮战斗是否结束
     /// </summary>
     public bool BattleEnd { get; set; }
-
+    [JsonInclude]
     /// <summary>
     /// 全体状态
     /// </summary>
-    public BattleField AllField { get; set; } = new();
+    public BattleField AllField = new();
     /// <summary>
     /// 玩家1场地状态
     /// </summary>
-    public OneSideBattleField Side1Field { get; set; } = new();
+    [JsonInclude]
+    public OneSideBattleField Side1Field = new();
     /// <summary>
     /// 玩家2场地状态
     /// </summary>
-    public OneSideBattleField Side2Field { get; set; } = new();
+    [JsonInclude]
+    public OneSideBattleField Side2Field = new();
 
     public List<PokemonStatus> Side1Pokes { get; set; } = new();
     public List<PokemonStatus> Side2Pokes { get; set; } = new();
+    [JsonInclude]
+
+    public Team Player1Team = new Team();
+    /// <summary>
+    /// 玩家2队伍
+    /// </summary>
+    [JsonInclude]
+    public Team Player2Team = new Team();
 
 
     public BattleTurn NextTurn()
     {
-        BattleTurn next = new();
+        BattleTurn next = this;
         next.TurnId++;
+        next.AllField.NextTurn();
+        next.Player1Team.Pokemons = Player1Team.Pokemons.Select(s => s with { }).ToList();
+        next.Player2Team.Pokemons = Player2Team.Pokemons.Select(s => s with { }).ToList();
+        // 切换 状态就需要清空
 
-
-
+        //next.Player1Team.Pokemons[0].HPRemain--;
+        next.Side1Pokes = Side1Pokes.ToList();
+        next.Side2Pokes = Side2Pokes.ToList();
+        //BattleField AllField1 = new();
+        //AllField1.UproarRemain = 1;
         return next;
     }
 
@@ -50,7 +74,7 @@ public class BattleEvent
 }
 // 技能选择失败后 还需要再选 
 // 要考虑pp变化
-public class PokemonStatus
+public struct PokemonStatus
 {
     #region  能力变化
 
@@ -351,7 +375,7 @@ public class PokemonStatus
 /// <summary>
 /// 单边场地状态 考虑struct
 /// </summary>
-public class OneSideBattleField
+public struct OneSideBattleField
 {
     /// <summary>
     /// 撒钉层数
@@ -440,8 +464,25 @@ public class OneSideBattleField
 /// <summary>
 /// 全体状态变化
 /// </summary>
-public class BattleField
+public struct BattleField
 {
+    public BattleField()
+    {
+    }
+
+    public void NextTurn()
+    {
+        if (TrickRoomRemain > 0) TrickRoomRemain--;
+        if (WonderRoomRemain > 0) WonderRoomRemain--;
+        if (MagicRoomRemain > 0) MagicRoomRemain--;
+        if (GravityRemain > 0) GravityRemain--;
+        if (WeatherRemain > 0) WeatherRemain--;
+        if (TerrainRemain > 0) TerrainRemain--;
+        if (MudSportRemain > 0) MudSportRemain--;
+        if (WaterSportRemain > 0) WaterSportRemain--;
+        if (UproarRemain > 0) UproarRemain--;
+
+    }
     /// <summary>
     /// 戏法还剩几回合
     /// </summary>
@@ -460,17 +501,19 @@ public class BattleField
     /// <summary>
     /// 重力剩余
     /// </summary>
-    public int GravityRemain { get; set; }
+    public int GravityRemain { get; set; } = 1;
 
     /// <summary>
     /// 天气
     /// </summary>
     public Weather Weather { get; set; }
+    public int WeatherRemain { get; set; }
 
     /// <summary>
     /// 场地
     /// </summary>
     public Terrain Terrain { get; set; }
+    public int TerrainRemain { get; set; }
 
     /// <summary>
     /// 玩泥巴
