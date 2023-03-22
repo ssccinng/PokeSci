@@ -93,7 +93,11 @@ public record Pokemon
     public int IsTear { get; set; }
     [JsonInclude]
     public int NowPos;
-
+    /// <summary>
+    /// 默认为一个很垃圾的技能
+    /// </summary>
+    [JsonInclude]
+    public Move[] moves = new Move[4];
 
 }
 
