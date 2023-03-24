@@ -27,6 +27,75 @@ namespace PSReplayAnalysis
             return cc;
 
         }
+
+        public static Pokemon GetPokeById(BattleData battle, int side, int id  )
+        {
+                var lastTurn = battle.BattleTurns.Last();
+            if (side == 1)
+            {
+                return lastTurn.Player1Team.Pokemons.First(s => s.Id == id);
+            }
+            else if (side == 2)
+            {
+                return lastTurn.Player2Team.Pokemons.First(s => s.Id == id );
+
+            }
+            return null;
+        }
+        public static Pokemon GetPoke(BattleData battle, int side, int pos)
+        {
+                var lastTurn = battle.BattleTurns.Last();
+            if (side == 1)
+            {
+                return lastTurn.Player1Team.Pokemons.First(s => s.NowPos == pos);
+            }
+            else if (side == 2)
+            {
+                return lastTurn.Player2Team.Pokemons.First(s => s.NowPos == pos);
+
+            }
+            return null;
+        }
+
+        public static (int side, int pos) GetSidePos(string data)
+        {
+            if (data.StartsWith("p1a"))
+            {
+                return (1, 1);
+                //battle.p
+            }
+            else if (data.StartsWith("p1b"))
+            {
+                return (1, 2);
+            }
+            else if (data.StartsWith("p2a"))
+            {
+                return (2, 1);
+            }
+            else if (data.StartsWith("p2b"))
+            {
+                return (2, 2);
+
+            }
+            return (0, 0);
+        }
+
+        public static int GetPlayer(string data)
+        {
+            if (data.Trim() == "p1")
+            {
+                return 1;
+            }
+            return 2;
+        }
+        public static int GetPlayerByName(BattleData battle, string data)
+        {
+            if (data.Trim() == battle.Player1Id)
+            {
+                return 1;
+            }
+            return 2;
+        }
         /// <summary>
         /// 分析具体文件
         /// </summary>
@@ -42,10 +111,12 @@ namespace PSReplayAnalysis
             var datalines = data.Split('\n');
             foreach (var line in datalines)
             {
+                var lastTurn = battle.BattleTurns.Last();
                 string[] d = line.Split('|');
                 if (d.Length < 2) continue;
                 switch (d[1])
                 {
+                    // move要结算一次
                     case "player":
                         if (d.Length > 5)
                         {
@@ -70,7 +141,7 @@ namespace PSReplayAnalysis
                         if (d[2] == "p1")
                         {
                             // 赋予种族
-                            battle.BattleTurns.Last().Player1Team.Pokemons.Add(new Pokemon
+                            lastTurn.Player1Team.Pokemons.Add(new Pokemon
                             {
                                 Id = pspoke.num
                             });
@@ -78,7 +149,7 @@ namespace PSReplayAnalysis
                         }
                         else
                         {
-                            battle.BattleTurns.Last().Player2Team.Pokemons.Add(new Pokemon
+                            lastTurn.Player2Team.Pokemons.Add(new Pokemon
                             {
                                 Id = pspoke.num
                             }) ;
@@ -86,48 +157,30 @@ namespace PSReplayAnalysis
                         break;
                     case "turn":
                         // next turn
-                        battle.BattleTurns.Add(battle.BattleTurns.Last().NextTurn());
+                        battle.BattleTurns.Add(lastTurn.NextTurn());
                         break;
                     case "switch":
                         // 切换
                         var switchName = d[3].Split(',')[0];
                         var swpoke = PokeToId(switchName);
-
-                        if (d[2].StartsWith("p1a"))
+                        var swdata = GetSidePos(d[2][..3]);
+                        if (swdata.side == 1)
                         {
-                            if (battle.BattleTurns.Last().Player1Team.Pokemons.Any(s => s.NowPos == 1))
+                            if (lastTurn.Player1Team.Pokemons.Any(s => s.NowPos == swdata.pos))
                             {
-                                battle.BattleTurns.Last().Player1Team.Pokemons.First(s => s.NowPos == 1).NowPos = -1;
+                                lastTurn.Player1Team.Pokemons.First(s => s.NowPos == 1).NowPos = -1;
                             }
-                            battle.BattleTurns.Last().Player1Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = 1;
-                            //battle.p
+                            lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = swdata.pos;
                         }
-                        else if (d[2].StartsWith("p1b"))
+                        else
                         {
-                            if (battle.BattleTurns.Last().Player1Team.Pokemons.Any(s => s.NowPos == 2))
+                            if (lastTurn.Player2Team.Pokemons.Any(s => s.NowPos == swdata.pos))
                             {
-                                battle.BattleTurns.Last().Player1Team.Pokemons.First(s => s.NowPos == 2).NowPos = -1;
+                                lastTurn.Player2Team.Pokemons.First(s => s.NowPos == 1).NowPos = -1;
                             }
-                            battle.BattleTurns.Last().Player1Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = 2;
-                        } 
-                        else if (d[2].StartsWith("p2a"))
-                        {
-                            if (battle.BattleTurns.Last().Player2Team.Pokemons.Any(s => s.NowPos == 1))
-                            {
-                                battle.BattleTurns.Last().Player2Team.Pokemons.First(s => s.NowPos == 1).NowPos = -1;
-                            }
-                            battle.BattleTurns.Last().Player2Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = 1;
-                        } 
-                        else if (d[2].StartsWith("p2b"))
-                        {
-                            if (battle.BattleTurns.Last().Player2Team.Pokemons.Any(s => s.NowPos == 2))
-                            {
-                                var idx = battle.BattleTurns.Last().Player2Team.Pokemons.FindIndex(s => s.NowPos == 2);
-                                battle.BattleTurns.Last().Player2Team
-                                    .Pokemons[idx].NowPos = -1;
-                            }
-                            battle.BattleTurns.Last().Player2Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = 2;
+                            lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = swdata.pos;
                         }
+                        
                         break;
                     case "detailschange":
                         // 状态改变
@@ -137,6 +190,23 @@ namespace PSReplayAnalysis
                         break;
 
                     case "-singleturn":
+                        // 单回合状态Rage Powder
+                        var stStageSide = GetSidePos(d[2]);
+                        var stStage = d[3].Split(":").Last().Trim();
+                        var stProp = typeof(PokemonStatus).GetProperty(stStage);
+                        if (stProp == null) {
+                            Console.WriteLine($"stStage: {stStage}为null");
+                            continue;
+                        }
+                        if (stStageSide.side == 1)
+                        {
+                            stProp.SetValue(lastTurn.Side1Pokes[stStageSide.pos], 1, null);
+                        }
+                        else if (stStageSide.side == 2)
+                        {
+                            stProp.SetValue(lastTurn.Side2Pokes[stStageSide.pos], 1, null);
+
+                        }
                         break;
                     case "-damage":
                         var hpr = d[3].Split('/');
@@ -145,21 +215,21 @@ namespace PSReplayAnalysis
                         if (d[2].StartsWith("p1a"))
                         {
 
-                            battle.BattleTurns.Last().Player1Team.Pokemons.First(s => s.NowPos == 1).HPRemain = hpn;
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == 1).HPRemain = hpn;
                         }
                         else if (d[2].StartsWith("p1b"))
                         {
-                            battle.BattleTurns.Last().Player1Team.Pokemons.First(s => s.NowPos == 2).HPRemain = hpn;
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == 2).HPRemain = hpn;
 
                         }
                         else if (d[2].StartsWith("p2a"))
                         {
-                            battle.BattleTurns.Last().Player2Team.Pokemons.First(s => s.NowPos == 1).HPRemain = hpn;
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == 1).HPRemain = hpn;
 
                         }
                         else if (d[2].StartsWith("p2b"))
                         {
-                            battle.BattleTurns.Last().Player2Team.Pokemons.First(s => s.NowPos == 2).HPRemain = hpn;
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == 2).HPRemain = hpn;
 
                         }
                         //受伤
@@ -168,6 +238,7 @@ namespace PSReplayAnalysis
                         // 被击倒
                         break;  
                     case "move":
+                        // 结算一次状态
                         // 使用技能
                         break;
                     case "-heal":
@@ -208,18 +279,19 @@ namespace PSReplayAnalysis
                         // ct
                         break; 
                     case "swap":
+                        // 位置交换
                         if (d[2].StartsWith("p1"))
                         {
-                            var p1 = battle.BattleTurns.Last().Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
-                            var p2 = battle.BattleTurns.Last().Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 2);
+                            var p1 = lastTurn.Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
+                            var p2 = lastTurn.Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 2);
                             if (p1 != null) p1.NowPos = 2;
                             if (p2 != null) p2.NowPos = 1;
 
                         }
                         else if (d[2].StartsWith("p2"))
                         {
-                            var p1 = battle.BattleTurns.Last().Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
-                            var p2 = battle.BattleTurns.Last().Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 2);
+                            var p1 = lastTurn.Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
+                            var p2 = lastTurn.Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 2);
                             if (p1 != null) p1.NowPos = 2;
                             if (p2 != null) p2.NowPos = 1;
                         }

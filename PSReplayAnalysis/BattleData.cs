@@ -5,7 +5,7 @@ namespace PSReplayAnalysis;
 /// <summary>
 /// 对战数据
 /// </summary>
-public struct BattleData
+public record BattleData
 {
     public BattleData()
     {
@@ -65,7 +65,7 @@ public struct Team
     {
     }
     [JsonInclude]
-    public List<Pokemon> Pokemons = new();
+    public List<Pokemon>  Pokemons= new();
 }
 
 public record Pokemon
@@ -93,11 +93,11 @@ public record Pokemon
     public int IsTear { get; set; }
     [JsonInclude]
     public int NowPos;
-    /// <summary>
-    /// 默认为一个很垃圾的技能
-    /// </summary>
-    [JsonInclude]
-    public Move[] moves = new Move[4];
+    ///// <summary>
+    ///// 默认为一个很垃圾的技能
+    ///// </summary>
+    //[JsonInclude]
+    //public Move[] moves = new Move[4];
 
 }
 

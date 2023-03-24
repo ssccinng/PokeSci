@@ -6,7 +6,7 @@ namespace PSReplayAnalysis;
 /// 对战单回合数据
 /// </summary>
 [Serializable]
-public struct BattleTurn
+public record BattleTurn
 {
     public BattleTurn()
     {
@@ -48,10 +48,10 @@ public struct BattleTurn
     [JsonInclude]
     public Team Player2Team = new Team();
 
-
+    public List<ChildTurn> ChildTurns { get; set; } = new();
     public BattleTurn NextTurn()
     {
-        BattleTurn next = this;
+        BattleTurn next = this with { };
         next.TurnId++;
         next.AllField.NextTurn();
         next.Player1Team.Pokemons = Player1Team.Pokemons.Select(s => s with { }).ToList();
@@ -66,6 +66,18 @@ public struct BattleTurn
         return next;
     }
 
+}
+delegate void Linliu(ref BattleTurn battleTurn);
+
+
+public record ChildTurn
+{
+    public Action<BattleTurn> aa;
+    public void ApplyTurn(BattleTurn battleTurn)
+    {
+        // 应用修改论
+        aa.Invoke(battleTurn);
+    }
 }
 
 public class BattleEvent
@@ -368,8 +380,18 @@ public struct PokemonStatus
     public int Chibao { get; set; }
 
     #endregion
-
-}
+    /// <summary>
+    /// 帮助
+    /// </summary>
+    public int HelpingHand { get; set; }
+    /// <summary>
+    /// 保护
+    /// </summary>
+    public int Protect { get; set; }
+    /// <summary>
+    /// 万众瞩目
+    /// </summary>
+    public int CenterofAttention { get; set; }
 
 
 /// <summary>
