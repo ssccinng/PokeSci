@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -56,28 +58,32 @@ namespace PSReplayAnalysis
             }
             return null;
         }
-
+        /// <summary>
+        /// 从字符串获取位置
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static (int side, int pos) GetSidePos(string data)
         {
             if (data.StartsWith("p1a"))
             {
-                return (1, 1);
+                return (1, 0);
                 //battle.p
             }
             else if (data.StartsWith("p1b"))
             {
-                return (1, 2);
+                return (1, 1);
             }
             else if (data.StartsWith("p2a"))
             {
-                return (2, 1);
+                return (2, 0);
             }
             else if (data.StartsWith("p2b"))
             {
-                return (2, 2);
+                return (2, 1);
 
             }
-            return (0, 0);
+            return (-1, -1);
         }
 
         public static int GetPlayer(string data)
@@ -96,6 +102,14 @@ namespace PSReplayAnalysis
             }
             return 2;
         }
+
+        // 将字符串中的空格消除
+
+        public static string RemoveSpace(string data)
+        {
+            return data.Replace(" ", "");
+        }
+
         /// <summary>
         /// 分析具体文件
         /// </summary>
@@ -168,7 +182,7 @@ namespace PSReplayAnalysis
                         {
                             if (lastTurn.Player1Team.Pokemons.Any(s => s.NowPos == swdata.pos))
                             {
-                                lastTurn.Player1Team.Pokemons.First(s => s.NowPos == 1).NowPos = -1;
+                                lastTurn.Player1Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
                             lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = swdata.pos;
                         }
@@ -176,14 +190,38 @@ namespace PSReplayAnalysis
                         {
                             if (lastTurn.Player2Team.Pokemons.Any(s => s.NowPos == swdata.pos))
                             {
-                                lastTurn.Player2Team.Pokemons.First(s => s.NowPos == 1).NowPos = -1;
+                                lastTurn.Player2Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
                             lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = swdata.pos;
                         }
                         
                         break;
+                    case "-terastallize":
+                        var teraType = d[3];
+                        var tsSide = GetSidePos(d[2]);
+                        if (tsSide.side == 1)
+                        {
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == tsSide.pos).TeraType = teraType;
+                        }
+                        else
+                        {
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == tsSide.pos).TeraType = teraType;
+                        }
+                        break;
                     case "detailschange":
                         // 状态改变
+                        var dcdata = GetSidePos(d[2][..3]);
+                        var dcDetail = d[3].Split(',');
+                        var dcName = dcDetail[0];
+                        var dcPokeId = PokeToId(dcName);
+                        if (dcdata.side == 1)
+                        {
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == dcdata.pos).Id = dcPokeId.num;
+                        }
+                        else
+                        {
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == dcdata.pos).Id = dcPokeId.num;
+                        }
                         break;
                     case "-ability":
                         // 发动特性
@@ -192,7 +230,7 @@ namespace PSReplayAnalysis
                     case "-singleturn":
                         // 单回合状态Rage Powder
                         var stStageSide = GetSidePos(d[2]);
-                        var stStage = d[3].Split(":").Last().Trim();
+                        var stStage = d[3].Split(":").Last().Replace(" ", "").Trim();
                         var stProp = typeof(PokemonStatus).GetProperty(stStage);
                         if (stProp == null) {
                             Console.WriteLine($"stStage: {stStage}为null");
@@ -200,11 +238,11 @@ namespace PSReplayAnalysis
                         }
                         if (stStageSide.side == 1)
                         {
-                            stProp.SetValue(lastTurn.Side1Pokes[stStageSide.pos], 1, null);
+                            stProp.SetValue(lastTurn.Side1Pokes[stStageSide.pos], 1);
                         }
                         else if (stStageSide.side == 2)
                         {
-                            stProp.SetValue(lastTurn.Side2Pokes[stStageSide.pos], 1, null);
+                            stProp.SetValue(lastTurn.Side2Pokes[stStageSide.pos], 1);
 
                         }
                         break;
@@ -212,46 +250,111 @@ namespace PSReplayAnalysis
                         var hpr = d[3].Split('/');
                         // 这个后面有状态 可能要记录在当前状态
                         var hpn = int.Parse(hpr[0].Replace(" fnt", ""));
-                        if (d[2].StartsWith("p1a"))
-                        {
+                        var damageStageSide = GetSidePos(d[2]);
 
-                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == 1).HPRemain = hpn;
-                        }
-                        else if (d[2].StartsWith("p1b"))
+                        if (damageStageSide.side == 1)
                         {
-                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == 2).HPRemain = hpn;
-
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain = hpn;
                         }
-                        else if (d[2].StartsWith("p2a"))
+                        else if (damageStageSide.side == 2)
                         {
-                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == 1).HPRemain = hpn;
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain = hpn;
 
                         }
-                        else if (d[2].StartsWith("p2b"))
-                        {
-                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == 2).HPRemain = hpn;
+        
+                        break;
+                    case "drag":
+                        var dragSide = GetSidePos(d[2]);
+                        var dragPokeId = PokeToId(d[3].Split(',')[0]);
 
+                        if (dragSide.side == 1)
+                        {
+                            if (lastTurn.Player1Team.Pokemons.Any(s => s.NowPos == dragSide.pos))
+                            {
+                                lastTurn.Player1Team.Pokemons.First(s => s.NowPos == dragSide.pos).NowPos = -1;
+                            }
+                            lastTurn.Player1Team.Pokemons.First(s => s.Id == dragPokeId.num).NowPos = dragSide.pos;
                         }
-                        //受伤
+                        else
+                        {
+                            if (lastTurn.Player2Team.Pokemons.Any(s => s.NowPos == dragSide.pos))
+                            {
+                                lastTurn.Player2Team.Pokemons.First(s => s.NowPos == dragSide.pos).NowPos = -1;
+                            }
+                            lastTurn.Player2Team.Pokemons.First(s => s.Id == dragPokeId.num).NowPos = dragSide.pos;
+                        }
+
                         break;
                     case "faint":
                         // 被击倒
                         break;  
                     case "move":
+                        // 写出选择
                         // 结算一次状态
                         // 使用技能
                         break;
                     case "-heal":
+                        var hph = d[3].Split('/');
+                        // 这个后面有状态 可能要记录在当前状态
+                        var hphn = int.Parse(hph[0].Replace(" fnt", ""));
+                        var healStageSide = GetSidePos(d[2]);
+
+                        if (healStageSide.side == 1)
+                        {
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == healStageSide.pos).HPRemain = hphn;
+                        }
+                        else if (healStageSide.side == 2)
+                        {
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == healStageSide.pos).HPRemain = hphn;
+
+                        }
                         break;
                     case "-fail":
                         // 失败
                         break;
                     case "-sidestart":
                         // 单边状态开始
+                        var sidestartMove = d[3].Split(":").Last().Trim().Replace(" ", "");
+                        var ssProp = typeof(OneSideBattleField).GetProperty(sidestartMove);
+
+                        if (ssProp == null)
+                        {
+                            Console.WriteLine("ssProp: " + sidestartMove);
+                            break;
+                        }
+                        var decreaseAttribute = (DecreaseAttribute)ssProp.GetCustomAttribute(typeof(DecreaseAttribute));
+
+                        if (GetPlayer(d[2][..2]) == 1)
+                        {
+                            ssProp.SetValue(lastTurn.Side1Field, decreaseAttribute?.InitValue ?? 1);
+
+                        }
+                        else
+                        {
+                            ssProp.SetValue(lastTurn.Side2Field, decreaseAttribute?.InitValue ?? 1);
+                        }
                         break;
                     case "-sideend":
+                        var sideendMove = d[3].Split(":").Last().Trim().Replace(" ", "");
+                        var seProp = typeof(OneSideBattleField).GetProperty(sideendMove);
+                        if (seProp == null)
+                        {
+                            Console.WriteLine(sideendMove);
+                            break;
+                        }
+                        if (GetPlayer(d[2][..2]) == 1)
+                        {
+                            seProp.SetValue(lastTurn.Side1Field, 0);
+
+                        }
+                        else
+                        {
+                            seProp.SetValue(lastTurn.Side2Field, 0);
+
+                        }
                         break;
                     case "-enditem":
+                        // 把之前没有item的都赋值
                         // 物品用完
                         break;
                     case "-supereffective":
@@ -263,11 +366,120 @@ namespace PSReplayAnalysis
                     case "activate":
                         // 大概是什么起效果
                         break;
-                    case "unboost":
+                    case "-unboost":
                         // 能力减弱
+
+                        var unboostSide = GetSidePos(d[2]);
+                        var unboostType = d[3][..3];
+                        var unboostValue = int.Parse(d[4]);
+
+                        var unboostInfo = typeof(PokemonStatus).GetProperty(
+                            $"{new CultureInfo("en").TextInfo.ToTitleCase(unboostType.ToLower())}Buff");
+
+                        if (unboostSide.side == 1)
+                        {
+                            // 可以函数化吧
+                            // 根据DecreaseAttribute给相应成员赋值, 不能超过最大值或者最小值
+
+                            var da = (DecreaseAttribute)unboostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
+                            if (da == null)
+                            {
+                                Console.WriteLine($"da: {unboostType}为null");
+                                continue;
+                            }
+                            var value = (int)unboostInfo.GetValue(lastTurn.Side1Pokes[unboostSide.pos]);
+
+                            var newValue = value - unboostValue;
+                            if (newValue > da.MaxValue)
+                            {
+                                newValue = da.MaxValue;
+                            }
+                            else if (newValue < da.MinValue)
+                            {
+                                newValue = da.MinValue;
+                            }
+                            unboostInfo.SetValue(lastTurn.Side1Pokes[unboostSide.pos], newValue);
+
+
+                        }
+                        else if (unboostSide.side == 2)
+                        {
+                            var da = (DecreaseAttribute)unboostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
+                            if (da == null)
+                            {
+                                Console.WriteLine($"da: {unboostType}为null");
+                                continue;
+                            }
+                            var value = (int)unboostInfo.GetValue(lastTurn.Side2Pokes[unboostSide.pos]);
+
+                            var newValue = value + unboostValue;
+                            if (newValue > da.MaxValue)
+                            {
+                                newValue = da.MaxValue;
+                            }
+                            else if (newValue < da.MinValue)
+                            {
+                                newValue = da.MinValue;
+                            }
+                            unboostInfo.SetValue(lastTurn.Side2Pokes[unboostSide.pos], newValue);
+                        }
                         break;
 
-                    case "boost":
+                    case "-boost":
+                        var boostSide = GetSidePos(d[2]);
+                        var boostType = d[3][..3];
+                        var boostValue = int.Parse(d[4]);
+
+                        var boostInfo = typeof(PokemonStatus).GetProperty(
+                            $"{new CultureInfo("en").TextInfo.ToTitleCase(boostType.ToLower())}Buff");
+
+                        if (boostSide.side == 1)
+                        {
+                            // 可以函数化吧
+                            // 根据DecreaseAttribute给相应成员赋值, 不能超过最大值或者最小值
+
+                            var da = (DecreaseAttribute)boostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
+                            if (da == null)
+                            {
+                                Console.WriteLine($"da: {boostType}为null");
+                                continue;
+                            }
+                            var value = (int)boostInfo.GetValue(lastTurn.Side1Pokes[boostSide.pos]);
+
+                            var newValue = value + boostValue;
+                            if (newValue > da.MaxValue)
+                            {
+                                newValue = da.MaxValue;
+                            }
+                            else if (newValue < da.MinValue)
+                            {
+                                newValue = da.MinValue;
+                            }
+                            boostInfo.SetValue(lastTurn.Side1Pokes[boostSide.pos], newValue);
+                            
+
+                        }
+                        else if (boostSide.side == 2)
+                        {
+                            var da = (DecreaseAttribute)boostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
+                            if (da == null)
+                            {
+                                Console.WriteLine($"da: {boostType}为null");
+                                continue;
+                            }
+                            var value = (int)boostInfo.GetValue(lastTurn.Side2Pokes[boostSide.pos]);
+
+                            var newValue = value + boostValue;
+                            if (newValue > da.MaxValue)
+                            {
+                                newValue = da.MaxValue;
+                            }
+                            else if (newValue < da.MinValue)
+                            {
+                                newValue = da.MinValue;
+                            }
+                            boostInfo.SetValue(lastTurn.Side2Pokes[boostSide.pos], newValue);
+                        }
                         // 能力提升
                         break;
                     case "-start":
@@ -282,22 +494,70 @@ namespace PSReplayAnalysis
                         // 位置交换
                         if (d[2].StartsWith("p1"))
                         {
-                            var p1 = lastTurn.Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
-                            var p2 = lastTurn.Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 2);
-                            if (p1 != null) p1.NowPos = 2;
-                            if (p2 != null) p2.NowPos = 1;
+                            var p1 = lastTurn.Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 0);
+                            var p2 = lastTurn.Player1Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
+                            if (p1 != null) p1.NowPos = 1;
+                            if (p2 != null) p2.NowPos = 0;
 
                         }
                         else if (d[2].StartsWith("p2"))
                         {
-                            var p1 = lastTurn.Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
-                            var p2 = lastTurn.Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 2);
-                            if (p1 != null) p1.NowPos = 2;
-                            if (p2 != null) p2.NowPos = 1;
+                            var p1 = lastTurn.Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 0);
+                            var p2 = lastTurn.Player2Team.Pokemons.FirstOrDefault(s => s.NowPos == 1);
+                            if (p1 != null) p1.NowPos = 1;
+                            if (p2 != null) p2.NowPos = 0;
                         }
                         // ct
                         break;
+                    case "-status":
+                        var statusSide = GetSidePos(d[2]);
+                        var status = typeof(PokemonStatus).GetProperty(
+                                                       $"{new CultureInfo("en").TextInfo.ToTitleCase(d[3].ToLower())}");
+                        if (status == null)
+                        {
+                            Console.WriteLine($"cureStatus: {d[3]} 为null");
+                            break;
+                        }
+                        if (statusSide.side == 1)
+                        {
+                            status.SetValue(lastTurn.Side1Pokes[statusSide.pos], d[3] == "slp" ? 3 : 1);
+                        }
+                        else if (statusSide.side == 2)
+                        {
+                            status.SetValue(lastTurn.Side2Pokes[statusSide.pos], 1);
+
+                        }
+                        break;
+                    case "-curestatus":
+                        var cureSide = GetSidePos(d[2]);
+                        var cureStatus = typeof(PokemonStatus).GetProperty(
+                                                       $"{new CultureInfo("en").TextInfo.ToTitleCase(d[3].ToLower())}");
+                        if (cureStatus == null)
+                        {
+                            Console.WriteLine($"cureStatus: {d[3]} 为null");
+                            break;
+                        }
+                        if (cureSide.side == 1)
+                        {
+                            cureStatus.SetValue(lastTurn.Side1Pokes[cureSide.pos], 0);
+                        }
+                        else if (cureSide.side == 2)
+                        {
+                            cureStatus.SetValue(lastTurn.Side2Pokes[cureSide.pos], 0);
+
+                        }
+                        // 状态治愈
+                        break;
+                    case "win":
+                        //谁赢了
+                        var winP = GetPlayerByName(battle, d[2]);
+                        // 实施奖励
+                        break;
+                    case "cant":
+                        // 有些状态 比如睡觉在cant时要减少一次
+                        break;
                     default:
+                        //Console.WriteLine(d[1]);
                         // 未处理 输出检查
                         break;
 

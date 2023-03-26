@@ -92,7 +92,8 @@ public record Pokemon
     /// </summary>
     public int IsTear { get; set; }
     [JsonInclude]
-    public int NowPos;
+    public int NowPos = -1;
+    public string TeraType { get; set; }
     ///// <summary>
     ///// 默认为一个很垃圾的技能
     ///// </summary>
