@@ -178,13 +178,16 @@ namespace PSReplayAnalysis
                         var switchName = d[3].Split(',')[0];
                         var swpoke = PokeToId(switchName);
                         var swdata = GetSidePos(d[2][..3]);
+                        // 检测到不合理的话 直接一手把索罗亚克切换成那个 Todo: 记得处理一下
+
                         if (swdata.side == 1)
                         {
                             if (lastTurn.Player1Team.Pokemons.Any(s => s.NowPos == swdata.pos))
                             {
                                 lastTurn.Player1Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
-                            lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = swdata.pos;
+                            // 还不行 要考虑到索罗亚直接换上来..
+                            lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.num && s.NowPos < 0 ).NowPos = swdata.pos;
                         }
                         else
                         {
@@ -192,7 +195,7 @@ namespace PSReplayAnalysis
                             {
                                 lastTurn.Player2Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
-                            lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.num).NowPos = swdata.pos;
+                            lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.num && s.NowPos < 0).NowPos = swdata.pos;
                         }
                         
                         break;
@@ -286,12 +289,33 @@ namespace PSReplayAnalysis
 
                         break;
                     case "faint":
+                        var faintSide = GetSidePos(d[2]);
+                        if (faintSide.side == 1)
+                        {
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == faintSide.pos).NowPos = -2;
+                        }
+                        else if (faintSide.side == 2)
+                        {
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == faintSide.pos).NowPos = -2;
+                        }
                         // 被击倒
+                        // 坐标归-1
                         break;  
                     case "move":
                         // 写出选择
                         // 结算一次状态
                         // 使用技能
+                        var moveSide = GetSidePos(d[2]);
+                        var moveName = d[3].Split(',')[0];
+                        var moveId = MoveToId(moveName);
+                        //if (moveSide.side == 1)
+                        //{
+                        //    lastTurn.Player1Team.Pokemons.First(s => s.NowPos == moveSide.pos).LastMove = moveId.num;
+                        //}
+                        //else if (moveSide.side == 2)
+                        //{
+                        //    lastTurn.Player2Team.Pokemons.First(s => s.NowPos == moveSide.pos).LastMove = moveId.num;
+                        //}
                         break;
                     case "-heal":
                         var hph = d[3].Split('/');
@@ -482,12 +506,16 @@ namespace PSReplayAnalysis
                         }
                         // 能力提升
                         break;
+                    case "start":
+                        // 对局开始
+                        break;
                     case "-start":
                         // 已知寄生种子
                         break;
                     case "-end":
                         break;
                     case "crit":
+                        // 状态
                         // ct
                         break; 
                     case "swap":
@@ -551,6 +579,7 @@ namespace PSReplayAnalysis
                     case "win":
                         //谁赢了
                         var winP = GetPlayerByName(battle, d[2]);
+                        battle.WhoWin = winP == 1 ? BattleResult.Player1Win : BattleResult.Player2Win;
                         // 实施奖励
                         break;
                     case "cant":
@@ -567,6 +596,11 @@ namespace PSReplayAnalysis
             return battle;
         }
 
+        private static object MoveToId(string moveName)
+        {
+            throw new NotImplementedException();
+        }
+
         public static PSData PokeToId(string name)
         {
             string orr = name;
@@ -578,7 +612,7 @@ namespace PSReplayAnalysis
                 name = name.Substring(0, name.LastIndexOf('-'));
             }
             return p;
-            throw new Exception();
+            //throw new Exception();
             //return Pokemons[name];
             //var res = Pokemons.Where(s => name.Contains(s.PSName)).OrderByDescending(s => s.PSName.Length);
 
