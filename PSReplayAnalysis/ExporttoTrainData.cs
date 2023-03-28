@@ -14,20 +14,51 @@ namespace PSReplayAnalysis
         {
             BattleTrainData battleTrainData = new();
             // 将BattleData的每一个BattleTurn转化为状态空间
+            foreach (var turn in battleData.BattleTurns)
+            {
+                // 轮数也放进去
+                var ss = new int[4][];
 
-            
+                // 默认无动作
+                ss[0] = new int[] { -1, -1 };
+                var team1Space = turn.Player1Team.Export();
+                var team2Space = turn.Player2Team.Export();
+
+                var side1Space =  turn.Side1Pokes.SelectMany(s => s.Export());
+                var side2Space = turn.Side2Pokes.SelectMany(s => s.Export());
+
+                var side1Field = turn.Side1Field.Export();
+                var side2Field = turn.Side2Field.Export();
+
+                // 将team1Space side1Space side1Field 合并
+                ss[1] = team1Space.Concat(side1Space).Concat(side1Field).ToArray();
+                ss[2] = team2Space.Concat(side2Space).Concat(side2Field).ToArray();
+                ss[3] = turn.AllField.Export();
+
+                battleTrainData.Player1Action.Add(turn.Battle1Actions.ToList());
+                battleTrainData.Player2Action.Add(turn.Battle2Actions.ToList());
+
+                battleTrainData.Reward1.Add(turn.Reward1);
+                battleTrainData.Reward2.Add(turn.Reward2);
+
+
+                battleTrainData.StateSpace.Add(ss);
+
+            }
+
             return battleTrainData;
         }
 
-        public static void ExportBattleData(List<BattleData> battleData, string path)
+        public static List<BattleTrainData> ExportBattleData(List<BattleData> battleData)
         {
             List<BattleTrainData> battleTrainDatas = new();
             foreach (var battle in battleData)
             {
                 battleTrainDatas.Add(ExportBattleData(battle));
             }
+            return battleTrainDatas;
         }
-
+        public record BattleAction(int choose, int target);
         public class BattleTrainData
         {
 
@@ -36,12 +67,13 @@ namespace PSReplayAnalysis
             /// <summary>
             /// 选择动作 只能是回合开始动作, 怎么处理回合中的换人捏
             /// </summary>
-            public List<(int turn, int choose, int target)> Player1Action { get; set; } = new();
-            public List<(int turn, int choose, int target)> Player2Action { get; set; } = new();
+            public List<List<BattleAction>> Player1Action { get; set; } = new();
+            public List<List<BattleAction>> Player2Action { get; set; } = new();
 
             // 状态空间
-            public List<int[]> StateSpace { get; set; } = new();
-            public List<RewardData> Reward { get; set; } = new();
+            public List<int[][]> StateSpace { get; set; } = new();
+            public List<int> Reward1 { get; set; } = new();
+            public List<int> Reward2 { get; set; } = new();
 
 
         }

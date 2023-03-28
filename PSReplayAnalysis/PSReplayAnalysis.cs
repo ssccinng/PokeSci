@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSReplayAnalysis.PokeLib;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
@@ -16,7 +17,9 @@ namespace PSReplayAnalysis
             JsonSerializer.Deserialize<List<PSPokemon>>(File.ReadAllText("PSPokemons.json"))!.ToImmutableDictionary(s => s.PSName, s => s);
         public static ImmutableDictionary<string, PSData> PsPokes =
             JsonSerializer.Deserialize<List<PSData>>(File.ReadAllText("Pokedata.zqd"))!.ToImmutableDictionary(s => s.name, s => s);
-
+        public static ImmutableDictionary<int, PSData> PsPokes1 =
+        JsonSerializer.Deserialize<List<PSData>>(File.ReadAllText("Pokedata.zqd"))!.Select((s, i) => new { s = s, i = i })
+            .ToImmutableDictionary(s => s.i, s => s.s);
         public static string ConvFile(string path)
         {
             var txt = File.ReadAllText(path);
@@ -179,7 +182,7 @@ namespace PSReplayAnalysis
                         var swpoke = PokeToId(switchName);
                         var swdata = GetSidePos(d[2][..3]);
                         // 检测到不合理的话 直接一手把索罗亚克切换成那个 Todo: 记得处理一下
-
+                        // 必须是开局的switch 才能加入
                         if (swdata.side == 1)
                         {
                             if (lastTurn.Player1Team.Pokemons.Any(s => s.NowPos == swdata.pos))
@@ -257,12 +260,19 @@ namespace PSReplayAnalysis
 
                         if (damageStageSide.side == 1)
                         {
-                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain = hpn;
+                            Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
+                            var delta = pokemon.HPRemain - hpn;
+                            pokemon.HPRemain = hpn;
+                            lastTurn.Reward1 += delta;
+                            lastTurn.Reward2 -= delta;
                         }
                         else if (damageStageSide.side == 2)
                         {
-                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain = hpn;
-
+                             var pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
+                            var delta = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain - hpn;
+                            pokemon.HPRemain = hpn;
+                            lastTurn.Reward2 += delta;
+                            lastTurn.Reward1 -= delta;
                         }
         
                         break;
@@ -306,16 +316,26 @@ namespace PSReplayAnalysis
                         // 结算一次状态
                         // 使用技能
                         var moveSide = GetSidePos(d[2]);
+                        var moveTargetSide = GetSidePos(d[4]);
                         var moveName = d[3].Split(',')[0];
-                        var moveId = MoveToId(moveName);
-                        //if (moveSide.side == 1)
-                        //{
-                        //    lastTurn.Player1Team.Pokemons.First(s => s.NowPos == moveSide.pos).LastMove = moveId.num;
-                        //}
-                        //else if (moveSide.side == 2)
-                        //{
-                        //    lastTurn.Player2Team.Pokemons.First(s => s.NowPos == moveSide.pos).LastMove = moveId.num;
-                        //}
+                        var moveId = Pokemondata.EnglishNametoMoveID(moveName);
+
+                        //var moveId = MoveToId(moveName);
+
+                        // 2 3
+                        // 0 1
+                        if (moveSide.side == 1)
+                        {
+                            //var tpos = moveTargetSide.pos == moveSide.pos;
+                            lastTurn.Battle1Actions[moveSide.pos] = new ExporttoTrainData.BattleAction(moveId, moveTargetSide.pos);
+                        }
+                        else if (moveSide.side == 2)
+                        {
+                            moveSide.pos = 4 - moveSide.pos;
+                            moveTargetSide.pos = 4 - moveTargetSide.pos;
+                            lastTurn.Battle2Actions[moveSide.pos % 2] = new ExporttoTrainData.BattleAction(moveId, moveTargetSide.pos);
+                            //lastTurn.Player2Team.Pokemons.First(s => s.NowPos == moveSide.pos).LastMove = moveId.num;
+                        }
                         break;
                     case "-heal":
                         var hph = d[3].Split('/');
@@ -325,12 +345,17 @@ namespace PSReplayAnalysis
 
                         if (healStageSide.side == 1)
                         {
-                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == healStageSide.pos).HPRemain = hphn;
+                            Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == healStageSide.pos);
+                            var delta = hphn - pokemon.HPRemain;
+                            pokemon.HPRemain = hphn;
+                            lastTurn.Reward1 += delta; // 可能要区分来源
                         }
                         else if (healStageSide.side == 2)
                         {
-                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == healStageSide.pos).HPRemain = hphn;
-
+                             Pokemon pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == healStageSide.pos);
+                            var delta = hphn - pokemon.HPRemain;
+                            pokemon.HPRemain = hphn;
+                            lastTurn.Reward2 += delta;
                         }
                         break;
                     case "-fail":

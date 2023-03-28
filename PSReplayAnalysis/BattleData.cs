@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using PSReplayAnalysis.PokeLib;
+using System.Text.Json.Serialization;
+using static PSReplayAnalysis.ExporttoTrainData;
 
 namespace PSReplayAnalysis;
 
@@ -9,7 +11,7 @@ public record BattleData
 {
     public BattleData()
     {
-        
+
     }
     /// <summary>
     /// 玩家1分数
@@ -42,6 +44,8 @@ public record BattleData
     public BattleEndReason BattleEndResult { get; set; }
     public string Player1Id { get; set; }
     public string Player2Id { get; set; }
+
+
 }
 
 public enum BattleEndReason
@@ -65,7 +69,43 @@ public struct Team
     {
     }
     [JsonInclude]
-    public List<Pokemon>  Pokemons= new();
+    public List<Pokemon> Pokemons = new();
+
+
+    public int[] Export()
+    {
+        int len = 12;
+        int[] res = new int[Pokemons.Count * len];
+        for (int i = 0; i < Pokemons.Count; i++)
+        {
+            var poke = PSReplayAnalysis.PsPokes1[Pokemons[i].Id];
+
+            res[i * len] = Pokemons[i].Id;
+            // poke.baseStats赋值res的前六个
+            res[i * len + 1] = poke.baseStats.hp;
+            res[i * len + 2] = poke.baseStats.atk;
+            res[i * len + 3] = poke.baseStats.def;
+            res[i * len + 4] = poke.baseStats.spa;
+            res[i * len + 5] = poke.baseStats.spd;
+            res[i * len + 6] = poke.baseStats.spe;
+
+            // poke.types赋值res的第7-8
+
+            for (int j = 0; j < poke.types.Length; j++)
+            {
+                res[i * len + 7 + j] = Pokemondata.GetEngTypeId(poke.types[j]);
+            }
+
+            res[i * len + 9] = Pokemons[i].HPRemain;
+            res[i * len + 10] = Pokemons[i].NowPos;
+            res[i * len + 11] = Pokemons[i].TeraType == null ? 0 : Pokemondata.GetEngTypeId(Pokemons[i].TeraType);
+
+        }
+
+        return res;
+    }
+
+
 }
 
 public record Pokemon

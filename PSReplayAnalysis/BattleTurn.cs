@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.Json.Serialization;
+using static PSReplayAnalysis.ExporttoTrainData;
 
 namespace PSReplayAnalysis;
 
@@ -42,14 +43,21 @@ public record BattleTurn
     public List<PokemonStatus> Side2Pokes { get; set; } = new List<PokemonStatus> { new(), new() };
     [JsonInclude]
 
-    public Team Player1Team = new Team();
+    public Team Player1Team = new ();
     /// <summary>
     /// 玩家2队伍
     /// </summary>
     [JsonInclude]
-    public Team Player2Team = new Team();
+    public Team Player2Team = new ();
 
     public List<ChildTurn> ChildTurns { get; set; } = new();
+
+    public BattleAction[] Battle1Actions { get; set; } = new BattleAction[2];
+    public BattleAction[] Battle2Actions { get; set; } = new BattleAction[2];
+
+    public int Reward1 { get; set; }
+    public int Reward2 { get; set; }
+
     public BattleTurn NextTurn()
     {
         BattleTurn next = this with { };
@@ -135,6 +143,19 @@ public record PokemonStatus
                 property.SetValue(this, 0);
             }
         }
+    }
+    // 利用反射 将所有成员映射到一个数组中
+
+    internal int[] Export()
+    {
+        var props = GetType().GetProperties();
+        int[] result = new int[props.Length];
+
+        for (int i = 0; i < props.Length; i++)
+        {
+            result[i] = (int)props[i].GetValue(this);
+        }
+        return result;
     }
 
 
@@ -600,6 +621,19 @@ public record OneSideBattleField
         }
     }
 
+    internal int[] Export()
+    {
+        var props = GetType().GetProperties();
+        int[] result = new int[props.Length];
+
+        for (int i = 0; i < props.Length; i++)
+        {
+            result[i] = (int)props[i].GetValue(this);
+        }
+        return result;
+    }
+
+
 
 
     /// <summary>
@@ -726,6 +760,18 @@ public struct BattleField
         if (WaterSportRemain > 0) WaterSportRemain--;
         if (UproarRemain > 0) UproarRemain--;
 
+    }
+
+    internal int[] Export()
+    {
+        var props = GetType().GetProperties();
+        int[] result = new int[props.Length];
+
+        for (int i = 0; i < props.Length; i++)
+        {
+            result[i] = (int)props[i].GetValue(this);
+        }
+        return result;
     }
 
     /// <summary>

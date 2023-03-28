@@ -12,8 +12,8 @@ using PokeCommon.PokemonShowdownTools;
 using PokePSCore;
 using PSReplayAnalysis;
 
-//var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6");
-var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_10w\\PSreplay").Take(10000);
+var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6");
+//var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_10w\\PSreplay").Take(10000);
 List<BattleData> batches = new List<BattleData>();
     int idx = 0;
 foreach (var file in files)
@@ -25,10 +25,15 @@ foreach (var file in files)
     batches.Add(a);
 
 }
-File.WriteAllText("test1w.json", JsonSerializer.Serialize(batches, new JsonSerializerOptions
+//File.WriteAllText("test1w.json", JsonSerializer.Serialize(batches, new JsonSerializerOptions
+//{
+//    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
+//    WriteIndented = true
+//})); ;
+File.WriteAllText("testdata.json", JsonSerializer.Serialize(ExporttoTrainData.ExportBattleData(batches), new JsonSerializerOptions
 {
     DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
-    WriteIndented = true
+    WriteIndented = false
 })); ;
 return; 
 
