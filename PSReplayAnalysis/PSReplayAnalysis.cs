@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PSReplayAnalysis
 {
-    public class PSReplayAnalysis
+    public partial class PSReplayAnalysis
     {
         public static ImmutableDictionary<string, PSPokemon> Pokemons =
             JsonSerializer.Deserialize<List<PSPokemon>>(File.ReadAllText("PSPokemons.json"))!.ToImmutableDictionary(s => s.PSName, s => s);
@@ -19,6 +19,12 @@ namespace PSReplayAnalysis
             JsonSerializer.Deserialize<List<PSData>>(File.ReadAllText("Pokedata.zqd"))!.ToImmutableDictionary(s => s.name, s => s);
         public static ImmutableDictionary<int, PSData> PsPokes1 =
         JsonSerializer.Deserialize<List<PSData>>(File.ReadAllText("Pokedata.zqd"))!.Select((s, i) => new { s = s, i = i })
+            .ToImmutableDictionary(s => s.i, s => s.s);
+        
+        public static ImmutableDictionary<string, PSData> PsMoves =
+            JsonSerializer.Deserialize<List<PSData>>(File.ReadAllText("MoveData.zqd"))!.ToImmutableDictionary(s => s.name, s => s);
+        public static ImmutableDictionary<int, PSData> PsMove1 =
+        JsonSerializer.Deserialize<List<PSData>>(File.ReadAllText("MoveData.zqd"))!.Select((s, i) => new { s = s, i = i })
             .ToImmutableDictionary(s => s.i, s => s.s);
         public static string ConvFile(string path)
         {
@@ -153,8 +159,8 @@ namespace PSReplayAnalysis
                 {
                     TurnId = 0,
                 });
-                var datalines = data.Split('\n');
                 bool turnstart = false;
+                var datalines = data.Split('\n');
 
                 foreach (var line in datalines)
                 {

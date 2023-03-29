@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="MoveData.zqd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Pokedata.zqd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

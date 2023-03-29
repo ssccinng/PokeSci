@@ -14,7 +14,7 @@ var dQN1 = torch.jit.load("F:\\VSProject\\PokeDanAI\\model.pt").cuda();
 //dQ.for
 
 var aa = dQN1.forward(torch.rand(548).cuda()) as torch.Tensor;
-
+//var aaa = (aa.tolist() as Scalar[]).Select(s => s.ToDouble());
 for (int i = 0; i < aa.shape[0]; i++)
 {
     Console.Write(aa[i].ToDouble());

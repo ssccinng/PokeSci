@@ -43,12 +43,12 @@ public record BattleTurn
     public List<PokemonStatus> Side2Pokes { get; set; } = new List<PokemonStatus> { new(), new() };
     [JsonInclude]
 
-    public Team Player1Team = new ();
+    public Team Player1Team = new();
     /// <summary>
     /// 玩家2队伍
     /// </summary>
     [JsonInclude]
-    public Team Player2Team = new ();
+    public Team Player2Team = new();
 
     public List<ChildTurn> ChildTurns { get; set; } = new();
 
@@ -589,7 +589,7 @@ public record PokemonStatus
     /// </summary>
     [SingleTurn]
     public int RagePowder { get; set; }
-} 
+}
 
 /// <summary>
 /// 单边场地状态 考虑struct
@@ -597,7 +597,7 @@ public record PokemonStatus
 public record OneSideBattleField
 {
     // 生成一个将自己成员依据Decrease特性修改自己的值的方法
-    
+
     public void NextTurn()
     {
         foreach (var property in GetType().GetProperties())
@@ -606,7 +606,7 @@ public record OneSideBattleField
             if (decrease != null)
             {
                 var value = (int)property.GetValue(this);
-                if (value > 0) 
+                if (value > 0)
                     value = Math.Max(value + decrease.DeltaValue, 0);
                 property.SetValue(this, value);
             }
@@ -735,7 +735,7 @@ public record OneSideBattleField
     /// <summary>
     /// 激光木
     /// </summary>
-    [Decrease(initValue: 5, maxValue:8)]
+    [Decrease(initValue: 5, maxValue: 8)]
     public int AuroraVeil { get; set; }
 
 
@@ -782,25 +782,25 @@ public struct BattleField
     /// <summary>
     /// 戏法还剩几回合
     /// </summary>
-    [Decrease(initValue: 5, maxValue:5)]
+    [Decrease(initValue: 5, maxValue: 5)]
     public int TrickRoom { get; set; }
 
     /// <summary>
     /// 奇妙空间
     /// </summary>
-    [Decrease(initValue: 5, maxValue:5)]
+    [Decrease(initValue: 5, maxValue: 5)]
     public int WonderRoom { get; set; }
 
     /// <summary>
     /// 魔法空间
     /// </summary>
-    [Decrease(initValue: 5, maxValue:5)]
+    [Decrease(initValue: 5, maxValue: 5)]
     public int MagicRoom { get; set; }
 
     /// <summary>
     /// 重力剩余
     /// </summary>
-    [Decrease(initValue: 5, maxValue:5)]
+    [Decrease(initValue: 5, maxValue: 5)]
     public int Gravity { get; set; } = 1;
 
     /// <summary>
@@ -808,32 +808,32 @@ public struct BattleField
     /// </summary>
 
     public Weather Weather { get; set; }
-    [Decrease(initValue: 5, maxValue:8)]
+    [Decrease(initValue: 5, maxValue: 8)]
     public int WeatherRemain { get; set; }
 
     /// <summary>
     /// 场地
     /// </summary>
     public Terrain Terrain { get; set; }
-    [Decrease(initValue: 5, maxValue:8)]
+    [Decrease(initValue: 5, maxValue: 8)]
     public int TerrainRemain { get; set; }
 
     /// <summary>
     /// 玩泥巴
     /// </summary>
-    [Decrease(initValue: 5, maxValue:5)]
+    [Decrease(initValue: 5, maxValue: 5)]
     public int MudSport { get; set; }
 
     /// <summary>
     /// 玩水
     /// </summary>
-    [Decrease(initValue: 5, maxValue:5)]
-    public int WaterSport{ get; set; }
+    [Decrease(initValue: 5, maxValue: 5)]
+    public int WaterSport { get; set; }
 
     /// <summary>
     /// 吵闹
     /// </summary>
-    [Decrease(initValue: 5, maxValue:5)]
+    [Decrease(initValue: 5, maxValue: 5)]
     public int Uproar { get; set; }
 }
 
@@ -1021,4 +1021,29 @@ public enum Weather
     /// 乱流
     /// </summary>
     StrongWinds,
+}
+
+
+
+public class PSMove
+{
+    public int num { get; set; }
+    public bool accuracy { get; set; }
+    public int basePower { get; set; }
+    public string category { get; set; }
+    public string isNonstandard { get; set; }
+    public string name { get; set; }
+    public int pp { get; set; }
+    public int priority { get; set; }
+    public Flags flags { get; set; }
+    public string isZ { get; set; }
+    public int critRatio { get; set; }
+    public object secondary { get; set; }
+    public string target { get; set; }
+    public string type { get; set; }
+    public string contestType { get; set; }
+}
+
+public class Flags
+{
 }

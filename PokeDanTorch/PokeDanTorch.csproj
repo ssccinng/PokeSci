@@ -13,4 +13,9 @@
     <PackageReference Include="TorchSharp-cuda-windows" Version="0.99.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PokePSCore\PokePSCore.csproj" />
+    <ProjectReference Include="..\PSReplayAnalysis\PSReplayAnalysis.csproj" />
+  </ItemGroup>
+
 </Project>
