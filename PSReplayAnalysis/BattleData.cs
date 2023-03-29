@@ -75,7 +75,7 @@ public struct Team
     public int[] Export()
     {
         int len = 12;
-        int[] res = new int[Pokemons.Count * len];
+        int[] res = new int[6 * len];
         for (int i = 0; i < Pokemons.Count; i++)
         {
             var poke = PSReplayAnalysis.PsPokes1[Pokemons[i].Id];
@@ -134,6 +134,7 @@ public record Pokemon
     [JsonInclude]
     public int NowPos = -1;
     public string TeraType { get; set; }
+    public string NickName { get; set; }
     ///// <summary>
     ///// 默认为一个很垃圾的技能
     ///// </summary>

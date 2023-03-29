@@ -12,30 +12,89 @@ using PokeCommon.PokemonShowdownTools;
 using PokePSCore;
 using PSReplayAnalysis;
 
-var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6");
-//var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_10w\\PSreplay").Take(10000);
-List<BattleData> batches = new List<BattleData>();
-    int idx = 0;
-foreach (var file in files)
-{
-    var test = PSReplayAnalysis.PSReplayAnalysis.ConvFile(file);
-    var cc = Regex.Replace(test, @"\S*?$", "");
-    //File.WriteAllText($"newReplay/{idx++}.sci", cc);
-    BattleData a = PSReplayAnalysis.PSReplayAnalysis.Thonk(cc);
-    batches.Add(a);
 
-}
+//var pc21 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);
+//await pc21.ConnectAsync();
+//await Task.Delay(1000);
+
+//Console.WriteLine(await pc21.LoginAsync());
+
+//return;
+//var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6");
+var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_10w\\PSreplay").Take(90000).ToArray();
+List<BattleData> batches = new List<BattleData>();
+int idx = 0;
+var len = files.Length / 10;
+Parallel.For(0, 10, i =>
+{
+    for (int j = 0; j < len; j++)
+    {
+        var test = PSReplayAnalysis.PSReplayAnalysis.ConvFile(files[i * len + j]);
+        var cc = Regex.Replace(test, @"\S*?$", "");
+        if (cc.Contains("Zoroark"))
+            continue;
+        //File.WriteAllText($"newReplay/{idx++}.sci", cc);
+        BattleData a = PSReplayAnalysis.PSReplayAnalysis.Thonk(cc);
+        if (a != null)
+            batches.Add(a);
+
+        if (j % 100 == 99) Console.WriteLine($"完成 {i * len} 的{j} / {len}场");
+    }
+});
+//Console.WriteLine(batches.Count);
+//for (int i = 0; i < files.Length; i += 10000)
+//{
+//    List<Task<BattleData?>> datas = new();
+//    for (int j = 0; j < 1; ++j)
+//    {
+//        if (i * 1 + j < files.Length)
+//        {
+//            datas.Add(Task.Run(() =>
+//            {
+//                var test = PSReplayAnalysis.PSReplayAnalysis.ConvFile(files[i * 1 + j]);
+//                var cc = Regex.Replace(test, @"\S*?$", "");
+//                if (cc.Contains("Zoroark"))
+//                    return null;
+//                //File.WriteAllText($"newReplay/{idx++}.sci", cc);
+//                BattleData a = PSReplayAnalysis.PSReplayAnalysis.Thonk(cc);
+//                return a;
+//            }));
+//        }
+//        foreach (var item in datas)
+//        {
+//            var dd = await item;
+//            if (item != null)
+//            {
+//                batches.Add(dd);
+//            }
+//        }
+//    }
+//}
+//foreach (var file in files)
+////Parallel.ForEach(files, file =>
+//{
+//    var test = PSReplayAnalysis.PSReplayAnalysis.ConvFile(file);
+//    var cc = Regex.Replace(test, @"\S*?$", "");
+//    if (cc.Contains("Zoroark"))
+//        continue;
+//    //File.WriteAllText($"newReplay/{idx++}.sci", cc);
+//    BattleData a = PSReplayAnalysis.PSReplayAnalysis.Thonk(cc);
+//    if (a != null)
+//        batches.Add(a);
+//}
+//);
 //File.WriteAllText("test1w.json", JsonSerializer.Serialize(batches, new JsonSerializerOptions
 //{
 //    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 //    WriteIndented = true
 //})); ;
-File.WriteAllText("testdata.json", JsonSerializer.Serialize(ExporttoTrainData.ExportBattleData(batches), new JsonSerializerOptions
+File.WriteAllText("testdata9w.json", JsonSerializer.Serialize(ExporttoTrainData.ExportBattleData(batches), new JsonSerializerOptions
 {
     DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     WriteIndented = false
 })); ;
-return; 
+return;
 
 var pc1 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);
 await pc1.ConnectAsync();

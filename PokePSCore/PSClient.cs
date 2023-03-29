@@ -65,12 +65,15 @@ namespace PokePSCore
 
         private string _loginUrl1 = "https://play.pokemonshowdown.com/action.php?";
 
+        //private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
         private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
         public PSClient(string userName, string pwd, string wsUrl = $"ws://sim.smogon.com:8000/showdown/websocket")
         {
             _psServer = wsUrl;
             UserName = userName;
             Password = pwd;
+
+            _client.DefaultRequestHeaders.Add("cookies", "_ga=GA1.2.547000015.1647085978; __qca=P0-1033982634-1650164856242; __utmz=61629613.1659237138.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __gads=ID=628bdec33c4b1d78-22c9b75bb2d60028:T=1647085979:RT=1664088099:S=ALNI_MZUyNsXxn7brzUHqads5MNcElahtg; sid=%2C%2C3ff09a32f987b34265df04e71674654814; __utma=61629613.547000015.1647085978.1673344533.1678607451.3; _gid=GA1.2.2022799920.1680054479; _gat_gtag_UA_26211653_1=1; __gpi=UID=000004e0bb5e4cb8:T=1650164878:RT=1680054479:S=ALNI_MacRt3qyvqUR3XUDXFY0XL92XHqfg; _gat=1");
         }
 
         public async Task ConnectAsync()
@@ -137,13 +140,15 @@ namespace PokePSCore
             //    pass = password,
             //    challstr = $"{challId}%7C{chall}"
             //});
-            //var res = await _client.PostAsync($"{_loginUrl}?", new StringContent($"act=login&name={userName}&pass={password}&challstr={$"{challId}%7C{chall}"}"));
-            MultipartFormDataContent data1 = new();
-            data1.Add(new StringContent("login"), "act");
-            data1.Add(new StringContent(userName), "name");
-            data1.Add(new StringContent(password), "pass");
-            data1.Add(new StringContent($"{challId}%7C{chall}"), "challstr");
-            var res = await _client.PostAsync(_loginUrl, data1);
+            var res = await _client.PostAsync($"{_loginUrl}?", new StringContent($"act=login&name={userName}&pass={password}&challstr={$"{challId}%7C{chall}"}"));
+            //MultipartFormDataContent data1 = new()
+            //{
+            //    { new StringContent("login"), "act" },
+            //    { new StringContent(userName), "name" },
+            //    { new StringContent(password), "pass" },
+            //    { new StringContent($"{challId}%7C{chall}"), "challstr" }
+            //};
+            //var res = await _client.PostAsync(_loginUrl, data1);
             Console.WriteLine(res.IsSuccessStatusCode);
             var dd = (await res.Content.ReadAsStringAsync())[1..];
             JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;

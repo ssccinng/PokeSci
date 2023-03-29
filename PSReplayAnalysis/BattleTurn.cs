@@ -61,6 +61,11 @@ public record BattleTurn
     public BattleTurn NextTurn()
     {
         BattleTurn next = this with { };
+
+        next.Battle1Actions = new BattleAction[2];
+        next.Battle2Actions = new BattleAction[2];
+        next.Reward1 = next.Reward2 = 0;
+
         next.TurnId++;
         next.AllField.NextTurn();
         next.Player1Team.Pokemons = Player1Team.Pokemons.Select(s => s with { }).ToList();
@@ -750,15 +755,15 @@ public struct BattleField
 
     public void NextTurn()
     {
-        if (TrickRoomRemain > 0) TrickRoomRemain--;
-        if (WonderRoomRemain > 0) WonderRoomRemain--;
-        if (MagicRoomRemain > 0) MagicRoomRemain--;
-        if (GravityRemain > 0) GravityRemain--;
+        if (TrickRoom > 0) TrickRoom--;
+        if (WonderRoom > 0) WonderRoom--;
+        if (MagicRoom > 0) MagicRoom--;
+        if (Gravity > 0) Gravity--;
         if (WeatherRemain > 0) WeatherRemain--;
         if (TerrainRemain > 0) TerrainRemain--;
-        if (MudSportRemain > 0) MudSportRemain--;
-        if (WaterSportRemain > 0) WaterSportRemain--;
-        if (UproarRemain > 0) UproarRemain--;
+        if (MudSport > 0) MudSport--;
+        if (WaterSport > 0) WaterSport--;
+        if (Uproar > 0) Uproar--;
 
     }
 
@@ -778,25 +783,25 @@ public struct BattleField
     /// 戏法还剩几回合
     /// </summary>
     [Decrease(initValue: 5, maxValue:5)]
-    public int TrickRoomRemain { get; set; }
+    public int TrickRoom { get; set; }
 
     /// <summary>
     /// 奇妙空间
     /// </summary>
     [Decrease(initValue: 5, maxValue:5)]
-    public int WonderRoomRemain { get; set; }
+    public int WonderRoom { get; set; }
 
     /// <summary>
     /// 魔法空间
     /// </summary>
     [Decrease(initValue: 5, maxValue:5)]
-    public int MagicRoomRemain { get; set; }
+    public int MagicRoom { get; set; }
 
     /// <summary>
     /// 重力剩余
     /// </summary>
     [Decrease(initValue: 5, maxValue:5)]
-    public int GravityRemain { get; set; } = 1;
+    public int Gravity { get; set; } = 1;
 
     /// <summary>
     /// 天气
@@ -817,19 +822,19 @@ public struct BattleField
     /// 玩泥巴
     /// </summary>
     [Decrease(initValue: 5, maxValue:5)]
-    public int MudSportRemain { get; set; }
+    public int MudSport { get; set; }
 
     /// <summary>
     /// 玩水
     /// </summary>
     [Decrease(initValue: 5, maxValue:5)]
-    public int WaterSportRemain { get; set; }
+    public int WaterSport{ get; set; }
 
     /// <summary>
     /// 吵闹
     /// </summary>
     [Decrease(initValue: 5, maxValue:5)]
-    public int UproarRemain { get; set; }
+    public int Uproar { get; set; }
 }
 
 
