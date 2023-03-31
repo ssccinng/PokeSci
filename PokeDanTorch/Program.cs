@@ -9,13 +9,14 @@ using static TorchSharp.torch.nn.functional;
 using System.Text.Json;
 using PokeCommon.PokemonShowdownTools;
 using PokePSCore;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 using PokeDanTorch;
 using PSReplayAnalysis;
 using PokeCommon.Models;
 using Tensorboard;
 using System.Collections;
 using PSReplayAnalysis.PokeLib;
+
+using static PSReplayAnalysis.PSReplayAnalysis;
 
 //torch.load("F:\\VSProject\\PokeDanAI\\model_weights13.dat");
 //Module.Load("F:\\VSProject\\PokeDanAI\\model_weights13.dat");
@@ -122,8 +123,49 @@ pc.ChallengeAction += async (player, rule) =>
 string[] xc = new[] { "2345", "1623" };
 pc.OnTeampreview += async (PokePSCore.PsBattle battle) =>
 {
+
     var battlea = battleana.GetValueOrDefault(battle.Tag);
-    var resx = DanCore.MakeSwitch(battlea.BattleData.BattleTurns.Last(), (int)battle.PlayerPos + 1);
+    var lastTurn = battlea.battle.BattleTurns[0];
+    lastTurn.Player2Team.Pokemons[0].SelfMovesId = new[] {
+                            PsMoves["Protect"].num,
+                            PsMoves["Earthquake"].num,
+                            PsMoves["Order Up"].num,
+                            PsMoves["Wave Crash"].num,
+                        };
+    lastTurn.Player2Team.Pokemons[1].SelfMovesId = new[] {
+                            PsMoves["Draco Meteor"].num,
+                            PsMoves["Hydro Pump"].num,
+                            PsMoves["Icy Wind"].num,
+                            PsMoves["Muddy Water"].num,
+                        };
+    lastTurn.Player2Team.Pokemons[2].SelfMovesId = new[] {
+                            PsMoves["Wide Guard"].num,
+                            PsMoves["Armor Cannon"].num,
+                            PsMoves["Expanding Force"].num,
+                            PsMoves["Trick Room"].num,
+                        };
+
+    lastTurn.Player2Team.Pokemons[3].SelfMovesId = new[] {
+                            PsMoves["Follow Me"].num,
+                            PsMoves["Trick Room"].num,
+                            PsMoves["Helping Hand"].num,
+                            PsMoves["Dazzling Gleam"].num,
+                        };
+
+    lastTurn.Player2Team.Pokemons[4].SelfMovesId = new[] {
+                            PsMoves["Protect"].num,
+                            PsMoves["Hyper Voice"].num,
+                            PsMoves["Tera Blast"].num,
+                            PsMoves["Quick Attack"].num,
+                        };
+
+    lastTurn.Player2Team.Pokemons[5].SelfMovesId = new[] {
+                            PsMoves["Protect"].num,
+                            PsMoves["Flower Trick"].num,
+                            PsMoves["Knock Off"].num,
+                            PsMoves["Sucker Punch"].num,
+                        };
+    var resx = DanCore.MakeSwitch(battlea.battle.BattleTurns.Last(), (int)battle.PlayerPos + 1);
     var czcz = string.Concat(resx.Select(s => (s.Target1 + 1)));
     await Console.Out.WriteLineAsync(czcz);
     await Console.Out.WriteLineAsync(string.Concat(resx.Select(s => s.EV + " ")));
@@ -175,11 +217,38 @@ pc.OnChooseMove += async battle =>
     List<ChooseData> chooseDatas = new List<ChooseData>();
 
     bool dm = false;
-    var battlea = battleana.GetValueOrDefault(battle.Tag);
+    PSReplayAnalysis.PSReplayAnalysis battlea = battleana.GetValueOrDefault(battle.Tag);
 
     for (int i = 0; i < battle.ActiveStatus.Length; i++)
     {
-        var resx = DanCore.MakeChoose(battlea.BattleData.BattleTurns.Last(), (int)battle.PlayerPos + 1);
+        var resx = DanCore.MakeChoose(battlea.battle.BattleTurns.Last(), (int)battle.PlayerPos + 1);
+        var m = resx.Where(s => s.Pos == i).Take(10);
+        foreach (var item in m)
+        {
+            if (item.ChooseType == ChooseType.Switch)
+            {
+                if (battle.PlayerPos == PlayerPos.Player1)
+                {
+                    var pok = battlea.battle.BattleTurns[0].Player1Team.Pokemons[item.Target1].NickName;
+                    Console.WriteLine
+                        ($"{item.ChooseType} {(item.Pos == 0 ? "左边" : "右侧")} 换成 " +
+                        $"{pok} {item.EV}");
+                }
+                else
+                {
+                    var pok = battlea.battle.BattleTurns[0].Player2Team.Pokemons[item.Target1].NickName;
+                    Console.WriteLine
+                        ($"{item.ChooseType} {(item.Pos == 0 ? "左边" : "右侧")} 换成 " +
+                        $"{pok} {item.EV}");
+                }
+            }
+            else
+            {
+                await Console.Out.WriteLineAsync($"{item.ChooseType} {(item.Pos == 0 ? "左边" : "右侧")} 使用第{item.Target1 + 1}招 打{item.Target2 + 1}位置  {item.EV}");
+            }
+            
+        }
+        
 
         int moveid = Random.Shared.Next(4);
         string target;
@@ -314,11 +383,14 @@ pc.BattleInfo += async (battle, b) =>
     // await s.Se
     var battlea = battleana.GetValueOrDefault(battle.Tag) ?? new PSReplayAnalysis.PSReplayAnalysis() { RoomId = battle.Tag };
     battleana.TryAdd(battle.Tag, battlea);
-    if (battlea.BattleData.BattleTurns.Count == 0)
-    battlea.BattleData.BattleTurns.Add(new BattleTurn
+    if (battlea.battle.BattleTurns.Count == 0)
+    battlea.battle.BattleTurns.Add(new BattleTurn
     {
         TurnId = 0,
+        
     });
+    
+
     battlea.Refresh(b);
 };
 

@@ -155,7 +155,7 @@ namespace PSReplayAnalysis
         {
             //try
             {
-
+                (int side, int pos) lastMoveSide = (-1, -1);
 
                 BattleData battle = new BattleData();
                 battle.BattleTurns.Add(new BattleTurn
@@ -329,8 +329,26 @@ namespace PSReplayAnalysis
                             {
                                 Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                                 var delta = pokemon.HPRemain - hpn;
-                                lastTurn.Reward1 += delta * 1.0f / Math.Max(100, 1); ;
-                                lastTurn.Reward2 -= delta * 1.0f / Math.Max(100, 1); ;
+                                if (d.Length > 4 && d[4].Trim() != string.Empty)
+                                {
+                                    lastTurn.Reward1 -= delta * 1.0f / Math.Max(100, 1); ;
+
+                                }
+                                else
+                                {
+                                    if (lastMoveSide.side == 1)
+                                    {
+                                        lastTurn.Reward1 -= delta * 3.0f / Math.Max(100, 1); ;
+
+                                    }
+                                    else if (lastMoveSide.side == 2)
+                                    {
+                                        lastTurn.Reward1 += delta * 1.0f / Math.Max(100, 1); ;
+                                        lastTurn.Reward2 -= delta * 1.0f / Math.Max(100, 1); ;
+                                    }
+
+                                }
+
 
                                 pokemon.HPRemain = hpn;
                             }
@@ -338,8 +356,26 @@ namespace PSReplayAnalysis
                             {
                                 var pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                                 var delta = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain - hpn;
-                                lastTurn.Reward2 += delta * 1.0f / Math.Max(100, 1); ;
-                                lastTurn.Reward1 -= delta * 1.0f / Math.Max(100, 1); ;
+                                if (d.Length > 4  && d[4].Trim() != string.Empty)
+                                {
+                                    lastTurn.Reward2 -= delta * 1.0f / Math.Max(100, 1); ;
+
+                                }
+                                else
+                                {
+
+                               
+                                    if (lastMoveSide.side == 2)
+                                    {
+                                        lastTurn.Reward2 -= delta * 3.0f / Math.Max(100, 1); ;
+                                    }
+                                    else if (lastMoveSide.side == 1)
+                                    {
+                                        lastTurn.Reward2 += delta * 1.0f / Math.Max(100, 1); ;
+                                        lastTurn.Reward1 -= delta * 1.0f / Math.Max(100, 1); ;
+                                    }
+
+                                }
                                 pokemon.HPRemain = hpn;
 
                             }
@@ -390,6 +426,8 @@ namespace PSReplayAnalysis
                             //var moveId = Pokemondata.EnglishNametoMoveID(moveName);
                             var moveId = PsMoves[moveName].num;
 
+                            lastMoveSide = moveSide;
+
                             //var moveId = MoveToId(moveName);
 
                             // 2 3
@@ -416,6 +454,11 @@ namespace PSReplayAnalysis
                                 if (gmid != -1)
                                 //var tpos = moveTargetSide.pos == moveSide.pos;
                                 lastTurn.Battle1Actions[moveSide.pos] = new ExporttoTrainData.BattleAction(gmid, moveTargetSide.pos);
+
+                                if (lastTurn.Player1Team.Pokemons[idx].NowPos < 0)
+                                {
+                                    int aa = 43;
+                                }
                             }
                             else if (moveSide.side == 2)
                             {
@@ -433,7 +476,10 @@ namespace PSReplayAnalysis
                                         turn.Player2Team.Pokemons[idx].SelfMovesId[midx] = moveId;
                                     }
                                 }
-
+                                if (lastTurn.Player2Team.Pokemons[idx].NowPos < 0)
+                                {
+                                    int aa = 43;
+                                }
                                 //moveSide.pos = 3 - moveSide.pos;
                                 //moveTargetSide.pos = 3 - moveTargetSide.pos;
                                 var gmid = lastTurn.Player2Team.Pokemons[idx].GetMove(moveId) + 1;
@@ -460,8 +506,27 @@ namespace PSReplayAnalysis
                             {
                                 var poke = GetPoke(battle, 1, d[2][4..]);
                                 var delta = hphn - poke.HPRemain;
-                                lastTurn.Reward1 += delta * 1.0f / Math.Max(100, 1);
-                                lastTurn.Reward2 -= delta * 1.0f / Math.Max(100, 1);
+
+                                if (d.Length == 5)
+                                {
+                                    lastTurn.Reward1 += delta * 1.0f / Math.Max(100, 1);
+
+                                }
+                                else
+                                {
+                                    if (lastMoveSide.side == 1)
+                                    {
+                                        lastTurn.Reward1 += delta * 1.0f / Math.Max(100, 1);
+                                        lastTurn.Reward2 -= delta * 1.0f / Math.Max(100, 1);
+                                    }
+                                    else if (lastMoveSide.side == 2)
+                                    {
+                                        lastTurn.Reward2 -= delta * 3.0f / Math.Max(100, 1);
+
+                                    }
+
+                                }
+
                                 //if (lastTurn.Reward1 > 1) lastTurn.Reward1 = 1;
                                 //if (lastTurn.Reward1 < -1) lastTurn.Reward1 =   -1;
                                 //Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.Id == poke.num);
@@ -472,8 +537,28 @@ namespace PSReplayAnalysis
                             {
                                 var poke = GetPoke(battle, 2, d[2][4..]);
                                 var delta = hphn - poke.HPRemain;
-                                lastTurn.Reward2 += delta * 1.0f / Math.Max(100, 1);
-                                lastTurn.Reward1 -= delta * 1.0f / Math.Max(100, 1);
+
+                                if (d.Length == 5)
+                                {
+                                    // 需要加吗
+                                    lastTurn.Reward2 += delta * 1.0f / Math.Max(100, 1);
+
+                                }
+                                else
+                                {
+                                    if (lastMoveSide.side == 2)
+                                    {
+                                        lastTurn.Reward2 += delta * 1.0f / Math.Max(100, 1);
+                                        lastTurn.Reward1 -= delta * 1.0f / Math.Max(100, 1);
+                                    }
+                                    else if (lastMoveSide.side == 1)
+                                    {
+                                        lastTurn.Reward1 -= delta * 3.0f / Math.Max(100, 1);
+
+                                    }
+                                }
+                                
+                              
                                 //if (lastTurn.Reward2 > 1) lastTurn.Reward2 = 1;
                                 //if (lastTurn.Reward2 < -1) lastTurn.Reward2 = -1;
 
