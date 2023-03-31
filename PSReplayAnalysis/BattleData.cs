@@ -71,11 +71,61 @@ public struct Team
     [JsonInclude]
     public List<Pokemon> Pokemons = new();
 
+    public float[] ExportMove(int type)
+    {
+        int len = 36;
+        float[] res = new float[6 * len];
+        for (int i = 0; i < Pokemons.Count; i++)
+        {
 
-    public int[] Export()
+            for (int j = 0; j < 4;++j)
+            {
+                PSMove pSMove = new() { type = "Normal" };
+                int vidx = i * len + j * 9;
+                if (type == 0)
+                {
+                    res[vidx] = Pokemons[i].SelfMovesId[j];
+                    if (Pokemons[i].SelfMovesId[j] != 0)
+                    pSMove = PSReplayAnalysis.PsMove1[Pokemons[i].SelfMovesId[j]];
+                }
+                else 
+                {
+                    res[vidx] = Pokemons[i].MovesId[j];
+                    if (Pokemons[i].MovesId[j] != 0)
+                    pSMove = PSReplayAnalysis.PsMove1[Pokemons[i].MovesId[j]];
+
+                }
+                res[vidx + 1] = pSMove.priority;
+                res[vidx + 2] = pSMove.critRatio ?? 0;
+                res[vidx + 3] = pSMove.accuracy;
+                res[vidx + 4] = pSMove.basePower;
+                res[vidx + 5] = Pokemondata.GetEngTypeId(pSMove.type);
+                switch (pSMove.category)
+                {
+                    case "Special":
+                        res[vidx + 6] = 1;
+                        break;
+                    case "Physical":
+                        res[vidx + 7] = 1;
+                        break;
+                    case "Status":
+                        res[vidx + 8] = 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+
+
+        }
+
+        return res;
+    }
+    public float[] Export()
     {
         int len = 12;
-        int[] res = new int[6 * len];
+        float[] res = new float[6 * len];
         for (int i = 0; i < Pokemons.Count; i++)
         {
             var poke = PSReplayAnalysis.PsPokes1[Pokemons[i].Id];
@@ -135,6 +185,39 @@ public record Pokemon
     public int NowPos = -1;
     public string TeraType { get; set; }
     public string NickName { get; set; }
+
+    // 自己已知
+    public int[] SelfMovesId { get; set; } = new int[4];
+    // 全局已知
+    public int[] MovesId { get; set; } = new int[4];
+
+    public int AddMove(int mid)
+    {
+        if (SelfMovesId.Any(s => s == 0) && SelfMovesId.All(s => s != mid))
+        {
+            while (true)
+            {
+                var rint = Random.Shared.Next(0, 4);
+                if (SelfMovesId[rint] == 0)
+                {
+                    SelfMovesId[rint] = MovesId[rint] = mid;
+                    return rint;
+                }
+                
+            }
+        }
+        else
+        {
+            return -1;
+        }
+        // 可能要打乱move顺序？
+    }
+
+    public int GetMove(int mid)
+    {
+        return Array.IndexOf(SelfMovesId, mid);
+        // 可能要打乱move顺序？
+    }
     ///// <summary>
     ///// 默认为一个很垃圾的技能
     ///// </summary>

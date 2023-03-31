@@ -1,7 +1,7 @@
 [
   {
     "num": 719,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 195,
     "category": "Special",
     "isNonstandard": "Past",
@@ -81,7 +81,7 @@
   },
   {
     "num": 151,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Acid Armor",
@@ -103,7 +103,7 @@
   },
   {
     "num": 628,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -162,7 +162,7 @@
   },
   {
     "num": 367,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Acupressure",
@@ -180,7 +180,7 @@
   },
   {
     "num": 332,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 60,
     "category": "Physical",
     "name": "Aerial Ace",
@@ -220,7 +220,7 @@
   },
   {
     "num": 495,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "After You",
@@ -242,7 +242,7 @@
   },
   {
     "num": 97,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Agility",
@@ -306,7 +306,7 @@
   },
   {
     "num": 624,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -323,7 +323,7 @@
   },
   {
     "num": 502,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Ally Switch",
@@ -344,7 +344,7 @@
   },
   {
     "num": 133,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Amnesia",
@@ -473,7 +473,7 @@
   },
   {
     "num": 392,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Aqua Ring",
@@ -586,7 +586,7 @@
   },
   {
     "num": 312,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -606,7 +606,7 @@
   },
   {
     "num": 597,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Aromatic Mist",
@@ -630,7 +630,7 @@
   },
   {
     "num": 274,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -746,7 +746,7 @@
   },
   {
     "num": 396,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 80,
     "category": "Special",
     "name": "Aura Sphere",
@@ -812,7 +812,7 @@
   },
   {
     "num": 694,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Aurora Veil",
@@ -839,7 +839,7 @@
   },
   {
     "num": 475,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -948,7 +948,7 @@
   },
   {
     "num": 661,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Baneful Bunker",
@@ -1017,7 +1017,7 @@
   },
   {
     "num": 112,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -1040,7 +1040,7 @@
   },
   {
     "num": 226,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Baton Pass",
@@ -1151,7 +1151,7 @@
   },
   {
     "num": 187,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Belly Drum",
@@ -1170,7 +1170,7 @@
   },
   {
     "num": 516,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -1194,7 +1194,7 @@
   },
   {
     "num": 117,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -1303,7 +1303,7 @@
   },
   {
     "num": 654,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -1426,7 +1426,7 @@
   },
   {
     "num": 335,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Block",
@@ -1448,7 +1448,7 @@
   },
   {
     "num": 644,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -1766,7 +1766,7 @@
   },
   {
     "num": 622,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -1923,7 +1923,7 @@
   },
   {
     "num": 339,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Bulk Up",
@@ -2077,7 +2077,7 @@
   },
   {
     "num": 347,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Calm Mind",
@@ -2100,7 +2100,7 @@
   },
   {
     "num": 293,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -2149,7 +2149,7 @@
   },
   {
     "num": 658,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 210,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -2189,7 +2189,7 @@
   },
   {
     "num": 606,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Celebrate",
@@ -2213,7 +2213,7 @@
   },
   {
     "num": 268,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Charge",
@@ -2339,7 +2339,7 @@
   },
   {
     "num": 881,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Chilly Reception",
@@ -2482,7 +2482,7 @@
   },
   {
     "num": 728,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 185,
     "category": "Special",
     "isNonstandard": "Past",
@@ -2511,7 +2511,7 @@
   },
   {
     "num": 499,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 50,
     "category": "Special",
     "name": "Clear Smog",
@@ -2552,7 +2552,7 @@
   },
   {
     "num": 811,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Coaching",
@@ -2572,7 +2572,7 @@
   },
   {
     "num": 489,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Coil",
@@ -2678,7 +2678,7 @@
   },
   {
     "num": 590,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Confide",
@@ -2773,7 +2773,7 @@
   },
   {
     "num": 632,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -2790,7 +2790,7 @@
   },
   {
     "num": 160,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -2816,7 +2816,7 @@
   },
   {
     "num": 176,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -2836,7 +2836,7 @@
   },
   {
     "num": 383,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Copycat",
@@ -2877,7 +2877,7 @@
   },
   {
     "num": 638,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -2912,7 +2912,7 @@
   },
   {
     "num": 322,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Unobtainable",
@@ -2938,7 +2938,7 @@
   },
   {
     "num": 538,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Cotton Guard",
@@ -3062,7 +3062,7 @@
   },
   {
     "num": 578,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -3202,7 +3202,7 @@
   },
   {
     "num": 174,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Curse",
@@ -3327,7 +3327,7 @@
   },
   {
     "num": 777,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -3347,7 +3347,7 @@
   },
   {
     "num": 455,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Defend Order",
@@ -3372,7 +3372,7 @@
   },
   {
     "num": 111,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Defense Curl",
@@ -3400,7 +3400,7 @@
   },
   {
     "num": 432,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Defog",
@@ -3424,7 +3424,7 @@
   },
   {
     "num": 194,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Destiny Bond",
@@ -3447,7 +3447,7 @@
   },
   {
     "num": 197,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Detect",
@@ -3469,7 +3469,7 @@
   },
   {
     "num": 652,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -3562,7 +3562,7 @@
   },
   {
     "num": 574,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 40,
     "category": "Special",
     "name": "Disarming Voice",
@@ -3841,7 +3841,7 @@
   },
   {
     "num": 104,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Double Team",
@@ -3947,7 +3947,7 @@
   },
   {
     "num": 349,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Dragon Dance",
@@ -4441,7 +4441,7 @@
   },
   {
     "num": 604,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Electric Terrain",
@@ -4469,7 +4469,7 @@
   },
   {
     "num": 582,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -4665,7 +4665,7 @@
   },
   {
     "num": 203,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Endure",
@@ -4853,7 +4853,7 @@
   },
   {
     "num": 702,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -4913,7 +4913,7 @@
   },
   {
     "num": 587,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Fairy Lock",
@@ -5005,7 +5005,7 @@
   },
   {
     "num": 793,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 80,
     "category": "Physical",
     "name": "False Surrender",
@@ -5086,7 +5086,7 @@
   },
   {
     "num": 185,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 60,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -5167,7 +5167,7 @@
   },
   {
     "num": 868,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Fillet Away",
@@ -5698,7 +5698,7 @@
   },
   {
     "num": 666,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -5721,7 +5721,7 @@
   },
   {
     "num": 579,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -5743,7 +5743,7 @@
   },
   {
     "num": 870,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 70,
     "category": "Physical",
     "name": "Flower Trick",
@@ -5831,7 +5831,7 @@
   },
   {
     "num": 116,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Focus Energy",
@@ -5876,7 +5876,7 @@
   },
   {
     "num": 266,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Follow Me",
@@ -5920,7 +5920,7 @@
   },
   {
     "num": 193,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -6314,7 +6314,7 @@
   },
   {
     "num": 674,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -6337,7 +6337,7 @@
   },
   {
     "num": 703,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 185,
     "category": "Special",
     "isNonstandard": "Past",
@@ -6358,7 +6358,7 @@
   },
   {
     "num": 601,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -6452,7 +6452,7 @@
   },
   {
     "num": 646,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -6576,7 +6576,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6594,7 +6594,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6620,7 +6620,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6639,7 +6639,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6661,7 +6661,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6680,7 +6680,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6699,7 +6699,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 160,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6717,7 +6717,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6736,7 +6736,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 160,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6754,7 +6754,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6773,7 +6773,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6792,7 +6792,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6811,7 +6811,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 160,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6829,7 +6829,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6847,7 +6847,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6866,7 +6866,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6883,7 +6883,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6900,7 +6900,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6919,7 +6919,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6939,7 +6939,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6958,7 +6958,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6977,7 +6977,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -6994,7 +6994,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7015,7 +7015,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7034,7 +7034,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7053,7 +7053,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7072,7 +7072,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7091,7 +7091,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7110,7 +7110,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7136,7 +7136,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7162,7 +7162,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7181,7 +7181,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7207,7 +7207,7 @@
   },
   {
     "num": 1000,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Gigantamax",
@@ -7318,7 +7318,7 @@
   },
   {
     "num": 580,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Grassy Terrain",
@@ -7369,7 +7369,7 @@
   },
   {
     "num": 356,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Gravity",
@@ -7425,7 +7425,7 @@
   },
   {
     "num": 74,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Growth",
@@ -7450,7 +7450,7 @@
   },
   {
     "num": 288,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -7474,7 +7474,7 @@
   },
   {
     "num": 698,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Special",
     "isNonstandard": "Past",
@@ -7491,7 +7491,7 @@
   },
   {
     "num": 470,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Guard Split",
@@ -7513,7 +7513,7 @@
   },
   {
     "num": 385,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Guard Swap",
@@ -7626,7 +7626,7 @@
   },
   {
     "num": 258,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -7672,7 +7672,7 @@
   },
   {
     "num": 603,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Happy Hour",
@@ -7696,7 +7696,7 @@
   },
   {
     "num": 106,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Harden",
@@ -7720,7 +7720,7 @@
   },
   {
     "num": 114,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Haze",
@@ -7829,7 +7829,7 @@
   },
   {
     "num": 215,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Unobtainable",
@@ -7881,7 +7881,7 @@
   },
   {
     "num": 361,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Healing Wish",
@@ -7902,7 +7902,7 @@
   },
   {
     "num": 456,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -7927,7 +7927,7 @@
   },
   {
     "num": 505,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Heal Pulse",
@@ -7973,7 +7973,7 @@
   },
   {
     "num": 391,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Heart Swap",
@@ -8066,7 +8066,7 @@
   },
   {
     "num": 270,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Helping Hand",
@@ -8489,7 +8489,7 @@
   },
   {
     "num": 607,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Hold Hands",
@@ -8514,7 +8514,7 @@
   },
   {
     "num": 468,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Hone Claws",
@@ -8605,7 +8605,7 @@
   },
   {
     "num": 336,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Howl",
@@ -8708,7 +8708,7 @@
   },
   {
     "num": 642,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -8786,7 +8786,7 @@
   },
   {
     "num": 621,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 100,
     "category": "Physical",
     "name": "Hyperspace Fury",
@@ -8809,7 +8809,7 @@
   },
   {
     "num": 593,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 80,
     "category": "Special",
     "name": "Hyperspace Hole",
@@ -9114,7 +9114,7 @@
   },
   {
     "num": 286,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Imprison",
@@ -9199,7 +9199,7 @@
   },
   {
     "num": 640,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -9235,7 +9235,7 @@
   },
   {
     "num": 275,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Ingrain",
@@ -9261,7 +9261,7 @@
   },
   {
     "num": 689,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Instruct",
@@ -9284,7 +9284,7 @@
   },
   {
     "num": 569,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -9310,7 +9310,7 @@
   },
   {
     "num": 334,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Iron Defense",
@@ -9452,7 +9452,7 @@
   },
   {
     "num": 816,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Jungle Healing",
@@ -9516,7 +9516,7 @@
   },
   {
     "num": 588,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -9559,7 +9559,7 @@
   },
   {
     "num": 869,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 85,
     "category": "Physical",
     "name": "Kowtow Cleave",
@@ -9599,7 +9599,7 @@
   },
   {
     "num": 673,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -9852,7 +9852,7 @@
   },
   {
     "num": 726,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 190,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -9891,7 +9891,7 @@
   },
   {
     "num": 791,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Life Dew",
@@ -9934,7 +9934,7 @@
   },
   {
     "num": 113,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Light Screen",
@@ -9961,7 +9961,7 @@
   },
   {
     "num": 723,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 200,
     "category": "Special",
     "isNonstandard": "Past",
@@ -10002,7 +10002,7 @@
   },
   {
     "num": 199,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Lock-On",
@@ -10098,7 +10098,7 @@
   },
   {
     "num": 381,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -10148,7 +10148,7 @@
   },
   {
     "num": 849,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Unobtainable",
@@ -10165,7 +10165,7 @@
   },
   {
     "num": 461,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Lunar Dance",
@@ -10252,7 +10252,7 @@
   },
   {
     "num": 345,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 60,
     "category": "Special",
     "name": "Magical Leaf",
@@ -10288,7 +10288,7 @@
   },
   {
     "num": 277,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -10333,7 +10333,7 @@
   },
   {
     "num": 478,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Magic Room",
@@ -10378,7 +10378,7 @@
   },
   {
     "num": 443,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 60,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10397,7 +10397,7 @@
   },
   {
     "num": 602,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Magnetic Flux",
@@ -10420,7 +10420,7 @@
   },
   {
     "num": 393,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Magnet Rise",
@@ -10494,7 +10494,7 @@
   },
   {
     "num": 696,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 180,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10512,7 +10512,7 @@
   },
   {
     "num": 561,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -10541,7 +10541,7 @@
   },
   {
     "num": 766,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10559,7 +10559,7 @@
   },
   {
     "num": 772,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10577,7 +10577,7 @@
   },
   {
     "num": 757,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 100,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10595,7 +10595,7 @@
   },
   {
     "num": 758,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10613,7 +10613,7 @@
   },
   {
     "num": 765,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10631,7 +10631,7 @@
   },
   {
     "num": 743,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -10654,7 +10654,7 @@
   },
   {
     "num": 763,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10672,7 +10672,7 @@
   },
   {
     "num": 761,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10690,7 +10690,7 @@
   },
   {
     "num": 759,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10708,7 +10708,7 @@
   },
   {
     "num": 769,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10726,7 +10726,7 @@
   },
   {
     "num": 764,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10744,7 +10744,7 @@
   },
   {
     "num": 773,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10762,7 +10762,7 @@
   },
   {
     "num": 762,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10780,7 +10780,7 @@
   },
   {
     "num": 771,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10798,7 +10798,7 @@
   },
   {
     "num": 770,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10816,7 +10816,7 @@
   },
   {
     "num": 767,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10834,7 +10834,7 @@
   },
   {
     "num": 774,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10852,7 +10852,7 @@
   },
   {
     "num": 760,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10870,7 +10870,7 @@
   },
   {
     "num": 768,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 10,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -10888,7 +10888,7 @@
   },
   {
     "num": 212,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Mean Look",
@@ -10910,7 +10910,7 @@
   },
   {
     "num": 96,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -10935,7 +10935,7 @@
   },
   {
     "num": 382,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -11067,7 +11067,7 @@
   },
   {
     "num": 725,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 200,
     "category": "Special",
     "isNonstandard": "Past",
@@ -11220,7 +11220,7 @@
   },
   {
     "num": 118,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Metronome",
@@ -11377,7 +11377,7 @@
   },
   {
     "num": 208,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Milk Drink",
@@ -11401,7 +11401,7 @@
   },
   {
     "num": 102,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Mimic",
@@ -11443,7 +11443,7 @@
   },
   {
     "num": 170,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -11466,7 +11466,7 @@
   },
   {
     "num": 107,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Minimize",
@@ -11492,7 +11492,7 @@
   },
   {
     "num": 357,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -11542,7 +11542,7 @@
   },
   {
     "num": 119,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -11586,7 +11586,7 @@
   },
   {
     "num": 54,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Mist",
@@ -11652,7 +11652,7 @@
   },
   {
     "num": 581,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Misty Terrain",
@@ -11721,7 +11721,7 @@
   },
   {
     "num": 236,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Moonlight",
@@ -11741,7 +11741,7 @@
   },
   {
     "num": 234,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Morning Sun",
@@ -11869,7 +11869,7 @@
   },
   {
     "num": 300,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -11992,7 +11992,7 @@
   },
   {
     "num": 417,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Nasty Plot",
@@ -12038,7 +12038,7 @@
   },
   {
     "num": 267,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -12094,7 +12094,7 @@
   },
   {
     "num": 636,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -12228,7 +12228,7 @@
   },
   {
     "num": 748,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "No Retreat",
@@ -12338,7 +12338,7 @@
   },
   {
     "num": 697,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 195,
     "category": "Special",
     "isNonstandard": "Past",
@@ -12400,7 +12400,7 @@
   },
   {
     "num": 316,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -12550,7 +12550,7 @@
   },
   {
     "num": 220,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Pain Split",
@@ -12673,7 +12673,7 @@
   },
   {
     "num": 195,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Perish Song",
@@ -12780,7 +12780,7 @@
   },
   {
     "num": 732,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Special",
     "isNonstandard": "LGPE",
@@ -12845,7 +12845,7 @@
   },
   {
     "num": 589,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Play Nice",
@@ -13211,7 +13211,7 @@
   },
   {
     "num": 829,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Unobtainable",
@@ -13230,7 +13230,7 @@
   },
   {
     "num": 471,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Power Split",
@@ -13252,7 +13252,7 @@
   },
   {
     "num": 384,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Power Swap",
@@ -13276,7 +13276,7 @@
   },
   {
     "num": 379,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Power Trick",
@@ -13425,7 +13425,7 @@
   },
   {
     "num": 182,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Protect",
@@ -13487,7 +13487,7 @@
   },
   {
     "num": 244,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Psych Up",
@@ -13548,7 +13548,7 @@
   },
   {
     "num": 678,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Psychic Terrain",
@@ -13723,7 +13723,7 @@
   },
   {
     "num": 701,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 210,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -13766,7 +13766,7 @@
   },
   {
     "num": 685,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -13877,7 +13877,7 @@
   },
   {
     "num": 501,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Quick Guard",
@@ -13903,7 +13903,7 @@
   },
   {
     "num": 483,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Quiver Dance",
@@ -13971,7 +13971,7 @@
   },
   {
     "num": 476,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Rage Powder",
@@ -14032,7 +14032,7 @@
   },
   {
     "num": 240,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Rain Dance",
@@ -14141,7 +14141,7 @@
   },
   {
     "num": 105,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Recover",
@@ -14165,7 +14165,7 @@
   },
   {
     "num": 278,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Recycle",
@@ -14186,7 +14186,7 @@
   },
   {
     "num": 115,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Reflect",
@@ -14213,7 +14213,7 @@
   },
   {
     "num": 513,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Reflect Type",
@@ -14236,7 +14236,7 @@
   },
   {
     "num": 287,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -14278,7 +14278,7 @@
   },
   {
     "num": 156,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Rest",
@@ -14399,7 +14399,7 @@
   },
   {
     "num": 863,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Revival Blessing",
@@ -14438,7 +14438,7 @@
   },
   {
     "num": 46,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Roar",
@@ -14535,7 +14535,7 @@
   },
   {
     "num": 397,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Rock Polish",
@@ -14662,7 +14662,7 @@
   },
   {
     "num": 272,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Role Play",
@@ -14728,7 +14728,7 @@
   },
   {
     "num": 355,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Roost",
@@ -14760,7 +14760,7 @@
   },
   {
     "num": 563,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -14862,7 +14862,7 @@
   },
   {
     "num": 219,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Safeguard",
@@ -14959,7 +14959,7 @@
   },
   {
     "num": 201,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Sandstorm",
@@ -15017,7 +15017,7 @@
   },
   {
     "num": 634,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -15205,7 +15205,7 @@
   },
   {
     "num": 724,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 200,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -15434,7 +15434,7 @@
   },
   {
     "num": 325,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 60,
     "category": "Physical",
     "name": "Shadow Punch",
@@ -15471,7 +15471,7 @@
   },
   {
     "num": 159,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -15496,7 +15496,7 @@
   },
   {
     "num": 648,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -15513,7 +15513,7 @@
   },
   {
     "num": 880,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Shed Tail",
@@ -15577,7 +15577,7 @@
   },
   {
     "num": 504,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Shell Smash",
@@ -15623,7 +15623,7 @@
   },
   {
     "num": 842,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Unobtainable",
@@ -15642,7 +15642,7 @@
   },
   {
     "num": 508,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Shift Gear",
@@ -15665,7 +15665,7 @@
   },
   {
     "num": 351,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 60,
     "category": "Special",
     "name": "Shock Wave",
@@ -15682,7 +15682,7 @@
   },
   {
     "num": 659,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Shore Up",
@@ -15723,7 +15723,7 @@
   },
   {
     "num": 852,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Silk Trap",
@@ -15822,7 +15822,7 @@
   },
   {
     "num": 695,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 180,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -15861,7 +15861,7 @@
   },
   {
     "num": 166,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -15890,7 +15890,7 @@
   },
   {
     "num": 285,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Skill Swap",
@@ -16027,7 +16027,7 @@
   },
   {
     "num": 303,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Slack Off",
@@ -16115,7 +16115,7 @@
   },
   {
     "num": 214,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Sleep Talk",
@@ -16217,7 +16217,7 @@
   },
   {
     "num": 684,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 70,
     "category": "Physical",
     "name": "Smart Strike",
@@ -16343,7 +16343,7 @@
   },
   {
     "num": 289,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -16412,7 +16412,7 @@
   },
   {
     "num": 883,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Snowscape",
@@ -16451,7 +16451,7 @@
   },
   {
     "num": 135,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Soft-Boiled",
@@ -16532,7 +16532,7 @@
   },
   {
     "num": 699,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 195,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -16653,7 +16653,7 @@
   },
   {
     "num": 683,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Speed Swap",
@@ -16677,7 +16677,7 @@
   },
   {
     "num": 858,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Spicy Extract",
@@ -16698,7 +16698,7 @@
   },
   {
     "num": 169,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -16747,7 +16747,7 @@
   },
   {
     "num": 191,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Spikes",
@@ -16772,7 +16772,7 @@
   },
   {
     "num": 596,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Spiky Shield",
@@ -16899,7 +16899,7 @@
   },
   {
     "num": 150,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Splash",
@@ -16920,7 +16920,7 @@
   },
   {
     "num": 727,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 190,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -16980,7 +16980,7 @@
   },
   {
     "num": 671,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -17032,7 +17032,7 @@
   },
   {
     "num": 446,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Stealth Rock",
@@ -17159,7 +17159,7 @@
   },
   {
     "num": 564,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Sticky Web",
@@ -17184,7 +17184,7 @@
   },
   {
     "num": 254,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Stockpile",
@@ -17207,7 +17207,7 @@
   },
   {
     "num": 700,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 175,
     "category": "Special",
     "isNonstandard": "Past",
@@ -17438,7 +17438,7 @@
   },
   {
     "num": 165,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 50,
     "category": "Physical",
     "name": "Struggle",
@@ -17480,7 +17480,7 @@
   },
   {
     "num": 747,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Stuff Cheeks",
@@ -17543,7 +17543,7 @@
   },
   {
     "num": 164,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Substitute",
@@ -17567,7 +17567,7 @@
   },
   {
     "num": 650,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -17602,7 +17602,7 @@
   },
   {
     "num": 241,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Sunny Day",
@@ -17711,7 +17711,7 @@
   },
   {
     "num": 626,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -17798,7 +17798,7 @@
   },
   {
     "num": 256,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Swallow",
@@ -17868,7 +17868,7 @@
   },
   {
     "num": 129,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 60,
     "category": "Special",
     "name": "Swift",
@@ -17908,7 +17908,7 @@
   },
   {
     "num": 14,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Swords Dance",
@@ -17949,7 +17949,7 @@
   },
   {
     "num": 235,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Synthesis",
@@ -17987,7 +17987,7 @@
   },
   {
     "num": 294,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -18064,7 +18064,7 @@
   },
   {
     "num": 366,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Tailwind",
@@ -18112,7 +18112,7 @@
   },
   {
     "num": 850,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -18182,7 +18182,7 @@
   },
   {
     "num": 715,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Tearful Look",
@@ -18208,7 +18208,7 @@
   },
   {
     "num": 752,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Teatime",
@@ -18241,7 +18241,7 @@
   },
   {
     "num": 630,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -18282,7 +18282,7 @@
   },
   {
     "num": 477,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -18314,7 +18314,7 @@
   },
   {
     "num": 100,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Teleport",
@@ -18683,7 +18683,7 @@
   },
   {
     "num": 882,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Tidy Up",
@@ -18697,7 +18697,7 @@
   },
   {
     "num": 576,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -18800,7 +18800,7 @@
   },
   {
     "num": 390,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Toxic Spikes",
@@ -18878,7 +18878,7 @@
   },
   {
     "num": 144,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Transform",
@@ -18968,7 +18968,7 @@
   },
   {
     "num": 433,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Trick Room",
@@ -19117,7 +19117,7 @@
   },
   {
     "num": 376,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Special",
     "isNonstandard": "Past",
@@ -19186,7 +19186,7 @@
   },
   {
     "num": 656,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 1,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -19316,7 +19316,7 @@
   },
   {
     "num": 741,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Physical",
     "isNonstandard": "LGPE",
@@ -19375,7 +19375,7 @@
   },
   {
     "num": 837,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Unobtainable",
@@ -19433,7 +19433,7 @@
   },
   {
     "num": 233,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 70,
     "category": "Physical",
     "isNonstandard": "Past",
@@ -19618,7 +19618,7 @@
   },
   {
     "num": 346,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "isNonstandard": "Past",
@@ -19727,7 +19727,7 @@
   },
   {
     "num": 18,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Whirlwind",
@@ -19791,7 +19791,7 @@
   },
   {
     "num": 469,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Wide Guard",
@@ -19903,7 +19903,7 @@
   },
   {
     "num": 273,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Wish",
@@ -19930,7 +19930,7 @@
   },
   {
     "num": 110,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Withdraw",
@@ -19954,7 +19954,7 @@
   },
   {
     "num": 472,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Wonder Room",
@@ -20003,7 +20003,7 @@
   },
   {
     "num": 526,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Work Up",
@@ -20115,7 +20115,7 @@
   },
   {
     "num": 281,
-    "accuracy": true,
+    "accuracy": 1000,
     "basePower": 0,
     "category": "Status",
     "name": "Yawn",

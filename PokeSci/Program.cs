@@ -20,11 +20,13 @@ using PSReplayAnalysis;
 //Console.WriteLine(await pc21.LoginAsync());
 
 //return;
-var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6");
-//var files = Directory.GetFiles("F:\\PSReplay\\PSreplay").Take(90000).ToArray();
+//var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6").ToArray();
+var files = Directory.GetFiles("F:\\PSReplay\\PSreplay").Take(2000).ToArray();
 List<BattleData> batches = new List<BattleData>();
 int idx = 0;
 var len = files.Length / 10;
+int batchesSize = 5;
+
 Parallel.For(0, 10, i =>
 {
     for (int j = 0; j < len; j++)
@@ -34,13 +36,24 @@ Parallel.For(0, 10, i =>
         if (cc.Contains("Zoroark"))
             continue;
         //File.WriteAllText($"newReplay/{idx++}.sci", cc);
-        BattleData a = PSReplayAnalysis.PSReplayAnalysis.Thonk(cc);
-        if (a != null)
-            batches.Add(a);
+        for (int q = 0; q < batchesSize;q++)
+        {
+            BattleData a = PSReplayAnalysis.PSReplayAnalysis.Thonk(cc);
+            if (a != null)
+                batches.Add(a);
+        }
+   
 
         if (j % 100 == 99) Console.WriteLine($"完成 {i * len} 的{j} / {len}场");
     }
 });
+File.WriteAllText("testdata.v4.json", JsonSerializer.Serialize(ExporttoTrainData.ExportBattleData(batches.OrderBy(s => Random.Shared.Next(5000))), new JsonSerializerOptions
+{
+    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    WriteIndented = false
+})); ;
+
 //Console.WriteLine(batches.Count);
 //for (int i = 0; i < files.Length; i += 10000)
 //{
@@ -88,12 +101,7 @@ Parallel.For(0, 10, i =>
 //    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
 //    WriteIndented = true
 //})); ;
-File.WriteAllText("testdata.v3.json", JsonSerializer.Serialize(ExporttoTrainData.ExportBattleData(batches), new JsonSerializerOptions
-{
-    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
-    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-    WriteIndented = false
-})); ;
+
 return;
 
 var pc1 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);

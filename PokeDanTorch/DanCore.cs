@@ -16,13 +16,13 @@ namespace PokeDanTorch
     public class DanCore
     {
         //private static torch.jit.ScriptModule zqd = torch.jit.load("F:\\VSProject\\PokeDanAI\\model.pt").cuda();
-        private static DQN3 zqd = Init();
-        public static DQN3 Init()
+        private static DQN4 zqd = Init();
+        public static DQN4 Init()
         {
             //var cc = new DQN2(144, 8 * 900 + 10, 2048);
-            var cc = new DQN3();
+            var cc = new DQN4();
             //cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans6.dat").cuda();
-            cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans.v3.dat").cuda();
+            cc.load("F:\\VSProject\\PokeDanAI\\model_weights2k.dat").cuda();
             return cc;
         }
         public static IEnumerable<ChooseDanData> MakeChoose(BattleTurn battleTurn, int p)
@@ -65,14 +65,14 @@ namespace PokeDanTorch
             List<ChooseDanData> res = new List<ChooseDanData>();
             for (int i = 0; i < tensor.shape[0]; i++)
             {
-                if (i < 10)
+                if (i < 12)
                 {
-                    res.Add(new ChooseDanData { ChooseType = ChooseType.Switch, Target1 = i, EV = tensor[i].ToSingle() });
+                    res.Add(new ChooseDanData { ChooseType = ChooseType.Switch, Target1 = i % 6, Target2 = i / 6, EV = tensor[i].ToSingle() });
                 }
                 else
                 {
-                    var ii = i - 10;
-                    res.Add(new ChooseDanData { EV = tensor[i].ToSingle(), ChooseType = ChooseType.Move, Target1 = ii % 900, Target2 = ii / 900, Pos = ii / 3600 });
+                    var ii = i - 12;
+                    res.Add(new ChooseDanData { EV = tensor[i].ToSingle(), ChooseType = ChooseType.Move, Target1 = ii % 4, Target2 = ii / 4 % 4, Pos = ii / 16 });
                 }
             }
             return res.OrderByDescending(s => s.EV).ToList();
@@ -137,7 +137,38 @@ namespace PokeDanTorch
 
 
     }
-    public class DQN3 : torch.nn.Module
+    public class DQN4 : torch.nn.Module
+    {
+
+        private Linear fc1;
+        private Linear fc3;
+        private Linear fc2;
+
+        public DQN4() : base("test")
+        {
+
+
+            //fc1 = Linear(state_size, hidden_size);
+            //fc2 = Linear(hidden_size, hidden_size);
+            //fc3 = Linear(hidden_size, action_size); 
+
+            fc1 = Linear(977, 256);
+            fc2 = Linear(256, 128);
+            fc3 = Linear(128, 44);
+
+            RegisterComponents();
+        }
+
+        public torch.Tensor forward(torch.Tensor x)
+        {
+            x = relu(fc1.forward(x));
+            x = relu(fc2.forward(x));
+            return fc3.forward(x);
+        }
+
+
+
+    }public class DQN3 : torch.nn.Module
     {
 
         private Linear fc1;

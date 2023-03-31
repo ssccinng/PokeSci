@@ -68,8 +68,8 @@ public record BattleTurn
 
         next.TurnId++;
         next.AllField.NextTurn();
-        next.Player1Team.Pokemons = Player1Team.Pokemons.Select(s => s with { }).ToList();
-        next.Player2Team.Pokemons = Player2Team.Pokemons.Select(s => s with { }).ToList();
+        next.Player1Team.Pokemons = Player1Team.Pokemons.Select(s => s with { MovesId = s.MovesId.ToArray(), SelfMovesId = s.SelfMovesId.ToArray() }).ToList();
+        next.Player2Team.Pokemons = Player2Team.Pokemons.Select(s => s with { MovesId = s.MovesId.ToArray(), SelfMovesId = s.SelfMovesId.ToArray() }).ToList();
         // 切换 状态就需要清空
 
         //next.Player1Team.Pokemons[0].HPRemain--;
@@ -151,10 +151,10 @@ public record PokemonStatus
     }
     // 利用反射 将所有成员映射到一个数组中
 
-    internal int[] Export()
+    internal float[] Export()
     {
         var props = GetType().GetProperties();
-        int[] result = new int[props.Length];
+        float[] result = new float[props.Length];
 
         for (int i = 0; i < props.Length; i++)
         {
@@ -626,10 +626,10 @@ public record OneSideBattleField
         }
     }
 
-    internal int[] Export()
+    internal float[] Export()
     {
         var props = GetType().GetProperties();
-        int[] result = new int[props.Length];
+        float[] result = new float[props.Length];
 
         for (int i = 0; i < props.Length; i++)
         {
@@ -767,10 +767,10 @@ public struct BattleField
 
     }
 
-    internal int[] Export()
+    internal float[] Export()
     {
         var props = GetType().GetProperties();
-        int[] result = new int[props.Length];
+        float[] result = new float[props.Length];
 
         for (int i = 0; i < props.Length; i++)
         {
@@ -801,7 +801,7 @@ public struct BattleField
     /// 重力剩余
     /// </summary>
     [Decrease(initValue: 5, maxValue: 5)]
-    public int Gravity { get; set; } = 1;
+    public int Gravity { get; set; } = 0;
 
     /// <summary>
     /// 天气
@@ -1028,7 +1028,7 @@ public enum Weather
 public class PSMove
 {
     public int num { get; set; }
-    public bool accuracy { get; set; }
+    public int accuracy { get; set; }
     public int basePower { get; set; }
     public string category { get; set; }
     public string isNonstandard { get; set; }
@@ -1037,7 +1037,7 @@ public class PSMove
     public int priority { get; set; }
     public Flags flags { get; set; }
     public string isZ { get; set; }
-    public int critRatio { get; set; }
+    public int? critRatio { get; set; }
     public object secondary { get; set; }
     public string target { get; set; }
     public string type { get; set; }

@@ -54,8 +54,8 @@ namespace PSReplayAnalysis
                             // 赋予种族
                             lastTurn.Player1Team.Pokemons.Add(new Pokemon
                             {
-                                Id = pspoke.num,
-                                NickName = pspoke.name,
+                                Id = pspoke.id,
+                                NickName = pspoke.poke.name,
                             });
 
                         }
@@ -63,8 +63,8 @@ namespace PSReplayAnalysis
                         {
                             lastTurn.Player2Team.Pokemons.Add(new Pokemon
                             {
-                                Id = pspoke.num,
-                                NickName = pspoke.name,
+                                Id = pspoke.id,
+                                NickName = pspoke.poke.name,
                             });
                         }
                         break;
@@ -88,7 +88,7 @@ namespace PSReplayAnalysis
                                 lastTurn.Player1Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
                             // 还不行 要考虑到索罗亚直接换上来..
-                            Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.num && s.NowPos < 0);
+                            Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;
                             pokemon.NickName = switchNickName;
 
@@ -100,7 +100,7 @@ namespace PSReplayAnalysis
                                 lastTurn.Player2Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
 
-                            Pokemon pokemon = lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.num && s.NowPos < 0);
+                            Pokemon pokemon = lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;
                             pokemon.NickName = switchNickName;
                         }
@@ -126,11 +126,11 @@ namespace PSReplayAnalysis
                         var dcPokeId = PokeToId(dcName);
                         if (dcdata.side == 1)
                         {
-                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == dcdata.pos).Id = dcPokeId.num;
+                            lastTurn.Player1Team.Pokemons.First(s => s.NowPos == dcdata.pos).Id = dcPokeId.id;
                         }
                         else
                         {
-                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == dcdata.pos).Id = dcPokeId.num;
+                            lastTurn.Player2Team.Pokemons.First(s => s.NowPos == dcdata.pos).Id = dcPokeId.id;
                         }
                         break;
                     case "-ability":
@@ -191,7 +191,7 @@ namespace PSReplayAnalysis
                             {
                                 lastTurn.Player1Team.Pokemons.First(s => s.NowPos == dragSide.pos).NowPos = -1;
                             }
-                            lastTurn.Player1Team.Pokemons.First(s => s.Id == dragPokeId.num).NowPos = dragSide.pos;
+                            lastTurn.Player1Team.Pokemons.First(s => s.Id == dragPokeId.id).NowPos = dragSide.pos;
                         }
                         else
                         {
@@ -199,7 +199,7 @@ namespace PSReplayAnalysis
                             {
                                 lastTurn.Player2Team.Pokemons.First(s => s.NowPos == dragSide.pos).NowPos = -1;
                             }
-                            lastTurn.Player2Team.Pokemons.First(s => s.Id == dragPokeId.num).NowPos = dragSide.pos;
+                            lastTurn.Player2Team.Pokemons.First(s => s.Id == dragPokeId.id).NowPos = dragSide.pos;
                         }
 
                         break;

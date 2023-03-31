@@ -22,26 +22,26 @@ using PSReplayAnalysis.PokeLib;
 //var cc = new DQN(144, 8 * 900 + 10, 2048);
 //cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans.dat");
 
-var cc = new DQN3();
-cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans.v3.dat").cuda();
-while (true)
-{
+//var cc = new DQN4();
+//cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans.dat").cuda();
+//while (true)
+//{
 
-    var vv = cc.forward(torch.randn(801).cuda());
+//    var vv = cc.forward(torch.zeros(977).cuda());
 
-    var qq =DanCore.ConvToChoose(vv).Where(s => s.ChooseType == ChooseType.Move);
-    var ccc = qq.Select(s => PSReplayAnalysis.PSReplayAnalysis.PsMoves.Values.FirstOrDefault(s1=>s1.num == s.Target1 )).ToArray();
-    //float[] aaa = new float[vv.shape[0]];
-    //for (int i = 0; i < vv.shape[0]; ++i)
-    //{
-    //    aaa[i] = vv[i].ToSingle();
-    //}
+//    var qq =DanCore.ConvToChoose(vv).Where(s => s.ChooseType == ChooseType.Switch);
+//    //var ccc = qq.Select(s => PSReplayAnalysis.PSReplayAnalysis.PsMoves.Values.FirstOrDefault(s1=>s1.num == s.Target1 )).ToArray();
+//    //float[] aaa = new float[vv.shape[0]];
+//    //for (int i = 0; i < vv.shape[0]; ++i)
+//    //{
+//    //    aaa[i] = vv[i].ToSingle();
+//    //}
 
-}
+//}
 
-//aa.
+////aa.
 
-return;
+//return;
 Dictionary<string, PSReplayAnalysis.PSReplayAnalysis> battleana = new();
 
 AIConfig config = new AIConfig();
