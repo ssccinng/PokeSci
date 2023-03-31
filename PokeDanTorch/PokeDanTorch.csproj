@@ -18,4 +18,10 @@
     <ProjectReference Include="..\PSReplayAnalysis\PSReplayAnalysis.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="AIConfig.cs">
+      <DependentUpon>Program.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

@@ -258,7 +258,7 @@ namespace PokeCommon.PokemonShowdownTools
 
             return string.Join("]", psoneline);
         }
-
+        
         /// <summary>
         /// 转换为一行ps格式
         /// </summary>

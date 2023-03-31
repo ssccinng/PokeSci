@@ -47,6 +47,9 @@ namespace PokePSCore
         /// </summary>
         public Action<PsBattle, bool> BattleEndAction;
         public Action<PsBattle> BattleStartAction;
+
+        public Action<PsBattle, string> BattleInfo;
+
         private string _challId;
 
         private string _chall;
@@ -169,6 +172,7 @@ namespace PokePSCore
             string tag = battleData[0].Split('|')[0][1..];
             Console.WriteLine($"tag: {tag}");
             var battle = Battles.GetValueOrDefault(tag) ?? new PsBattle(this, tag);
+            BattleInfo.Invoke(battle, msg);
 
             for (int i = 1; i < battleData.Length; i++)
             {
@@ -258,6 +262,7 @@ namespace PokePSCore
                         }
                         break;
                     case "poke":
+                        break;
                         if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1"))
                         {
                             // 对手的队伍信息

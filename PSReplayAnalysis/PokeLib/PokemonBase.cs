@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PSReplayAnalysis.PokeLib
 {
-    class PokemonBase
+    public class PokemonBase
     {
 
         public string name { get; set; }

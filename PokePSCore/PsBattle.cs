@@ -146,6 +146,7 @@ public partial class PsBattle
         }
         if (data.TryGetProperty("side", out var side))
         {
+            return;
             if (side.TryGetProperty("id", out var pid))
             {
                 if (pid.GetString() == "p1")
@@ -181,7 +182,11 @@ public partial class PsBattle
                 Actives[i] = pokeActive;
                 if (InitId == 0)
                 {
+
+
                     MyTeam[i] = (new PSBattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0]), detail[0]));
+
+
                     // 要记录nickname 虽然也可自取
                 }
                 else if (InitId == 1)

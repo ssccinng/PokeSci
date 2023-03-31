@@ -8,7 +8,7 @@ namespace PSReplayAnalysis.PokeLib
 {
     // mega对mega 形态归形态
 
-    class PokemonInfo : PokemonBase
+    public class PokemonInfo : PokemonBase
     {
 
         // private String name;

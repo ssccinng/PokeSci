@@ -55,8 +55,8 @@ public record BattleTurn
     public BattleAction[] Battle1Actions { get; set; } = new BattleAction[2];
     public BattleAction[] Battle2Actions { get; set; } = new BattleAction[2];
 
-    public int Reward1 { get; set; }
-    public int Reward2 { get; set; }
+    public float Reward1 { get; set; }
+    public float Reward2 { get; set; }
 
     public BattleTurn NextTurn()
     {

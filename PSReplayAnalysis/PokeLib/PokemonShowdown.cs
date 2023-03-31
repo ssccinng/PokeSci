@@ -3,7 +3,7 @@ using System;
 
 namespace PSReplayAnalysis.PokeLib
 {
-    class Pokemonshowdown
+    public class Pokemonshowdown
     {
         public static PokemonInfo PStoPokemon_once(string PStext)
         {

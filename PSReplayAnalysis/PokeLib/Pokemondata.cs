@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace PSReplayAnalysis.PokeLib
 {
 
-    class Pokemondata
+    public class Pokemondata
     {
         static int a = 1;
 
