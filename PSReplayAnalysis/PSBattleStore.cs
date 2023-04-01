@@ -168,6 +168,7 @@ namespace PSReplayAnalysis
                         var hpr = d[3].Split('/');
                         // 这个后面有状态 可能要记录在当前状态
                         var hpn = int.Parse(hpr[0].Replace(" fnt", ""));
+                        if (hpr.Length > 1) { hpn = hpn * 100 / int.Parse(hpr[1].Split(" ")[0]); };
                         var damageStageSide = GetSidePos(d[2]);
 
                         if (damageStageSide.side == 1)
@@ -305,6 +306,7 @@ namespace PSReplayAnalysis
                         var hph = d[3].Split('/');
                         // 这个后面有状态 可能要记录在当前状态
                         var hphn = int.Parse(hph[0].Replace(" fnt", ""));
+                        if (hph.Length > 1) { hphn = hphn * 100 / int.Parse(hph[1].Split(" ")[0]); };
 
                         var healStageSide = GetSidePos(d[2]);
                         if (d[2].StartsWith("p1:"))
@@ -321,8 +323,8 @@ namespace PSReplayAnalysis
                         {
                             var poke = GetPoke(battle, 2, d[2][4..]);
                             var delta = hphn - poke.HPRemain;
-                            lastTurn.Reward2 += delta * 1.0f / Math.Max(100, 1);
-                            lastTurn.Reward1 -= delta * 1.0f / Math.Max(100, 1);
+                            lastTurn.Reward2 += delta * 0.5f / Math.Max(100, 1);
+                            lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1);
                             //if (lastTurn.Reward2 > 1) lastTurn.Reward2 = 1;
                             //if (lastTurn.Reward2 < -1) lastTurn.Reward2 = -1;
 
@@ -339,8 +341,8 @@ namespace PSReplayAnalysis
                                 //Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == healStageSide.pos);
                                 var delta = hphn - pokemon.HPRemain;
                                 pokemon.HPRemain = hphn;
-                                lastTurn.Reward1 += delta * 1.0f / 100; // 可能要区分来源
-                                lastTurn.Reward2 -= delta * 1.0f / 100; // 可能要区分来源
+                                lastTurn.Reward1 += delta * 0.5f / 100; // 可能要区分来源
+                                lastTurn.Reward2 -= delta * 0.5f / 100; // 可能要区分来源
                                                                         //if (lastTurn.Reward1 > 1) lastTurn.Reward1 = 1;
                                                                         //if (lastTurn.Reward1 <  -1    ) lastTurn.Reward1 = -1;
                                 pokemon.NowPos = healStageSide.pos;
@@ -353,8 +355,8 @@ namespace PSReplayAnalysis
                                 //Pokemon pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == healStageSide.pos);
                                 var delta = hphn - pokemon.HPRemain;
                                 pokemon.HPRemain = hphn;
-                                lastTurn.Reward2 += delta * 1.0f / 100; ;
-                                lastTurn.Reward1 -= delta * 1.0f / 100; ;
+                                lastTurn.Reward2 += delta * 0.5f / 100; ;
+                                lastTurn.Reward1 -= delta * 0.5f / 100; ;
                                 //if (lastTurn.Reward2 > 1) lastTurn.Reward2 = 1;
                                 //if (lastTurn.Reward2 < -1) lastTurn.Reward2 = -1;
                                 pokemon.NowPos = healStageSide.pos;

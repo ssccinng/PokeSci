@@ -20,8 +20,9 @@ using PSReplayAnalysis;
 //Console.WriteLine(await pc21.LoginAsync());
 
 //return;
+string saveFile = "F:/data/testdata5000.11.v10.json";
 //var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6").ToArray();
-var files = Directory.GetFiles("F:\\PSReplay\\PSreplay").Take(5000).ToArray();
+var files = Directory.GetFiles("F:\\PSReplay\\PSreplay").Skip(5000*10).Take(5000).ToArray();
 List<BattleData> batches = new List<BattleData>();
 int idx = 0;
 var len = files.Length / 10;
@@ -48,7 +49,7 @@ Parallel.For(0, 10, i =>
     }
 });
 Console.WriteLine(batches.Count);
-File.WriteAllText("F:/testdata.v8.json", JsonSerializer.Serialize(ExporttoTrainData.ExportBattleData(batches.OrderBy(s => Random.Shared.Next(5000))), new JsonSerializerOptions
+File.WriteAllText(saveFile, JsonSerializer.Serialize(ExporttoTrainData.ExportBattleData(batches.OrderBy(s => Random.Shared.Next(5000))), new JsonSerializerOptions
 {
     DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault,
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="libtorch-cuda-11.7-win-x64" Version="1.13.0.1" />
+    <PackageReference Include="NumSharp" Version="0.30.0" />
+    <PackageReference Include="TorchSharp" Version="0.99.3" />
+    <PackageReference Include="TorchSharp-cuda-windows" Version="0.99.3" />
+  </ItemGroup>
+
+</Project>

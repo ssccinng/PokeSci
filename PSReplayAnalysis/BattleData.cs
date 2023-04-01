@@ -73,7 +73,7 @@ public struct Team
 
     public float[] ExportMove(int type)
     {
-        int len = 36;
+        int len = 36 + 17;
         float[] res = new float[6 * len];
         for (int i = 0; i < Pokemons.Count; i++)
         {
@@ -81,35 +81,37 @@ public struct Team
             for (int j = 0; j < 4;++j)
             {
                 PSMove pSMove = new() { type = "Normal" };
-                int vidx = i * len + j * 9;
+                int vidx = i * len + j * 9 - 1;
                 if (type == 0)
                 {
-                    res[vidx] = Pokemons[i].SelfMovesId[j];
+                    //res[vidx] = Pokemons[i].SelfMovesId[j];
                     if (Pokemons[i].SelfMovesId[j] != 0)
                     pSMove = PSReplayAnalysis.PsMove1[Pokemons[i].SelfMovesId[j]];
                 }
                 else 
                 {
-                    res[vidx] = Pokemons[i].MovesId[j];
+                    //res[vidx] = Pokemons[i].MovesId[j];
                     if (Pokemons[i].MovesId[j] != 0)
                     pSMove = PSReplayAnalysis.PsMove1[Pokemons[i].MovesId[j]];
 
                 }
-                res[vidx + 1] = pSMove.priority * 1f / 8;
-                res[vidx + 2] = pSMove.critRatio ?? 0;
+                res[vidx + 1] = pSMove.priority * 1f / 5;
+                res[vidx + 2] = (pSMove.critRatio ?? 0) / 4.0f;
                 res[vidx + 3] = pSMove.accuracy * 1f / 100;
-                res[vidx + 4] = pSMove.basePower * 1f / 200;
-                res[vidx + 5] = Pokemondata.GetEngTypeId(pSMove.type);
+                res[vidx + 4] = pSMove.basePower * 1f / 300;
+                //res[vidx + 5] = Pokemondata.GetEngTypeId(pSMove.type);
+                res[vidx + 4 + Pokemondata.GetEngTypeId(pSMove.type)] = 1;
+
                 switch (pSMove.category)
                 {
                     case "Special":
-                        res[vidx + 6] = 1;
+                        res[vidx + 22] = 1;
                         break;
                     case "Physical":
-                        res[vidx + 7] = 1;
+                        res[vidx + 23] = 1;
                         break;
                     case "Status":
-                        res[vidx + 8] = 1;
+                        res[vidx + 24] = 1;
                         break;
                     default:
                         break;
@@ -124,31 +126,49 @@ public struct Team
     }
     public float[] Export()
     {
-        int len = 12;
+        int len = 29;
         float[] res = new float[6 * len];
+        Pokemons.OrderBy(s => s.NowPos);
         for (int i = 0; i < Pokemons.Count; i++)
         {
             var poke = PSReplayAnalysis.PsPokes1[Pokemons[i].Id];
 
-            res[i * len] = Pokemons[i].Id;
+            //res[i * len] = Pokemons[i].Id;
             // poke.baseStats赋值res的前六个
-            res[i * len + 1] = poke.baseStats.hp * 1f / 255;
-            res[i * len + 2] = poke.baseStats.atk * 1f / 255;
-            res[i * len + 3] = poke.baseStats.def * 1f / 255;
-            res[i * len + 4] = poke.baseStats.spa * 1f / 255;
-            res[i * len + 5] = poke.baseStats.spd * 1f / 255;
-            res[i * len + 6] = poke.baseStats.spe * 1f / 255;
+            res[i * len + 0] = poke.baseStats.hp * 1f / 255;
+            res[i * len + 1] = poke.baseStats.atk * 1f / 255;
+            res[i * len + 2] = poke.baseStats.def * 1f / 255;
+            res[i * len + 3] = poke.baseStats.spa * 1f / 255;
+            res[i * len + 4] = poke.baseStats.spd* 1f / 255;
+            res[i * len + 5] = poke.baseStats.spe * 1f / 255;
 
             // poke.types赋值res的第7-8
 
             for (int j = 0; j < poke.types.Length; j++)
             {
-                res[i * len + 7 + j] = Pokemondata.GetEngTypeId(poke.types[j]);
+                res[i * len + 6 + Pokemondata.GetEngTypeId(poke.types[j]) - 1] = 1;
             }
 
-            res[i * len + 9] = Pokemons[i].HPRemain * 1f / 100;
-            res[i * len + 10] = Pokemons[i].NowPos;
-            res[i * len + 11] = Pokemons[i].TeraType == null ? 0 : Pokemondata.GetEngTypeId(Pokemons[i].TeraType);
+            res[i * len + 24] = Pokemons[i].HPRemain * 1f / 100;
+            //res[i * len + 9] = 1 << (Pokemons[i].NowPos + 2);
+            if (Pokemons[i].NowPos == 0)
+            {
+                res[i * len + 25] = 1;
+
+            }
+            else if (Pokemons[i].NowPos == 1)
+            {
+                res[i * len + 26] = 1;
+            }
+            else if (Pokemons[i].NowPos == -2)
+            {
+                res[i * len + 27] = 1;
+            }
+            else
+            {
+                res[i * len + 28] = 1;
+            }
+            //res[i * len + 10] = 1 << (Pokemons[i].TeraType == null ? 0 : Pokemondata.GetEngTypeId(Pokemons[i].TeraType));
 
         }
 

@@ -331,20 +331,20 @@ namespace PSReplayAnalysis
                                 var delta = pokemon.HPRemain - hpn;
                                 if (d.Length > 4 && d[4].Trim() != string.Empty)
                                 {
-                                    //lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
+                                    lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
 
                                 }
                                 else
                                 {
                                     if (lastMoveSide.side == 1)
                                     {
-                                        lastTurn.Reward1 -= delta * 1.0f / Math.Max(100, 1); ;
+                                        lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
 
                                     }
                                     else if (lastMoveSide.side == 2)
                                     {
-                                        lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1); ;
-                                        lastTurn.Reward2 += delta * 1f / Math.Max(100, 1); ;
+                                        lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
+                                        lastTurn.Reward2 += delta * 0.5f / Math.Max(100, 1); ;
                                     }
 
                                 }
@@ -358,7 +358,7 @@ namespace PSReplayAnalysis
                                 var delta = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain - hpn;
                                 if (d.Length > 4 && d[4].Trim() != string.Empty)
                                 {
-                                    //lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
+                                    lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
 
                                 }
                                 else
@@ -367,12 +367,12 @@ namespace PSReplayAnalysis
 
                                     if (lastMoveSide.side == 2)
                                     {
-                                        lastTurn.Reward2 -= delta * 1.0f / Math.Max(100, 1); ;
+                                        lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
                                     }
                                     else if (lastMoveSide.side == 1)
                                     {
-                                        lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1); ;
-                                        lastTurn.Reward1 += delta * 1f / Math.Max(100, 1); ;
+                                        lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
+                                        lastTurn.Reward1 += delta * .5f / Math.Max(100, 1); ;
                                     }
 
                                 }
@@ -516,12 +516,12 @@ namespace PSReplayAnalysis
                                 {
                                     if (lastMoveSide.side == 1)
                                     {
-                                        lastTurn.Reward1 += delta * 1f / Math.Max(100, 1);
-                                        lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1);
+                                        lastTurn.Reward1 += delta * 0.5f / Math.Max(100, 1);
+                                        lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1);
                                     }
                                     else if (lastMoveSide.side == 2)
                                     {
-                                        lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1);
+                                        lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1);
 
                                     }
 
@@ -548,12 +548,12 @@ namespace PSReplayAnalysis
                                 {
                                     if (lastMoveSide.side == 2)
                                     {
-                                        lastTurn.Reward2 += delta * 1f / Math.Max(100, 1);
-                                        lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1);
+                                        lastTurn.Reward2 += delta * 0.5f / Math.Max(100, 1);
+                                        lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1);
                                     }
                                     else if (lastMoveSide.side == 1)
                                     {
-                                        lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1);
+                                        lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1);
 
                                     }
                                 }
@@ -586,12 +586,12 @@ namespace PSReplayAnalysis
                                     {
                                         if (lastMoveSide.side == 1)
                                         {
-                                            lastTurn.Reward1 += delta * 1f / 100; // 可能要区分来源
-                                            lastTurn.Reward2 -= delta * 1f / 100; // 可能要区分来源
+                                            lastTurn.Reward1 += delta * 0.5f / 100; // 可能要区分来源
+                                            lastTurn.Reward2 -= delta * .5f / 100; // 可能要区分来源
                                         }
                                         else if (lastMoveSide.side == 2)
                                         {
-                                            lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1);
+                                            lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1);
 
                                         }
                                     }
@@ -619,12 +619,12 @@ namespace PSReplayAnalysis
                                     {
                                         if (lastMoveSide.side == 2)
                                         {
-                                            lastTurn.Reward2 += delta * 1f / 100; ;
-                                            lastTurn.Reward1 -= delta * 1f / 100; ;
+                                            lastTurn.Reward2 += delta * 0.5f / 100; ;
+                                            lastTurn.Reward1 -= delta * .5f / 100; ;
                                         }
                                         else if (lastMoveSide.side == 1)
                                         {
-                                            lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1);
+                                            lastTurn.Reward1 -= delta * .5f / Math.Max(100, 1);
 
                                         }
                                     }
@@ -913,13 +913,13 @@ namespace PSReplayAnalysis
                             battle.WhoWin = winP == 1 ? BattleResult.Player1Win : BattleResult.Player2Win;
                             if (winP == 1)
                             {
-                                lastTurn.Reward1 += 3.0f;
-                                lastTurn.Reward2 -= 3.0f;
+                                lastTurn.Reward1 += 1.0f;
+                                lastTurn.Reward2 -= 1.0f;
                             }
                             else
                             {
-                                lastTurn.Reward2 += 3.0f;
-                                lastTurn.Reward1 -= 3.0f;
+                                lastTurn.Reward2 += 1.0f;
+                                lastTurn.Reward1 -= 1.0f;
 
                             }
                             // 实施奖励
