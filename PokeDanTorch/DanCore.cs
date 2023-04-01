@@ -16,13 +16,13 @@ namespace PokeDanTorch
     public class DanCore
     {
         //private static torch.jit.ScriptModule zqd = torch.jit.load("F:\\VSProject\\PokeDanAI\\model.pt").cuda();
-        private static DQN4 zqd = Init();
-        public static DQN4 Init()
+        private static DQN5 zqd = Init();
+        public static DQN5 Init()
         {
             //var cc = new DQN2(144, 8 * 900 + 10, 2048);
-            var cc = new DQN4();
+            var cc = new DQN5();
             //cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans6.dat").cuda();
-            cc.load("F:\\VSProject\\PokeDanAI\\model_weights2k.v5.dat").cuda();
+            cc.load("F:\\VSProject\\PokeDanAI\\model_weights2k.v7.dat").cuda();
             return cc;
         }
         public static IEnumerable<ChooseDanData> MakeChoose(BattleTurn battleTurn, int p)
@@ -168,7 +168,40 @@ namespace PokeDanTorch
 
 
 
-    }public class DQN3 : torch.nn.Module
+    }public class DQN5 : torch.nn.Module
+    {
+
+        private Linear fc1;
+        private Linear fc3;
+        private Linear fc2;
+
+        public DQN5() : base("test")
+        {
+
+
+            //fc1 = Linear(state_size, hidden_size);
+            //fc2 = Linear(hidden_size, hidden_size);
+            //fc3 = Linear(hidden_size, action_size); 
+
+            fc1 = Linear(977, 128);
+            fc2 = Linear(128, 128);
+            fc3 = Linear(128, 44);
+
+            RegisterComponents();
+        }
+
+        public torch.Tensor forward(torch.Tensor x)
+        {
+            x = relu(fc1.forward(x));
+            x = relu(fc2.forward(x));
+            return fc3.forward(x);
+        }
+
+
+
+    }
+    
+    public class DQN3 : torch.nn.Module
     {
 
         private Linear fc1;

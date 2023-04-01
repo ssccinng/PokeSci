@@ -23,14 +23,14 @@ using static PSReplayAnalysis.PSReplayAnalysis;
 //var cc = new DQN(144, 8 * 900 + 10, 2048);
 //cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans.dat");
 
-//var cc = new DQN4();
-//cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans.dat").cuda();
+//var cc = new DQN5();
+//cc.load("F:\\VSProject\\PokeDanAI\\model_weights2k.v7.dat").cuda();
 //while (true)
 //{
 
-//    var vv = cc.forward(torch.zeros(977).cuda());
+//    var vv = cc.forward(torch.randn(977).cuda());
 
-//    var qq =DanCore.ConvToChoose(vv).Where(s => s.ChooseType == ChooseType.Switch);
+//    var qq = DanCore.ConvToChoose(vv).Where(s => s.ChooseType == ChooseType.Move);
 //    //var ccc = qq.Select(s => PSReplayAnalysis.PSReplayAnalysis.PsMoves.Values.FirstOrDefault(s1=>s1.num == s.Target1 )).ToArray();
 //    //float[] aaa = new float[vv.shape[0]];
 //    //for (int i = 0; i < vv.shape[0]; ++i)

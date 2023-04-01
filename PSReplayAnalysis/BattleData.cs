@@ -95,10 +95,10 @@ public struct Team
                     pSMove = PSReplayAnalysis.PsMove1[Pokemons[i].MovesId[j]];
 
                 }
-                res[vidx + 1] = pSMove.priority;
+                res[vidx + 1] = pSMove.priority * 1f / 8;
                 res[vidx + 2] = pSMove.critRatio ?? 0;
-                res[vidx + 3] = pSMove.accuracy;
-                res[vidx + 4] = pSMove.basePower;
+                res[vidx + 3] = pSMove.accuracy * 1f / 100;
+                res[vidx + 4] = pSMove.basePower * 1f / 200;
                 res[vidx + 5] = Pokemondata.GetEngTypeId(pSMove.type);
                 switch (pSMove.category)
                 {
@@ -132,12 +132,12 @@ public struct Team
 
             res[i * len] = Pokemons[i].Id;
             // poke.baseStats赋值res的前六个
-            res[i * len + 1] = poke.baseStats.hp;
-            res[i * len + 2] = poke.baseStats.atk;
-            res[i * len + 3] = poke.baseStats.def;
-            res[i * len + 4] = poke.baseStats.spa;
-            res[i * len + 5] = poke.baseStats.spd;
-            res[i * len + 6] = poke.baseStats.spe;
+            res[i * len + 1] = poke.baseStats.hp * 1f / 255;
+            res[i * len + 2] = poke.baseStats.atk * 1f / 255;
+            res[i * len + 3] = poke.baseStats.def * 1f / 255;
+            res[i * len + 4] = poke.baseStats.spa * 1f / 255;
+            res[i * len + 5] = poke.baseStats.spd * 1f / 255;
+            res[i * len + 6] = poke.baseStats.spe * 1f / 255;
 
             // poke.types赋值res的第7-8
 
@@ -146,7 +146,7 @@ public struct Team
                 res[i * len + 7 + j] = Pokemondata.GetEngTypeId(poke.types[j]);
             }
 
-            res[i * len + 9] = Pokemons[i].HPRemain;
+            res[i * len + 9] = Pokemons[i].HPRemain * 1f / 100;
             res[i * len + 10] = Pokemons[i].NowPos;
             res[i * len + 11] = Pokemons[i].TeraType == null ? 0 : Pokemondata.GetEngTypeId(Pokemons[i].TeraType);
 
