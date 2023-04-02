@@ -4,14 +4,10 @@
 
 namespace PokemonDataAccess.Migrations
 {
-    public partial class addPSPoke : Migration
+    public partial class Init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "PSName",
-                table: "Pokemons");
-
             migrationBuilder.CreateTable(
                 name: "PSPokemons",
                 columns: table => new
@@ -44,13 +40,6 @@ namespace PokemonDataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PSPokemons");
-
-            migrationBuilder.AddColumn<string>(
-                name: "PSName",
-                table: "Pokemons",
-                type: "varchar(30)",
-                nullable: true,
-                comment: "PS名字");
         }
     }
 }

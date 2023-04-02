@@ -41,7 +41,7 @@ namespace PokePSCore
         /// <returns></returns>
         public async Task ChallengeAsync(string player, string rule)
         {
-            string data = $"/challenge {player}, {rule}";
+            string data = $"/noreply /hidenext off\n/challenge {player}, {rule}";
             await SendAsync("", data);
         }
 
@@ -180,6 +180,13 @@ namespace PokePSCore
             string data = $"/cmd userdetails {name}";
             await SendAsync("", data);
         }
+
+        public async Task SendForfeit(string battleTag)
+        {
+            await SendAsync(battleTag, $"/forfeit");
+
+        }
+
 
         public async Task<List<RankData>> GetRankAsync(string name)
         {

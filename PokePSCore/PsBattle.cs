@@ -146,7 +146,7 @@ public partial class PsBattle
         }
         if (data.TryGetProperty("side", out var side))
         {
-            return;
+            //return;
             if (side.TryGetProperty("id", out var pid))
             {
                 if (pid.GetString() == "p1")
@@ -182,7 +182,7 @@ public partial class PsBattle
                 Actives[i] = pokeActive;
                 if (InitId == 0)
                 {
-
+                    // 主要是这里
 
                     MyTeam[i] = (new PSBattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0]), detail[0]));
 

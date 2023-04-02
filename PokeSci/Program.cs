@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using PokeCommon.PokemonShowdownTools;
+using PokemonDataAccess;
 using PokePSCore;
 using PSReplayAnalysis;
 
@@ -19,6 +20,9 @@ using PSReplayAnalysis;
 
 //Console.WriteLine(await pc21.LoginAsync());
 
+PokemonContext pokemonContext = new PokemonContext();
+Console.WriteLine(pokemonContext.Pokemons.ToArray().Length);
+return;
 //return;
 string saveFile = "F:/data/testdata5000.11.v10.json";
 //var files = Directory.GetFiles("D:\\PS数据_old\\PSreplay_6Yjyd6").ToArray();

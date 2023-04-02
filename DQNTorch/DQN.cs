@@ -12,7 +12,7 @@ using System.Net;
 
 namespace DQNTorch
 {
-    internal class DQN: Module
+    public class DQN: Module
     {
         private int state_size;
         private int action_size;
@@ -45,12 +45,14 @@ namespace DQNTorch
     public class DQNAgent
     {
         public PokeDanEnvTest Env;
+        // 可能需要双环境
+        public PokeDanEnvTest Env1;
         private readonly int buffer_Size;
         private readonly int batch_Size;
         private readonly float gamma;
         private readonly float lr;
-        private readonly List<(float[] states, int actions, float rewards, float[] next_states, float dones)> buffer;
-        private readonly DQN model;
+        private readonly List<(float[] states, long actions, float rewards, float[] next_states, float dones)> buffer;
+        public readonly DQN model;
         private readonly DQN target_model;
         private readonly Adam optimizer;
         private torch.Device device;
@@ -64,8 +66,8 @@ namespace DQNTorch
             this.gamma = gamma;
             this.lr = lr;
             buffer = new();
-            model = new DQN(1385, 44, 128).to(device);
-            target_model = new DQN(1385, 44, 128).to(device);
+            model = new DQN(1385, 484, 128).to(device);
+            target_model = new DQN(1385, 484, 128).to(device);
 
             optimizer = optim.Adam(model.parameters(), lr);
         }
@@ -81,6 +83,7 @@ namespace DQNTorch
         {
             if (np.random.rand() < epsilon)
             {
+                return np.random.randint(0, 484);
                 // 随机
             }
             else
@@ -94,6 +97,24 @@ namespace DQNTorch
             return 0
             ;
         }
+        // 生成一个方法 将float[][]转为float[,]
+        public T[,] GetMu<T>(T[][] floats)
+        {
+            int x = floats.Length;
+            int y = floats[0].Length;
+            T[,] result = new T[x, y];
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    result[i, j] = floats[i][j];
+                }
+            }
+            return result;
+        }
+
+
+
         public void learn()
         {
             if (buffer.Count < batch_Size)
@@ -101,7 +122,7 @@ namespace DQNTorch
                 return;
             }
             var samples = np.random.choice(buffer.Count, new Shape(batch_Size), replace: false);
-            var bufferTuples = samples.ToArray<int>().Select(s => buffer[s]);
+            var bufferTuples = samples.ToArray<int>().Select(s => buffer[s]).ToArray();
             //var states = tupleList.Select(t => t.Item1).ToList();
             //var actions = tupleList.Select(t => t.Item2).ToList();
             //var rewards = tupleList.Select(t => t.Item3).ToList();
@@ -114,11 +135,13 @@ namespace DQNTorch
             //var bufferTuples = sampleIndices.Select(i => this.buffer[i]).ToList();
 
             // 将元组中的各个元素分别赋值给不同的变量，并转换为张量
-            var states = from_array(bufferTuples.Select(t => t.Item1).ToArray()).to(this.device);
+
+            // 生成一个从float[][]转到Tenser的方法
+            var states = from_array(GetMu( bufferTuples.Select(t => t.Item1).ToArray())).to(this.device);
             var actions = from_array(bufferTuples.Select(t => t.Item2).ToArray()).unsqueeze(1).to(this.device);
-            var rewards = from_array(bufferTuples.Select(t => t.Item3).ToArray()).unsqueeze(1).to(this.device);
-            var nextStates = from_array(bufferTuples.Select(t => t.Item4).ToArray()).to(this.device);
-            var dones = from_array(bufferTuples.Select(t => t.Item5).ToArray()).unsqueeze(1).to(this.device);
+            var rewards = from_array(bufferTuples.Select(t => t.Item3).ToArray(), dtype: ScalarType.Float32).unsqueeze(1).to(this.device);
+            var nextStates = from_array(GetMu(bufferTuples.Select(t => t.Item4).ToArray()), dtype: ScalarType.Float32).to(this.device);
+            var dones = from_array(bufferTuples.Select(t => t.Item5).ToArray(), dtype: ScalarType.Float32).unsqueeze(1).to(this.device);
 
             // 计算损失函数
             var qValues = this.model.forward(states).gather(1, actions);
@@ -139,7 +162,7 @@ namespace DQNTorch
             // 训练循环
             for (int episode = 0; episode < episodes; episode++)
             {
-                (float[], int cnt) tuple = this.Env.Reset(episode / 2);
+                (float[], int cnt) tuple = this.Env.Reset(episode / 2, episode % 2);
                 var state = tuple.Item1;
                 var cnt = tuple.Item2;
                 if (cnt < 2) continue;
@@ -150,7 +173,11 @@ namespace DQNTorch
                 {
                     var actions = this.select_action(episode / 2, episode % 2);
                     var stepReward = 0.0f;
+                    var nextTuple = Env.Step(episode % 2);
+                    var nextReward = nextTuple.Item2;
+                    nextState = nextTuple.Item1;
                     float done = 0;
+                    done = nextTuple.Item3;
                     foreach (var action in actions)
                     {
                         int a = 0;
@@ -163,12 +190,13 @@ namespace DQNTorch
                                 a = action[0] + action[1] * 4 + action[2] * 16 + 11;
                                 break;
                         }
-                        var nextTuple = Env.Step(episode % 2, a);
-                        var nextReward = nextTuple.Item2;
-                        nextState = nextTuple.Item1;
-                         done = nextTuple.Item3;
+                        if (state == null)
+                        {
+                            int sada = 123;
+                        }
                         this.buffer.Add((state, a, nextReward, nextState, done));
                         stepReward += nextReward;
+                        
                     }
                     episodeReward += stepReward;
 
@@ -194,7 +222,10 @@ namespace DQNTorch
                 // 更新Target网络
                 if (episode % target_update == 0)
                 {
-                    this.target_model.load_state_dict(this.model.state_dict());
+                    //var aa = this.model.to("cpu").state_dict();
+                    model.save("temp");
+                    
+                    this.target_model.load("temp");
                 }
 
                 // 更新探索率

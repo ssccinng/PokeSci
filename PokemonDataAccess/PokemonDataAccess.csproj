@@ -14,4 +14,16 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="abilities.zqd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MoveData.zqd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Pokedata.zqd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

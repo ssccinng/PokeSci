@@ -115,6 +115,9 @@ namespace PokeCommon.Models
         /// 是否gg
         /// </summary>
         public bool IsDead => NowHp <= 0;
+
+        public PokeType? TreaType { get; internal set; }
+
         /// <summary>
         /// 回到最开始的状态
         /// </summary>

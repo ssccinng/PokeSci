@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PokeCommon\PokeCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="MoveData.zqd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

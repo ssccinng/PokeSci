@@ -95,7 +95,7 @@ namespace PokemonDataAccess
         {
             get; set;
         }
-        public PokemonContext(string? dbPath = "PokeDB.db")
+        public PokemonContext(string? dbPath = "PokemonDataBase.db")
         {
             if (dbPath == null)
             {

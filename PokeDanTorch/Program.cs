@@ -17,6 +17,7 @@ using System.Collections;
 using PSReplayAnalysis.PokeLib;
 
 using static PSReplayAnalysis.PSReplayAnalysis;
+using PokeCommon.Utils;
 
 //torch.load("F:\\VSProject\\PokeDanAI\\model_weights13.dat");
 //Module.Load("F:\\VSProject\\PokeDanAI\\model_weights13.dat");
@@ -93,15 +94,25 @@ else
 
 
 
-//var team1 = await PSConverter.ConvertToPokemonsAsync(config.Team);
-var team1 = PSReplayAnalysis.PokeLib.Pokemonshowdown.PStoPokemon(config.Team);
+var team1 = await PSConverter.ConvertToPokemonsAsync(config.Team);
+//var team1 = PSReplayAnalysis.PokeLib.Pokemonshowdown.PStoPokemon(config.Team);
 Console.WriteLine("准备登录");
 
-//var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
-var pc = new PSClient(config.Username, config.Password).LogTo(Console.WriteLine);
+var pc2 = new PSClient("kirbyRBP", config.Password, "ws://localhost:8000/showdown/websocket").LogTo(Console.WriteLine);
+await pc2.ConnectAsync();
+
+var pc = new PSClient(config.Username, config.Password, "ws://localhost:8000/showdown/websocket").LogTo(Console.WriteLine);
+//var pc2 = new PSClient("KirbyRBP", config.Password, "ws://localhost:8000/showdown/websocket").LogTo(Console.WriteLine);
 await pc.ConnectAsync();
+
+
+
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
+
+Console.WriteLine(await pc2.LoginAsync());
+
+
 ;
 
 pc.ChallengeAction += async (player, rule) =>
@@ -110,8 +121,8 @@ pc.ChallengeAction += async (player, rule) =>
     //if (rule == "gen7vgc2019")
     if (rule.StartsWith("gen9vgc2023"))
     {
-        await pc.ChatWithIdAsync(player, "随机战斗，玩了");
-        await pc.ChatWithIdAsync(player, "就决定是你了");
+        //await pc.ChatWithIdAsync(player, "随机战斗，玩了");
+        //await pc.ChatWithIdAsync(player, "就决定是你了");
         // await pc.ChangeYourTeamAsync("null");
         //await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
         //await pc.ChangeYourTeamAsync( PSReplayAnalysis.PokeLib.Pokemonshowdown.PStoPokemon(team1));
@@ -125,7 +136,7 @@ pc.ChallengeAction += async (player, rule) =>
 string[] xc = new[] { "2345", "1623" };
 pc.OnTeampreview += async (PokePSCore.PsBattle battle) =>
 {
-
+    //await pc2.ChangeYourTeamAsync("Pelipper||focussash|drizzle|hydropump,protect,wideguard,hurricane|Timid|4,,4,244,4,252||,0,,,,||50|,,,,,Flying]Flutter Mane||lifeorb|protosynthesis|moonblast,shadowball,dazzlinggleam,protect|Modest|68,,36,196,4,204||,0,,,,||50|,,,,,Fairy]Baxcalibur||loadeddice|thermalexchange|iciclecrash,iceshard,glaiverush,protect|Adamant|132,252,12,,28,84||||50|,,,,,Poison]Amoonguss||sitrusberry|regenerator|spore,protect,pollenpuff,ragepowder|Calm|236,,196,,76,||,0,,,,||50|,,,,,Steel]Palafin||mysticwater|zerotohero|haze,wavecrash,jetpunch,protect|Adamant|252,236,4,,4,12||||50|,,,,,Water]Iron Hands||assaultvest|quarkdrive|fakeout,closecombat,wildcharge,voltswitch|Adamant|76,156,12,,252,12||||50|,,,,,Grass");
     var battlea = battleana.GetValueOrDefault(battle.Tag);
     var lastTurn = battlea.battle.BattleTurns[0];
     //lastTurn.Player2Team.Pokemons[2].SelfMovesId = new[] {
@@ -455,7 +466,11 @@ int id = config.BattleCnt;
 
 while (true)
 {
-    await Task.Delay(100000);
+   // await pc2.ChangeYourTeamAsync("Pelipper||focussash|drizzle|hydropump,protect,wideguard,hurricane|Timid|4,,4,244,4,252||,0,,,,||50|,,,,,Flying]Flutter Mane||lifeorb|protosynthesis|moonblast,shadowball,dazzlinggleam,protect|Modest|68,,36,196,4,204||,0,,,,||50|,,,,,Fairy]Baxcalibur||loadeddice|thermalexchange|iciclecrash,iceshard,glaiverush,protect|Adamant|132,252,12,,28,84||||50|,,,,,Poison]Amoonguss||sitrusberry|regenerator|spore,protect,pollenpuff,ragepowder|Calm|236,,196,,76,||,0,,,,||50|,,,,,Steel]Palafin||mysticwater|zerotohero|haze,wavecrash,jetpunch,protect|Adamant|252,236,4,,4,12||||50|,,,,,Water]Iron Hands||assaultvest|quarkdrive|fakeout,closecombat,wildcharge,voltswitch|Adamant|76,156,12,,252,12||||50|,,,,,Grass");
+   // //await pc2.ChangeYourTeamAsync("null");
+   //await  pc2.ChallengeAsync("scixing", "gen9vgc2023series2");
+   //await  pc2.ChatWithIdAsync("scixing", "gen9vgc2023series2");
+    await Task.Delay(200000000);
     continue;
     if (id > 0 && idx < config.OnlineCnt && !isSearching)
     {
@@ -463,7 +478,7 @@ while (true)
         //await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
         await pc.SearchBattleAsync("gen8vgc2022");
         idx++;
-        id--;
+        id--; 
         await Task.Delay(5000);
     }
     if (id == 0 && idx == 0) break;

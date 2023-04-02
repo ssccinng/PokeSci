@@ -306,9 +306,12 @@ namespace PokeCommon.Utils
                 if (nPokemon != null)
                 {
                     _pokemons[nPokemon.Id] = nPokemon;
-                    _pokemonNameId[nPokemon.NameChs] = nPokemon.Id;
-                    _pokemonNameId[nPokemon.NameJpn] = nPokemon.Id;
-                    _pokemonNameId[nPokemon.NameEng] = nPokemon.Id;
+                    _pokemonNameId.TryAdd(nPokemon.NameChs ?? string.Empty, nPokemon.Id);
+                    _pokemonNameId.TryAdd(nPokemon.NameJpn ?? string.Empty, nPokemon.Id);
+                    _pokemonNameId.TryAdd(nPokemon.NameJpn ?? string.Empty, nPokemon.Id);
+                    //_pokemonNameId[nPokemon.NameChs] = nPokemon.Id;
+                    //_pokemonNameId[nPokemon.NameJpn] = nPokemon.Id;
+                    //_pokemonNameId[nPokemon.NameEng] = nPokemon.Id;
                 }
                 return nPokemon;
             }

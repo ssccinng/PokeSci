@@ -6,24 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokemonDataAccess;
 
+#nullable disable
+
 namespace PokemonDataAccess.Migrations
 {
     [DbContext(typeof(PokemonContext))]
-    [Migration("20210509112511_intellmysql")]
-    partial class intellmysql
+    [Migration("20230402062949_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
 
             modelBuilder.Entity("PokemonDataAccess.Models.Ability", b =>
                 {
                     b.Property<int>("AbilityId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(20)")
@@ -58,7 +58,7 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(2)")
@@ -81,7 +81,7 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("EggGroupId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(20)")
@@ -104,10 +104,10 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Condition_UpId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(1)")
@@ -122,7 +122,7 @@ namespace PokemonDataAccess.Migrations
                         .HasComment("日文名");
 
                     b.Property<int?>("Performance_UpId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -137,10 +137,10 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Item_Type")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(20)")
@@ -175,16 +175,16 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("MoveId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Acc")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Damage_Type")
                         .HasColumnType("nvarchar(6)");
 
                     b.Property<int?>("MoveTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(20)")
@@ -199,10 +199,10 @@ namespace PokemonDataAccess.Migrations
                         .HasComment("日文名");
 
                     b.Property<int>("PP")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Pow")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("description_Chs")
                         .HasColumnType("nvarchar(100)")
@@ -227,13 +227,13 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("NatureId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Flavor_DownId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Flavor_UpId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(5)")
@@ -248,19 +248,19 @@ namespace PokemonDataAccess.Migrations
                         .HasComment("日文名");
 
                     b.Property<int?>("Perf_DownId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Perf_UpId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Performance_value")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Stat_DownId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Stat_UpId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("NatureId");
 
@@ -283,7 +283,7 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(2)")
@@ -306,144 +306,122 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("PokeDexId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("National_Dex_Id")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("PokeDexId");
 
                     b.ToTable("PokeDex");
                 });
 
-            modelBuilder.Entity("PokemonDataAccess.Models.PokeType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name_Chs")
-                        .HasColumnType("nvarchar(5)")
-                        .HasComment("中文名");
-
-                    b.Property<string>("Name_Eng")
-                        .HasColumnType("varchar(20)")
-                        .HasComment("英文名");
-
-                    b.Property<string>("Name_Jpn")
-                        .HasColumnType("nvarchar(10)")
-                        .HasComment("日文名");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PokeTypes");
-                });
-
             modelBuilder.Entity("PokemonDataAccess.Models.Pokemon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Ability1AbilityId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Ability2AbilityId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("AbilityHAbilityId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BaseAtk")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BaseDef")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BaseHP")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BaseSpa")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BaseSpd")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("BaseSpe")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CatchRate")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Color")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasComment("0-9:红色,蓝色,绿色,黄色,紫色,粉红色,褐色,黑色,灰色,白色");
 
                     b.Property<bool>("DMax")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("INTEGER")
                         .HasComment("能否极巨化");
 
                     b.Property<int>("DexId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasComment("全国图鉴编号");
 
                     b.Property<int>("EVAtk")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("EVDef")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("EVHP")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("EVSpa")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("EVSpd")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("EVSpe")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("EXPGroup")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasComment("1:Erratic,2:Fast,3:Medium Fast,4:Medium Slow,5:Slow");
 
                     b.Property<int?>("EggGroup1EggGroupId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("EggGroup2EggGroupId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FormNameChs")
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(30)")
                         .HasComment("形态名");
 
                     b.Property<string>("FormNameEng")
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(40)");
 
                     b.Property<string>("FormNameJpn")
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("FullNameChs")
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(30)")
                         .HasComment("全名");
 
                     b.Property<string>("FullNameEng")
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(60)");
 
                     b.Property<string>("FullNameJpn")
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("GenderRatio")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasComment("♀/(♂+♀)=(GenderRatio+1)/(255+1),254雌性,255无性别");
 
                     b.Property<int>("HatchCycles")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER")
+                        .HasComment("孵化周期");
 
                     b.Property<decimal>("Height")
-                        .HasColumnType("decimal(3, 2)");
+                        .HasColumnType("decimal(5, 2)");
 
                     b.Property<string>("NameChs")
                         .HasColumnType("nvarchar(20)")
@@ -458,24 +436,24 @@ namespace PokemonDataAccess.Migrations
                         .HasComment("日文名");
 
                     b.Property<int?>("PokeDexId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PokeFormId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasComment("形态编号");
 
                     b.Property<int>("Stage")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasComment("意味無し");
 
                     b.Property<int?>("Type1Id")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Type2Id")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(3, 1)");
+                        .HasColumnType("decimal(4, 1)");
 
                     b.HasKey("Id");
 
@@ -498,14 +476,37 @@ namespace PokemonDataAccess.Migrations
                     b.ToTable("Pokemons");
                 });
 
+            modelBuilder.Entity("PokemonDataAccess.Models.PokeType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name_Chs")
+                        .HasColumnType("nvarchar(5)")
+                        .HasComment("中文名");
+
+                    b.Property<string>("Name_Eng")
+                        .HasColumnType("varchar(20)")
+                        .HasComment("英文名");
+
+                    b.Property<string>("Name_Jpn")
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("日文名");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PokeTypes");
+                });
+
             modelBuilder.Entity("PokemonDataAccess.Models.Statistic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("FlavorId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name_Chs")
                         .HasColumnType("nvarchar(3)")
@@ -530,16 +531,16 @@ namespace PokemonDataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Effect")
-                        .HasColumnType("decimal(1, 1)");
+                        .HasColumnType("decimal(2, 1)");
 
                     b.Property<int?>("Type1Id")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Type2Id")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

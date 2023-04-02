@@ -28,6 +28,11 @@ namespace PokeCommon.PokemonShowdownTools
             sb.AppendLine();
             if (gamePokemon.Ability != null) sb.AppendLine($"Ability: {gamePokemon.Ability.Name_Eng}");
             sb.AppendLine($"Level: {gamePokemon.LV}");
+            if (gamePokemon.TreaType != null)
+            {
+                sb.AppendLine("Tera Type: " + gamePokemon.TreaType.Name_Eng);
+
+            }
             if (gamePokemon.Happiness != 160) sb.AppendLine($"Happiness: {gamePokemon.Happiness}");
             string[] orz = { "HP", "Atk", "Def", "SpA", "SpD", "Spe" };
             bool flag = false;
@@ -138,6 +143,7 @@ namespace PokeCommon.PokemonShowdownTools
             }
             GamePokemon gamePokemon = new(poke);
             gamePokemon.Gmax = gmax;
+            gamePokemon.TreaType = poke.Type1;
             gamePokemon.NickName = nickName;
             gamePokemon.Item = await PokemonTools.GetItemAsync(itemName);
             for (int i = 1; i < data.Length; i++)
@@ -150,6 +156,10 @@ namespace PokeCommon.PokemonShowdownTools
                         break;
                     case "Gigantamax":
                         gamePokemon.Gmax |= (temp[1] == "Yes");
+                        break;
+                    case "Tera Type":
+                        gamePokemon.TreaType = (await PokemonTools.GetTypeAsync(temp[1]));
+                        //PB.TreaType = Pokemondata.GetTypeName(PB.TreaTypeId);
                         break;
                     case "IVs":
                         string[] IVs = Regex.Split(temp[1], @"\s*/\s*");
@@ -282,7 +292,7 @@ namespace PokeCommon.PokemonShowdownTools
             // 8：个体值，中间用逗号隔开 全31则为空
             // 9：是否闪光
             // 10：登记
-            string oneLineFormat = "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}]";
+            string oneLineFormat = "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}]";
 
             string[] data = new string[12];
             for (int i = 0; i < 12; i++)
@@ -345,6 +355,11 @@ namespace PokeCommon.PokemonShowdownTools
             if (gamePokemon.LV != 50)
             {
                 data[10] = gamePokemon.LV.ToString();
+
+            }
+            if (gamePokemon.TreaType != null)
+            {
+                data[10] = $",,,,,{gamePokemon.TreaType.Name_Eng}";
 
             }
             // if (gamePokemon.)

@@ -22,7 +22,7 @@ namespace PokeDanTorch
             //var cc = new DQN2(144, 8 * 900 + 10, 2048);
             var cc = new DQN6();
             //cc.load("F:\\VSProject\\PokeDanAI\\model_weightsDans6.dat").cuda();
-            cc.load("F:\\VSProject\\PokeDanAI\\model_weights2w.2.v10.dat").cuda();
+            cc.load("F:\\VSProject\\PokeDanAI\\model_weights2w.7.v10.dat").cuda();
             return cc;
         }
         public static IEnumerable<ChooseDanData> MakeChoose(BattleTurn battleTurn, int p)

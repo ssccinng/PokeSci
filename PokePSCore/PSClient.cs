@@ -172,7 +172,7 @@ namespace PokePSCore
             string tag = battleData[0].Split('|')[0][1..];
             Console.WriteLine($"tag: {tag}");
             var battle = Battles.GetValueOrDefault(tag) ?? new PsBattle(this, tag);
-            BattleInfo.Invoke(battle, msg);
+            BattleInfo?.Invoke(battle, msg);
 
             for (int i = 1; i < battleData.Length; i++)
             {
@@ -214,6 +214,7 @@ namespace PokePSCore
                         }
                         break;
                     case "request":
+                        break;
                         if (other[0] != "")
                         {
                             // battle.Turn += 2;
@@ -258,7 +259,7 @@ namespace PokePSCore
                         if (other[0] == "trapped")
                         {
                             // makemove
-
+                            // 招式失败 好像
                         }
                         break;
                     case "poke":

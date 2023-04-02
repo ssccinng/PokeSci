@@ -391,24 +391,24 @@ namespace PokemonDataAccess.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FormNameChs")
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(30)")
                         .HasComment("形态名");
 
                     b.Property<string>("FormNameEng")
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(40)");
 
                     b.Property<string>("FormNameJpn")
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("FullNameChs")
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(30)")
                         .HasComment("全名");
 
                     b.Property<string>("FullNameEng")
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(60)");
 
                     b.Property<string>("FullNameJpn")
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("GenderRatio")
                         .HasColumnType("INTEGER")
@@ -419,7 +419,7 @@ namespace PokemonDataAccess.Migrations
                         .HasComment("孵化周期");
 
                     b.Property<decimal>("Height")
-                        .HasColumnType("decimal(3, 2)");
+                        .HasColumnType("decimal(5, 2)");
 
                     b.Property<string>("NameChs")
                         .HasColumnType("nvarchar(20)")
@@ -451,7 +451,7 @@ namespace PokemonDataAccess.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(3, 1)");
+                        .HasColumnType("decimal(4, 1)");
 
                     b.HasKey("Id");
 
@@ -560,7 +560,7 @@ namespace PokemonDataAccess.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Effect")
-                        .HasColumnType("decimal(1, 1)");
+                        .HasColumnType("decimal(2, 1)");
 
                     b.Property<int?>("Type1Id")
                         .HasColumnType("INTEGER");

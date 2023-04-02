@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokeCommon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,18 @@ namespace PSReplayAnalysis
     public static class ExporttoTrainData
     {
         // 将BattleData导出为DQN状态空间
+
+        public static GamePokemonTeam[] ExportTeam(BattleData battleData)
+        {
+            GamePokemonTeam team = new GamePokemonTeam();
+            var turn= battleData.BattleTurns[0];
+            foreach (var item in turn.Player1Team.Pokemons)
+            {
+                new GamePokemon(new PokemonDataAccess.Models.Pokemon { });
+            }
+
+            throw new NotImplementedException();
+        }
         public static float[] ExportBattleTurn(BattleTurn turn, int p)
         { 
             var ss = new float[8][];
