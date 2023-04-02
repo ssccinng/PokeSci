@@ -120,6 +120,8 @@ public record ChildTurn
 // 要考虑pp变化
 public record PokemonStatus
 {
+    private int protect;
+
     // 生成一个将自己成员依据SingleTurn特性修改自己的值的方法
     // 接口一下
     public void NextTurn()
@@ -573,7 +575,19 @@ public record PokemonStatus
     /// 保护
     /// </summary>
     [SingleTurn]
-    public int Protect { get; set; }
+    public int Protect
+    {
+        get => protect; set
+        {
+            protect = value; 
+            if (value != 0)
+            {
+                ProtectCnt = 2;
+            }
+        }
+    }
+    [Decrease(initValue:1, decreaseValue:-1)]
+    public int ProtectCnt { get; set; }
     [SingleTurn]
     public int WideGuard { get; set; }
     public int QuickGuard { get; set; }

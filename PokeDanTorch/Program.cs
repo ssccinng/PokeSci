@@ -98,8 +98,8 @@ var team1 = await PSConverter.ConvertToPokemonsAsync(config.Team);
 //var team1 = PSReplayAnalysis.PokeLib.Pokemonshowdown.PStoPokemon(config.Team);
 Console.WriteLine("准备登录");
 
-var pc2 = new PSClient("kirbyRBP", config.Password, "ws://localhost:8000/showdown/websocket").LogTo(Console.WriteLine);
-await pc2.ConnectAsync();
+//var pc2 = new PSClient("kirbyRBP", config.Password, "ws://localhost:8000/showdown/websocket").LogTo(Console.WriteLine);
+//await pc2.ConnectAsync();
 
 var pc = new PSClient(config.Username, config.Password, "ws://localhost:8000/showdown/websocket").LogTo(Console.WriteLine);
 //var pc2 = new PSClient("KirbyRBP", config.Password, "ws://localhost:8000/showdown/websocket").LogTo(Console.WriteLine);
@@ -110,7 +110,7 @@ await pc.ConnectAsync();
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
 
-Console.WriteLine(await pc2.LoginAsync());
+//Console.WriteLine(await pc2.LoginAsync());
 
 
 ;
@@ -124,11 +124,11 @@ pc.ChallengeAction += async (player, rule) =>
         //await pc.ChatWithIdAsync(player, "随机战斗，玩了");
         //await pc.ChatWithIdAsync(player, "就决定是你了");
         // await pc.ChangeYourTeamAsync("null");
-        //await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+        await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
         //await pc.ChangeYourTeamAsync( PSReplayAnalysis.PokeLib.Pokemonshowdown.PStoPokemon(team1));
         //await pc.ChangeYourTeamAsync("Dondozo||leftovers|unaware|protect,earthquake,orderup,wavecrash|Adamant|,252,,,4,252|||||,,,,,Dragon]Tatsugiri||choicescarf|commander|dracometeor,hydropump,icywind,muddywater|Timid|4,,,252,,252||,0,,,,|||,,,,,Dragon]Armarouge||safetygoggles|flashfire|wideguard,armorcannon,expandingforce,trickroom|Modest|228,,28,252,,||,0,,,,|||,,,,,Psychic]Indeedee-F||psychicseed|psychicsurge|followme,trickroom,helpinghand,dazzlinggleam|Bold|252,,252,,4,|F|,0,,,,|||,,,,,Psychic]Sylveon||throatspray|pixilate|protect,hypervoice,terablast,quickattack|Modest|164,,252,84,4,4|||||,,,,,Fire]Meowscarada||focussash|overgrow|protect,flowertrick,knockoff,suckerpunch|Jolly|4,252,,,,252|||||,,,,,Grass");
         //await pc.ChangeYourTeamAsync("Tatsugiri||choicescarf|commander|dracometeor,hydropump,icywind,muddywater|Timid|4,,,252,,252||,0,,,,|||,,,,,Dragon]Indeedee-F||psychicseed|psychicsurge|followme,trickroom,helpinghand,dazzlinggleam|Bold|252,,252,,4,|F|,0,,,,|||,,,,,Psychic]Dondozo||leftovers|unaware|protect,earthquake,orderup,wavecrash|Adamant|,252,,,4,252|||||,,,,,Dragon]Armarouge||safetygoggles|flashfire|wideguard,armorcannon,expandingforce,trickroom|Modest|228,,28,252,,||,0,,,,|||,,,,,Psychic]Sylveon||throatspray|pixilate|protect,hypervoice,terablast,quickattack|Modest|164,,252,84,4,4|||||,,,,,Fire]Meowscarada||focussash|overgrow|protect,flowertrick,knockoff,suckerpunch|Jolly|4,252,,,,252|||||,,,,,Grass");
-        await pc.ChangeYourTeamAsync("Pelipper||focussash|drizzle|hydropump,protect,wideguard,hurricane|Timid|4,,4,244,4,252||,0,,,,||50|,,,,,Flying]Flutter Mane||lifeorb|protosynthesis|moonblast,shadowball,dazzlinggleam,protect|Modest|68,,36,196,4,204||,0,,,,||50|,,,,,Fairy]Baxcalibur||loadeddice|thermalexchange|iciclecrash,iceshard,glaiverush,protect|Adamant|132,252,12,,28,84||||50|,,,,,Poison]Amoonguss||sitrusberry|regenerator|spore,protect,pollenpuff,ragepowder|Calm|236,,196,,76,||,0,,,,||50|,,,,,Steel]Palafin||mysticwater|zerotohero|haze,wavecrash,jetpunch,protect|Adamant|252,236,4,,4,12||||50|,,,,,Water]Iron Hands||assaultvest|quarkdrive|fakeout,closecombat,wildcharge,voltswitch|Adamant|76,156,12,,252,12||||50|,,,,,Grass");
+        //await pc.ChangeYourTeamAsync("Pelipper||focussash|drizzle|hydropump,protect,wideguard,hurricane|Timid|4,,4,244,4,252||,0,,,,||50|,,,,,Flying]Flutter Mane||lifeorb|protosynthesis|moonblast,shadowball,dazzlinggleam,protect|Modest|68,,36,196,4,204||,0,,,,||50|,,,,,Fairy]Baxcalibur||loadeddice|thermalexchange|iciclecrash,iceshard,glaiverush,protect|Adamant|132,252,12,,28,84||||50|,,,,,Poison]Amoonguss||sitrusberry|regenerator|spore,protect,pollenpuff,ragepowder|Calm|236,,196,,76,||,0,,,,||50|,,,,,Steel]Palafin||mysticwater|zerotohero|haze,wavecrash,jetpunch,protect|Adamant|252,236,4,,4,12||||50|,,,,,Water]Iron Hands||assaultvest|quarkdrive|fakeout,closecombat,wildcharge,voltswitch|Adamant|76,156,12,,252,12||||50|,,,,,Grass");
         //await pc.ChangeYourTeamAsync("Chien-Pao||focussash|swordofruin|protect,sacredsword,icespinner,suckerpunch|Jolly|,252,4,,,252||||50|,,,,,Ghost]Dragonite||sharpbeak|multiscale|terablast,extremespeed,protect,stompingtantrum|Adamant|148,252,4,,4,100||||50|,,,,,Flying]Flutter Mane||choicespecs|protosynthesis|moonblast,dazzlinggleam,shadowball,psyshock|Modest|228,,92,36,4,148||,0,,,,||50|,,,,,Fairy]Talonflame||rockyhelmet|galewings|bravebird,tailwind,willowisp,quickguard|Jolly|172,4,236,,4,92||||50|,,,,,Ghost]Chi-Yu||choicescarf|beadsofruin|heatwave,darkpulse,overheat,snarl|Modest|4,,,252,,252||,0,,,,||50|,,,,,Ghost]Glimmora||assaultvest|toxicdebris|powergem,sludgebomb,mortalspin,earthpower|Modest|132,,4,100,20,252||||50|,,,,,Grass");
         await pc.AcceptChallengeAsync(player);
     }
@@ -139,90 +139,29 @@ pc.OnTeampreview += async (PokePSCore.PsBattle battle) =>
     //await pc2.ChangeYourTeamAsync("Pelipper||focussash|drizzle|hydropump,protect,wideguard,hurricane|Timid|4,,4,244,4,252||,0,,,,||50|,,,,,Flying]Flutter Mane||lifeorb|protosynthesis|moonblast,shadowball,dazzlinggleam,protect|Modest|68,,36,196,4,204||,0,,,,||50|,,,,,Fairy]Baxcalibur||loadeddice|thermalexchange|iciclecrash,iceshard,glaiverush,protect|Adamant|132,252,12,,28,84||||50|,,,,,Poison]Amoonguss||sitrusberry|regenerator|spore,protect,pollenpuff,ragepowder|Calm|236,,196,,76,||,0,,,,||50|,,,,,Steel]Palafin||mysticwater|zerotohero|haze,wavecrash,jetpunch,protect|Adamant|252,236,4,,4,12||||50|,,,,,Water]Iron Hands||assaultvest|quarkdrive|fakeout,closecombat,wildcharge,voltswitch|Adamant|76,156,12,,252,12||||50|,,,,,Grass");
     var battlea = battleana.GetValueOrDefault(battle.Tag);
     var lastTurn = battlea.battle.BattleTurns[0];
-    //lastTurn.Player2Team.Pokemons[2].SelfMovesId = new[] {
-    //                        PsMoves["Protect"].num,
-    //                        PsMoves["Earthquake"].num,
-    //                        PsMoves["Order Up"].num,
-    //                        PsMoves["Wave Crash"].num,
-    //                    };
-    //lastTurn.Player2Team.Pokemons[0].SelfMovesId = new[] {
-    //                        PsMoves["Draco Meteor"].num,
-    //                        PsMoves["Hydro Pump"].num,
-    //                        PsMoves["Icy Wind"].num,
-    //                        PsMoves["Muddy Water"].num,
-    //                    };
-    //lastTurn.Player2Team.Pokemons[3].SelfMovesId = new[] {
-    //                        PsMoves["Wide Guard"].num,
-    //                        PsMoves["Armor Cannon"].num,
-    //                        PsMoves["Expanding Force"].num,
-    //                        PsMoves["Trick Room"].num,
-    //                    };
+    for (int i = 0; i < battle.MyTeam.Count; i++)
+    {
+        for (int j = 0; j < team1.GamePokemons[i].Moves.Count; j++)
+        {
+            if (battle.PlayerPos ==  PlayerPos.Player1)
+            {
+                lastTurn.Player1Team.Pokemons[i].SelfMovesId[j] = PsMoves[team1.GamePokemons[i].Moves[j].NameEng].num;
 
-    //lastTurn.Player2Team.Pokemons[1].SelfMovesId = new[] {
-    //                        PsMoves["Follow Me"].num,
-    //                        PsMoves["Trick Room"].num,
-    //                        PsMoves["Helping Hand"].num,
-    //                        PsMoves["Dazzling Gleam"].num,
-    //                    };
+            }
+            else
+            {
+                lastTurn.Player2Team.Pokemons[i].SelfMovesId[j] = PsMoves[team1.GamePokemons[i].Moves[j].NameEng].num;
 
-    //lastTurn.Player2Team.Pokemons[4].SelfMovesId = new[] {
-    //                        PsMoves["Protect"].num,
-    //                        PsMoves["Hyper Voice"].num,
-    //                        PsMoves["Tera Blast"].num,
-    //                        PsMoves["Quick Attack"].num,
-    //                    };
-
-    //lastTurn.Player2Team.Pokemons[5].SelfMovesId = new[] {
-    //                        PsMoves["Protect"].num,
-    //                        PsMoves["Flower Trick"].num,
-    //                        PsMoves["Knock Off"].num,
-    //                        PsMoves["Sucker Punch"].num,
-    //                    };
-
-    lastTurn.Player2Team.Pokemons[0].SelfMovesId = new[] {
-                            PsMoves["Hydro Pump"].num,
-                            PsMoves["Protect"].num,
-                            PsMoves["Wide Guard"].num,
-                            PsMoves["Hurricane"].num,
-                        };
-    lastTurn.Player2Team.Pokemons[1].SelfMovesId = new[] {
-                            PsMoves["Moonblast"].num,
-                            PsMoves["Shadow Ball"].num,
-                            PsMoves["Dazzling Gleam"].num,
-                            PsMoves["Protect"].num,
-                        };
-    lastTurn.Player2Team.Pokemons[2].SelfMovesId = new[] {
-                            PsMoves["Icicle Crash"].num,
-                            PsMoves["Ice Shard"].num,
-                            PsMoves["Glaive Rush"].num,
-                            PsMoves["Protect"].num,
-                        };
-
-    lastTurn.Player2Team.Pokemons[3].SelfMovesId = new[] {
-                            PsMoves["Spore"].num,
-                            PsMoves["Protect"].num,
-                            PsMoves["Pollen Puff"].num,
-                            PsMoves["Rage Powder"].num,
-                        };
-
-    lastTurn.Player2Team.Pokemons[4].SelfMovesId = new[] {
-                            PsMoves["Haze"].num,
-                            PsMoves["Wave Crash"].num,
-                            PsMoves["Jet Punch"].num,
-                            PsMoves["Protect"].num,
-                        };
-
-    lastTurn.Player2Team.Pokemons[5].SelfMovesId = new[] {
-                            PsMoves["Fake Out"].num,
-                            PsMoves["Close Combat"].num,
-                            PsMoves["Wild Charge"].num,
-                            PsMoves["Volt Switch"].num,
-                        };
+            }
+        }
+    }
+    //for
     var resx = DanCore.MakeSwitch(battlea.battle.BattleTurns.Last(), (int)battle.PlayerPos + 1);
     var czcz = string.Concat(resx.Select(s => (s.Target1 + 1) + " " + s.Target2 + "\n"));
+    var czcz1 = string.Concat(resx.DistinctBy(s => s.Target1).Select(s => (s.Target1 + 1)));
     await Console.Out.WriteLineAsync(czcz);
     await Console.Out.WriteLineAsync(string.Concat(resx.Select(s => s.EV + " ")));
-    await battle.OrderTeamAsync(czcz);
+    await battle.OrderTeamAsync(czcz1);
     // await battle.SendMessageAsync("让我康康");
     // await battle.OrderTeamAsync("123456");
     //await battle.OrderTeamAsync
@@ -237,8 +176,8 @@ pc.OnForceSwitch += async (battle, bools) =>
 
     var resx = DanCore.MakeSwitch(battlea.battle.BattleTurns.Last(), (int)battle.PlayerPos + 1);
     var czcz = string.Concat(resx.Select(s => (s.Target1 + 1) + " " + s.Target2 + "\n"));
-    await Console.Out.WriteLineAsync(czcz);
-    return;
+    //await Console.Out.WriteLineAsync(czcz);
+    //return;
     Console.WriteLine("让我康康你有没有触发");
     List<ChooseData> chooseDatas = new List<ChooseData>();
     for (int i = 0; i < bools.Length; i++)
@@ -270,7 +209,7 @@ pc.OnForceSwitch += async (battle, bools) =>
     await battle.SendMoveAsunc(chooseDatas.ToArray());
 };
 
-pc.OnChooseMove += async battle =>
+pc.OnChooseMove += async (PokePSCore.PsBattle battle) =>
 {
     List<ChooseData> chooseDatas = new List<ChooseData>();
     
@@ -282,65 +221,33 @@ pc.OnChooseMove += async battle =>
     }
     for (int i = 0; i < battle.ActiveStatus.Length; i++)
     {
+        if (!battle.Actives[i]) continue;
         var resx = DanCore.MakeChoose(battlea.battle.BattleTurns.Last(), (int)battle.PlayerPos + 1);
         var m = resx.Where(s => s.Pos == i).Take(10);
-        foreach (var item in m)
-        {
-            if (item.ChooseType == ChooseType.Switch)
-            {
-                if (battle.PlayerPos == PlayerPos.Player1)
-                {
-                    var pok = battlea.battle.BattleTurns[0].Player1Team.Pokemons[item.Target1].NickName;
-                    Console.WriteLine
-                        ($"{item.ChooseType} {(item.Pos == 0 ? "左边" : "右侧")} 换成 " +
-                        $"{pok} {item.EV}");
-                }
-                else
-                {
-                    var pok = battlea.battle.BattleTurns[0].Player2Team.Pokemons[item.Target1].NickName;
-                    Console.WriteLine
-                        ($"{item.ChooseType} {(item.Pos == 0 ? "左边" : "右侧")} 换成 " +
-                        $"{pok} {item.EV}");
-                }
-            }
-            else
-            {
-                await Console.Out.WriteLineAsync($"{item.ChooseType} {(item.Pos == 0 ? "左边" : "右侧")} 使用第{item.Target1 + 1}招 打{item.Target2 + 1}位置  {item.EV}");
-            }
-            
-        }
-        
 
-        int moveid = Random.Shared.Next(4);
+        int moveid = m.First(s => s.Pos == i && s.Target1 != 0).Target1;
+        int target2 = m.First(s => s.Pos == i && s.Target1 != 0).Target2 + 1;
+        if (target2 > 2) target2 = 2 - target2;
         string target;
         bool dflag = false;
         Console.WriteLine('1');
         try
         {
 
-            //if (battle.MySide[i].Dynamax)
-            //{
-            //    Console.WriteLine(i + "这里dmax了");
-            //    target = battle.ActiveStatus[i].GetProperty("maxMoves").GetProperty("maxMoves")[moveid].GetProperty("target").GetString();
+            target = battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetProperty("target").GetString();
 
-            //}
-            //else
-            //{
-            //    target = battle.ActiveStatus[i].GetProperty("moves")[moveid].GetProperty("target").GetString();
+            Console.WriteLine(target);
+            if (target == "any" || target == "normal" || target == "adjacentFoe")
+            {
+                chooseDatas.Add(new MoveChooseData(moveid , dmax: dflag) { Target = target2 });
 
-            //}
-            //Console.WriteLine(target);
-            //if (target == "any" || target == "normal" || target == "adjacentFoe")
-            //{
-            //    chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag) { Target = Random.Shared.Next(2) + 1 });
+            }
+            else
+            {
 
-            //}
-            //else
-            //{
+                chooseDatas.Add(new MoveChooseData(moveid , dmax: dflag));
 
-            //    chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag));
-
-            //}
+            }
         }
         catch (global::System.Exception e)
         {

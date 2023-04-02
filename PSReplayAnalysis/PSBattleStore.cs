@@ -284,7 +284,7 @@ namespace PSReplayAnalysis
                             //moveSide.pos = 3 - moveSide.pos;
                             //moveTargetSide.pos = 3 - moveTargetSide.pos;
                             var gmid = lastTurn.Player2Team.Pokemons[idx].GetMove(moveId) + 1;
-                            if (gmid != -1)
+                            if (gmid != 0)
                             {
                                 lastTurn.Player2Team.Pokemons[idx].MovesId[gmid - 1] = moveId;
 

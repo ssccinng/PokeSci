@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
@@ -35,7 +36,8 @@ namespace PokePSCore
         /// 参数为playerid和信息
         /// </summary>
         public Action<string, string> ChatAction;
-        public Action<string, string> RequestsAction;
+        public Action<PsBattle> RequestsAction;
+        //public Action<string, string> RequestsAction;
         public Action<string> UserDetailsAction;
 
 
@@ -47,6 +49,7 @@ namespace PokePSCore
         /// </summary>
         public Action<PsBattle, bool> BattleEndAction;
         public Action<PsBattle> BattleStartAction;
+        public Action<PsBattle> BattleErrorAction;
 
         public Action<PsBattle, string> BattleInfo;
 
@@ -214,7 +217,7 @@ namespace PokePSCore
                         }
                         break;
                     case "request":
-                        break;
+                        RequestsAction?.Invoke(battle);
                         if (other[0] != "")
                         {
                             // battle.Turn += 2;
@@ -263,7 +266,6 @@ namespace PokePSCore
                         }
                         break;
                     case "poke":
-                        break;
                         if (other[0] == (battle.PlayerPos == PlayerPos.Player1 ? "p2" : "p1"))
                         {
                             // 对手的队伍信息
@@ -278,9 +280,11 @@ namespace PokePSCore
                     case "win":
                         Console.WriteLine("对战结束");
                         BattleEndAction?.Invoke(battle, other[0].Contains(UserName));
+                        Battles.Remove(battle.Tag);
                         // 对战结束
                         break;
                     case "error":
+                        BattleErrorAction?.Invoke(battle);
                         // 出现异常
                         break;
                     default:

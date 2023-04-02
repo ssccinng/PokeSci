@@ -1,0 +1,201 @@
+Pelipper @ Focus Sash  
+Ability: Drizzle  
+Level: 50  
+Tera Type: Flying  
+EVs: 4 HP / 4 Def / 244 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Hydro Pump  
+- Protect  
+- Wide Guard  
+- Hurricane  
+
+Flutter Mane @ Life Orb  
+Ability: Protosynthesis  
+Level: 50  
+Tera Type: Fairy  
+EVs: 68 HP / 36 Def / 196 SpA / 4 SpD / 204 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Moonblast  
+- Shadow Ball  
+- Dazzling Gleam  
+- Protect  
+
+Baxcalibur @ Loaded Dice  
+Ability: Thermal Exchange  
+Level: 50  
+Tera Type: Poison  
+EVs: 132 HP / 252 Atk / 12 Def / 28 SpD / 84 Spe  
+Adamant Nature  
+- Icicle Crash  
+- Ice Shard  
+- Glaive Rush  
+- Protect  
+
+Amoonguss @ Sitrus Berry  
+Ability: Regenerator  
+Level: 50  
+Tera Type: Steel  
+EVs: 236 HP / 196 Def / 76 SpD  
+Calm Nature  
+IVs: 0 Atk  
+- Spore  
+- Protect  
+- Pollen Puff  
+- Rage Powder  
+
+Palafin @ Mystic Water  
+Ability: Zero to Hero  
+Level: 50  
+Tera Type: Water  
+EVs: 252 HP / 236 Atk / 4 Def / 4 SpD / 12 Spe  
+Adamant Nature  
+- Haze  
+- Wave Crash  
+- Jet Punch  
+- Protect  
+
+Iron Hands @ Assault Vest  
+Ability: Quark Drive  
+Level: 50  
+Tera Type: Grass  
+EVs: 76 HP / 156 Atk / 12 Def / 252 SpD / 12 Spe  
+Adamant Nature  
+- Fake Out  
+- Close Combat  
+- Wild Charge  
+- Volt Switch  
+
+
+----
+
+Tatsugiri @ Choice Scarf  
+Ability: Commander  
+Tera Type: Dragon  
+EVs: 4 HP / 252 SpA / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Draco Meteor  
+- Hydro Pump  
+- Icy Wind  
+- Muddy Water  
+
+Indeedee-F (F) @ Psychic Seed  
+Ability: Psychic Surge  
+Tera Type: Psychic  
+EVs: 252 HP / 252 Def / 4 SpD  
+Bold Nature  
+IVs: 0 Atk  
+- Follow Me  
+- Trick Room  
+- Helping Hand  
+- Dazzling Gleam  
+
+Dondozo @ Leftovers  
+Ability: Unaware  
+Tera Type: Dragon  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Protect  
+- Earthquake  
+- Order Up  
+- Wave Crash  
+
+Armarouge @ Safety Goggles  
+Ability: Flash Fire  
+Tera Type: Psychic  
+EVs: 228 HP / 28 Def / 252 SpA  
+Modest Nature  
+IVs: 0 Atk  
+- Wide Guard  
+- Armor Cannon  
+- Expanding Force  
+- Trick Room  
+
+Sylveon @ Throat Spray  
+Ability: Pixilate  
+Tera Type: Fire  
+EVs: 164 HP / 252 Def / 84 SpA / 4 SpD / 4 Spe  
+Modest Nature  
+- Protect  
+- Hyper Voice  
+- Tera Blast  
+- Quick Attack  
+
+Meowscarada @ Focus Sash  
+Ability: Overgrow  
+Tera Type: Grass  
+EVs: 4 HP / 252 Atk / 252 Spe  
+Jolly Nature  
+- Protect  
+- Flower Trick  
+- Knock Off  
+- Sucker Punch  
+
+----
+
+Bronzong @ Kasib Berry  
+Ability: Heatproof  
+Tera Type: Dark  
+EVs: 252 HP / 252 Def / 4 SpD  
+Relaxed Nature  
+IVs: 0 Atk / 0 Spe  
+- Gravity  
+- Hypnosis  
+- Trick Room  
+- Body Press  
+
+Volcarona @ Iapapa Berry  
+Ability: Flame Body  
+Tera Type: Grass  
+EVs: 220 HP / 68 Def / 36 SpA / 4 SpD / 180 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Protect  
+- Quiver Dance  
+- Heat Wave  
+- Giga Drain  
+
+Espathra @ Focus Sash  
+Ability: Speed Boost  
+Tera Type: Dark  
+EVs: 180 HP / 124 Def / 4 SpA / 60 SpD / 140 Spe  
+Calm Nature  
+IVs: 0 Atk  
+- Protect  
+- Baton Pass  
+- Hypnosis  
+- Lumina Crash  
+
+Glaceon @ Assault Vest  
+Ability: Snow Cloak  
+Tera Type: Fire  
+EVs: 252 HP / 4 Def / 252 SpA  
+Modest Nature  
+- Freeze-Dry  
+- Blizzard  
+- Ice Shard  
+- Tera Blast  
+
+Kingambit @ Black Glasses  
+Ability: Supreme Overlord  
+Tera Type: Dark  
+EVs: 252 HP / 196 Atk / 4 Def / 52 SpD / 4 Spe  
+Adamant Nature  
+- Protect  
+- Swords Dance  
+- Sucker Punch  
+- Tera Blast  
+
+Annihilape @ Leftovers  
+Ability: Defiant  
+Tera Type: Fire  
+EVs: 252 HP / 4 Atk / 60 Def / 156 SpD / 36 Spe  
+Careful Nature  
+- Protect  
+- Bulk Up  
+- Drain Punch  
+- Rage Fist  
+
+

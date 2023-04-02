@@ -163,6 +163,8 @@ namespace PokeCommon.Utils
                 }
             }
         }
+
+        static object lockdb = new object();
         public static async ValueTask<PSPokemon?> GetPsPokemonAsync(int pokemonId)
         {
             if (_pokemonIdPSName.TryGetValue(pokemonId, out var name))
@@ -171,11 +173,16 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nPSName = await PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId);
-                if (nPSName != null)
-                {
-                    _pokemonIdPSName.Add(pokemonId, nPSName);
+                PSPokemon? nPSName;
+                lock (lockdb) {
+                    nPSName =  PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId).Result;
+                    if (nPSName != null)
+                    {
+                        _pokemonIdPSName.Add(pokemonId, nPSName);
+                    }
                 }
+                 
+                
                 return nPSName;
             }
         }

@@ -181,7 +181,7 @@ namespace PokePSCore
             await SendAsync("", data);
         }
 
-        public async Task SendForfeit(string battleTag)
+        public async Task SendForfeitAsync(string battleTag)
         {
             await SendAsync(battleTag, $"/forfeit");
 

@@ -92,6 +92,10 @@ public partial class PsBattle
     {
         await Client.SendLeaveAsync(Tag);
     }
+    public async Task ForfeitAsync()
+    {
+        await Client.SendForfeitAsync(Tag);
+    }
     public async Task SendTimerOnAsync()
     {
         await Client.SendAsync(Tag, "/timer on");

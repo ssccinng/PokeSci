@@ -1,8 +1,30 @@
 ﻿using DQNTorch;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using TorchSharp;
+using static TorchSharp.torch;
 
+//var agent = new DQNAgent();
+//agent.Env2 = new PokeDanEnvTest(@"F:\VSProject\PokeDanAI\testdata.v9.json");
+
+//agent.train(1000);
+
+//agent.model.save("dasd.data");
+
+//return;
+DQNAgent dQNAgent = new DQNAgent();
+await dQNAgent.train1(10000);
+dQNAgent.model.save("dani.dat");
+var afaa= from_array(new[] { 1, 2, 3, 4 });
+var cc = afaa.slice(0, 1, 3, 1);
+for (int i = 0; i < cc.shape[0]; i++)
+{
+    Console.WriteLine(cc[i].ToInt32());
+}
+return;
 PokemonDataAccess.PokemonContext pokemonContext = new PokemonDataAccess.PokemonContext("PokemonDataBase.db");
+
+
 // pokemonContext.Database.Migrate();
 Console.WriteLine(pokemonContext.Egg_Groups.ToArray().Length);
 
@@ -184,11 +206,11 @@ if (false) {
 return;
 
 
-var agent = new DQNAgent(new PokeDanEnvTest(@"F:\VSProject\PokeDanAI\testdata.v9.json"));
+//var agent = new DQNAgent(new PokeDanEnvTest(@"F:\VSProject\PokeDanAI\testdata.v9.json"));
 
-agent.train(1000);
+//agent.train(1000);
 
-agent.model.save("dasd.data");
+//agent.model.save("dasd.data");
 
 
 
