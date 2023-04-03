@@ -12,6 +12,7 @@ using System.Net;
 using System.Security.Policy;
 using static TorchSharp.torch.nn.utils;
 using PokePSCore;
+using Microsoft.VisualBasic;
 
 namespace DQNTorch
 {
@@ -225,11 +226,12 @@ namespace DQNTorch
             Env1 = new PokeDanEnvPs(this);
             await Env1.Init("longkui", "11998whs");
 
-            PSClient ob = new PSClient("kribyRBP", "11998whs", "ws://localhost:8000/showdown/websocket");
+            //PSClient ob = new PSClient("letsgomipha", "11998whs", "ws://localhost:8000/showdown/websocket");
 
-            //await  ob.ConnectAsync();
-            //Task.Delay(1000);
+            //await ob.ConnectAsync();
+            //await Task.Delay(1000);
             //await ob.LoginAsync();
+            string lasttag = "";
             var epsilon = epsilon_start;
 
             // 训练循环
@@ -237,10 +239,16 @@ namespace DQNTorch
             {
                 Env.epsilon = Env1.epsilon = epsilon;
                 await Env.Challenage(Env1);
-                if (episode % 10 == 0)
-                {
-                    //await ob.SendJoinAsync(Env.replayAnalysis.Keys.Last());
-                }
+                //if (episode % 5 == 4)
+                //{
+                //    if (lasttag != "")
+                //    {
+                //        await ob.SendLeaveAsync(lasttag);
+                       
+                //    }
+                //    lasttag = Env.replayAnalysis.Keys.Last();
+                //    await ob.SendJoinAsync(lasttag);
+                //}
                 //CreateBattle(Env, Env1, epsilon);
                 await Env.WaitEnd();
                 await Env1.WaitEnd();

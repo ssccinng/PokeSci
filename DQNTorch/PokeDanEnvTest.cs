@@ -244,11 +244,13 @@ namespace DQNTorch
                         aaa.Player2Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
                     }
                 }
+                battle.BattleStatus = BattleStatus.Waiting;
                 await battle.OrderTeamAsync(string.Concat(aa));
                 await WaitRequests(battle);
                 if (battle.BattleStatus == BattleStatus.Error)
                 {
                     Console.WriteLine("error");
+                    await OnLose(battle, $"选人问题");
                 }
                 else if (battle.BattleStatus == BattleStatus.Requests)
                 {
@@ -340,6 +342,7 @@ namespace DQNTorch
                     }
                 }
 
+                battle.BattleStatus = BattleStatus.Waiting;
                 await battle.SendMoveAsunc(chooseDatas.ToArray());
                 await WaitRequests(battle);
                 if (battle.BattleStatus == BattleStatus.Error)
@@ -367,22 +370,36 @@ namespace DQNTorch
                 List<int> ints = new List<int>();
                 List<int> banid = new();
 
-                for (int i = 0; i < battle.ActiveStatus.Length; i++)
-                {
-                    if (battle.ActiveStatus[i].TryGetProperty("trapped", out var trap))
-                    {
-                        if (!trap.GetBoolean()) continue;
-                        var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.Id == battle.MySide[i].MetaPokemon.Id);
-                        if (aa != -1)
-                        banid.Add(aa);
-                    }
-                }
+                //for (int i = 0; i < battle.ActiveStatus.Length; i++)
+                //{
+                //    if (battle.ActiveStatus[i].TryGetProperty("trapped", out var trap))
+                //    {
+                //        if (trap.GetBoolean())
+                //        {
+                //            var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.Id == battle.MySide[i].MetaPokemon.Id);
+                //            if (aa != -1)
+                //                banid.Add(aa);
+                //        }
+                     
+                //    }
+                //}
                 for (int i = 0; i < battle.ActiveStatus.Length; i++)
                 {
                     Console.WriteLine("battle.Actives[i] = {0}, (battle.MySide[i]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding);
                     if (!battle.Actives[i] || (battle.MySide[i]?.Commanding ?? false)) continue;
                     JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
                     List<int> banmove = new();
+
+                    if (battle.ActiveStatus[i].TryGetProperty("trapped", out var trap))
+                    {
+                        if (trap.GetBoolean())
+                        {
+                            var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.Id == battle.MySide[i].MetaPokemon.Id);
+                            if (aa != -1)
+                                banmove.AddRange(new []{ 0, 1, 2, 3, 4, 5});
+                        }
+
+                    }
                     if (movedata.GetArrayLength() == 1)
                     {
                         chooseDatas.Add(new MoveChooseData(1, dmax: false));
@@ -511,13 +528,17 @@ namespace DQNTorch
 
 
                 }
+                battle.BattleStatus = BattleStatus.Waiting;
+
                 await battle.SendMoveAsunc(chooseDatas.ToArray());
                 // 要等待一下
                 await WaitRequests(battle);
                 if (battle.BattleStatus == BattleStatus.Error)
                 {
                     // gg
-                    await OnLose(battle, "出招问题");
+                    //await OnLose(battle, "出招问题");
+                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                    await OnLose(battle, $"出招问题");
                 }
                 else
                 {
@@ -602,6 +623,7 @@ namespace DQNTorch
             // 1. 
             var actions = GetChooseDataFromAction(replay, action);
 
+                battle.BattleStatus = BattleStatus.Waiting;
             await battle.SendMoveAsunc(actions.ToArray());
             await WaitRequests(battle);
 

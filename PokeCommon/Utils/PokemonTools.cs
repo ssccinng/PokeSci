@@ -154,7 +154,8 @@ namespace PokeCommon.Utils
                 var nPSPoke = await PokemonContext.PSPokemons.FirstOrDefaultAsync(p => p.PSName == name);
                 if (nPSPoke != null)
                 {
-                    _psPokemonId.Add(name, nPSPoke.PokemonId ?? 0);
+                    // Todo: 为啥要try
+                    _psPokemonId.TryAdd(name, nPSPoke.PokemonId ?? 0);
                     return await GetPokemonAsync(nPSPoke.PokemonId ?? 0);
                 }
                 else
