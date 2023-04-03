@@ -11,6 +11,7 @@ using System;
 using System.Net;
 using System.Security.Policy;
 using static TorchSharp.torch.nn.utils;
+using PokePSCore;
 
 namespace DQNTorch
 {
@@ -96,7 +97,7 @@ namespace DQNTorch
                 //return Random.Shared.Next(6);
                 while (true)
                 {
-                    var res = np.random.randint(0, 3).GetInt32();
+                    var res = np.random.randint(0, 4).GetInt32();
                     if (!banactions.Contains(res))
                     {
                         return res;
@@ -111,7 +112,7 @@ namespace DQNTorch
                 q_values = q_values.slice(1, pos * 22, 6 + pos * 22, 1);
                 foreach (var item in banactions)
                 {
-                    if (item < 6)
+                    //if (item < 6)
                         q_values[0][item] = float.MinValue;
                 }
                 // 这个item是什么
@@ -146,7 +147,7 @@ namespace DQNTorch
                 q_values = q_values.slice(1, pos * 22, 22 + pos * 22, 1);
                 foreach (var item in banactions)
                 {
-                    if (item < 6)
+                  
                         q_values[0][item] = float.MinValue;
                 }
                 // 这个item是什么
@@ -224,6 +225,11 @@ namespace DQNTorch
             Env1 = new PokeDanEnvPs(this);
             await Env1.Init("longkui", "11998whs");
 
+            PSClient ob = new PSClient("kribyRBP", "11998whs", "ws://localhost:8000/showdown/websocket");
+
+            //await  ob.ConnectAsync();
+            //Task.Delay(1000);
+            //await ob.LoginAsync();
             var epsilon = epsilon_start;
 
             // 训练循环
@@ -231,6 +237,10 @@ namespace DQNTorch
             {
                 Env.epsilon = Env1.epsilon = epsilon;
                 await Env.Challenage(Env1);
+                if (episode % 10 == 0)
+                {
+                    //await ob.SendJoinAsync(Env.replayAnalysis.Keys.Last());
+                }
                 //CreateBattle(Env, Env1, epsilon);
                 await Env.WaitEnd();
                 await Env1.WaitEnd();

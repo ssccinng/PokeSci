@@ -147,7 +147,7 @@ namespace DQNTorch
 
             Player.OnTeampreview += async (PokePSCore.PsBattle battle) =>
             {
-                var battlea = replayAnalysis.GetValueOrDefault(battle.Tag) ?? new PSReplayAnalysis.PSReplayAnalysis() { RoomId = battle.Tag };
+                var battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
 
 
 
@@ -216,9 +216,9 @@ namespace DQNTorch
                             aaa.Player2Team.Pokemons[i].HPRemain = 0;
                         }
                     }
-                    DQNAgent.AddBuffer((state, a, (-10f + Random.Shared.NextSingle()) / 10,
+                    DQNAgent.AddBuffer((state, a, (-1f),
                         state2, 1));
-                    DQNAgent.AddBuffer((state2, b + 22, (-10f + Random.Shared.NextSingle()) / 10,
+                    DQNAgent.AddBuffer((state2, b + 22, (-1f) ,
                         ExportBattleTurn(aaa, (int)(battle.PlayerPos) + 1), 1));
                     await OnLose(battle, $"选人存在问题 {a} {b}");
 
@@ -341,6 +341,13 @@ namespace DQNTorch
                 }
 
                 await battle.SendMoveAsunc(chooseDatas.ToArray());
+                await WaitRequests(battle);
+                if (battle.BattleStatus == BattleStatus.Error)
+                {
+                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
+                                (state, ints.Last(), -1, state, 1));
+                    await OnLose(battle, "强制换人有问题");
+                }
             };
 
             Player.OnChooseMove += async (PokePSCore.PsBattle battle) =>
@@ -350,7 +357,7 @@ namespace DQNTorch
 
                 bool dm = false;
                 PSReplayAnalysis.PSReplayAnalysis battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
-                //await battle.SendMessageAsync($"reward: {battlea.battle.BattleTurns[^2].Reward1} reward: {battlea.battle.BattleTurns[^2].Reward2}");
+                await battle.SendMessageAsync($"reward: {battlea.battle.BattleTurns[^2].Reward1} reward: {battlea.battle.BattleTurns[^2].Reward2}");
                 BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
                 foreach (var item in lastTurn.Player2Team.Pokemons)
                 {
@@ -358,12 +365,47 @@ namespace DQNTorch
                 }
                 float[] state = ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1);
                 List<int> ints = new List<int>();
+                List<int> banid = new();
+
                 for (int i = 0; i < battle.ActiveStatus.Length; i++)
                 {
-                     Console.WriteLine("battle.Actives[i] = {0}, (battle.MySide[i]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding);
+                    if (battle.ActiveStatus[i].TryGetProperty("trapped", out var trap))
+                    {
+                        if (!trap.GetBoolean()) continue;
+                        var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.Id == battle.MySide[i].MetaPokemon.Id);
+                        if (aa != -1)
+                        banid.Add(aa);
+                    }
+                }
+                for (int i = 0; i < battle.ActiveStatus.Length; i++)
+                {
+                    Console.WriteLine("battle.Actives[i] = {0}, (battle.MySide[i]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding);
                     if (!battle.Actives[i] || (battle.MySide[i]?.Commanding ?? false)) continue;
-                    var resx = (int)DQNAgent.act(state, i, epsilon, ints.ToArray());
+                    JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
+                    List<int> banmove = new();
+                    if (movedata.GetArrayLength() == 1)
+                    {
+                        chooseDatas.Add(new MoveChooseData(1, dmax: false));
+                        continue;
+                    }
+                    for (int j = 0; j < movedata.GetArrayLength(); ++j)
+                    {
+                        if (movedata[j].GetProperty("disabled").GetBoolean())
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                banmove.Add(6 + j + k * 4);
+                            }
+                        }
+                    }
+                    // 获取disable and trap
+                    var resx = (int)DQNAgent.act(state, i, epsilon, banid.ToArray().Concat(banmove.ToArray()).ToArray());
                     ints.Add(resx + i * 22); // 写死了 很糟糕
+
+                    if (resx < 6)
+                    {
+                        banid.Add(resx);
+                    }
                     // 直接就是22
                     if (resx < 6)
                     {
@@ -374,7 +416,8 @@ namespace DQNTorch
                         chooseDatas.Add(new SwitchData { PokeId = aa });
                         if (aa < 3)
                         {
-                            DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                            DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
+                                (state, ints.Last(), -1, state, 1));
                             await OnLose(battle, "行动时换人出错");
                             return;
                             int c = 34; ;
@@ -396,7 +439,7 @@ namespace DQNTorch
                         try
                         {
 
-                            target = battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetProperty("target").GetString();
+                            target = movedata[moveid-1].GetProperty("target").GetString();
 
                             Console.WriteLine(target);
                             Console.WriteLine(battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetRawText());
@@ -409,7 +452,7 @@ namespace DQNTorch
                                     // 选到自己 直接炸裂 投降
                                     // 加入状态
                                     // 只加这个 其他就不用了
-                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式选择到了自己");
                                     return;
                                 }
@@ -421,7 +464,7 @@ namespace DQNTorch
                                 // 选到自己人炸裂
                                 if (target2 < 0)
                                 {
-                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式选择到了自己人");
                                     return;
                                 }
@@ -432,7 +475,7 @@ namespace DQNTorch
                             {
                                 if (target2 > 0 || target2 == -(i + 1))
                                 {
-                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式没选到队友");
                                     return;
                                 }
@@ -443,7 +486,7 @@ namespace DQNTorch
                             {
                                 if (target2 > 0)
                                 {
-                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式选择到了别人");
                                     return;
                                 }
@@ -460,8 +503,9 @@ namespace DQNTorch
                         catch (global::System.Exception e)
                         {
                             Console.WriteLine(e.Message);
+                            Console.WriteLine(e.StackTrace);
                             Console.WriteLine("异常了");
-                            chooseDatas.Add(new MoveChooseData(1));
+                            //chooseDatas.Add(new MoveChooseData(1));
                         }
                     }
 
@@ -480,7 +524,8 @@ namespace DQNTorch
                     foreach (var item in ints)
                     {
                         // 这个reward也要给好
-                        DQNAgent.AddBuffer((state, item, -1, ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1), 
+                        DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
+                            (state, item, -1, ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1), 
                             battle.PlayerPos == PlayerPos.Player1 ? lastTurn.Reward1 : lastTurn.Reward2)
                         
                         );

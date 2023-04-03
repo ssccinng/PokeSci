@@ -168,7 +168,7 @@ public partial class PsBattle
             var pokes = side.GetProperty("pokemon");
             Console.WriteLine(pokes.GetArrayLength());
 
-
+            // side没问题？？
             for (int i = 0; i < pokes.GetArrayLength(); i++)
             {
                 Console.WriteLine(pokes[i]);
@@ -214,6 +214,10 @@ public partial class PsBattle
                 else
                 {
                     MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
+                    if (pokes[i].TryGetProperty("trapped", out var tv))
+                    {
+                        //MyTeam[i].Trapped = tv.GetBoolean();
+                    }
 
                     // 只需更新状态
                 }
