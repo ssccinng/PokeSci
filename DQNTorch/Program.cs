@@ -1,4 +1,5 @@
 ﻿using DQNTorch;
+using NumSharp;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TorchSharp;
@@ -12,6 +13,8 @@ using static TorchSharp.torch;
 //agent.model.save("dasd.data");
 
 //return;
+var aaaa = np.random.rand(1)[0].GetDouble()
+    ;
 DQNAgent dQNAgent = new DQNAgent();
 await dQNAgent.train1(10000);
 dQNAgent.model.save("dani.dat");

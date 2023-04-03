@@ -14,6 +14,7 @@ namespace PokePSCore
             get; set;
         }
         public int ActiveId { get; set; } = -1;
+        public bool Commanding { get; internal set; }
 
         public void Faint()
         {

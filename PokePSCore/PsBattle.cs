@@ -174,6 +174,7 @@ public partial class PsBattle
                 Console.WriteLine(pokes[i]);
                 // detail 后面是等级 detail0 为名字 detail1为等级 m'j'm
                 var detail = pokes[i].GetProperty("details").GetString().Split(", ");
+                
                 // var poke = MyTeam.GamePokemons.FirstOrDefault(s =>
                 //     PokemonTools.GetPsPokemonAsync(s.MetaPokemon.Id).Result?.PSName == detail[0]);
                 string[] condition = pokes[i].GetProperty("condition").GetString().Split('/');
@@ -212,6 +213,7 @@ public partial class PsBattle
                 }
                 else
                 {
+                    MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
 
                     // 只需更新状态
                 }

@@ -10,6 +10,7 @@ using static Tensorboard.TensorShapeProto.Types;
 using System;
 using System.Net;
 using System.Security.Policy;
+using static TorchSharp.torch.nn.utils;
 
 namespace DQNTorch
 {
@@ -87,33 +88,54 @@ namespace DQNTorch
         }
 
         // 选择一个动作 但要考虑 可能可以一个随机一个不随机
-        public long actSwitch(float[] state, int pos, float epsilon = 0.1f)
+        public long actSwitch(float[] state, int pos, double epsilon = 0.1f, params int[] banactions)
         {
-            if (Random.Shared.NextSingle() < epsilon)
+            if (np.random.rand(1)[0].GetDouble() < epsilon)
             {
 
-                return Random.Shared.Next(6);
+                //return Random.Shared.Next(6);
+                while (true)
+                {
+                    var res = np.random.randint(0, 3).GetInt32();
+                    if (!banactions.Contains(res))
+                    {
+                        return res;
+                    }
+                }
                 // 随机
             }
             else
             {
                 var states = FloatTensor(state).unsqueeze(0).to(device);
                 var q_values = model.forward(states);
+                q_values = q_values.slice(1, pos * 22, 6 + pos * 22, 1);
+                foreach (var item in banactions)
+                {
+                    if (item < 6)
+                        q_values[0][item] = float.MinValue;
+                }
                 // 这个item是什么
                 //var action1 = argmax(q_values.slice(1, pos * 22, 22 + pos * 22, 1), 1);
-                var action = argmax(q_values.slice(1, pos * 22, 6 + pos * 22, 1), 1).cpu().item<long>();
+                var action = argmax(q_values, 1).cpu().item<long>();
                 //using var aa = torch.autograd.set_detect_anomaly(true);
                 return action;
             }
             ;
         }
-        public long act(float[] state, int pos, float epsilon = 0.1f)
+        public long act(float[] state, int pos, double epsilon = 0.1f, params int[] banactions)
         {
-            if (Random.Shared.NextSingle() < epsilon)
+            if (np.random.rand(1)[0].GetDouble() < epsilon)
             {
-                
+
                 //return Random.Shared.Next(22) + 22 * pos;
-                return Random.Shared.Next(22);
+                while (true)
+                {
+                    var res = np.random.randint(0, 22).GetInt32();
+                    if (!banactions.Contains(res))
+                    {
+                        return res;
+                    }
+                }
 
                 // 随机
             }
@@ -121,9 +143,15 @@ namespace DQNTorch
             {
                 var states = FloatTensor(state).unsqueeze(0).to(device);
                 var q_values = model.forward(states);
+                q_values = q_values.slice(1, pos * 22, 22 + pos * 22, 1);
+                foreach (var item in banactions)
+                {
+                    if (item < 6)
+                        q_values[0][item] = float.MinValue;
+                }
                 // 这个item是什么
                 //var action1 = argmax(q_values.slice(1, pos * 22, 22 + pos * 22, 1), 1);
-                var action = argmax(q_values.slice(1, pos * 22, 22 + pos*22, 1), 1).cpu().item<long>();
+                var action = argmax(q_values, 1).cpu().item<long>();
                 //using var aa = torch.autograd.set_detect_anomaly(true);
                 return action;
             }
@@ -211,8 +239,13 @@ namespace DQNTorch
                 float[] nextState = null;
                 learn();
                 // 输出训练结果
-                if (episode % 100 == 0)
+                if (episode % 100 == 99)
                 {
+                    model.save($"temp.{episode+1}.data");
+
+                }
+                if (episode % 100 == 0)
+                    {
                     Console.WriteLine($"Episode {episode}, Reward {episodeReward}");
                 }
 

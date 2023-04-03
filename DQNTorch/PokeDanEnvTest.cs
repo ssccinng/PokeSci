@@ -104,7 +104,7 @@ namespace DQNTorch
         public Dictionary<string, PSReplayAnalysis.PSReplayAnalysis> replayAnalysis { get; set; } = new();
         // public Dictionary
         public PSClient Player;
-        internal float epsilon;
+        internal double epsilon;
 
         public PokeDanEnvPs(DQNAgent dQNAgent)
         {
@@ -188,7 +188,7 @@ namespace DQNTorch
 
                 var b = (int)DQNAgent.actSwitch(state2,
                     1,
-                    epsilon);
+                    epsilon, a);
                 if (battle.PlayerPos == PlayerPos.Player1)
                 {
                     // 同名应该没问题吧
@@ -220,7 +220,7 @@ namespace DQNTorch
                         state2, 1));
                     DQNAgent.AddBuffer((state2, b + 22, (-10f + Random.Shared.NextSingle()) / 10,
                         ExportBattleTurn(aaa, (int)(battle.PlayerPos) + 1), 1));
-                    await OnLose(battle, "选人存在问题");
+                    await OnLose(battle, $"选人存在问题 {a} {b}");
 
                     //DQNAgent.learn();
                     // 结束
@@ -263,7 +263,7 @@ namespace DQNTorch
                         (-10f + Random.Shared.NextSingle()) / 10,
                         floats, 
                         1));
-                    await battle.ForfeitAsync();
+                    //await battle.ForfeitAsync();
                     // 进入下一轮
                 }
 
@@ -301,15 +301,15 @@ namespace DQNTorch
                 {
                     if (bools[i])
                     {
-                        var resx = (int)DQNAgent.actSwitch(state, i, epsilon);
+                        var resx = (int)DQNAgent.actSwitch(state, i, epsilon, ints.ToArray());
                         ints.Add(resx + i * 22);
                         var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide, 
                             s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id);
-                        if (aa == 0)
+                        if (aa == -1)
                         {
                             DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
-                            await OnLose(battle, "强制换人时出问题");
-
+                            await OnLose(battle, $"强制换人时出问题 {aa + 1}");
+                            return;
                         }
                         if (battle.Actives[aa] == false && !battle.MyTeam[aa].IsDead)
                         {
@@ -317,8 +317,15 @@ namespace DQNTorch
                         }
                         else
                         {
+                            if (battle.MySide[3].IsDead && battle.MySide[2].IsDead)
                             // 这个pass有问题
                             chooseDatas.Add(new SwitchData { IsPass = true });
+                            else
+                            {
+                                DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                await OnLose(battle, $"强制换人时出问题 {aa + 1}");
+                                return;
+                            }
 
                         }
                         //if (idx == -1)
@@ -338,10 +345,12 @@ namespace DQNTorch
 
             Player.OnChooseMove += async (PokePSCore.PsBattle battle) =>
             {
+
                 List<ChooseData> chooseDatas = new List<ChooseData>();
 
                 bool dm = false;
                 PSReplayAnalysis.PSReplayAnalysis battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
+                //await battle.SendMessageAsync($"reward: {battlea.battle.BattleTurns[^2].Reward1} reward: {battlea.battle.BattleTurns[^2].Reward2}");
                 BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
                 foreach (var item in lastTurn.Player2Team.Pokemons)
                 {
@@ -351,8 +360,9 @@ namespace DQNTorch
                 List<int> ints = new List<int>();
                 for (int i = 0; i < battle.ActiveStatus.Length; i++)
                 {
-                    if (!battle.Actives[i]) continue;
-                    var resx = (int)DQNAgent.act(state, i, epsilon);
+                     Console.WriteLine("battle.Actives[i] = {0}, (battle.MySide[i]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding);
+                    if (!battle.Actives[i] || (battle.MySide[i]?.Commanding ?? false)) continue;
+                    var resx = (int)DQNAgent.act(state, i, epsilon, ints.ToArray());
                     ints.Add(resx + i * 22); // 写死了 很糟糕
                     // 直接就是22
                     if (resx < 6)
@@ -360,9 +370,9 @@ namespace DQNTorch
                         // change
                         // 找到要换的人 从side拉上来
                         //如果换的不合理 直接触发lose
-                        var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide, s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id) + 1;
+                        var aa = Array.FindIndex(battle.MySide, s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id) + 1;
                         chooseDatas.Add(new SwitchData { PokeId = aa });
-                        if (aa ==0)
+                        if (aa < 3)
                         {
                             DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
                             await OnLose(battle, "行动时换人出错");
@@ -377,7 +387,7 @@ namespace DQNTorch
                     else
                     {
                         resx -= 6;
-                        int moveid = resx % 4 +1;
+                        int moveid = resx % 4 + 1;
                         int target2 = resx / 4 + 1;
                         if (target2 > 2) target2 = 2 - target2;
                         string target;
@@ -387,10 +397,10 @@ namespace DQNTorch
                         {
 
                             target = battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetProperty("target").GetString();
-                           
+
                             Console.WriteLine(target);
                             Console.WriteLine(battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetRawText());
-                            if (target == "any" || target == "normal" )
+                            if (target == "any" || target == "normal")
                             {
                                 // 不能选到自己 || target == "AdjacentAllyOrSelf"
 
@@ -418,7 +428,18 @@ namespace DQNTorch
                                 chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag) { Target = target2 });
 
                             }
-                            else if (target == "adjacentAllyOrSelf")
+                            else if (target == "adjacentAlly")
+                            {
+                                if (target2 > 0 || target2 == -(i + 1))
+                                {
+                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    await OnLose(battle, "招式没选到队友");
+                                    return;
+                                }
+                                chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag) { Target = target2 });
+
+                            }
+                            else if (target == "adjacentAllyOrSelf" || target == "adjacentAlly")
                             {
                                 if (target2 > 0)
                                 {
@@ -483,7 +504,7 @@ namespace DQNTorch
 
             Player.BattleErrorAction += async (PokePSCore.PsBattle battle) =>
             {
-
+                battle.BattleStatus = BattleStatus.Error;
                 // 输了！
                 //OnLose();
                 //await battle.ForfeitAsync();
@@ -492,6 +513,7 @@ namespace DQNTorch
 
             Player.RequestsAction += battle =>
             {
+                battle.BattleStatus = BattleStatus.Requests;
 
             };
 
@@ -519,7 +541,7 @@ namespace DQNTorch
             await Console.Out.WriteLineAsync($"{battle.Tag} 结束 {msg}");
             await battle.ForfeitAsync();
             await battle.SendMessageAsync(msg);
-            finish = true;
+            //finish = true;
             //throw new NotImplementedException();
         }
 
