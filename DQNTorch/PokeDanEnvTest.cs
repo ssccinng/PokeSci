@@ -149,10 +149,10 @@ namespace DQNTorch
 
                 // 这里被迫进行动作
                 float[] state = ExportBattleTurn(battlea.battle.BattleTurns.Last(), (int)(battle.PlayerPos) + 1);
-                var a = DQNAgent.act(state,
+                var a = DQNAgent.actSwitch(state,
                     0,
                     epsilon);
-                var b = DQNAgent.act(state,
+                var b = DQNAgent.actSwitch(state,
                     1,
                     epsilon);
                 

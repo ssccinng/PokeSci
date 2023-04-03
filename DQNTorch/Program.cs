@@ -15,8 +15,12 @@ using static TorchSharp.torch;
 DQNAgent dQNAgent = new DQNAgent();
 await dQNAgent.train1(10000);
 dQNAgent.model.save("dani.dat");
-var afaa= from_array(new[] { 1, 2, 3, 4 });
-var cc = afaa.slice(0, 1, 3, 1);
+var afaa= from_array(new[,] { 
+    { 1, 2, 5, 4 },
+    //{ 1, 2, 3, 4 },
+});
+//var cc = afaa.slice(1, 1, 3, 1);
+var cc = argmax(afaa, 1);
 for (int i = 0; i < cc.shape[0]; i++)
 {
     Console.WriteLine(cc[i].ToInt32());
