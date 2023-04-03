@@ -9,6 +9,7 @@ using PokePSCore;
 using PokeCommon.Models;
 using PokeCommon.PokemonShowdownTools;
 using System.Data;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace DQNTorch
 {
@@ -33,7 +34,7 @@ namespace DQNTorch
         {
             if (player == 0)
             {
-                return battleTrainDatas[battleId].Player1Action[Turn+1].ToArray();
+                return battleTrainDatas[battleId].Player1Action[Turn + 1].ToArray();
             }
             else
             {
@@ -46,7 +47,7 @@ namespace DQNTorch
         {
             BattleId = battleId;
             Turn = 0;
-             var stateSpace = GetStateSpace(battleId, -1, player);
+            var stateSpace = GetStateSpace(battleId, -1, player);
             return (stateSpace, battleTrainDatas[battleId].Player1Action.Count);
         }
 
@@ -99,7 +100,7 @@ namespace DQNTorch
             var data = File.ReadAllText("Team.txt");
             return data.Split("----").Select(s => s.Trim()).ToList();
         }
-
+        public GamePokemonTeam NowTeam;
         public Dictionary<string, PSReplayAnalysis.PSReplayAnalysis> replayAnalysis { get; set; } = new();
         // public Dictionary
         public PSClient Player;
@@ -139,6 +140,7 @@ namespace DQNTorch
         public async Task Init(string name, string pwd)
         {
             Player = new PSClient(name, pwd, "ws://localhost:8000/showdown/websocket");
+            Player.LogTo(Console.WriteLine);
             await Player.ConnectAsync();
             await Task.Delay(1000);
             await Player.LoginAsync();
@@ -147,19 +149,59 @@ namespace DQNTorch
             {
                 var battlea = replayAnalysis.GetValueOrDefault(battle.Tag) ?? new PSReplayAnalysis.PSReplayAnalysis() { RoomId = battle.Tag };
 
+
+
                 // 这里被迫进行动作
-                float[] state = ExportBattleTurn(battlea.battle.BattleTurns.Last(), (int)(battle.PlayerPos) + 1);
-                var a = DQNAgent.actSwitch(state,
+                BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
+
+                for (int i = 0; i < battle.MyTeam.Count; i++)
+                {
+                    for (int j = 0; j < NowTeam.GamePokemons[i].Moves.Count; j++)
+                    {
+                        if (battle.PlayerPos == PlayerPos.Player1)
+                        {
+                            lastTurn.Player1Team.Pokemons[i].SelfMovesId[j] = PsMoves[NowTeam.GamePokemons[i].Moves[j].NameEng].num;
+
+                        }
+                        else
+                        {
+                            lastTurn.Player2Team.Pokemons[i].SelfMovesId[j] = PsMoves[NowTeam.GamePokemons[i].Moves[j].NameEng].num;
+
+                        }
+                    }
+                }
+                float[] state = ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1);
+
+                var a = (int)DQNAgent.actSwitch(state,
                     0,
                     epsilon);
-                var b = DQNAgent.actSwitch(state,
+                if (battle.PlayerPos == PlayerPos.Player1)
+                {
+                    lastTurn.Player1Team.Pokemons[a].NowPos = 0;
+                }
+                else
+                {
+                    lastTurn.Player2Team.Pokemons[a].NowPos = 0;
+
+                }
+                float[] state2 = ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1);
+
+                var b = (int)DQNAgent.actSwitch(state2,
                     1,
                     epsilon);
-                
-                if (a > 5 || b % 22 > 5)
+                if (battle.PlayerPos == PlayerPos.Player1)
                 {
-                    OnLose();
-                    var aaa = battlea.battle.BattleTurns.Last();
+                    // 同名应该没问题吧
+                    lastTurn.Player1Team.Pokemons[b].NowPos = 1;
+                }
+                else
+                {
+                    lastTurn.Player2Team.Pokemons[b].NowPos = 1;
+
+                }
+                if ( a == b)
+                {
+                    var aaa = lastTurn;
                     if (battle.PlayerPos == PlayerPos.Player1)
                     {
                         for (int i = 0; i < aaa.Player1Team.Pokemons.Count; i++)
@@ -174,18 +216,56 @@ namespace DQNTorch
                             aaa.Player2Team.Pokemons[i].HPRemain = 0;
                         }
                     }
-                    DQNAgent.AddBuffer((state.ToArray(), a, (-10f + Random.Shared.NextSingle()) / 10, 
+                    DQNAgent.AddBuffer((state, a, (-10f + Random.Shared.NextSingle()) / 10,
+                        state2, 1));
+                    DQNAgent.AddBuffer((state2, b + 22, (-10f + Random.Shared.NextSingle()) / 10,
                         ExportBattleTurn(aaa, (int)(battle.PlayerPos) + 1), 1));
-                    DQNAgent.AddBuffer((state.ToArray(), b, (-10f + Random.Shared.NextSingle()) / 10,
-                        ExportBattleTurn(aaa, (int)(battle.PlayerPos) + 1), 1));
-                    await battle.ForfeitAsync();
+                    await OnLose(battle, "选人存在问题");
+
                     //DQNAgent.learn();
                     // 结束
                 }
                 b = b % 22;
-                var aa =  new[] { a + 1, b + 1 }.Concat(new long[] { 1, 2, 3, 4,5,6}
+                var aa = (new[] { a + 1, b + 1 }).Concat((new [] { 1, 2, 3, 4, 5, 6 })
                 .OrderBy(s => Random.Shared.Next())).Distinct();
+
+                for (int j = 4; j < 6; j++)
+                {
+                    var aaa = lastTurn;
+
+                    if (battle.PlayerPos == PlayerPos.Player1)
+                    {
+
+                        aaa.Player1Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
+
+                    }
+                    else
+                    {
+                        aaa.Player2Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
+                    }
+                }
                 await battle.OrderTeamAsync(string.Concat(aa));
+                await WaitRequests(battle);
+                if (battle.BattleStatus == BattleStatus.Error)
+                {
+                    Console.WriteLine("error");
+                }
+                else if (battle.BattleStatus == BattleStatus.Requests)
+                {
+                    // 思考lastturn有没有问题
+                    float[] floats = ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1);
+                    DQNAgent.AddBuffer((state,
+                        a,
+                        (-10f + Random.Shared.NextSingle()) / 10,
+                        floats, 1));
+                    DQNAgent.AddBuffer((state2,
+                        b + 22,
+                        (-10f + Random.Shared.NextSingle()) / 10,
+                        floats, 
+                        1));
+                    await battle.ForfeitAsync();
+                    // 进入下一轮
+                }
 
             };
             Player.ChallengeAction += async (player, rule) =>
@@ -193,10 +273,10 @@ namespace DQNTorch
                 if (rule.StartsWith("gen9vgc2023"))
                 {
 
-                    var team = await GetRandomTeam();
+                    NowTeam = await GetRandomTeam();
                     lock (_lockDb)
                     {
-                        Player.ChangeYourTeamAsync(PSConverter.ConvertToPsOneLineAsync(team).Result).Wait();
+                        Player.ChangeYourTeamAsync(PSConverter.ConvertToPsOneLineAsync(NowTeam).Result).Wait();
 
                     }
 
@@ -204,15 +284,189 @@ namespace DQNTorch
                     await Player.AcceptChallengeAsync(player);
                 }
             };
-            Player.OnForceSwitch += (battle, bools) =>
+            Player.OnForceSwitch += async (battle, bools) =>
             {
                 // 这里被迫进行动作
+                var battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
 
+                //await Console.Out.WriteLineAsync(czcz);
+                //return;
+                Console.WriteLine("让我康康你有没有触发");
+                BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
+                float[] state = ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1);
+                List<int> ints = new List<int>();
+
+                List<ChooseData> chooseDatas = new List<ChooseData>();
+                for (int i = 0; i < bools.Length; i++)
+                {
+                    if (bools[i])
+                    {
+                        var resx = (int)DQNAgent.actSwitch(state, i, epsilon);
+                        ints.Add(resx + i * 22);
+                        var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide, 
+                            s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id);
+                        if (aa == 0)
+                        {
+                            DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                            await OnLose(battle, "强制换人时出问题");
+
+                        }
+                        if (battle.Actives[aa] == false && !battle.MyTeam[aa].IsDead)
+                        {
+                            chooseDatas.Add(new SwitchData { PokeId = aa + 1 });
+                        }
+                        else
+                        {
+                            // 这个pass有问题
+                            chooseDatas.Add(new SwitchData { IsPass = true });
+
+                        }
+                        //if (idx == -1)
+                        //{
+                        //    chooseDatas.Add(new SwitchData { IsPass = true });
+                        //}
+                        //else
+                        //{
+                        //    chooseDatas.Add(new SwitchData { PokeId = aa + 1 });
+
+                        //}
+                    }
+                }
+
+                await battle.SendMoveAsunc(chooseDatas.ToArray());
             };
 
-            Player.OnChooseMove += battle =>
+            Player.OnChooseMove += async (PokePSCore.PsBattle battle) =>
             {
+                List<ChooseData> chooseDatas = new List<ChooseData>();
 
+                bool dm = false;
+                PSReplayAnalysis.PSReplayAnalysis battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
+                BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
+                foreach (var item in lastTurn.Player2Team.Pokemons)
+                {
+                    Console.WriteLine($"{item.NickName} HpRemain{item.HPRemain} NowPos: {item.NowPos}");
+                }
+                float[] state = ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1);
+                List<int> ints = new List<int>();
+                for (int i = 0; i < battle.ActiveStatus.Length; i++)
+                {
+                    if (!battle.Actives[i]) continue;
+                    var resx = (int)DQNAgent.act(state, i, epsilon);
+                    ints.Add(resx + i * 22); // 写死了 很糟糕
+                    // 直接就是22
+                    if (resx < 6)
+                    {
+                        // change
+                        // 找到要换的人 从side拉上来
+                        //如果换的不合理 直接触发lose
+                        var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide, s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id) + 1;
+                        chooseDatas.Add(new SwitchData { PokeId = aa });
+                        if (aa ==0)
+                        {
+                            DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                            await OnLose(battle, "行动时换人出错");
+                            return;
+                            int c = 34; ;
+                        }
+                        if (aa < 3)
+                        {
+                            // 出error
+                        }
+                    }
+                    else
+                    {
+                        resx -= 6;
+                        int moveid = resx % 4 +1;
+                        int target2 = resx / 4 + 1;
+                        if (target2 > 2) target2 = 2 - target2;
+                        string target;
+                        bool dflag = false;
+                        Console.WriteLine('1');
+                        try
+                        {
+
+                            target = battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetProperty("target").GetString();
+                           
+                            Console.WriteLine(target);
+                            Console.WriteLine(battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetRawText());
+                            if (target == "any" || target == "normal" )
+                            {
+                                // 不能选到自己 || target == "AdjacentAllyOrSelf"
+
+                                if (target2 == -(i + 1))
+                                {
+                                    // 选到自己 直接炸裂 投降
+                                    // 加入状态
+                                    // 只加这个 其他就不用了
+                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    await OnLose(battle, "招式选择到了自己");
+                                    return;
+                                }
+                                chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag) { Target = target2 });
+
+                            }
+                            else if (target == "adjacentFoe")
+                            {
+                                // 选到自己人炸裂
+                                if (target2 < 0)
+                                {
+                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    await OnLose(battle, "招式选择到了自己人");
+                                    return;
+                                }
+                                chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag) { Target = target2 });
+
+                            }
+                            else if (target == "adjacentAllyOrSelf")
+                            {
+                                if (target2 > 0)
+                                {
+                                    DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                    await OnLose(battle, "招式选择到了别人");
+                                    return;
+                                }
+                                // 选到对面 炸裂
+                                chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag) { Target = target2 });
+                            }
+                            else
+                            {
+
+                                chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag));
+
+                            }
+                        }
+                        catch (global::System.Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            Console.WriteLine("异常了");
+                            chooseDatas.Add(new MoveChooseData(1));
+                        }
+                    }
+
+
+                }
+                await battle.SendMoveAsunc(chooseDatas.ToArray());
+                // 要等待一下
+                await WaitRequests(battle);
+                if (battle.BattleStatus == BattleStatus.Error)
+                {
+                    // gg
+                    await OnLose(battle, "出招问题");
+                }
+                else
+                {
+                    foreach (var item in ints)
+                    {
+                        // 这个reward也要给好
+                        DQNAgent.AddBuffer((state, item, -1, ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1), 
+                            battle.PlayerPos == PlayerPos.Player1 ? lastTurn.Reward1 : lastTurn.Reward2)
+                        
+                        );
+
+                    }
+
+                }
             };
 
             Player.BattleEndAction += async (PokePSCore.PsBattle battle, bool b) =>
@@ -227,8 +481,12 @@ namespace DQNTorch
             {
             };
 
-            Player.BattleErrorAction += battle =>
+            Player.BattleErrorAction += async (PokePSCore.PsBattle battle) =>
             {
+
+                // 输了！
+                //OnLose();
+                //await battle.ForfeitAsync();
 
             };
 
@@ -239,7 +497,7 @@ namespace DQNTorch
 
             Player.BattleInfo += async (battle, b) =>
             {
-               // 刷新信息
+                // 刷新信息
                 var battlea = replayAnalysis.GetValueOrDefault(battle.Tag) ?? new PSReplayAnalysis.PSReplayAnalysis() { RoomId = battle.Tag };
                 replayAnalysis.TryAdd(battle.Tag, battlea);
                 if (battlea.battle.BattleTurns.Count == 0)
@@ -256,8 +514,12 @@ namespace DQNTorch
 
         }
 
-        private void OnLose()
+        private async Task OnLose(PokePSCore.PsBattle battle, string msg)
         {
+            await Console.Out.WriteLineAsync($"{battle.Tag} 结束 {msg}");
+            await battle.ForfeitAsync();
+            await battle.SendMessageAsync(msg);
+            finish = true;
             //throw new NotImplementedException();
         }
 
@@ -277,8 +539,8 @@ namespace DQNTorch
             await WaitRequests(battle);
 
 
-           // 等待反馈结果
-           // 要在这里等到下一轮
+            // 等待反馈结果
+            // 要在这里等到下一轮
 
 
 
@@ -286,10 +548,15 @@ namespace DQNTorch
             throw new NotImplementedException();
         }
 
-        private Task WaitRequests(PokePSCore.PsBattle battle)
+        private async Task<BattleStatus> WaitRequests(PokePSCore.PsBattle battle)
         {
+            // 记住！有可能是要重选招式
             // 如果error gg requests 过
-            throw new NotImplementedException();
+            while (battle.BattleStatus == BattleStatus.Waiting)
+            {
+                await Task.Delay(10);
+            }
+            return battle.BattleStatus;
         }
         public List<ChooseData> GetChooseDataFromAction1(PSReplayAnalysis.PSReplayAnalysis replay, int action)
         {
@@ -297,7 +564,7 @@ namespace DQNTorch
 
             int action1 = action / 2;
             int action2 = action % 22;
-            
+
 
             return chooseDatas;
             //throw new NotImplementedException();
@@ -309,7 +576,8 @@ namespace DQNTorch
             throw new NotImplementedException();
 
         }
-        public List<ChooseData> GetChooseDataFromAction(PSReplayAnalysis.PSReplayAnalysis replay, int action) {
+        public List<ChooseData> GetChooseDataFromAction(PSReplayAnalysis.PSReplayAnalysis replay, int action)
+        {
             List<ChooseData> chooseDatas = new List<ChooseData>();
 
             int action1 = action % 22;
@@ -318,7 +586,8 @@ namespace DQNTorch
 
         }
 
-        public ChooseData GetChooseData(int action) {
+        public ChooseData GetChooseData(int action)
+        {
             // 查到本地的 再从side查找对应编号
             throw new NotImplementedException();
 
@@ -336,18 +605,18 @@ namespace DQNTorch
         object _lockDb = new object();
         internal async Task Challenage(PokeDanEnvPs env1)
         {
-              finish = false;
-            var team = await GetRandomTeam();
+            finish = false;
+            NowTeam = await GetRandomTeam();
             //team.GamePokemons = team.GamePokemons.OrderBy(s => Random.Shared.Next()).ToList();
 
             lock (_lockDb)
             {
-              
 
-                Player.ChangeYourTeamAsync(PSConverter.ConvertToPsOneLineAsync(team).Result).Wait();
+
+                Player.ChangeYourTeamAsync(PSConverter.ConvertToPsOneLineAsync(NowTeam).Result).Wait();
                 Player.ChallengeAsync(env1.Player.UserName, "gen9vgc2023series2").Wait();
             }
-            
+
         }
     }
 

@@ -35,8 +35,8 @@ namespace DQNTorch
             //fc3 = Linear(256, action_size);
 
 
-            fc1 = Linear(state_size, hidden_size);
-            fc2 = Linear(hidden_size, hidden_size);
+            fc1 = Linear(state_size, 256);
+            fc2 = Linear(256, hidden_size);
             fc3 = Linear(hidden_size, action_size);
             RegisterComponents();
         }
@@ -74,8 +74,8 @@ namespace DQNTorch
             this.gamma = gamma;
             this.lr = lr;
             buffer = new();
-            model = new DQN(1389, 44, 128).to(device);
-            target_model = new DQN(1389, 44, 128).to(device);
+            model = new DQN(1401, 44, 128).to(device);
+            target_model = new DQN(1401, 44, 128).to(device);
 
             optimizer = optim.Adam(model.parameters(), lr);
         }
@@ -92,7 +92,7 @@ namespace DQNTorch
             if (Random.Shared.NextSingle() < epsilon)
             {
 
-                return Random.Shared.Next(6) + pos * 22;
+                return Random.Shared.Next(6);
                 // 随机
             }
             else
@@ -112,7 +112,9 @@ namespace DQNTorch
             if (Random.Shared.NextSingle() < epsilon)
             {
                 
-                return Random.Shared.Next(22) + 22 * pos;
+                //return Random.Shared.Next(22) + 22 * pos;
+                return Random.Shared.Next(22);
+
                 // 随机
             }
             else

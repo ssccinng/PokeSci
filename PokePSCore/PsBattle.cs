@@ -58,8 +58,8 @@ public partial class PsBattle
     public List<PSBattlePokemon> MyTeam => PlayerPos == PlayerPos.Player1 ? GamePokemonTeam1 : GamePokemonTeam2;
 
 
-    public PSBattlePokemon[] Side1 = new PSBattlePokemon[2];
-    public PSBattlePokemon[] Side2 = new PSBattlePokemon[2];
+    public PSBattlePokemon[] Side1 = new PSBattlePokemon[4];
+    public PSBattlePokemon[] Side2 = new PSBattlePokemon[4];
 
     public PSBattlePokemon[] MySide => PlayerPos == PlayerPos.Player1 ? Side1 : Side2;
     public PSBattlePokemon[] OppSide => PlayerPos == PlayerPos.Player1 ? Side2 : Side1;
@@ -204,7 +204,7 @@ public partial class PsBattle
                         }
                     }
                     // 更新active
-                    if (i < 2)
+                    if (i < 4)
                     {
                         MySide[i] = MyTeam[i];
                     }

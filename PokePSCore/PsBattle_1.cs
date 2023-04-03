@@ -2,6 +2,8 @@
 {
     public partial class PsBattle
     {
+        public BattleStatus BattleStatus { get; set; }
+
         public void LogParse(string cmd, string[] lines)
         {
             if (cmd.StartsWith('-'))
@@ -286,5 +288,12 @@
                     break;
             }
         }
+    }
+
+    public enum BattleStatus
+    {
+        Waiting,
+        Requests,
+        Error,
     }
 }

@@ -856,16 +856,29 @@ public struct BattleField
 public enum MoveTarget
 {
     /// <summary>
-    /// 任意
+    /// 任意 攻击范围内
     /// </summary>
     Normal,
+    /// <summary>
+    /// 所有对手
+    /// </summary>
     AllAdjacentFoes,
     /// <summary>
     /// 自己
     /// </summary>
     Self,
+    /// <summary>
+    /// 除自己所有
+    /// </summary>
     Any,
+    /// <summary>
+    /// 任意我方
+    /// </summary>
     AdjacentAllyOrSelf,
+
+    /// <summary>
+    /// 任意队友
+    /// </summary>
     AdjacentAlly,
 
 }
