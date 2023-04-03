@@ -92,12 +92,12 @@ namespace DQNTorch
     {
         public DQNAgent DQNAgent { get; set; }
 
-        public static List<GamePokemonTeam> GamePokemonTeams = InitTeams();
+        public static List<string> GamePokemonTeams = InitTeams();
 
-        private static List<GamePokemonTeam> InitTeams()
+        private static List<string> InitTeams()
         {
             var data = File.ReadAllText("Team.txt");
-            return data.Split("----").Select( s => PSConverter.ConvertToPokemonsAsync(s.Trim()).Result).ToList();
+            return data.Split("----").Select(s => s.Trim()).ToList();
         }
 
         public Dictionary<string, PSReplayAnalysis.PSReplayAnalysis> replayAnalysis { get; set; } = new();
@@ -112,7 +112,14 @@ namespace DQNTorch
 
         public async Task<GamePokemonTeam> GetRandomTeam()
         {
-            return GamePokemonTeams[Random.Shared.Next(GamePokemonTeams.Count)];
+            var team = await PSConverter.ConvertToPokemonsAsync(GamePokemonTeams[Random.Shared.Next(GamePokemonTeams.Count)]);
+            team.GamePokemons = team.GamePokemons.OrderBy(s => Random.Shared.Next()).ToList();
+
+            foreach (var item in team.GamePokemons)
+            {
+                item.Moves = item.Moves.OrderBy(s => Random.Shared.Next()).ToList();
+            }
+            return team;
         }
 
         public float[] CovToStatesSpace(BattleTrainData battleTrainData, PokePSCore.PsBattle psBattle)
@@ -187,7 +194,6 @@ namespace DQNTorch
                 {
 
                     var team = await GetRandomTeam();
-                    team.GamePokemons = team.GamePokemons.OrderBy(s => Random.Shared.Next()).ToList();
                     lock (_lockDb)
                     {
                         Player.ChangeYourTeamAsync(PSConverter.ConvertToPsOneLineAsync(team).Result).Wait();
@@ -332,7 +338,7 @@ namespace DQNTorch
         {
               finish = false;
             var team = await GetRandomTeam();
-            team.GamePokemons = team.GamePokemons.OrderBy(s => Random.Shared.Next()).ToList();
+            //team.GamePokemons = team.GamePokemons.OrderBy(s => Random.Shared.Next()).ToList();
 
             lock (_lockDb)
             {
