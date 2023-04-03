@@ -87,12 +87,32 @@ namespace DQNTorch
         }
 
         // 选择一个动作 但要考虑 可能可以一个随机一个不随机
+        public long actSwitch(float[] state, int pos, float epsilon = 0.1f)
+        {
+            if (Random.Shared.NextSingle() < epsilon)
+            {
+
+                return Random.Shared.Next(6) + pos * 22;
+                // 随机
+            }
+            else
+            {
+                var states = FloatTensor(state).unsqueeze(0).to(device);
+                var q_values = model.forward(states);
+                // 这个item是什么
+                //var action1 = argmax(q_values.slice(1, pos * 22, 22 + pos * 22, 1), 1);
+                var action = argmax(q_values.slice(1, pos * 22, 6 + pos * 22, 1), 1).cpu().item<long>();
+                //using var aa = torch.autograd.set_detect_anomaly(true);
+                return action;
+            }
+            ;
+        }
         public long act(float[] state, int pos, float epsilon = 0.1f)
         {
             if (Random.Shared.NextSingle() < epsilon)
             {
                 
-                return Random.Shared.Next(pos * 22, (pos + 1) * 22);
+                return Random.Shared.Next(22) + 22 * pos;
                 // 随机
             }
             else
