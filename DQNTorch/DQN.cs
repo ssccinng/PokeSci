@@ -63,7 +63,7 @@ namespace DQNTorch
         private readonly float lr;
         private readonly List<(float[] states, long actions, float rewards, float[] next_states, float dones)> buffer;
         public readonly DQN model;
-        private readonly DQN target_model;
+        public readonly DQN target_model;
         private readonly Adam optimizer;
         private torch.Device device;
 
@@ -219,12 +219,12 @@ namespace DQNTorch
             this.optimizer.step();
         }
         public async Task train1(int episodes, int max_steps = 1000, float epsilon_start = 1.0f,
-        float epsilon_end = 0.1f, float epsilon_decay = 0.999f, int target_update = 10)
+        float epsilon_end = 0.1f, float epsilon_decay = 0.99f, int target_update = 10)
         {
             Env = new PokeDanEnvPs(this);
-            await Env.Init("scixing", "11998whs");
+            await Env.Init("moooob", "11998whs");
             Env1 = new PokeDanEnvPs(this);
-            await Env1.Init("longkui", "11998whs");
+            await Env1.Init("letsgoheidi", "11998whs");
 
             //PSClient ob = new PSClient("letsgomipha", "11998whs", "ws://localhost:8000/showdown/websocket");
 
@@ -237,6 +237,10 @@ namespace DQNTorch
             // 训练循环
             for (int episode = 0; episode < episodes; episode++)
             {
+                if (episode > 0)
+                {
+
+                
                 Env.epsilon = Env1.epsilon = epsilon;
                 await Env.Challenage(Env1);
                 //if (episode % 5 == 4)
@@ -256,6 +260,7 @@ namespace DQNTorch
                 float episodeReward = 0.0f;
                 float[] nextState = null;
                 learn();
+                }
                 // 输出训练结果
                 if (episode % 100 == 99)
                 {
@@ -264,7 +269,7 @@ namespace DQNTorch
                 }
                 if (episode % 100 == 0)
                     {
-                    Console.WriteLine($"Episode {episode}, Reward {episodeReward}");
+                    Console.WriteLine($"Episode {episode}");
                 }
 
                 // 更新Target网络
@@ -283,10 +288,17 @@ namespace DQNTorch
                 }
             }
         }
+        object _lockBuf = new();
         public void AddBuffer((float[] states, long actions, float rewards, float[] next_states, float dones) data)
         {
-            buffer.Add(data);
-            if (buffer.Count > buffer_Size) buffer.RemoveAt(0);
+            if (data.states == null || data.next_states == null) return;
+            lock (_lockBuf)
+            {
+                buffer.Add(data);
+                if (buffer.Count > buffer_Size)
+                    buffer.RemoveAt(0);
+            }
+
 
         }
         private void CreateBattle(PokeDanEnvPs env, PokeDanEnvPs env1, float epsilon)
@@ -338,7 +350,7 @@ namespace DQNTorch
                         {
                             int sada = 123;
                         }
-                        this.buffer.Add((state, a, nextReward, nextState, done));
+                        //this.buffer.Add((state, a, nextReward, nextState, done));
                         // 撕烤
                         if (buffer.Count > buffer_Size) { buffer.RemoveAt(0); }
                         stepReward += nextReward;

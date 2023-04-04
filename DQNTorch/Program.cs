@@ -16,6 +16,8 @@ using static TorchSharp.torch;
 var aaaa = np.random.rand(1)[0].GetDouble()
     ;
 DQNAgent dQNAgent = new DQNAgent();
+//dQNAgent.model.load("temp.1200.data");
+//dQNAgent.target_model.load("temp.1200.data");
 await dQNAgent.train1(10000);
 dQNAgent.model.save("dani.dat");
 var afaa= from_array(new[,] { 
