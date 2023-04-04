@@ -311,7 +311,6 @@ namespace DQNTorch
                         if (aa == -1)
                         {
                             DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
-                            await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             if (battle.PlayerPos == PlayerPos.Player1)
                             {
 
@@ -325,6 +324,7 @@ namespace DQNTorch
                               ));
 
                             }
+                            await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             return;
                         }
                         if (battle.Actives[aa] == false && !battle.MyTeam[aa].IsDead)
