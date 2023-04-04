@@ -315,13 +315,12 @@ namespace DQNTorch
                             if (battle.PlayerPos == PlayerPos.Player1)
                             {
 
-                            Console.WriteLine(
-                                string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) +" " +resx
-                                ));
+                            await battle.SendMessageAsync
+                                (string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) + " " + resx));
                             }
                             else
                             {
-                                Console.WriteLine(
+                                await battle.SendMessageAsync(
                               string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
                               ));
 
@@ -342,13 +341,13 @@ namespace DQNTorch
                                 if (battle.PlayerPos == PlayerPos.Player1)
                                 {
 
-                                    Console.WriteLine(
+                                    await battle.SendMessageAsync(
                                         string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) + " " + resx
                                         ));
                                 }
                                 else
                                 {
-                                    Console.WriteLine(
+                                    await battle.SendMessageAsync(
                                   string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
                                   ));
 
