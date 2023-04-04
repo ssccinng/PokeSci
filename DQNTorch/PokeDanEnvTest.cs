@@ -247,7 +247,7 @@ namespace DQNTorch
                 battle.BattleStatus = BattleStatus.Waiting;
                 await battle.OrderTeamAsync(string.Concat(aa));
                 await WaitRequests(battle);
-                if (battle.BattleStatus == BattleStatus.Error)
+                if (battle.BattleStatus == BattleStatus.End)
                 {
                     Console.WriteLine("error");
                     await OnLose(battle, $"选人问题");
@@ -258,11 +258,11 @@ namespace DQNTorch
                     float[] floats = ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1);
                     DQNAgent.AddBuffer((state,
                         a,
-                        (-10f + Random.Shared.NextSingle()) / 10,
+                        (-10f ) / 10,
                         floats, 1));
                     DQNAgent.AddBuffer((state2,
                         b + 22,
-                        (-10f + Random.Shared.NextSingle()) / 10,
+                        (-10f ) / 10,
                         floats, 
                         1));
                     //await battle.ForfeitAsync();
@@ -374,7 +374,7 @@ namespace DQNTorch
                 battle.BattleStatus = BattleStatus.Waiting;
                 await battle.SendMoveAsunc(chooseDatas.ToArray());
                 await WaitRequests(battle);
-                if (battle.BattleStatus == BattleStatus.Error)
+                if (battle.BattleStatus == BattleStatus.End)
                 {
                     DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
                                 (state, ints.Last(), -1, state, 1));
@@ -507,7 +507,8 @@ namespace DQNTorch
                                     // 选到自己 直接炸裂 投降
                                     // 加入状态
                                     // 只加这个 其他就不用了
-                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
+                                        (state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式选择到了自己");
                                     return;
                                 }
@@ -519,7 +520,8 @@ namespace DQNTorch
                                 // 选到自己人炸裂
                                 if (target2 < 0)
                                 {
-                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
+                                        (state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式选择到了自己人");
                                     return;
                                 }
@@ -530,7 +532,8 @@ namespace DQNTorch
                             {
                                 if (target2 > 0 || target2 == -(i + 1))
                                 {
-                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
+                                        (state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式没选到队友");
                                     return;
                                 }
@@ -541,7 +544,8 @@ namespace DQNTorch
                             {
                                 if (target2 > 0)
                                 {
-                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))(state, ints.Last(), -1, state, 1));
+                                    DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
+                                        (state, ints.Last(), -1, state, 1));
                                     await OnLose(battle, "招式选择到了别人");
                                     return;
                                 }
@@ -571,7 +575,7 @@ namespace DQNTorch
                 await battle.SendMoveAsunc(chooseDatas.ToArray());
                 // 要等待一下
                 await WaitRequests(battle);
-                if (battle.BattleStatus == BattleStatus.Error)
+                if (battle.BattleStatus == BattleStatus.End)
                 {
                     // gg
                     //await OnLose(battle, "出招问题");
@@ -584,8 +588,9 @@ namespace DQNTorch
                     {
                         // 这个reward也要给好
                         DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
-                            (state, item, -1, ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1), 
-                            battle.PlayerPos == PlayerPos.Player1 ? lastTurn.Reward1 : lastTurn.Reward2)
+                            (state, item, battle.PlayerPos == PlayerPos.Player1 ? lastTurn.Reward1 : lastTurn.Reward2
+                            , ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1),
+                            battle.BattleStatus == BattleStatus.End ? 1 : 0)
                         
                         );
 
@@ -597,6 +602,8 @@ namespace DQNTorch
             Player.BattleEndAction += async (PokePSCore.PsBattle battle, bool b) =>
             {
                 finish = true; ;
+                battle.BattleStatus = BattleStatus.End;
+
                 replayAnalysis.Remove(battle.Tag);
                 await battle.LeaveRoomAsync();
 
@@ -608,7 +615,7 @@ namespace DQNTorch
 
             Player.BattleErrorAction += async (PokePSCore.PsBattle battle, string msg) =>
             {
-                battle.BattleStatus = BattleStatus.Error;
+                battle.BattleStatus = BattleStatus.End;
                 await battle.SendMessageAsync(msg);
                 // 输了！
                 //OnLose();
