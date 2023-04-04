@@ -494,6 +494,16 @@ namespace PSReplayAnalysis
 
                         break;
                     case "-fail":
+                        var failSide = GetSidePos(d[2]);
+                        if (failSide.side == 2)
+                        {
+                            lastTurn.Reward2 -= 0.3f;
+                        }
+                        else if (failSide.side == 1)
+                        {
+                            lastTurn.Reward1 -= 0.3f;
+
+                        }
                         // 失败
                         break;
                     case "-fieldstart":

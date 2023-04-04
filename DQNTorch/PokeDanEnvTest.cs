@@ -307,10 +307,25 @@ namespace DQNTorch
                         ints.Add(resx + i * 22);
                         var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide, 
                             s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id);
+                        
                         if (aa == -1)
                         {
                             DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
-                            await OnLose(battle, $"强制换人时出问题 {aa + 1}");
+                            await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
+                            if (battle.PlayerPos == PlayerPos.Player1)
+                            {
+
+                            Console.WriteLine(
+                                string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) +" " +resx
+                                ));
+                            }
+                            else
+                            {
+                                Console.WriteLine(
+                              string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
+                              ));
+
+                            }
                             return;
                         }
                         if (battle.Actives[aa] == false && !battle.MyTeam[aa].IsDead)
@@ -325,7 +340,7 @@ namespace DQNTorch
                             else
                             {
                                 DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
-                                await OnLose(battle, $"强制换人时出问题 {aa + 1}");
+                                await OnLose(battle, $"强制换人时出问题2 {aa + 1}");
                                 return;
                             }
 
@@ -349,7 +364,7 @@ namespace DQNTorch
                 {
                     DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
                                 (state, ints.Last(), -1, state, 1));
-                    await OnLose(battle, "强制换人有问题");
+                    await OnLose(battle, "强制换人有问题1");
                 }
             };
 
@@ -360,7 +375,16 @@ namespace DQNTorch
 
                 bool dm = false;
                 PSReplayAnalysis.PSReplayAnalysis battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
-                await battle.SendMessageAsync($"reward: {battlea.battle.BattleTurns[^2].Reward1} reward: {battlea.battle.BattleTurns[^2].Reward2}");
+                if(battle.PlayerPos == PlayerPos.Player1)
+                {
+                await battle.SendMessageAsync($"reward: {battlea.battle.BattleTurns[^2].Reward1}");
+
+                }
+                else
+                {
+                    await battle.SendMessageAsync($"reward: {battlea.battle.BattleTurns[^2].Reward2}");
+
+                }
                 BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
                 foreach (var item in lastTurn.Player2Team.Pokemons)
                 {
