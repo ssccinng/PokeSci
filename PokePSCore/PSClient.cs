@@ -49,7 +49,7 @@ namespace PokePSCore
         /// </summary>
         public Action<PsBattle, bool> BattleEndAction;
         public Action<PsBattle> BattleStartAction;
-        public Action<PsBattle> BattleErrorAction;
+        public Action<PsBattle, string> BattleErrorAction;
 
         public Action<PsBattle, string> BattleInfo;
 
@@ -284,7 +284,7 @@ namespace PokePSCore
                         // 对战结束
                         break;
                     case "error":
-                        BattleErrorAction?.Invoke(battle);
+                        BattleErrorAction?.Invoke(battle, other[0]);
                         // 出现异常
                         break;
                     default:

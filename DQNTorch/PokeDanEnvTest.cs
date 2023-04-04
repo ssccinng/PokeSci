@@ -568,9 +568,10 @@ namespace DQNTorch
             {
             };
 
-            Player.BattleErrorAction += async (PokePSCore.PsBattle battle) =>
+            Player.BattleErrorAction += async (PokePSCore.PsBattle battle, string msg) =>
             {
                 battle.BattleStatus = BattleStatus.Error;
+                await battle.SendMessageAsync(msg);
                 // 输了！
                 //OnLose();
                 //await battle.ForfeitAsync();

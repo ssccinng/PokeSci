@@ -219,10 +219,10 @@ namespace DQNTorch
             this.optimizer.step();
         }
         public async Task train1(int episodes, int max_steps = 1000, float epsilon_start = 1.0f,
-        float epsilon_end = 0.1f, float epsilon_decay = 0.999f, int target_update = 10)
+        float epsilon_end = 0.1f, float epsilon_decay = 0.99f, int target_update = 10)
         {
             Env = new PokeDanEnvPs(this);
-            await Env.Init("scixing", "11998whs");
+            await Env.Init("mooob", "11998whs");
             Env1 = new PokeDanEnvPs(this);
             await Env1.Init("longkui", "11998whs");
 
@@ -283,10 +283,17 @@ namespace DQNTorch
                 }
             }
         }
+        object _lockBuf = new();
         public void AddBuffer((float[] states, long actions, float rewards, float[] next_states, float dones) data)
         {
-            buffer.Add(data);
-            if (buffer.Count > buffer_Size) buffer.RemoveAt(0);
+            if (data.states == null || data.next_states == null) return;
+            lock (_lockBuf)
+            {
+                buffer.Add(data);
+                if (buffer.Count > buffer_Size)
+                    buffer.RemoveAt(0);
+            }
+
 
         }
         private void CreateBattle(PokeDanEnvPs env, PokeDanEnvPs env1, float epsilon)
@@ -338,7 +345,7 @@ namespace DQNTorch
                         {
                             int sada = 123;
                         }
-                        this.buffer.Add((state, a, nextReward, nextState, done));
+                        //this.buffer.Add((state, a, nextReward, nextState, done));
                         // 撕烤
                         if (buffer.Count > buffer_Size) { buffer.RemoveAt(0); }
                         stepReward += nextReward;
