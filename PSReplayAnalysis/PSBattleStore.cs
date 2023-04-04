@@ -23,8 +23,8 @@ namespace PSReplayAnalysis
 
             foreach (var line in datalines)
             {
-                Console.WriteLine(data);
-                Console.WriteLine(battle);
+                //Console.WriteLine(data);
+                //Console.WriteLine(battle);
                 var lastTurn = battle.BattleTurns.Last();
                 string[] d = line.Split('|');
                 if (d.Length < 2) continue;

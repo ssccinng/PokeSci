@@ -300,7 +300,7 @@ namespace DQNTorch
                 lastTurn.Player2Team.Pokemons = lastTurn.Player2Team.Pokemons.Select(s => s with { }).ToList();
                 for (int i = 0; i <  2; i++)
                 {
-                    var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.Id == battle.MySide[i].MetaPokemon.Id);
+                    var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[i].MetaPokemon.DexId);
                     var aa1 = lastTurn.Player2Team.Pokemons.FindIndex(s => s.NowPos == i);
                     if (battle.PlayerPos == PlayerPos.Player1)
                     {
@@ -326,11 +326,10 @@ namespace DQNTorch
                         var resx = (int)DQNAgent.actSwitch(state, i, epsilon, ints.ToArray());
                         ints.Add(resx + i * 22);
                         var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide, 
-                            s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id);
+                            s => s.MetaPokemon.DexId == NowTeam.GamePokemons[resx].MetaPokemon.DexId);
                         
                         if (aa == -1)
                         {
-                            DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
                             if (battle.PlayerPos == PlayerPos.Player1)
                             {
 
@@ -344,18 +343,31 @@ namespace DQNTorch
                               );
 
                             }
+                            DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
                             await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             return;
                         }
                         if ( !battle.MyTeam[aa].IsDead)
                         {
+                            if (battle.MySide[aa].Active)
+                            {
+                                DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
+                                await OnLose(battle, $"强制换人时出问题4 {aa + 1} active");
+                                return;
+                            }
+                            Console.WriteLine("{0}------------------!battle.MyTeam[aa].IsDead", Player.UserName);
                             chooseDatas.Add(new SwitchData { PokeId = aa + 1 });
                         }
                         else
                         {
+                            Console.WriteLine("{0}------------------battle.MySide[3].IsDead && battle.MySide[2].IsDead", Player.UserName);
+
                             if (battle.MySide[3].IsDead && battle.MySide[2].IsDead)
+                            {
+                                chooseDatas.Add(new SwitchData { IsPass = true });
+
+                            }
                             // 这个pass有问题
-                            chooseDatas.Add(new SwitchData { IsPass = true });
                             else
                             {
                                 if (battle.PlayerPos == PlayerPos.Player1)
@@ -452,7 +464,7 @@ namespace DQNTorch
                     {
                         if (trap.GetBoolean())
                         {
-                            var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.Id == battle.MySide[i].MetaPokemon.Id);
+                            var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[i].MetaPokemon.DexId);
                             if (aa != -1)
                                 banmove.AddRange(new []{ 0, 1, 2, 3, 4, 5});
                         }
@@ -487,7 +499,7 @@ namespace DQNTorch
                         // change
                         // 找到要换的人 从side拉上来
                         //如果换的不合理 直接触发lose
-                        var aa = Array.FindIndex(battle.MySide, s => s.MetaPokemon.Id == NowTeam.GamePokemons[resx].MetaPokemon.Id) + 1;
+                        var aa = Array.FindIndex(battle.MySide, s => s.MetaPokemon.DexId == NowTeam.GamePokemons[resx].MetaPokemon.DexId) + 1;
                         chooseDatas.Add(new SwitchData { PokeId = aa });
                         if (aa < 3)
                         {
@@ -619,13 +631,13 @@ namespace DQNTorch
                 }
             };
 
-            Player.BattleEndAction += (PokePSCore.PsBattle battle, bool b) =>
+            Player.BattleEndAction += async (PokePSCore.PsBattle battle, bool b) =>
             {
                 battle.BattleStatus = BattleStatus.End;
 
                 replayAnalysis.Remove(battle.Tag);
-                 battle.ForfeitAsync().Wait();
-                battle.LeaveRoomAsync().Wait();
+                await battle.ForfeitAsync();
+                await battle.LeaveRoomAsync();
                 finish = true; ;
 
             };
@@ -681,6 +693,7 @@ namespace DQNTorch
 
         private async Task OnLose(PokePSCore.PsBattle battle, string msg)
         {
+            Console.WriteLine(msg);
             //await Console.Out.WriteLineAsync($"{battle.Tag} 结束 {msg}");
             await battle.ForfeitAsync();
             await battle.SendMessageAsync(msg);
@@ -763,7 +776,7 @@ namespace DQNTorch
         {
             while (!finish)
             {
-                await Task.Delay(10);
+                await Task.Delay(100);
             }
             return;
             throw new NotImplementedException();
