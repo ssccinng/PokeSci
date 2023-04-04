@@ -339,6 +339,20 @@ namespace DQNTorch
                             chooseDatas.Add(new SwitchData { IsPass = true });
                             else
                             {
+                                if (battle.PlayerPos == PlayerPos.Player1)
+                                {
+
+                                    Console.WriteLine(
+                                        string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) + " " + resx
+                                        ));
+                                }
+                                else
+                                {
+                                    Console.WriteLine(
+                                  string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
+                                  ));
+
+                                }
                                 DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
                                 await OnLose(battle, $"强制换人时出问题2 {aa + 1}");
                                 return;

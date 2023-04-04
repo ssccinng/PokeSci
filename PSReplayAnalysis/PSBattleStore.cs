@@ -194,7 +194,7 @@ namespace PSReplayAnalysis
                             {
                                 if (lastMoveSide.side == 1)
                                 {
-                                    lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
+                                    lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1); ;
 
                                 }
                                 else if (lastMoveSide.side == 2)
@@ -224,7 +224,7 @@ namespace PSReplayAnalysis
 
                                 if (lastMoveSide.side == 2)
                                 {
-                                    lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
+                                    lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1); ;
                                 }
                                 else if (lastMoveSide.side == 1)
                                 {
@@ -410,7 +410,7 @@ namespace PSReplayAnalysis
                                 }
                                 else if (lastMoveSide.side == 1)
                                 {
-                                    lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1);
+                                    lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1);
 
                                 }
                             }
@@ -448,7 +448,7 @@ namespace PSReplayAnalysis
                                     }
                                     else if (lastMoveSide.side == 2)
                                     {
-                                        lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1);
+                                        lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1);
 
                                     }
                                 }
