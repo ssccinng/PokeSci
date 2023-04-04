@@ -312,21 +312,20 @@ namespace DQNTorch
                         if (aa == -1)
                         {
                             DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
-                            await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             if (battle.PlayerPos == PlayerPos.Player1)
                             {
 
-                            Console.WriteLine(
-                                string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) +" " +resx
-                                ));
+                            await battle.SendMessageAsync
+                                (string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) + " " + resx));
                             }
                             else
                             {
-                                Console.WriteLine(
+                                await battle.SendMessageAsync(
                               string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
                               ));
 
                             }
+                            await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             return;
                         }
                         if (battle.Actives[aa] == false && !battle.MyTeam[aa].IsDead)
@@ -343,13 +342,13 @@ namespace DQNTorch
                                 if (battle.PlayerPos == PlayerPos.Player1)
                                 {
 
-                                    Console.WriteLine(
+                                    await battle.SendMessageAsync(
                                         string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) + " " + resx
                                         ));
                                 }
                                 else
                                 {
-                                    Console.WriteLine(
+                                    await battle.SendMessageAsync(
                                   string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
                                   ));
 
