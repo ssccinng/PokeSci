@@ -237,11 +237,12 @@ namespace DQNTorch
                     {
 
                         aaa.Player1Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
+                        aaa.Player1Team.Pokemons[(int)aa.ElementAt(j) - 1].HPRemain =0;
 
                     }
                     else
                     {
-                        aaa.Player2Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
+                        aaa.Player2Team.Pokemons[(int)aa.ElementAt(j) - 1].HPRemain =0;
                     }
                 }
                 battle.BattleStatus = BattleStatus.Waiting;
