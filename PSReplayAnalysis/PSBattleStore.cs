@@ -23,7 +23,8 @@ namespace PSReplayAnalysis
 
             foreach (var line in datalines)
             {
-
+                Console.WriteLine(data);
+                Console.WriteLine(battle);
                 var lastTurn = battle.BattleTurns.Last();
                 string[] d = line.Split('|');
                 if (d.Length < 2) continue;
@@ -184,7 +185,7 @@ namespace PSReplayAnalysis
                         {
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                             var delta = pokemon.HPRemain - hpn;
-                            Console.WriteLine("delta: {0}", delta);
+                            Console.WriteLine(" --- delta: {0}", delta);
                             if (d.Length > 4 && d[4].Trim() != string.Empty)
                             {
                                 lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
@@ -206,14 +207,18 @@ namespace PSReplayAnalysis
                             }
 
 
+                            
                             pokemon.HPRemain = hpn;
+                            Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
+
                         }
                         else if (damageStageSide.side == 2)
                         {
                             var pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                             var delta = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain - hpn;
 
-                            Console.WriteLine("delta: {0}", delta);
+                            Console.WriteLine(" --- delta: {0}", delta);
+
                             if (d.Length > 4 && d[4].Trim() != string.Empty)
                             {
                                 lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
@@ -235,6 +240,7 @@ namespace PSReplayAnalysis
 
                             }
                             pokemon.HPRemain = hpn;
+                            Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
 
                         }
 

@@ -247,7 +247,7 @@ namespace DQNTorch
                 battle.BattleStatus = BattleStatus.Waiting;
                 await battle.OrderTeamAsync(string.Concat(aa));
                 await WaitRequests(battle);
-                if (battle.BattleStatus == BattleStatus.End)
+                if (battle.BattleStatus == BattleStatus.Error)
                 {
                     Console.WriteLine("error");
                     await OnLose(battle, $"选人问题");
@@ -286,7 +286,7 @@ namespace DQNTorch
                     await Player.AcceptChallengeAsync(player);
                 }
             };
-            Player.OnForceSwitch += async (battle, bools) =>
+            Player.OnForceSwitch += async (PokePSCore.PsBattle battle, bool[] bools) =>
             {
                 // 这里被迫进行动作
                 var battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
@@ -295,7 +295,27 @@ namespace DQNTorch
                 //return;
                 Console.WriteLine("让我康康你有没有触发");
                 BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
+                lastTurn = lastTurn with { };
+                lastTurn.Player1Team.Pokemons = lastTurn.Player1Team.Pokemons.Select(s => s with { }).ToList();
+                lastTurn.Player2Team.Pokemons = lastTurn.Player2Team.Pokemons.Select(s => s with { }).ToList();
+                for (int i = 0; i <  2; i++)
+                {
+                    var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.Id == battle.MySide[i].MetaPokemon.Id);
+                    var aa1 = lastTurn.Player2Team.Pokemons.FindIndex(s => s.NowPos == i);
+                    if (battle.PlayerPos == PlayerPos.Player1)
+                    {
+                        lastTurn.Player1Team.Pokemons[aa].HPRemain = (int)(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+                        //lastTurn.Player2Team.Pokemons[aa1].HPRemain = (int)(battle.OppSide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+                    }
+                    else
+                    {
+                        lastTurn.Player2Team.Pokemons[aa].HPRemain = (int)(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+                        //lastTurn.Player1Team.Pokemons[aa1].HPRemain = (int)(battle.OppSide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+
+                    }
+                }
                 float[] state = ExportBattleTurn(lastTurn, (int)(battle.PlayerPos) + 1);
+
                 List<int> ints = new List<int>();
 
                 List<ChooseData> chooseDatas = new List<ChooseData>();
@@ -373,12 +393,13 @@ namespace DQNTorch
                 battle.BattleStatus = BattleStatus.Waiting;
                 await battle.SendMoveAsunc(chooseDatas.ToArray());
                 await WaitRequests(battle);
-                if (battle.BattleStatus == BattleStatus.End)
+                if (battle.BattleStatus == BattleStatus.Error)
                 {
                     DQNAgent.AddBuffer(((float[] states, long actions, float rewards, float[] next_states, float dones))
                                 (state, ints.Last(), -1, state, 1));
                     await OnLose(battle, "强制换人有问题1");
                 }
+                //else P
             };
 
             Player.OnChooseMove += async (PokePSCore.PsBattle battle) =>
@@ -574,7 +595,7 @@ namespace DQNTorch
                 await battle.SendMoveAsunc(chooseDatas.ToArray());
                 // 要等待一下
                 await WaitRequests(battle);
-                if (battle.BattleStatus == BattleStatus.End)
+                if (battle.BattleStatus == BattleStatus.Error)
                 {
                     // gg
                     //await OnLose(battle, "出招问题");
@@ -598,12 +619,13 @@ namespace DQNTorch
                 }
             };
 
-            Player.BattleEndAction += async (PokePSCore.PsBattle battle, bool b) =>
+            Player.BattleEndAction += (PokePSCore.PsBattle battle, bool b) =>
             {
                 battle.BattleStatus = BattleStatus.End;
 
                 replayAnalysis.Remove(battle.Tag);
-                await battle.LeaveRoomAsync();
+                 battle.ForfeitAsync().Wait();
+                battle.LeaveRoomAsync().Wait();
                 finish = true; ;
 
             };
@@ -615,7 +637,7 @@ namespace DQNTorch
             Player.BattleErrorAction += async (PokePSCore.PsBattle battle, string msg) =>
             {
                 await battle.SendMessageAsync(msg);
-                battle.BattleStatus = BattleStatus.End;
+                battle.BattleStatus = BattleStatus.Error;
                 // 输了！
                 //OnLose();
                 //await battle.ForfeitAsync();
@@ -628,24 +650,28 @@ namespace DQNTorch
 
             };
 
-            Player.BattleInfo += async (battle, b) =>
+            Player.BattleInfo += (battle, b) =>
             {
                 // 刷新信息
                 var battlea = replayAnalysis.GetValueOrDefault(battle.Tag) ?? 
                 new PSReplayAnalysis.PSReplayAnalysis() { RoomId = battle.Tag };
 
-                if (battlea.battle.BattleTurns.Count == 0)
+                if (battlea.battle.BattleTurns.Count == 0 && b.Contains("|init|battle"))
                 {
-                    replayAnalysis.TryAdd(battle.Tag, battlea);
 
                     battlea.battle.BattleTurns.Add(new BattleTurn
                     {
                         TurnId = 0,
 
                     });
+                    replayAnalysis.TryAdd(battle.Tag, battlea);
                 }
-                    
-                battlea.Refresh(b);
+                if (battlea.battle.BattleTurns.Count != 0)
+                {
+                    Console.WriteLine(  $"id {Player.UserName} refreshbefore");
+                    battlea.Refresh(b);
+                    Console.WriteLine(  $"id {Player.UserName} refresh after");
+                }
 
 
             };
@@ -655,7 +681,7 @@ namespace DQNTorch
 
         private async Task OnLose(PokePSCore.PsBattle battle, string msg)
         {
-            await Console.Out.WriteLineAsync($"{battle.Tag} 结束 {msg}");
+            //await Console.Out.WriteLineAsync($"{battle.Tag} 结束 {msg}");
             await battle.ForfeitAsync();
             await battle.SendMessageAsync(msg);
             //finish = true;

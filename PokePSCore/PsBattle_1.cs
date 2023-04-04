@@ -294,6 +294,7 @@
     {
         Waiting,
         Requests,
+        Error,
         End,
     }
 }
