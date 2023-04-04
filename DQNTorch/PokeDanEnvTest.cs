@@ -227,7 +227,7 @@ namespace DQNTorch
                 }
                 b = b % 22;
                 var aa = (new[] { a + 1, b + 1 }).Concat((new [] { 1, 2, 3, 4, 5, 6 })
-                .OrderBy(s => Random.Shared.Next())).Distinct();
+                .OrderBy(s => Random.Shared.Next())).Distinct().ToList();
 
                 for (int j = 4; j < 6; j++)
                 {
@@ -236,12 +236,12 @@ namespace DQNTorch
                     if (battle.PlayerPos == PlayerPos.Player1)
                     {
 
-                        aaa.Player1Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
+                        aaa.Player1Team.Pokemons[(int)aa[j] - 1].NowPos = -2;
 
                     }
                     else
                     {
-                        aaa.Player2Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
+                        aaa.Player2Team.Pokemons[(int)aa[j] - 1].NowPos = -2;
                     }
                 }
                 battle.BattleStatus = BattleStatus.Waiting;
@@ -315,19 +315,19 @@ namespace DQNTorch
                             {
 
                             await battle.SendMessageAsync
-                                (string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) + " " + resx));
+                                (string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos)) + " " + resx);
                             }
                             else
                             {
                                 await battle.SendMessageAsync(
-                              string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
-                              ));
+                              string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos)) + " " + resx
+                              );
 
                             }
                             await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             return;
                         }
-                        if (battle.Actives[aa] == false && !battle.MyTeam[aa].IsDead)
+                        if ( !battle.MyTeam[aa].IsDead)
                         {
                             chooseDatas.Add(new SwitchData { PokeId = aa + 1 });
                         }
@@ -342,14 +342,14 @@ namespace DQNTorch
                                 {
 
                                     await battle.SendMessageAsync(
-                                        string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos) + " " + resx
-                                        ));
+                                        string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos)) + " " + resx
+                                        );
                                 }
                                 else
                                 {
                                     await battle.SendMessageAsync(
-                                  string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos) + " " + resx
-                                  ));
+                                  string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos)) + " " + resx
+                                  );
 
                                 }
                                 DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
@@ -600,11 +600,11 @@ namespace DQNTorch
 
             Player.BattleEndAction += async (PokePSCore.PsBattle battle, bool b) =>
             {
-                finish = true; ;
                 battle.BattleStatus = BattleStatus.End;
 
                 replayAnalysis.Remove(battle.Tag);
                 await battle.LeaveRoomAsync();
+                finish = true; ;
 
             };
 
@@ -614,8 +614,8 @@ namespace DQNTorch
 
             Player.BattleErrorAction += async (PokePSCore.PsBattle battle, string msg) =>
             {
-                battle.BattleStatus = BattleStatus.End;
                 await battle.SendMessageAsync(msg);
+                battle.BattleStatus = BattleStatus.End;
                 // 输了！
                 //OnLose();
                 //await battle.ForfeitAsync();
@@ -631,17 +631,23 @@ namespace DQNTorch
             Player.BattleInfo += async (battle, b) =>
             {
                 // 刷新信息
-                var battlea = replayAnalysis.GetValueOrDefault(battle.Tag) ?? new PSReplayAnalysis.PSReplayAnalysis() { RoomId = battle.Tag };
-                replayAnalysis.TryAdd(battle.Tag, battlea);
+                var battlea = replayAnalysis.GetValueOrDefault(battle.Tag) ?? 
+                new PSReplayAnalysis.PSReplayAnalysis() { RoomId = battle.Tag };
+
                 if (battlea.battle.BattleTurns.Count == 0)
+                {
+                    replayAnalysis.TryAdd(battle.Tag, battlea);
+
                     battlea.battle.BattleTurns.Add(new BattleTurn
                     {
                         TurnId = 0,
 
                     });
-
-
+                }
+                    
                 battlea.Refresh(b);
+
+
             };
 
 

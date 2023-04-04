@@ -179,7 +179,7 @@ namespace PSReplayAnalysis
                         // 这个后面有状态 可能要记录在当前状态
                         var hpn = int.Parse(hpr[0].Replace(" fnt", ""));
                         var damageStageSide = GetSidePos(d[2]);
-                        if (hpr.Length > 1) { hpn = hpn * 100 / int.Parse(hpr[1].Split(" ")[0]); };
+                        if (hpr.Length > 1) { hpn = (int)(hpn * 100.0 / int.Parse(hpr[1].Split(" ")[0])); };
                         if (damageStageSide.side == 1)
                         {
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
@@ -212,6 +212,7 @@ namespace PSReplayAnalysis
                         {
                             var pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                             var delta = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain - hpn;
+
                             Console.WriteLine("delta: {0}", delta);
                             if (d.Length > 4 && d[4].Trim() != string.Empty)
                             {
@@ -357,6 +358,7 @@ namespace PSReplayAnalysis
                         var hph = d[3].Split('/');
                         // 这个后面有状态 可能要记录在当前状态
                         var hphn = int.Parse(hph[0].Replace(" fnt", ""));
+                        if (hph.Length > 1) { hpn = (int)(hphn * 100.0 / int.Parse(hph[1].Split(" ")[0])); };
 
                         var healStageSide = GetSidePos(d[2]);
                         if (d[2].StartsWith("p1:"))

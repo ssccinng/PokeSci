@@ -217,7 +217,6 @@ namespace PokePSCore
                         }
                         break;
                     case "request":
-                        RequestsAction?.Invoke(battle);
                         if (other[0] != "")
                         {
                             // battle.Turn += 2;
@@ -242,6 +241,8 @@ namespace PokePSCore
                                 // other[0] 为队伍信息
                             }
                         }
+                        RequestsAction?.Invoke(battle);
+
                         break;
                     case "teampreview":
                         // 后面还有个
