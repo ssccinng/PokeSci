@@ -493,7 +493,7 @@ namespace DQNTorch
                 for (int i = 0; i < battle.ActiveStatus.Length; i++)
                 {
                     await battle.SendMessageAsync(string.Format("{3} battle.Actives[{2}] = {0}, (battle.MySide[{2}]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding, i, battle.ActiveStatus.Length));
-                    if (!battle.Actives[i] || (battle.MySide[i]?.Commanding ?? false)) continue;
+                    if (battle.MySide[i].IsDead || (battle.MySide[i]?.Commanding ?? false)) continue;
                     JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
                     List<int> banmove = new();
 
