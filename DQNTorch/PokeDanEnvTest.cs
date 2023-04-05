@@ -323,6 +323,14 @@ namespace DQNTorch
                 List<ChooseData> chooseDatas = new List<ChooseData>();
                 for (int i = 0; i < bools.Length; i++)
                 {
+                    Console.WriteLine("给你手动屏蔽在场宝");   
+                    // 下场宝
+                    var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[i].MetaPokemon.DexId);
+                    ints.Add(aa);
+
+                }
+                for (int i = 0; i < bools.Length; i++) 
+                {
                     if (bools[i])
                     {
                         // ban一下自己人？Todo
@@ -346,6 +354,7 @@ namespace DQNTorch
                               );
 
                             }
+                            // 这里屏蔽一下下场的？
                             DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
                             await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             return;

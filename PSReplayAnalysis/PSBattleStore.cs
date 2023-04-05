@@ -501,6 +501,7 @@ namespace PSReplayAnalysis
                         }
 
                         break;
+                    case "-immune":
                     case "-fail":
                         var failSide = GetSidePos(d[2]);
                         if (lastMoveSide.side == 2)

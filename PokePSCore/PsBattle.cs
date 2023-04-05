@@ -114,6 +114,7 @@ public partial class PsBattle
 
     public async Task SendMessageAsync(string message)
     {
+        return;
         await Client.SendAsync(Tag, message);
     }
     public async Task RefreshByRequestAsync(string request)
@@ -200,7 +201,6 @@ public partial class PsBattle
                 }
                 else
                 {
-                    MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
                     if (pokes[i].TryGetProperty("trapped", out var tv))
                     {
                         //MyTeam[i].Trapped = tv.GetBoolean();
@@ -208,6 +208,7 @@ public partial class PsBattle
 
                     // 只需更新状态
                 }
+                MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
 
                 //MyTeam[i].MetaPokemon = await PokemonTools.GetPokemonFromPsNameAsync(detail[0]);
                 //MyTeam[i] = (new BattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
