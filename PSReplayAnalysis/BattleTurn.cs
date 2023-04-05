@@ -603,6 +603,9 @@ public record PokemonStatus
     /// </summary>
     [SingleTurn]
     public int RagePowder { get; set; }
+
+    [Decrease(initValue: 1, decreaseValue: -1)]
+    public int SwitchIn { get; set; }
 }
 
 /// <summary>
