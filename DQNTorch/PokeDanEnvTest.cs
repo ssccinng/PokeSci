@@ -149,7 +149,7 @@ namespace DQNTorch
             {
                 var battlea = replayAnalysis.GetValueOrDefault(battle.Tag);
 
-
+                await battle.SendMessageAsync(string.Join(" ",  NowTeam.GamePokemons.Select(s => s.MetaPokemon.NameEng)));
 
                 // 这里被迫进行动作
                 BattleTurn lastTurn = battlea.battle.BattleTurns.Last();
@@ -237,11 +237,13 @@ namespace DQNTorch
                     {
 
                         aaa.Player1Team.Pokemons[(int)aa[j] - 1].NowPos = -2;
+                        aaa.Player1Team.Pokemons[(int)aa[j] - 1].HPRemain = 0;
 
                     }
                     else
                     {
                         aaa.Player2Team.Pokemons[(int)aa[j] - 1].NowPos = -2;
+                        aaa.Player2Team.Pokemons[(int)aa[j] - 1].HPRemain = 0;
                     }
                 }
                 battle.BattleStatus = BattleStatus.Waiting;
@@ -276,11 +278,11 @@ namespace DQNTorch
                 {
 
                     NowTeam = await GetRandomTeam();
-                    lock (_lockDb)
-                    {
-                        Player.ChangeYourTeamAsync(PSConverter.ConvertToPsOneLineAsync(NowTeam).Result).Wait();
+                    await Player.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(NowTeam));
+                    //lock (_lockDb)
+                    //{
 
-                    }
+                    //}
 
 
                     await Player.AcceptChallengeAsync(player);
@@ -347,9 +349,9 @@ namespace DQNTorch
                             await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
                             return;
                         }
-                        if ( !battle.MyTeam[aa].IsDead)
+                        if (!battle.MyTeam[aa].IsDead)
                         {
-                            if (battle.MySide[aa].Active)
+                            if (aa < 2)
                             {
                                 DQNAgent.AddBuffer((state, ints.Last(), -1, state, 1));
                                 await OnLose(battle, $"强制换人时出问题4 {aa + 1} active");
@@ -455,7 +457,7 @@ namespace DQNTorch
                 //}
                 for (int i = 0; i < battle.ActiveStatus.Length; i++)
                 {
-                    Console.WriteLine("battle.Actives[i] = {0}, (battle.MySide[i]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding);
+                    await battle.SendMessageAsync(string.Format("{3} battle.Actives[{2}] = {0}, (battle.MySide[{2}]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding, i, battle.ActiveStatus.Length));
                     if (!battle.Actives[i] || (battle.MySide[i]?.Commanding ?? false)) continue;
                     JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
                     List<int> banmove = new();

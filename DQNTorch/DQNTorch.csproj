@@ -24,6 +24,9 @@
     <None Update="MoveData.zqd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Team - 复制.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Team.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
