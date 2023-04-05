@@ -89,6 +89,16 @@ namespace PSReplayAnalysis
                         var swdata = GetSidePos(d[2][..3]);
                         // 检测到不合理的话 直接一手把索罗亚克切换成那个 Todo: 记得处理一下
                         // 必须是开局的switch 才能加入
+
+                        //if (statusSide.side == 1)
+                        //{
+                        //    status.SetValue(lastTurn.Side1Pokes[statusSide.pos], d[3] == "slp" ? 3 : 1);
+                        //}
+                        //else if (statusSide.side == 2)
+                        //{
+                        //    status.SetValue(lastTurn.Side2Pokes[statusSide.pos], 1);
+
+                        //}
                         if (swdata.side == 1)
                         {
                             if (lastTurn.Player1Team.Pokemons.Any(s => s.NowPos == swdata.pos))
@@ -99,6 +109,7 @@ namespace PSReplayAnalysis
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;
                             pokemon.NickName = switchNickName;
+                            lastTurn.Side1Pokes[swdata.pos].SwitchIn = 2;
                             //if (turnstart)
                             //{
                             //    lastTurn.Battle1Actions[swdata.pos] = new ExporttoTrainData.BattleAction(0, lastTurn.Player1Team.Pokemons.FindIndex(s => s.Id == swpoke.id));
@@ -114,6 +125,7 @@ namespace PSReplayAnalysis
                             Pokemon pokemon = lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;
                             pokemon.NickName = switchNickName;
+                            lastTurn.Side2Pokes[swdata.pos].SwitchIn = 2;
 
                             //if (turnstart)
                             //{

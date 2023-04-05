@@ -77,8 +77,8 @@ namespace DQNTorch
             this.gamma = gamma;
             this.lr = lr;
             buffer = new();
-            model = new DQN(1401, 44, 128).to(device);
-            target_model = new DQN(1401, 44, 128).to(device);
+            model = new DQN(1405, 44, 128).to(device);
+            target_model = new DQN(1405, 44, 128).to(device);
 
             optimizer = optim.Adam(model.parameters(), lr);
         }
