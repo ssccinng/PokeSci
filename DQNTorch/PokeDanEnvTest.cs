@@ -325,6 +325,7 @@ namespace DQNTorch
                 {
                     if (bools[i])
                     {
+                        // ban一下自己人？Todo
                         var resx = (int)DQNAgent.actSwitch(state, i, epsilon, ints.ToArray());
                         ints.Add(resx + i * 22);
                         var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide, 
