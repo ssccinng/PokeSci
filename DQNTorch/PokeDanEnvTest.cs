@@ -333,7 +333,7 @@ namespace DQNTorch
                 {
                     for (int i = 0; i < lastTurn.Player1Team.Pokemons.Count; i++)
                     {
-                        if (lastTurn.Player1Team.Pokemons[i].NowPos == -2)
+                        if (lastTurn.Player1Team.Pokemons[i].HPRemain == 0)
                         {
                             ints.Add(i);
 
@@ -345,7 +345,7 @@ namespace DQNTorch
                 {
                     for (int i = 0; i < lastTurn.Player2Team.Pokemons.Count; i++)
                     {
-                        if (lastTurn.Player2Team.Pokemons[i].NowPos == -2)
+                        if (lastTurn.Player2Team.Pokemons[i].HPRemain == 0)
                         {
                             ints.Add(i);
 
