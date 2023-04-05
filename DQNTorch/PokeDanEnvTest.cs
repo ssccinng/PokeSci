@@ -329,7 +329,32 @@ namespace DQNTorch
                     ints.Add(aa);
 
                 }
-                for (int i = 0; i < bools.Length; i++) 
+                if (battle.PlayerPos == PlayerPos.Player1)
+                {
+                    for (int i = 0; i < lastTurn.Player1Team.Pokemons.Count; i++)
+                    {
+                        if (lastTurn.Player1Team.Pokemons[i].NowPos == -2)
+                        {
+                            ints.Add(i);
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < lastTurn.Player2Team.Pokemons.Count; i++)
+                    {
+                        if (lastTurn.Player2Team.Pokemons[i].NowPos == -2)
+                        {
+                            ints.Add(i);
+
+                        }
+
+
+                    }
+                }
+                    for (int i = 0; i < bools.Length; i++) 
                 {
                     if (bools[i])
                     {
