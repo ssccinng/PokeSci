@@ -111,6 +111,7 @@ namespace PokeCommon.Models
         {
             get; set;
         }
+
         /// <summary>
         /// 是否gg
         /// </summary>

@@ -23,7 +23,8 @@ namespace PSReplayAnalysis
 
             foreach (var line in datalines)
             {
-
+                //Console.WriteLine(data);
+                //Console.WriteLine(battle);
                 var lastTurn = battle.BattleTurns.Last();
                 string[] d = line.Split('|');
                 if (d.Length < 2) continue;
@@ -179,12 +180,12 @@ namespace PSReplayAnalysis
                         // 这个后面有状态 可能要记录在当前状态
                         var hpn = int.Parse(hpr[0].Replace(" fnt", ""));
                         var damageStageSide = GetSidePos(d[2]);
-                        if (hpr.Length > 1) { hpn = hpn * 100 / int.Parse(hpr[1].Split(" ")[0]); };
+                        if (hpr.Length > 1) { hpn = (int)(hpn * 100.0 / int.Parse(hpr[1].Split(" ")[0])); };
                         if (damageStageSide.side == 1)
                         {
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                             var delta = pokemon.HPRemain - hpn;
-                            Console.WriteLine("delta: {0}", delta);
+                            Console.WriteLine(" --- delta: {0}", delta);
                             if (d.Length > 4 && d[4].Trim() != string.Empty)
                             {
                                 lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
@@ -194,7 +195,7 @@ namespace PSReplayAnalysis
                             {
                                 if (lastMoveSide.side == 1)
                                 {
-                                    lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
+                                    lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1); ;
 
                                 }
                                 else if (lastMoveSide.side == 2)
@@ -206,13 +207,18 @@ namespace PSReplayAnalysis
                             }
 
 
+                            
                             pokemon.HPRemain = hpn;
+                            Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
+
                         }
                         else if (damageStageSide.side == 2)
                         {
                             var pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                             var delta = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain - hpn;
-                            Console.WriteLine("delta: {0}", delta);
+
+                            Console.WriteLine(" --- delta: {0}", delta);
+
                             if (d.Length > 4 && d[4].Trim() != string.Empty)
                             {
                                 lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
@@ -224,7 +230,7 @@ namespace PSReplayAnalysis
 
                                 if (lastMoveSide.side == 2)
                                 {
-                                    lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
+                                    lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1); ;
                                 }
                                 else if (lastMoveSide.side == 1)
                                 {
@@ -234,6 +240,7 @@ namespace PSReplayAnalysis
 
                             }
                             pokemon.HPRemain = hpn;
+                            Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
 
                         }
 
@@ -357,6 +364,7 @@ namespace PSReplayAnalysis
                         var hph = d[3].Split('/');
                         // 这个后面有状态 可能要记录在当前状态
                         var hphn = int.Parse(hph[0].Replace(" fnt", ""));
+                        if (hph.Length > 1) { hpn = (int)(hphn * 100.0 / int.Parse(hph[1].Split(" ")[0])); };
 
                         var healStageSide = GetSidePos(d[2]);
                         if (d[2].StartsWith("p1:"))
@@ -448,7 +456,7 @@ namespace PSReplayAnalysis
                                     }
                                     else if (lastMoveSide.side == 2)
                                     {
-                                        lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1);
+                                        lastTurn.Reward2 -= delta * 1f / Math.Max(100, 1);
 
                                     }
                                 }
@@ -481,7 +489,7 @@ namespace PSReplayAnalysis
                                     }
                                     else if (lastMoveSide.side == 1)
                                     {
-                                        lastTurn.Reward1 -= delta * .5f / Math.Max(100, 1);
+                                        lastTurn.Reward1 -= delta * 1f / Math.Max(100, 1);
 
                                     }
                                 }
@@ -493,6 +501,7 @@ namespace PSReplayAnalysis
                         }
 
                         break;
+                    case "-immune":
                     case "-fail":
                         var failSide = GetSidePos(d[2]);
                         if (lastMoveSide.side == 2)

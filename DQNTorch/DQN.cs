@@ -98,7 +98,7 @@ namespace DQNTorch
                 //return Random.Shared.Next(6);
                 while (true)
                 {
-                    var res = np.random.randint(0, 4).GetInt32();
+                    var res = np.random.randint(0, 6).GetInt32();
                     if (!banactions.Contains(res))
                     {
                         return res;
@@ -143,6 +143,7 @@ namespace DQNTorch
             }
             else
             {
+                // 屏蔽在写好一点
                 var states = FloatTensor(state).unsqueeze(0).to(device);
                 var q_values = model.forward(states);
                 q_values = q_values.slice(1, pos * 22, 22 + pos * 22, 1);

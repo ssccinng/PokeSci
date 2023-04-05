@@ -114,6 +114,7 @@ public partial class PsBattle
 
     public async Task SendMessageAsync(string message)
     {
+        //return;
         await Client.SendAsync(Tag, message);
     }
     public async Task RefreshByRequestAsync(string request)
@@ -126,28 +127,7 @@ public partial class PsBattle
             // Console.WriteLine(Turn);
         }
 
-        if (data.TryGetProperty("forceSwitch", out var jsongFSwitch))
-        {
-            bool[] fArray;
-            if (jsongFSwitch.ValueKind == JsonValueKind.Array)
-            {
-                fArray = new bool[jsongFSwitch.GetArrayLength()];
-                for (int i = 0; i < jsongFSwitch.GetArrayLength(); i++)
-                {
-                    fArray[i] = jsongFSwitch[i].GetBoolean();
-                }
-                Console.WriteLine(fArray.Length);
-
-            }
-            else
-            {
-                fArray = new bool[] { jsongFSwitch.GetBoolean() };
-            }
-            // 可能不是array
-            Console.WriteLine("检测到需要换人");
-            // 需要换人
-            Client.OnForceSwitch?.Invoke(this, fArray);
-        }
+       
         if (data.TryGetProperty("side", out var side))
         {
             //return;
@@ -179,10 +159,18 @@ public partial class PsBattle
                 //     PokemonTools.GetPsPokemonAsync(s.MetaPokemon.Id).Result?.PSName == detail[0]);
                 string[] condition = pokes[i].GetProperty("condition").GetString().Split('/');
                 int hp = 0;
+                int maxhp = 100;
+                Console.WriteLine("hp: {0}", hp);
                 if (condition.Length > 1)
                 {
                     hp = int.Parse(condition[0]);
+                    maxhp = int.Parse(condition[1].Split(" ")[0]);
                 }
+
+                //if (condition.Length > 2)
+                //{
+
+                //}
                 bool pokeActive = pokes[i].GetProperty("active").GetBoolean();
                 Actives[i] = pokeActive;
                 if (InitId == 0)
@@ -213,7 +201,6 @@ public partial class PsBattle
                 }
                 else
                 {
-                    MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
                     if (pokes[i].TryGetProperty("trapped", out var tv))
                     {
                         //MyTeam[i].Trapped = tv.GetBoolean();
@@ -221,10 +208,13 @@ public partial class PsBattle
 
                     // 只需更新状态
                 }
+                MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
 
                 //MyTeam[i].MetaPokemon = await PokemonTools.GetPokemonFromPsNameAsync(detail[0]);
                 //MyTeam[i] = (new BattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
                 MyTeam[i].NowHp = hp;
+                if (MyTeam[i].MaxHP == 0)
+                MyTeam[i].MaxHP = maxhp;
                 // if (poke != null)
                 // {
                 //     poke.NowHp = hp;
@@ -248,5 +238,28 @@ public partial class PsBattle
             }
             // 更新技能信息
         }
+        if (data.TryGetProperty("forceSwitch", out var jsongFSwitch))
+        {
+            bool[] fArray;
+            if (jsongFSwitch.ValueKind == JsonValueKind.Array)
+            {
+                fArray = new bool[jsongFSwitch.GetArrayLength()];
+                for (int i = 0; i < jsongFSwitch.GetArrayLength(); i++)
+                {
+                    fArray[i] = jsongFSwitch[i].GetBoolean();
+                }
+                Console.WriteLine(fArray.Length);
+
+            }
+            else
+            {
+                fArray = new bool[] { jsongFSwitch.GetBoolean() };
+            }
+            // 可能不是array
+            Console.WriteLine("检测到需要换人");
+            // 需要换人
+            Client.OnForceSwitch?.Invoke(this, fArray);
+        }
+        
     }
 }
