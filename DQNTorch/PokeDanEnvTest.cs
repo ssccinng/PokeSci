@@ -242,6 +242,7 @@ namespace DQNTorch
                     }
                     else
                     {
+                        aaa.Player2Team.Pokemons[(int)aa.ElementAt(j) - 1].NowPos = -2;
                         aaa.Player2Team.Pokemons[(int)aa.ElementAt(j) - 1].HPRemain =0;
                     }
                 }
