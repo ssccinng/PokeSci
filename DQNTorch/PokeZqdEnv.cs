@@ -53,7 +53,7 @@ public class PokeZqdEnv
     public async Task Init(string name, string pwd, string wsUrl = "ws://localhost:8000/showdown/websocket")
     {
         PSClient = new PSClient(name, pwd, "ws://localhost:8000/showdown/websocket");
-        //PSClient.LogTo(Console.WriteLine);
+        //PSClient.LogTo(// Console.WriteLine);
         await PSClient.ConnectAsync();
         await Task.Delay(1000);
         await PSClient.LoginGuestAsync();
@@ -160,7 +160,7 @@ public class PokeZqdEnv
         var trainBattle = trainBattles.GetValueOrDefault(battle.Tag);
         if (trainBattle != null)
         {
-            Console.WriteLine(info);
+            // Console.WriteLine(info);
             trainBattle.SetStatus(BattleStatus.Error);
             return;
             // 状态置为error
@@ -186,10 +186,10 @@ public class PokeZqdEnv
         if (trainBattle != null)
         {
             trainBattle.SetStatus(BattleStatus.End);
-            Console.WriteLine("等待TurnFinish");
+            // Console.WriteLine("等待TurnFinish");
             await Task.Delay(1000);
 
-            Console.WriteLine("等待TurnFinish完毕" + trainBattle.BattleStatus);
+            // Console.WriteLine("等待TurnFinish完毕" + trainBattle.BattleStatus);
 
             trainBattle.BackWard();
             agent.AddBuffers(
@@ -216,7 +216,7 @@ public class PokeZqdEnv
             await Task.Delay(100);
         }
         chooseOnce = 1;
-         Console.WriteLine("---------------{0}-PSClient_OnChooseMove---------------------", PSClient.UserName);
+         // Console.WriteLine("---------------{0}-PSClient_OnChooseMove---------------------", PSClient.UserName);
 
         List<ChooseData> chooseDatas = new List<ChooseData>();
 
@@ -241,7 +241,7 @@ public class PokeZqdEnv
 
         foreach (var item in lastTurn.Player2Team.Pokemons)
         {
-            Console.WriteLine($"{item.NickName} HpRemain{item.HPRemain} NowPos: {item.NowPos}");
+            // Console.WriteLine($"{item.NickName} HpRemain{item.HPRemain} NowPos: {item.NowPos}");
         }
 
         // 开始状态
@@ -252,7 +252,7 @@ public class PokeZqdEnv
 
         for (int q = 0; q < 2; q++)
         {
-            Console.WriteLine("给你手动屏蔽在场宝");
+            // Console.WriteLine("给你手动屏蔽在场宝");
             // 下场宝
             var aa = trainBattle.GamePokemonTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[q].MetaPokemon.DexId);
             if (aa == -1)
@@ -289,7 +289,7 @@ public class PokeZqdEnv
         for (int i = 0; i < battle.ActiveStatus.Length; i++)
         {
             // 这里ban一下招式
-            Console.WriteLine("battle.MySide[{2}].IsDead {0} || (battle.MySide[{2}]?.Commanding ?? false {1}", battle.MySide[i].IsDead, battle.MySide[i]?.Commanding, i);
+            // Console.WriteLine("battle.MySide[{2}].IsDead {0} || (battle.MySide[{2}]?.Commanding ?? false {1}", battle.MySide[i].IsDead, battle.MySide[i]?.Commanding, i);
             await battle.SendMessageAsync(string.Format("{3} battle.Actives[{2}] = {0}, (battle.MySide[{2}]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding, i, battle.ActiveStatus.Length));
             if (battle.MySide[i].IsDead || (battle.MySide[i]?.Commanding ?? false)) continue;
             JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
@@ -396,8 +396,8 @@ public class PokeZqdEnv
 
                     target = movedata[moveid - 1].GetProperty("target").GetString()!;
 
-                    Console.WriteLine(target);
-                    Console.WriteLine(battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetRawText());
+                    // Console.WriteLine(target);
+                    // Console.WriteLine(battle.ActiveStatus[i].GetProperty("moves")[moveid - 1].GetRawText());
                     if (target == "any" || target == "normal")
                     {
                         // 不能选到自己 || target == "AdjacentAllyOrSelf"
@@ -454,9 +454,9 @@ public class PokeZqdEnv
                 }
                 catch (global::System.Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(e.StackTrace);
-                    Console.WriteLine("异常了");
+                    // Console.WriteLine(e.Message);
+                    // Console.WriteLine(e.StackTrace);
+                    // Console.WriteLine("异常了");
                     throw;
                     //chooseDatas.Add(new MoveChooseData(1));
                 }
@@ -465,17 +465,17 @@ public class PokeZqdEnv
 
         }
         //battle.BattleStatus = BattleStatus.Waiting;
-        Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD1-------------", PSClient.UserName);
+        // Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD1-------------", PSClient.UserName);
 
 
         trainBattle.SetStatus(BattleStatus.Waiting);
         await battle.SendMoveAsunc(chooseDatas.ToArray());
         // 要等待一下
-        Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD2-------------", PSClient.UserName);
+        // Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD2-------------", PSClient.UserName);
         await  WaitRequests(trainBattle);
-        Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD3-------------", PSClient.UserName);
+        // Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD3-------------", PSClient.UserName);
 
-        Console.WriteLine("等到了结果" + trainBattle.BattleStatus);
+        // Console.WriteLine("等到了结果" + trainBattle.BattleStatus);
         if (trainBattle.BattleStatus == BattleStatus.Error)
         {
             //battle.BattleStatus
@@ -509,7 +509,7 @@ public class PokeZqdEnv
             await Task.Delay(100);
         }
         fors = 1;
-         Console.WriteLine("-----------------{0}-PSClient_OnForceSwitch------------", PSClient.UserName);
+         // Console.WriteLine("-----------------{0}-PSClient_OnForceSwitch------------", PSClient.UserName);
         var trainBattle = trainBattles.GetValueOrDefault(battle.Tag);
         if (trainBattle == null)
         {
@@ -517,7 +517,7 @@ public class PokeZqdEnv
         }
         //await Console.Out.WriteLineAsync(czcz);
         //return;
-        Console.WriteLine("让我康康你有没有触发");
+        // Console.WriteLine("让我康康你有没有触发");
         BattleTurn lastTurn = trainBattle.PSReplayAnalysis.battle.BattleTurns.Last();
         lastTurn = lastTurn with { };
         lastTurn.Player1Team.Pokemons = lastTurn.Player1Team.Pokemons.Select(s => s with { }).ToList();
@@ -543,7 +543,7 @@ public class PokeZqdEnv
         List<ChooseData> chooseDatas = new List<ChooseData>();
         for (int i = 0; i < actives.Length; i++)
         {
-            Console.WriteLine("给你手动屏蔽在场宝");
+            // Console.WriteLine("给你手动屏蔽在场宝");
             // 下场宝
             var aa = trainBattle.GamePokemonTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[i].MetaPokemon.DexId);
             banids.Add(aa);
@@ -581,10 +581,10 @@ public class PokeZqdEnv
             if (actives[i])
             {
                 // ban一下自己人？Todo
-                Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
+                // Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
                 if (banids.Distinct().Count() == 6)
                 {
-                    Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
+                    // Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
 
                     chooseDatas.Add(new SwitchData { IsPass = true });
                     continue;

@@ -218,6 +218,7 @@ public class ZQDQNAgent
     public async Task train(int episodes, int max_steps = 100, float epsilon_start = 1.0f,
         float epsilon_end = 0.1f, float epsilon_decay = 0.99f, int target_update = 10)
     {
+        //Console.
         List<Task> tasks = new List<Task>();
         for (int i = 0; i < Envs.Length; i++)
         {
@@ -227,20 +228,31 @@ public class ZQDQNAgent
         {
             await item;
         }
+        tasks.Clear();
         var epsilon = epsilon_start;
 
         for (int episode = 0; episode < episodes; episode++)
         {
+
             for (int gg = 0; gg < Envs.Length / 2; gg++)
             {
                 int g = gg;
-                Envs[2*g].epsilon = Envs[2*g+1 ].epsilon = epsilon
-                ;
-               await Envs[2 * g].CreateBattleAsync(Envs[g * 2 + 1].PSClient.UserName);
 
-                await Envs[2 * g ].WaitEnd();
-               await  Envs[g * 2 + 1].WaitEnd();
+                tasks.Add(Task.Run(async () =>
+                {
+                    Envs[2 * g].epsilon = Envs[2 * g + 1].epsilon = epsilon
+                    ;
+                    await Envs[2 * g].CreateBattleAsync(Envs[g * 2 + 1].PSClient.UserName);
+
+                    await Envs[2 * g].WaitEnd();
+                    await Envs[g * 2 + 1].WaitEnd();
+                }));
             }
+            foreach (var item in tasks)
+            {
+                await item;
+            }
+            tasks.Clear();
 
             if (episode % 100 == 99)
             {

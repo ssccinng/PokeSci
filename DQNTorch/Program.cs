@@ -11,7 +11,7 @@ using static TorchSharp.torch;
 //agent.train(1000);
 
 //agent.model.save("dasd.data");
-ZQDQNAgent zQDQNAgent = new(battle_num: 1);
+ZQDQNAgent zQDQNAgent = new(battle_num: 32);
 await zQDQNAgent.train(10000);
 zQDQNAgent.model.save("dani.dat");
 
