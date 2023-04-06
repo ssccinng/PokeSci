@@ -192,7 +192,7 @@ namespace PSReplayAnalysis
                         // 这个后面有状态 可能要记录在当前状态
                         var hpn = int.Parse(hpr[0].Replace(" fnt", ""));
                         var damageStageSide = GetSidePos(d[2]);
-                        if (hpr.Length > 1) { hpn = (int)(hpn * 100.0 / int.Parse(hpr[1].Split(" ")[0])); };
+                        if (hpr.Length > 1) { hpn = (int)Math.Ceiling(hpn * 100.0 / int.Parse(hpr[1].Split(" ")[0])); };
                         if (damageStageSide.side == 1)
                         {
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);

@@ -108,7 +108,7 @@ public class ZQDQNAgent
         {
             while (true)
             {
-                var res = np.random.randint(0, 22).GetInt32();
+                var res = Random.Shared.Next(22);
                 if (!banActions.Contains(res))
                 {
                     return res;
@@ -147,7 +147,9 @@ public class ZQDQNAgent
         {
             while (true)
             {
-                var res = np.random.randint(0, 6).GetInt32();
+                //var res = np.random.randint(0, 6).GetInt32();
+                var res  = Random.Shared.Next(6);
+
                 if (!banActions.Contains(res))
                 {
                     return res;

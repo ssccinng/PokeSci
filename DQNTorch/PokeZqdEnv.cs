@@ -522,17 +522,19 @@ public class PokeZqdEnv
         lastTurn = lastTurn with { };
         lastTurn.Player1Team.Pokemons = lastTurn.Player1Team.Pokemons.Select(s => s with { }).ToList();
         lastTurn.Player2Team.Pokemons = lastTurn.Player2Team.Pokemons.Select(s => s with { }).ToList();
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
         {
+
+            // HPRemain好像有点问题
             var aa = trainBattle.GamePokemonTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[i].MetaPokemon.DexId);
             var aa1 = lastTurn.Player2Team.Pokemons.FindIndex(s => s.NowPos == i);
             if (battle.PlayerPos == PlayerPos.Player1)
             {
-                lastTurn.Player1Team.Pokemons[aa].HPRemain = (int)(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+                lastTurn.Player1Team.Pokemons[aa].HPRemain = (int)Math.Ceiling(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
             }
             else
             {
-                lastTurn.Player2Team.Pokemons[aa].HPRemain = (int)(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+                lastTurn.Player2Team.Pokemons[aa].HPRemain = (int)Math.Ceiling(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
 
             }
         }
@@ -581,10 +583,10 @@ public class PokeZqdEnv
             if (actives[i])
             {
                 // ban一下自己人？Todo
-                // Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
+                Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
                 if (banids.Distinct().Count() == 6)
                 {
-                    // Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
+                    Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
 
                     chooseDatas.Add(new SwitchData { IsPass = true });
                     continue;
