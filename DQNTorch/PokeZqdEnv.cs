@@ -5,6 +5,7 @@ using PokemonDataAccess.Migrations;
 using PokePSCore;
 using PSReplayAnalysis;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -26,7 +27,7 @@ public class PokeZqdEnv
 {
     private readonly ZQDQNAgent agent;
 
-    public Dictionary<string, TrainBattle> trainBattles = new();
+    public ConcurrentDictionary<string, TrainBattle> trainBattles = new();
 
     public PSClient PSClient { get; set; }
 
@@ -52,7 +53,7 @@ public class PokeZqdEnv
     public async Task Init(string name, string pwd, string wsUrl = "ws://localhost:8000/showdown/websocket")
     {
         PSClient = new PSClient(name, pwd, "ws://localhost:8000/showdown/websocket");
-        PSClient.LogTo(Console.WriteLine);
+        //PSClient.LogTo(Console.WriteLine);
         await PSClient.ConnectAsync();
         await Task.Delay(1000);
         await PSClient.LoginGuestAsync();
@@ -78,9 +79,12 @@ public class PokeZqdEnv
         if (trainBattle != null)
         {
             trainBattle.SetStatus(BattleStatus.Requests);
+            return;
             // 状态置为error
             //trainBattle.BattleStatus = BattleStatus.Error;
         }
+        throw new NotImplementedException();
+
     }
 
 
@@ -150,10 +154,13 @@ public class PokeZqdEnv
         var trainBattle = trainBattles.GetValueOrDefault(battle.Tag);
         if (trainBattle != null)
         {
+            Console.WriteLine(info);
             trainBattle.SetStatus(BattleStatus.Error);
+            return;
             // 状态置为error
             //trainBattle.BattleStatus = BattleStatus.Error;
         }
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -173,13 +180,18 @@ public class PokeZqdEnv
         if (trainBattle != null)
         {
             trainBattle.SetStatus(BattleStatus.End);
-            while (trainBattle.BattleStatus != BattleStatus.TurnFinish) { await Task.Delay(10); }
+            Console.WriteLine("等待TurnFinish");
+            while (trainBattle.BattleStatus != BattleStatus.TurnFinish) { 
+                await Task.Delay(10); 
+            }
+            Console.WriteLine("等待TurnFinish完毕");
+
             trainBattle.BackWard();
-            agent.AddBuffers((IEnumerable<(float[] states, long actions, float rewards, float[] next_states, float dones)>)
-                trainBattle.TempBuffer); ;
+            agent.AddBuffers(
+                trainBattle.TempBuffer.Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
 
             trainBattle.SetStatus(BattleStatus.GameFinish);
-            trainBattles.Remove(battle.Tag);
+            trainBattles.TryRemove(battle.Tag, out var trainBattle1);
         }
         else
         {
@@ -193,6 +205,8 @@ public class PokeZqdEnv
 
     private async void PSClient_OnChooseMove(PokePSCore.PsBattle battle)
     {
+         Console.WriteLine("---------------{0}-PSClient_OnChooseMove---------------------", PSClient.UserName);
+
         List<ChooseData> chooseDatas = new List<ChooseData>();
 
         bool dm = false;
@@ -230,6 +244,10 @@ public class PokeZqdEnv
             Console.WriteLine("给你手动屏蔽在场宝");
             // 下场宝
             var aa = trainBattle.GamePokemonTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[q].MetaPokemon.DexId);
+            if (aa == -1)
+            {
+                int aaa = 2423;
+            }
             banid.Add(aa);
         }
         // 死去的宝也是不可换的 确认一下是否更新
@@ -260,7 +278,7 @@ public class PokeZqdEnv
         for (int i = 0; i < battle.ActiveStatus.Length; i++)
         {
             // 这里ban一下招式
-
+            Console.WriteLine("battle.MySide[{2}].IsDead {0} || (battle.MySide[{2}]?.Commanding ?? false {1}", battle.MySide[i].IsDead, battle.MySide[i]?.Commanding, i);
             await battle.SendMessageAsync(string.Format("{3} battle.Actives[{2}] = {0}, (battle.MySide[{2}]?.Commanding == {1}", battle.Actives[i], battle.MySide[i]?.Commanding, i, battle.ActiveStatus.Length));
             if (battle.MySide[i].IsDead || (battle.MySide[i]?.Commanding ?? false)) continue;
             JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
@@ -339,6 +357,7 @@ public class PokeZqdEnv
             var resx = agent.act(state, i, epsilon, banid.ToArray().Concat(banmove.ToArray()));
             // 加入动作选择
             actions.Add(resx + 22 * i);
+
             // 直接就是22
             if (resx < 6)
             {
@@ -404,7 +423,7 @@ public class PokeZqdEnv
                         chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag) { Target = target2 });
 
                     }
-                    else if (target == "adjacentAllyOrSelf" || target == "adjacentAlly")
+                    else if (target == "adjacentAllyOrSelf")
                     {
                         if (target2 > 0)
                         {
@@ -417,7 +436,7 @@ public class PokeZqdEnv
                     }
                     else
                     {
-
+                        
                         chooseDatas.Add(new MoveChooseData(moveid, dmax: dflag));
 
                     }
@@ -440,14 +459,16 @@ public class PokeZqdEnv
         trainBattle.SetStatus(BattleStatus.Waiting);
         await battle.SendMoveAsunc(chooseDatas.ToArray());
         // 要等待一下
-        await WaitRequests(trainBattle);
-        if (battle.BattleStatus == BattleStatus.Error)
+        await  WaitRequests(trainBattle);
+        Console.WriteLine("等到了结果" + trainBattle.BattleStatus);
+        if (trainBattle.BattleStatus == BattleStatus.Error)
         {
+            //battle.BattleStatus
             // gg
             //await OnLose(battle, "出招问题");
             throw new Exception("出招出错 你就不该错");
         }
-        else if (battle.BattleStatus == BattleStatus.End || battle.BattleStatus == BattleStatus.Requests)
+        else if (trainBattle.BattleStatus == BattleStatus.End || trainBattle.BattleStatus == BattleStatus.Requests)
         {
             foreach (var item in actions)
             {
@@ -455,7 +476,7 @@ public class PokeZqdEnv
                 trainBattle.AddBuffer(
                     (state, item, battle.PlayerPos == PlayerPos.Player1 ? lastTurn.Reward1 : lastTurn.Reward2
                     , ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1),
-                    battle.BattleStatus == BattleStatus.End ? 1 : 0, lastTurn.TurnId)
+                    trainBattle.BattleStatus == BattleStatus.End ? 1 : 0, lastTurn.TurnId)
 
                 );
 
@@ -467,6 +488,7 @@ public class PokeZqdEnv
 
     private async void PSClient_OnForceSwitch(PokePSCore.PsBattle battle, bool[] actives)
     {
+         Console.WriteLine("-----------------{0}-PSClient_OnForceSwitch------------", PSClient.UserName);
         var trainBattle = trainBattles.GetValueOrDefault(battle.Tag);
         if (trainBattle == null)
         {
@@ -538,89 +560,37 @@ public class PokeZqdEnv
             if (actives[i])
             {
                 // ban一下自己人？Todo
+                Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
                 if (banids.Distinct().Count() == 6)
                 {
+                    Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
+
                     chooseDatas.Add(new SwitchData { IsPass = true });
+                    continue;
                 }
                 var resx = agent.actSwitch(state, i, epsilon, banids.ToArray());
                 banids.Add(resx);
                 var aa = Array.FindIndex<PSBattlePokemon>(battle.MySide,
                     s => s.MetaPokemon.DexId == trainBattle.GamePokemonTeam.GamePokemons[resx].MetaPokemon.DexId);
-
-                if (aa == -1)
+                if (battle.MySide[aa].IsDead)
                 {
-                    if (battle.PlayerPos == PlayerPos.Player1)
-                    {
-
-                        await battle.SendMessageAsync
-                            (string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos)) + " " + resx);
-                    }
-                    else
-                    {
-                        await battle.SendMessageAsync(
-                      string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos)) + " " + resx
-                      );
-
-                    }
-                    throw new Exception($"强制换人时出问题3 {aa + 1}");
-                    // 这里屏蔽一下下场的？
-                    //trainBattle.AddBuffer((state, ints.Last(), -1, state, 1));
-                    //await OnLose(battle, $"强制换人时出问题3 {aa + 1}");
-                    return;
+                    int cc = 32424;
                 }
-                if (!battle.MyTeam[aa].IsDead)
-                {
-                    if (aa < 2)
-                    {
-                        throw new Exception($"强制换人时出问题4 {aa + 1}");
-
-                        return;
-                    }
-                    Console.WriteLine("{0}------------------!battle.MyTeam[aa].IsDead", PSClient.UserName);
-                    chooseDatas.Add(new SwitchData { PokeId = aa + 1 });
-                }
-                else
-                {
-                    Console.WriteLine("{0}------------------battle.MySide[3].IsDead && battle.MySide[2].IsDead", PSClient.UserName);
-
-                    if (battle.MySide[3].IsDead && battle.MySide[2].IsDead)
-                    {
-                        chooseDatas.Add(new SwitchData { IsPass = true });
-
-                    }
-                    // 这个pass有问题
-                    else
-                    {
-                        if (battle.PlayerPos == PlayerPos.Player1)
-                        {
-
-                            await battle.SendMessageAsync(
-                                string.Join(" ", lastTurn.Player1Team.Pokemons.Select(s => s.NowPos)) + " " + resx
-                                );
-                        }
-                        else
-                        {
-                            await battle.SendMessageAsync(
-                          string.Join(" ", lastTurn.Player2Team.Pokemons.Select(s => s.NowPos)) + " " + resx
-                          );
-
-                        }
-                        throw new Exception($"强制换人时出问题2 {aa + 1}");
-                        return;
-                    }
-
-                }
+                chooseDatas.Add(new SwitchData { PokeId = aa + 1  });
+                
+                
             }
         }
 
-        battle.BattleStatus = BattleStatus.Waiting;
+        trainBattle.SetStatus(BattleStatus.Waiting);
         await battle.SendMoveAsunc(chooseDatas.ToArray());
         await WaitRequests(trainBattle);
         // 这里要思考... 换人该不该计入状态 我想用回溯奖励 不知道有没有用
-        if (battle.BattleStatus == BattleStatus.Error)
+        if (trainBattle.BattleStatus == BattleStatus.Error)
         {
 
             throw new Exception("强制换人最终问题");
+
         }
     }
     /// <summary>
@@ -697,7 +667,7 @@ public class PokeZqdEnv
                 trainBattle.AddBuffer((state, ChooseTeam[0], 0, nextStates, 0, lastTurn.TurnId));
                 trainBattle.AddBuffer((state, ChooseTeam[1] + 22, 0, nextStates, 0, lastTurn.TurnId));
                 trainBattle.SetStatus(BattleStatus.TurnFinish);
-                await battle.ForfeitAsync();
+                //await battle.ForfeitAsync();
                 // 正常结束
             }
             else if (trainBattle.BattleStatus == BattleStatus.Error)
@@ -760,7 +730,7 @@ public class PokeZqdEnv
     public async Task WaitEnd()
     {
         await Task.Delay(5000);
-        while (trainBattles.Count == 0)
+        while (trainBattles.Count != 0)
         {
             await Task.Delay(10);
         }

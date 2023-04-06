@@ -61,7 +61,7 @@ public class ZQDQNAgent
     public readonly DQN target_model;
     private readonly Adam optimizer;
     private Device device;
-    private object _lockBuf;
+    private object _lockBuf = new();
 
     public ZQDQNAgent(int battle_num = 1,
                       int buffer_size = 10000,
@@ -231,16 +231,16 @@ public class ZQDQNAgent
 
         for (int episode = 0; episode < episodes; episode++)
         {
-            Parallel.For(0, Envs.Length / 2, async (gg) =>
+            for (int gg = 0; gg < Envs.Length / 2; gg++)
             {
                 int g = gg;
                 Envs[2*g].epsilon = Envs[2*g+1 ].epsilon = epsilon
                 ;
-              await  Envs[2 * g].CreateBattleAsync(Envs[g * 2 + 1].PSClient.UserName);
+               Envs[2 * g].CreateBattleAsync(Envs[g * 2 + 1].PSClient.UserName).Wait();
 
-                await Envs[2 * g ].WaitEnd();
-                await Envs[g * 2 + 1].WaitEnd();
-            });
+                 Envs[2 * g ].WaitEnd().Wait();
+                 Envs[g * 2 + 1].WaitEnd().Wait();
+            }
 
             if (episode % 100 == 99)
             {

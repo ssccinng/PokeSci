@@ -151,7 +151,7 @@ public partial class PsBattle
             // side没问题？？
             for (int i = 0; i < pokes.GetArrayLength(); i++)
             {
-                Console.WriteLine(pokes[i]);
+                Console.WriteLine(  "宝可梦" + i + pokes[i]);
                 // detail 后面是等级 detail0 为名字 detail1为等级 m'j'm
                 var detail = pokes[i].GetProperty("details").GetString().Split(", ");
                 
@@ -182,7 +182,8 @@ public partial class PsBattle
 
                     // 要记录nickname 虽然也可自取
                 }
-                else if (InitId == 1)
+
+                else
                 {
                     for (int j = 0; j < MyTeam.Count; j++)
                     {
@@ -191,19 +192,6 @@ public partial class PsBattle
                             (MyTeam[i], MyTeam[j]) = (MyTeam[j], MyTeam[i]);
                             break;
                         }
-                    }
-                    // 更新active
-                    if (i < 4)
-                    {
-                        MySide[i] = MyTeam[i];
-                    }
-                    // 更新顺序
-                }
-                else
-                {
-                    if (pokes[i].TryGetProperty("trapped", out var tv))
-                    {
-                        //MyTeam[i].Trapped = tv.GetBoolean();
                     }
 
                     // 只需更新状态
@@ -215,6 +203,7 @@ public partial class PsBattle
                 MyTeam[i].NowHp = hp;
                 if (MyTeam[i].MaxHP == 0)
                 MyTeam[i].MaxHP = maxhp;
+               
                 // if (poke != null)
                 // {
                 //     poke.NowHp = hp;
@@ -227,8 +216,11 @@ public partial class PsBattle
                 // }
 
             }
-
-            InitId++;
+            for (int i = 0; i < MySide.Length; i++)
+            {
+                MySide[i] = MyTeam[i];
+            }
+                InitId++;
         }
         if (data.TryGetProperty("active", out var active))
         {
