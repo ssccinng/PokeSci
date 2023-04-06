@@ -236,15 +236,15 @@ public class ZQDQNAgent
                 int g = gg;
                 Envs[2*g].epsilon = Envs[2*g+1 ].epsilon = epsilon
                 ;
-               Envs[2 * g].CreateBattleAsync(Envs[g * 2 + 1].PSClient.UserName).Wait();
+               await Envs[2 * g].CreateBattleAsync(Envs[g * 2 + 1].PSClient.UserName);
 
-                 Envs[2 * g ].WaitEnd().Wait();
-                 Envs[g * 2 + 1].WaitEnd().Wait();
+                await Envs[2 * g ].WaitEnd();
+               await  Envs[g * 2 + 1].WaitEnd();
             }
 
             if (episode % 100 == 99)
             {
-                model.save($"temp.{episode + 1}.data");
+                model.save($"temp1.{episode + 1}.data");
 
             }
             if (episode % 100 == 0)

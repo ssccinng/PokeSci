@@ -67,10 +67,16 @@ public class PokeZqdEnv
         PSClient.OnChooseMove += PSClient_OnChooseMove;
         PSClient.BattleEndAction += PSClient_BattleEndAction;
         PSClient.BattleErrorAction += PSClient_BattleErrorAction;
+        PSClient.BattleStartAction += PSClient_BattleStartAction; ;
         PSClient.RequestsAction += PSClient_RequestsAction; ;
         PSClient.ChallengeAction += PSClient_ChallengeAction;
         PSClient.BattleInfo += PSClient_BattleInfo;
         
+    }
+
+    private void PSClient_BattleStartAction(PokePSCore.PsBattle obj)
+    {
+        //throw new NotImplementedException();
     }
 
     private void PSClient_RequestsAction(PokePSCore.PsBattle battle)
@@ -181,10 +187,9 @@ public class PokeZqdEnv
         {
             trainBattle.SetStatus(BattleStatus.End);
             Console.WriteLine("等待TurnFinish");
-            while (trainBattle.BattleStatus != BattleStatus.TurnFinish) { 
-                await Task.Delay(10); 
-            }
-            Console.WriteLine("等待TurnFinish完毕");
+            await Task.Delay(1000);
+
+            Console.WriteLine("等待TurnFinish完毕" + trainBattle.BattleStatus);
 
             trainBattle.BackWard();
             agent.AddBuffers(
@@ -202,9 +207,15 @@ public class PokeZqdEnv
         // 消除他
      
     }
-
+    int chooseOnce = 0;
     private async void PSClient_OnChooseMove(PokePSCore.PsBattle battle)
     {
+
+        while (chooseOnce == 1)
+        {
+            await Task.Delay(100);
+        }
+        chooseOnce = 1;
          Console.WriteLine("---------------{0}-PSClient_OnChooseMove---------------------", PSClient.UserName);
 
         List<ChooseData> chooseDatas = new List<ChooseData>();
@@ -454,12 +465,16 @@ public class PokeZqdEnv
 
         }
         //battle.BattleStatus = BattleStatus.Waiting;
+        Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD1-------------", PSClient.UserName);
 
 
         trainBattle.SetStatus(BattleStatus.Waiting);
         await battle.SendMoveAsunc(chooseDatas.ToArray());
         // 要等待一下
+        Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD2-------------", PSClient.UserName);
         await  WaitRequests(trainBattle);
+        Console.WriteLine("---------------{0}-PSClient_OnChooseMove--ENDDD3-------------", PSClient.UserName);
+
         Console.WriteLine("等到了结果" + trainBattle.BattleStatus);
         if (trainBattle.BattleStatus == BattleStatus.Error)
         {
@@ -484,10 +499,16 @@ public class PokeZqdEnv
             trainBattle.SetStatus(BattleStatus.TurnFinish);
 
         }
+        chooseOnce = 0;
     }
-
+    int fors = 0;
     private async void PSClient_OnForceSwitch(PokePSCore.PsBattle battle, bool[] actives)
     {
+        while (fors == 1)
+        {
+            await Task.Delay(100);
+        }
+        fors = 1;
          Console.WriteLine("-----------------{0}-PSClient_OnForceSwitch------------", PSClient.UserName);
         var trainBattle = trainBattles.GetValueOrDefault(battle.Tag);
         if (trainBattle == null)
@@ -592,6 +613,8 @@ public class PokeZqdEnv
             throw new Exception("强制换人最终问题");
 
         }
+        fors = 0;
+
     }
     /// <summary>
     /// 对局开始选人
@@ -694,7 +717,7 @@ public class PokeZqdEnv
         // 在其他回合要等变finish?
         while (trainBattle.BattleStatus == BattleStatus.Waiting)
         {
-            await Task.Delay(10);
+            await Task.Delay(100);
         }
     }
 
@@ -732,7 +755,7 @@ public class PokeZqdEnv
         await Task.Delay(5000);
         while (trainBattles.Count != 0)
         {
-            await Task.Delay(10);
+            await Task.Delay(100);
         }
     }
 
@@ -780,10 +803,10 @@ public class TrainBattle
 
     public void SetStatus (BattleStatus status)
     {
-        lock (_lockStatus)
-        {
             BattleStatus = status;
-        }
+        //lock (_lockStatus)
+        //{
+        //}
     }
 
     internal void AddBuffer((float[] state, int, float, float[] nextStates, int, int TurnId) value)

@@ -127,7 +127,7 @@ public partial class PsBattle
             // Console.WriteLine(Turn);
         }
 
-       
+
         if (data.TryGetProperty("side", out var side))
         {
             //return;
@@ -151,10 +151,10 @@ public partial class PsBattle
             // side没问题？？
             for (int i = 0; i < pokes.GetArrayLength(); i++)
             {
-                Console.WriteLine(  "宝可梦" + i + pokes[i]);
+                Console.WriteLine("宝可梦" + i + pokes[i]);
                 // detail 后面是等级 detail0 为名字 detail1为等级 m'j'm
                 var detail = pokes[i].GetProperty("details").GetString().Split(", ");
-                
+
                 // var poke = MyTeam.GamePokemons.FirstOrDefault(s =>
                 //     PokemonTools.GetPsPokemonAsync(s.MetaPokemon.Id).Result?.PSName == detail[0]);
                 string[] condition = pokes[i].GetProperty("condition").GetString().Split('/');
@@ -202,8 +202,8 @@ public partial class PsBattle
                 //MyTeam[i] = (new BattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
                 MyTeam[i].NowHp = hp;
                 if (MyTeam[i].MaxHP == 0)
-                MyTeam[i].MaxHP = maxhp;
-               
+                    MyTeam[i].MaxHP = maxhp;
+
                 // if (poke != null)
                 // {
                 //     poke.NowHp = hp;
@@ -220,7 +220,7 @@ public partial class PsBattle
             {
                 MySide[i] = MyTeam[i];
             }
-                InitId++;
+            InitId++;
         }
         if (data.TryGetProperty("active", out var active))
         {
@@ -252,6 +252,20 @@ public partial class PsBattle
             // 需要换人
             Client.OnForceSwitch?.Invoke(this, fArray);
         }
-        
+        else if (data.TryGetProperty("teamPreview", out var tt))
+        {
+            //Client.OnTeampreview?.Invoke(this);
+        }
+        else
+        {
+               //Client.OnChooseMove?.Invoke(this);
+
+        }
+        //else
+        //{
+        //    Client.OnChooseMove?.Invoke(this, );
+
+        //}
+
     }
 }

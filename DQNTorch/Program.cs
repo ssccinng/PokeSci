@@ -12,7 +12,9 @@ using static TorchSharp.torch;
 
 //agent.model.save("dasd.data");
 ZQDQNAgent zQDQNAgent = new(battle_num: 1);
-await zQDQNAgent.train(20);
+await zQDQNAgent.train(10000);
+zQDQNAgent.model.save("dani.dat");
+
 //await zQDQNAgent.train(1);
 Console.ReadLine();
 

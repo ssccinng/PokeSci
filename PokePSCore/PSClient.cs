@@ -41,9 +41,9 @@ namespace PokePSCore
         public Action<string> UserDetailsAction;
 
 
-        public event Action<PsBattle> OnTeampreview;
+        public Action<PsBattle> OnTeampreview;
         public Action<PsBattle, bool[]> OnForceSwitch;
-        public event Action<PsBattle> OnChooseMove;
+        public  Action<PsBattle> OnChooseMove;
         /// <summary>
         /// 参数为对战和是否赢了
         /// </summary>
@@ -239,6 +239,8 @@ namespace PokePSCore
                     case "request":
                         if (other[0] != "")
                         {
+                            RequestsAction?.Invoke(battle);
+
                             // battle.Turn += 2;
 
                             //if (JsonDocument.Parse(other[0]).RootElement.TryGetProperty("forceSwitch", out var c))
@@ -261,7 +263,6 @@ namespace PokePSCore
                                 // other[0] 为队伍信息
                             }
                         }
-                        RequestsAction?.Invoke(battle);
 
                         break;
                     case "teampreview":
