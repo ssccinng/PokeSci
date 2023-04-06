@@ -10,6 +10,7 @@ using PokeCommon.Models;
 using PokeCommon.PokemonShowdownTools;
 using System.Data;
 using Org.BouncyCastle.Asn1.X509;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace DQNTorch
 {
@@ -477,6 +478,40 @@ namespace DQNTorch
                 List<int> ints = new List<int>();
                 List<int> banid = new();
 
+                // 是否需要？
+                //for (int i = 0; i < 2; i++)
+                //{
+                //    Console.WriteLine("给你手动屏蔽在场宝");
+                //    // 下场宝
+                //    var aa = NowTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[i].MetaPokemon.DexId);
+                //    ints.Add(aa);
+
+                //}
+                //if (battle.PlayerPos == PlayerPos.Player1)
+                //{
+                //    for (int i = 0; i < lastTurn.Player1Team.Pokemons.Count; i++)
+                //    {
+                //        if (lastTurn.Player1Team.Pokemons[i].HPRemain == 0)
+                //        {
+                //            ints.Add(i);
+
+                //        }
+
+                //    }
+                //}
+                //else
+                //{
+                //    for (int i = 0; i < lastTurn.Player2Team.Pokemons.Count; i++)
+                //    {
+                //        if (lastTurn.Player2Team.Pokemons[i].HPRemain == 0)
+                //        {
+                //            ints.Add(i);
+
+                //        }
+
+
+                //    }
+                //}
                 //for (int i = 0; i < battle.ActiveStatus.Length; i++)
                 //{
                 //    if (battle.ActiveStatus[i].TryGetProperty("trapped", out var trap))
@@ -487,7 +522,7 @@ namespace DQNTorch
                 //            if (aa != -1)
                 //                banid.Add(aa);
                 //        }
-                     
+
                 //    }
                 //}
                 for (int i = 0; i < battle.ActiveStatus.Length; i++)
