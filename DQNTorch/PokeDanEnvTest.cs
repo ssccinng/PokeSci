@@ -10,7 +10,6 @@ using PokeCommon.Models;
 using PokeCommon.PokemonShowdownTools;
 using System.Data;
 using Org.BouncyCastle.Asn1.X509;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace DQNTorch
 {
@@ -261,13 +260,13 @@ namespace DQNTorch
                     float[] floats = ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1);
                     DQNAgent.AddBuffer((state,
                         a,
-                        (-10f ) / 10,
-                        floats, 1));
+                        0,
+                        floats, 0));
                     DQNAgent.AddBuffer((state2,
                         b + 22,
-                        (-10f ) / 10,
+                        0,
                         floats, 
-                        1));
+                        0));
                     //await battle.ForfeitAsync();
                     // 进入下一轮
                 }

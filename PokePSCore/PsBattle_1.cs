@@ -296,5 +296,7 @@
         Requests,
         Error,
         End,
+        TurnFinish,
+        GameFinish,
     }
 }

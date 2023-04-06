@@ -13,6 +13,7 @@ using System.Security.Policy;
 using static TorchSharp.torch.nn.utils;
 using PokePSCore;
 using Microsoft.VisualBasic;
+using System.Linq;
 
 namespace DQNTorch
 {
@@ -298,6 +299,17 @@ namespace DQNTorch
                 buffer.Add(data);
                 if (buffer.Count > buffer_Size)
                     buffer.RemoveAt(0);
+            }
+
+
+        }
+        public void AddBuffers(IEnumerable<(float[] states, long actions, float rewards, float[] next_states, float dones)> datas)
+        {
+            lock (_lockBuf)
+            {
+                buffer.AddRange(datas);
+                while (buffer.Count > buffer_Size)
+                    buffer.RemoveRange(0, buffer.Count - buffer_Size);
             }
 
 

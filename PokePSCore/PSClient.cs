@@ -31,27 +31,27 @@ namespace PokePSCore
         /// <summary>
         /// 参数为playerid和规则
         /// </summary>
-        public Action<string, string> ChallengeAction;
+        public event Action<string, string> ChallengeAction;
         /// <summary>
         /// 参数为playerid和信息
         /// </summary>
         public Action<string, string> ChatAction;
-        public Action<PsBattle> RequestsAction;
+        public event Action<PsBattle> RequestsAction;
         //public Action<string, string> RequestsAction;
         public Action<string> UserDetailsAction;
 
 
-        public Action<PsBattle> OnTeampreview;
+        public event Action<PsBattle> OnTeampreview;
         public Action<PsBattle, bool[]> OnForceSwitch;
-        public Action<PsBattle> OnChooseMove;
+        public event Action<PsBattle> OnChooseMove;
         /// <summary>
         /// 参数为对战和是否赢了
         /// </summary>
-        public Action<PsBattle, bool> BattleEndAction;
-        public Action<PsBattle> BattleStartAction;
-        public Action<PsBattle, string> BattleErrorAction;
+        public event Action<PsBattle, bool> BattleEndAction;
+        public event Action<PsBattle> BattleStartAction;
+        public event Action<PsBattle, string> BattleErrorAction;
 
-        public Action<PsBattle, string> BattleInfo;
+        public event Action<PsBattle, string> BattleInfo;
 
         private string _challId;
 
@@ -136,6 +136,26 @@ namespace PokePSCore
         /// <param name="challId"></param>
         /// <param name="chall"></param>
         /// <returns></returns>
+        public async Task<bool> LoginAsync(string userName, string challId, string chall)
+        {
+            var res = await _client.PostAsync($"{_loginUrl}?", new StringContent($"act=getassertion&userid={userName}&challstr={$"{challId}%7C{chall}"}"));
+            //MultipartFormDataContent data1 = new()
+            //{
+            //    { new StringContent("login"), "act" },
+            //    { new StringContent(userName), "name" },
+            //    { new StringContent(password), "pass" },
+            //    { new StringContent($"{challId}%7C{chall}"), "challstr" }
+            //};
+            //var res = await _client.PostAsync(_loginUrl, data1);
+            Console.WriteLine(res.IsSuccessStatusCode);
+            var dd = await res.Content.ReadAsStringAsync();
+            //JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
+            //if (!data.GetProperty("curuser").GetProperty("loggedin").GetBoolean()) return false;
+            await SendAsync("", $"/trn {userName},0,{dd}");
+            //await SendMessage("", "/avatar 159");
+            await SetAvatarAsync("lillie");
+            return true;
+        }
         public async Task<bool> LoginAsync(string userName, string password, string challId, string chall)
         {
 
@@ -295,6 +315,11 @@ namespace PokePSCore
             }
         }
 
+        public async Task<bool> LoginGuestAsync()
+        {
+            return await LoginAsync(UserName, _challId, _chall);
+
+        }
         public async Task<bool> LoginAsync()
         {
             return await LoginAsync(UserName, Password, _challId, _chall);

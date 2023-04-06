@@ -11,7 +11,13 @@ using static TorchSharp.torch;
 //agent.train(1000);
 
 //agent.model.save("dasd.data");
+ZQDQNAgent zQDQNAgent = new(battle_num: 5);
+await zQDQNAgent.train(5);
+//await zQDQNAgent.train(1);
+Console.ReadLine();
 
+
+return;
 //return;
 var aaaa = np.random.rand(1)[0].GetDouble()
     ;

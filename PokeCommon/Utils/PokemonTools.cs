@@ -11,7 +11,7 @@ namespace PokeCommon.Utils
     public static class PokemonTools
     {
         // 加个全部初始化
-        public static IPokemonContext PokemonContext { get; set; } = new PokemonContext("PokemonDataBase.db");
+        public static IPokemonContext PokemonContext  => new PokemonContext("PokemonDataBase.db");
         public static object _lockDB = new();
 
         private static Dictionary<int, Ability> _abilities { get; set; } = new();
@@ -41,10 +41,10 @@ namespace PokeCommon.Utils
             var natureList = await PokemonContext.Natures.ToListAsync();
             for (int i = 0; i < natureList.Count; i++)
             {
-                _natures.Add(natureList[i].NatureId, natureList[i]);
-                _natureNameId.Add(natureList[i].Name_Chs, natureList[i].NatureId);
-                _natureNameId.Add(natureList[i].Name_Eng, natureList[i].NatureId);
-                _natureNameId.Add(natureList[i].Name_Jpn, natureList[i].NatureId);
+                _natures.TryAdd(natureList[i].NatureId, natureList[i]);
+                _natureNameId.TryAdd(natureList[i].Name_Chs, natureList[i].NatureId);
+                _natureNameId.TryAdd(natureList[i].Name_Eng, natureList[i].NatureId);
+                _natureNameId.TryAdd(natureList[i].Name_Jpn, natureList[i].NatureId);
             }
         }
 
@@ -60,10 +60,10 @@ namespace PokeCommon.Utils
                 var nType = await PokemonContext.PokeTypes.FindAsync(id);
                 if (nType != null)
                 {
-                    _pokeTypes.Add(id, nType);
-                    _pokeTypeNameId.Add(nType.Name_Chs, id);
-                    _pokeTypeNameId.Add(nType.Name_Eng, id);
-                    _pokeTypeNameId.Add(nType.Name_Jpn, id);
+                    _pokeTypes.TryAdd(id, nType);
+                    _pokeTypeNameId.TryAdd(nType.Name_Chs, id);
+                    _pokeTypeNameId.TryAdd(nType.Name_Eng, id);
+                    _pokeTypeNameId.TryAdd(nType.Name_Jpn, id);
                     return nType;
                 }
                 else
@@ -80,19 +80,22 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nType = await PokemonContext.PokeTypes.FirstOrDefaultAsync
-                    (n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
-                if (nType != null)
+                lock (_lockDB)
                 {
-                    _pokeTypes.Add(nType.Id, nType);
-                    _pokeTypeNameId.Add(nType.Name_Chs, nType.Id);
-                    _pokeTypeNameId.Add(nType.Name_Eng, nType.Id);
-                    _pokeTypeNameId.Add(nType.Name_Jpn, nType.Id);
-                    return nType;
-                }
-                else
-                {
-                    return null;
+                    var nType = PokemonContext.PokeTypes.FirstOrDefaultAsync
+                        (n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name).Result;
+                    if (nType != null)
+                    {
+                        _pokeTypes.TryAdd(nType.Id, nType);
+                        _pokeTypeNameId.TryAdd(nType.Name_Chs, nType.Id);
+                        _pokeTypeNameId.TryAdd(nType.Name_Eng, nType.Id);
+                        _pokeTypeNameId.TryAdd(nType.Name_Jpn, nType.Id);
+                        return nType;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }
@@ -107,10 +110,10 @@ namespace PokeCommon.Utils
                 var nNature = await PokemonContext.Natures.FindAsync(id);
                 if (nNature != null)
                 {
-                    _natures.Add(id, nNature);
-                    _natureNameId.Add(nNature.Name_Chs, id);
-                    _natureNameId.Add(nNature.Name_Eng, id);
-                    _natureNameId.Add(nNature.Name_Jpn, id);
+                    _natures.TryAdd(id, nNature);
+                    _natureNameId.TryAdd(nNature.Name_Chs, id);
+                    _natureNameId.TryAdd(nNature.Name_Eng, id);
+                    _natureNameId.TryAdd(nNature.Name_Jpn, id);
                     return nNature;
                 }
                 else
@@ -127,18 +130,22 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nNature = await PokemonContext.Natures.FirstOrDefaultAsync(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
+                lock (_lockDB)
+                {
+
+                var nNature = PokemonContext.Natures.FirstOrDefaultAsync(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name).Result;
                 if (nNature != null)
                 {
-                    _natures.Add(nNature.NatureId, nNature);
-                    _natureNameId.Add(nNature.Name_Chs, nNature.NatureId);
-                    _natureNameId.Add(nNature.Name_Eng, nNature.NatureId);
-                    _natureNameId.Add(nNature.Name_Jpn, nNature.NatureId);
+                    _natures.TryAdd(nNature.NatureId, nNature);
+                    _natureNameId.TryAdd(nNature.Name_Chs, nNature.NatureId);
+                    _natureNameId.TryAdd(nNature.Name_Eng, nNature.NatureId);
+                    _natureNameId.TryAdd(nNature.Name_Jpn, nNature.NatureId);
                     return nNature;
                 }
                 else
                 {
                     return null;
+                }
                 }
             }
         }
@@ -151,16 +158,20 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nPSPoke = await PokemonContext.PSPokemons.FirstOrDefaultAsync(p => p.PSName == name);
-                if (nPSPoke != null)
+                lock (_lockDB)
                 {
-                    // Todo: 为啥要try
-                    _psPokemonId.TryAdd(name, nPSPoke.PokemonId ?? 0);
-                    return await GetPokemonAsync(nPSPoke.PokemonId ?? 0);
-                }
-                else
-                {
-                    return null;
+
+                    var nPSPoke = PokemonContext.PSPokemons.FirstOrDefaultAsync(p => p.PSName == name).Result;
+                    if (nPSPoke != null)
+                    {
+                        // Todo: 为啥要try
+                        _psPokemonId.TryAdd(name, nPSPoke.PokemonId ?? 0);
+                        return GetPokemonAsync(nPSPoke.PokemonId ?? 0).Result;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }
@@ -175,15 +186,16 @@ namespace PokeCommon.Utils
             else
             {
                 PSPokemon? nPSName;
-                lock (lockdb) {
-                    nPSName =  PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId).Result;
+                lock (lockdb)
+                {
+                    nPSName = PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId).Result;
                     if (nPSName != null)
                     {
-                        _pokemonIdPSName.Add(pokemonId, nPSName);
+                        _pokemonIdPSName.TryAdd(pokemonId, nPSName);
                     }
                 }
-                 
-                
+
+
                 return nPSName;
             }
         }
@@ -201,15 +213,19 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nAbility = await PokemonContext.Abilities.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
-                if (nAbility != null)
+                lock (_lockDB)
                 {
-                    _abilities[nAbility.AbilityId] = nAbility;
-                    _abilityNameId[nAbility.Name_Chs] = nAbility.AbilityId;
-                    _abilityNameId[nAbility.Name_Jpn] = nAbility.AbilityId;
-                    _abilityNameId[nAbility.Name_Eng] = nAbility.AbilityId;
+
+                    var nAbility = PokemonContext.Abilities.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name).Result;
+                    if (nAbility != null)
+                    {
+                        _abilities[nAbility.AbilityId] = nAbility;
+                        _abilityNameId[nAbility.Name_Chs] = nAbility.AbilityId;
+                        _abilityNameId[nAbility.Name_Jpn] = nAbility.AbilityId;
+                        _abilityNameId[nAbility.Name_Eng] = nAbility.AbilityId;
+                    }
+                    return nAbility;
                 }
-                return nAbility;
             }
 
         }
@@ -247,7 +263,11 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nMove = await PokemonContext.Moves.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
+                lock(_lockDB)
+                {
+
+                var nMove = 
+                       PokemonContext.Moves.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name).Result;
                 if (nMove != null)
                 {
                     _moves[nMove.MoveId] = nMove;
@@ -256,6 +276,7 @@ namespace PokeCommon.Utils
                     _moveNameId[nMove.Name_Eng] = nMove.MoveId;
                 }
                 return nMove;
+                }
             }
         }
         /// <summary>
@@ -332,15 +353,19 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nItem = await PokemonContext.Items.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
-                if (nItem != null)
+                lock (_lockDB)
                 {
-                    _items[nItem.ItemId] = nItem;
-                    _itemNameId[nItem.Name_Chs] = nItem.ItemId;
-                    _itemNameId[nItem.Name_Jpn] = nItem.ItemId;
-                    _itemNameId[nItem.Name_Eng] = nItem.ItemId;
+
+                    var nItem = PokemonContext.Items.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name).Result;
+                    if (nItem != null)
+                    {
+                        _items[nItem.ItemId] = nItem;
+                        _itemNameId[nItem.Name_Chs] = nItem.ItemId;
+                        _itemNameId[nItem.Name_Jpn] = nItem.ItemId;
+                        _itemNameId[nItem.Name_Eng] = nItem.ItemId;
+                    }
+                    return nItem;
                 }
-                return nItem;
             }
         }
         public static async ValueTask<Item?> GetItemAsync(int id)
