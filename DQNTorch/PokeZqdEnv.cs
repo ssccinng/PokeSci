@@ -789,7 +789,8 @@ public class TrainBattle
     public void BackWard()
     {
         int lastTurn = TempBuffer.Last().turn;
-        int cf = lastTurn > 10 ? (lastTurn - 10) / 10 : 10 / -(11 - lastTurn);
+        float cf = lastTurn > 10 ? (lastTurn - 10.0f) / 10 : 10f / -(11 - lastTurn);
+        cf *= lastTurn / 20 + 1;
         //lastT
         float lastReward = TempBuffer.Last().rewards - cf;
         //float lastTemp = 1f;
