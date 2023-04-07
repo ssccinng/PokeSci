@@ -212,7 +212,7 @@ namespace PSReplayAnalysis
                                 }
                                 else if (lastMoveSide.side == 2)
                                 {
-                                    if (hpn == 0) delta = 50;
+                                    if (hpn == 0 && delta < 50) delta = 50;
                                     lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
                                     lastTurn.Reward2 += delta * 0.5f / Math.Max(100, 1); ;
                                 }
@@ -247,7 +247,8 @@ namespace PSReplayAnalysis
                                 }
                                 else if (lastMoveSide.side == 1)
                                 {
-                                    if (hpn == 0) delta = 50;
+                                    if (hpn == 0 && delta < 50) delta = 50;
+
 
                                     lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
                                     lastTurn.Reward1 += delta * .5f / Math.Max(100, 1); ;
@@ -665,6 +666,29 @@ namespace PSReplayAnalysis
                         }
                         break;
 
+                    case "-clearboost":
+                        var clearBoostSide = GetSidePos(d[2]);
+                        if (clearBoostSide.side == 1)
+                        {
+                            lastTurn.Side1Pokes[clearBoostSide.pos].EvaBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].AccBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].AtkBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].DefBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].SpaBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].SpdBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].SpeBuff = 0;
+                        }
+                        else
+                        {
+                            lastTurn.Side2Pokes[clearBoostSide.pos].EvaBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].AccBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].AtkBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].DefBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].SpaBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].SpdBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].SpeBuff = 0;
+                        }
+                        break;
                     case "-boost":
                         var boostSide = GetSidePos(d[2]);
                         var boostType = d[3][..3];
