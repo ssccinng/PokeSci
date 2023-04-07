@@ -65,7 +65,7 @@ public class ZQDQNAgent
 
     public ZQDQNAgent(int battle_num = 1,
                       int buffer_size = 10000,
-                      int batch_size = 32,
+                      int batch_size = 64,
                       float gamma = 0.99f,
                       float lr = 0.001f)
     {
@@ -104,8 +104,9 @@ public class ZQDQNAgent
 
     {
         banActions ??= Array.Empty<int>();
-        if (np.random.rand(1)[0].GetDouble() < epsilon)
-        {
+        if (Random.Shared.NextDouble() < epsilon)
+        //if (np.random.rand(1)[0].GetDouble() < epsilon)
+            {
             while (true)
             {
                 var res = Random.Shared.Next(22);
@@ -143,7 +144,8 @@ public class ZQDQNAgent
     public int actSwitch(float[] state, int pos, double epsilon = 0.1f, IEnumerable<int>? banActions = null)
     {
         banActions ??= Array.Empty<int>();
-        if (np.random.rand(1)[0].GetDouble() < epsilon)
+        //if (np.random.rand(1)[0].GetDouble() < epsilon)
+        if (Random.Shared.NextDouble() < epsilon)
         {
             while (true)
             {

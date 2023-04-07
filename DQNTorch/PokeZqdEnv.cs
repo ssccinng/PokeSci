@@ -185,6 +185,7 @@ public class PokeZqdEnv
 
         if (trainBattle != null)
         {
+
             trainBattle.SetStatus(BattleStatus.End);
             // Console.WriteLine("等待TurnFinish");
             await Task.Delay(1000);
@@ -196,6 +197,7 @@ public class PokeZqdEnv
                 trainBattle.TempBuffer.Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
 
             trainBattle.SetStatus(BattleStatus.GameFinish);
+            await battle.LeaveRoomAsync();
             trainBattles.TryRemove(battle.Tag, out var trainBattle1);
         }
         else
@@ -204,6 +206,7 @@ public class PokeZqdEnv
             throw new NotImplementedException();
             return;
         }
+
         // 消除他
      
     }
@@ -583,10 +586,10 @@ public class PokeZqdEnv
             if (actives[i])
             {
                 // ban一下自己人？Todo
-                Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
+                //Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
                 if (banids.Distinct().Count() == 6)
                 {
-                    Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
+                    //Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
 
                     chooseDatas.Add(new SwitchData { IsPass = true });
                     continue;
@@ -786,7 +789,9 @@ public class TrainBattle
     public void BackWard()
     {
         int lastTurn = TempBuffer.Last().turn;
-        float lastReward = TempBuffer.Last().rewards;
+        int cf = lastTurn > 10 ? (lastTurn - 10) / 10 : -(10 - lastTurn) / 10;
+        //lastT
+        float lastReward = TempBuffer.Last().rewards - cf;
         //float lastTemp = 1f;
         for (int i = TempBuffer.Count - 2; i >= 0; --i)
         {

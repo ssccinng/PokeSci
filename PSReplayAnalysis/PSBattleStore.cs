@@ -610,7 +610,6 @@ namespace PSReplayAnalysis
                         var unboostSide = GetSidePos(d[2]);
                         var unboostType = d[3][..3];
                         var unboostValue = int.Parse(d[4]);
-
                         var unboostInfo = typeof(PokemonStatus).GetProperty(
                             $"{new CultureInfo("en").TextInfo.ToTitleCase(unboostType.ToLower())}Buff");
 
@@ -799,13 +798,13 @@ namespace PSReplayAnalysis
                         battle.WhoWin = winP == 1 ? BattleResult.Player1Win : BattleResult.Player2Win;
                         if (winP == 1)
                         {
-                            lastTurn.Reward1 += 1.0f;
-                            lastTurn.Reward2 -= 1.0f;
+                            lastTurn.Reward1 = 1.0f;
+                            lastTurn.Reward2 = -1.0f;
                         }
                         else
                         {
-                            lastTurn.Reward2 += 1.0f;
-                            lastTurn.Reward1 -= 1.0f;
+                            lastTurn.Reward2 = 1.0f;
+                            lastTurn.Reward1 = -1.0f;
 
                         }
                         // 实施奖励

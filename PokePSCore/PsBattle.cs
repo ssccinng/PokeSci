@@ -106,7 +106,7 @@ public partial class PsBattle
     {
         name = name.Replace("-*", "");
         OppTeam[oppTeamIdx++] = new PSBattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(name), name);
-        Console.WriteLine(OppTeam[oppTeamIdx - 1].MetaPokemon.FullNameChs);
+        // Console.WriteLine(OppTeam[oppTeamIdx - 1].MetaPokemon.FullNameChs);
         //OppTeam.GamePokemons.Any(s => s.MetaPokemon.)
         // 要getps的id
     }
@@ -124,7 +124,7 @@ public partial class PsBattle
         if (data.TryGetProperty("rqid", out var jsonId))
         {
             Turn = jsonId.GetInt32();
-            // Console.WriteLine(Turn);
+            // // Console.WriteLine(Turn);
         }
 
 
@@ -142,16 +142,16 @@ public partial class PsBattle
                     PlayerPos = PlayerPos.Player2;
 
                 }
-                // Console.WriteLine(Turn);
+                // // Console.WriteLine(Turn);
             }
-            Console.WriteLine("side");
+            // Console.WriteLine("side");
             var pokes = side.GetProperty("pokemon");
-            Console.WriteLine(pokes.GetArrayLength());
+            // Console.WriteLine(pokes.GetArrayLength());
 
             // side没问题？？
             for (int i = 0; i < pokes.GetArrayLength(); i++)
             {
-                Console.WriteLine("宝可梦" + i + pokes[i]);
+                // Console.WriteLine("宝可梦" + i + pokes[i]);
                 // detail 后面是等级 detail0 为名字 detail1为等级 m'j'm
                 var detail = pokes[i].GetProperty("details").GetString().Split(", ");
 
@@ -160,7 +160,7 @@ public partial class PsBattle
                 string[] condition = pokes[i].GetProperty("condition").GetString().Split('/');
                 int hp = 0;
                 int maxhp = 100;
-                Console.WriteLine("hp: {0}", hp);
+                // Console.WriteLine("hp: {0}", hp);
                 if (condition.Length > 1)
                 {
                     hp = int.Parse(condition[0]);
@@ -240,7 +240,7 @@ public partial class PsBattle
                 {
                     fArray[i] = jsongFSwitch[i].GetBoolean();
                 }
-                Console.WriteLine(fArray.Length);
+                // Console.WriteLine(fArray.Length);
 
             }
             else
@@ -248,7 +248,7 @@ public partial class PsBattle
                 fArray = new bool[] { jsongFSwitch.GetBoolean() };
             }
             // 可能不是array
-            Console.WriteLine("检测到需要换人");
+            // Console.WriteLine("检测到需要换人");
             // 需要换人
             Client.OnForceSwitch?.Invoke(this, fArray);
         }

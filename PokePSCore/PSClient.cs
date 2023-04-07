@@ -103,7 +103,7 @@ namespace PokePSCore
                 WebSocketReceiveResult rcvResult = await _webSocket.ReceiveAsync(rcvBuffer, CancellationToken.None);
                 if (rcvResult?.MessageType != WebSocketMessageType.Text)
                 {
-                    Console.WriteLine("未知信息");
+                    // Console.WriteLine("未知信息");
                     continue;
                 }
 
@@ -147,7 +147,7 @@ namespace PokePSCore
             //    { new StringContent($"{challId}%7C{chall}"), "challstr" }
             //};
             //var res = await _client.PostAsync(_loginUrl, data1);
-            Console.WriteLine(res.IsSuccessStatusCode);
+            // Console.WriteLine(res.IsSuccessStatusCode);
             var dd = await res.Content.ReadAsStringAsync();
             //JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
             //if (!data.GetProperty("curuser").GetProperty("loggedin").GetBoolean()) return false;
@@ -175,7 +175,7 @@ namespace PokePSCore
             //    { new StringContent($"{challId}%7C{chall}"), "challstr" }
             //};
             //var res = await _client.PostAsync(_loginUrl, data1);
-            Console.WriteLine(res.IsSuccessStatusCode);
+            // Console.WriteLine(res.IsSuccessStatusCode);
             var dd = (await res.Content.ReadAsStringAsync())[1..];
             JsonElement data = JsonDocument.Parse((await res.Content.ReadAsStringAsync())[1..]).RootElement;
             if (!data.GetProperty("curuser").GetProperty("loggedin").GetBoolean()) return false;
@@ -193,7 +193,7 @@ namespace PokePSCore
         {
             string[] battleData = msg.Split('\n');
             string tag = battleData[0].Split('|')[0][1..];
-            Console.WriteLine($"tag: {tag}");
+            // Console.WriteLine($"tag: {tag}");
             var battle = Battles.GetValueOrDefault(tag) ?? new PsBattle(this, tag);
             BattleInfo?.Invoke(battle, msg);
 
@@ -213,7 +213,7 @@ namespace PokePSCore
                         if (other[1] == UserName)
                         {
                             battle.PlayerPos = other[0] == "p1" ? PlayerPos.Player1 : PlayerPos.Player2;
-                            Console.WriteLine("玩家位置: " + battle.PlayerPos);
+                            // Console.WriteLine("玩家位置: " + battle.PlayerPos);
                             if (battle.PlayerPos == PlayerPos.Player1)
                             {
                                 battle.Player1 = UserName;
@@ -276,7 +276,7 @@ namespace PokePSCore
                         // 回合开始
                         // 做出操作
                         // MakeAction
-                        Console.WriteLine("到了turn");
+                        // Console.WriteLine("到了turn");
                         OnChooseMove?.Invoke(battle);
                         // await SendMoveAsync(tag, 1, battle.Turn);
                         break;
@@ -295,12 +295,12 @@ namespace PokePSCore
                             // 0 名字 1 等级
                             await battle.InitOppTeamAsync(data[0]);
                             //battle.OppTeam;
-                            Console.WriteLine(other[1]);
-                            //Console.WriteLine("让我康康");
+                            // Console.WriteLine(other[1]);
+                            //// Console.WriteLine("让我康康");
                         }
                         break;
                     case "win":
-                        Console.WriteLine("对战结束");
+                        // Console.WriteLine("对战结束");
                         BattleEndAction?.Invoke(battle, other[0].Contains(UserName));
                         Battles.Remove(battle.Tag);
                         // 对战结束
@@ -343,14 +343,14 @@ namespace PokePSCore
         /// <returns></returns>
         private async Task ExcuteMessageAsync(string message, Usage usage = Usage.Standby)
         {
-            Console.WriteLine(message);
+            // Console.WriteLine(message);
             Debug.WriteLine(message);
             var data = message.Split('|');
-            Console.WriteLine(data[0]);
+            // Console.WriteLine(data[0]);
             if (data[0].Contains("battle"))
             {
                 // 对战数据
-                Console.WriteLine("这里是对战...");
+                // Console.WriteLine("这里是对战...");
                 await BattleTagAsync(message, usage);
             }
             else
@@ -399,7 +399,7 @@ namespace PokePSCore
                             string[] cmd = data[4].Split(' ');
                             // foreach (var cmdd in cmd)
                             // {
-                            //     Console.WriteLine(cmdd);
+                            //     // Console.WriteLine(cmdd);
                             // }
                             switch (cmd[0])
                             {
@@ -412,7 +412,7 @@ namespace PokePSCore
 
                                     string rule = cmd[1];
                                     string rule2 = data[5];
-                                    // Console.WriteLine($"rule2: {rule}");
+                                    // // Console.WriteLine($"rule2: {rule}");
                                     if (pmP1 == UserName)
                                     {
                                         await WriteLogAsync($"发起对{pmP2}挑战, 规则：{rule}", MsgType.Receive);
