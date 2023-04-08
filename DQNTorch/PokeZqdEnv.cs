@@ -515,6 +515,7 @@ public class PokeZqdEnv
         {
             throw new Exception("trainBattle 为空");
         }
+        //Console.
         //await Console.Out.WriteLineAsync(czcz);
         //return;
         // Console.WriteLine("让我康康你有没有触发");
