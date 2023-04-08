@@ -11,9 +11,9 @@ using static TorchSharp.torch;
 //agent.train(1000);
 
 //agent.model.save("dasd.data");
-ZQDQNAgent zQDQNAgent = new(battle_num: 5);
-await zQDQNAgent.train(10000);
-zQDQNAgent.model.save("dani.dat");
+PokeDanLadder pokeDanLadder = new(16);
+pokeDanLadder.train(10000);
+pokeDanLadder.SaveAll();
 
 //await zQDQNAgent.train(1);
 Console.ReadLine();
