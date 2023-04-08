@@ -194,7 +194,7 @@ public class PokeZqdEnv
 
             trainBattle.BackWard();
             agent.AddBuffers(
-                trainBattle.TempBuffer.Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
+                trainBattle.TempBuffer.Where(s => s.states != null).Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
 
             trainBattle.SetStatus(BattleStatus.GameFinish);
             await battle.LeaveRoomAsync();
@@ -488,12 +488,15 @@ public class PokeZqdEnv
         }
         else if (trainBattle.BattleStatus == BattleStatus.End || trainBattle.BattleStatus == BattleStatus.Requests)
         {
+            await Task.Delay(100);
+
+            var next = ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1);
             foreach (var item in actions)
             {
                 // 这个reward也要给好
                 trainBattle.AddBuffer(
                     (state, item, battle.PlayerPos == PlayerPos.Player1 ? lastTurn.Reward1 : lastTurn.Reward2
-                    , ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1),
+                    , next,
                     trainBattle.BattleStatus == BattleStatus.End ? 1 : 0, lastTurn.TurnId)
 
                 );
@@ -691,6 +694,7 @@ public class PokeZqdEnv
             if (trainBattle.BattleStatus == BattleStatus.Requests)
             {
                 float[] nextStates = ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1);
+                await Task.Delay(100);
 
                 trainBattle.AddBuffer((state, ChooseTeam[0], 0, nextStates, 0, lastTurn.TurnId));
                 trainBattle.AddBuffer((state, ChooseTeam[1] + 22, 0, nextStates, 0, lastTurn.TurnId));
@@ -781,6 +785,8 @@ public class TrainBattle
     public required double epsilon;
     public BattleStatus BattleStatus = BattleStatus.Waiting;
     public required PSReplayAnalysis.PSReplayAnalysis PSReplayAnalysis;
+    // 纯攻击ai
+    public bool AtkBot = false;
     private object _lockStatus = new();
 
     /// <summary>

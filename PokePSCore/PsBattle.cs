@@ -114,7 +114,7 @@ public partial class PsBattle
 
     public async Task SendMessageAsync(string message)
     {
-        //return;
+        return;
         await Client.SendAsync(Tag, message);
     }
     public async Task RefreshByRequestAsync(string request)

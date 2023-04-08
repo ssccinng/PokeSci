@@ -105,6 +105,7 @@ namespace PSReplayAnalysis
                             {
                                 lastTurn.Player1Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
+                            //lastTurn.Reward1 -= 0.1f;
                             // 还不行 要考虑到索罗亚直接换上来..
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;
@@ -121,6 +122,7 @@ namespace PSReplayAnalysis
                             {
                                 lastTurn.Player2Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
+                            //lastTurn.Reward2 -= 0.1f;
 
                             Pokemon pokemon = lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;

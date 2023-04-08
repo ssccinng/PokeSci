@@ -260,7 +260,7 @@ public class ZQDQNAgent
 
             if (episode % 100 == 99)
             {
-                model.save($"temp1.{episode + 1}.data");
+                model.save($"temp2.{episode + 1}.data");
 
             }
             if (episode % 100 == 0)
@@ -302,7 +302,8 @@ public class ZQDQNAgent
         lock (_lockBuf)
         {
             buffer.AddRange(datas);
-            while (buffer.Count > buffer_Size)
+            //while (buffer.Count > buffer_Size)
+            if (buffer.Count > buffer_Size)
                 buffer.RemoveRange(0, buffer.Count - buffer_Size);
             // 这里一波推
             learn();
