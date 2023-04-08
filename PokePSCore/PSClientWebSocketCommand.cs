@@ -71,14 +71,14 @@ namespace PokePSCore
         /// <returns></returns>
         public async Task SendMoveAsync(string battleTag, int move, int turn)
         {
-            Console.WriteLine("准备发招");
+            // Console.WriteLine("准备发招");
             // await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
             await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
         }
         public async Task SendMoveAsync(string battleTag, int turn, params ChooseData[] move)
         {
             // dynamax 加入dymax
-            Console.WriteLine("准备发招");
+            // Console.WriteLine("准备发招");
             // await SendAsync(battleTag, $"/choose move {move}", turn.ToString());
             await SendAsync(battleTag, "/choose " + string.Join(',', move.Select(s => s.ToString())), turn.ToString());
             // await SendAsync(battleTag, 

@@ -65,7 +65,7 @@ public class ZQDQNAgent
 
     public ZQDQNAgent(int battle_num = 1,
                       int buffer_size = 10000,
-                      int batch_size = 32,
+                      int batch_size = 64,
                       float gamma = 0.99f,
                       float lr = 0.001f)
     {
@@ -104,11 +104,12 @@ public class ZQDQNAgent
 
     {
         banActions ??= Array.Empty<int>();
-        if (np.random.rand(1)[0].GetDouble() < epsilon)
-        {
+        if (Random.Shared.NextDouble() < epsilon)
+        //if (np.random.rand(1)[0].GetDouble() < epsilon)
+            {
             while (true)
             {
-                var res = np.random.randint(0, 22).GetInt32();
+                var res = Random.Shared.Next(22);
                 if (!banActions.Contains(res))
                 {
                     return res;
@@ -143,11 +144,14 @@ public class ZQDQNAgent
     public int actSwitch(float[] state, int pos, double epsilon = 0.1f, IEnumerable<int>? banActions = null)
     {
         banActions ??= Array.Empty<int>();
-        if (np.random.rand(1)[0].GetDouble() < epsilon)
+        //if (np.random.rand(1)[0].GetDouble() < epsilon)
+        if (Random.Shared.NextDouble() < epsilon)
         {
             while (true)
             {
-                var res = np.random.randint(0, 6).GetInt32();
+                //var res = np.random.randint(0, 6).GetInt32();
+                var res  = Random.Shared.Next(6);
+
                 if (!banActions.Contains(res))
                 {
                     return res;
@@ -256,7 +260,7 @@ public class ZQDQNAgent
 
             if (episode % 100 == 99)
             {
-                model.save($"temp1.{episode + 1}.data");
+                model.save($"temp2.{episode + 1}.data");
 
             }
             if (episode % 100 == 0)
@@ -298,7 +302,8 @@ public class ZQDQNAgent
         lock (_lockBuf)
         {
             buffer.AddRange(datas);
-            while (buffer.Count > buffer_Size)
+            //while (buffer.Count > buffer_Size)
+            if (buffer.Count > buffer_Size)
                 buffer.RemoveRange(0, buffer.Count - buffer_Size);
             // 这里一波推
             learn();

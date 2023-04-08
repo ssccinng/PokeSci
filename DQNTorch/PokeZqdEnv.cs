@@ -185,6 +185,7 @@ public class PokeZqdEnv
 
         if (trainBattle != null)
         {
+
             trainBattle.SetStatus(BattleStatus.End);
             // Console.WriteLine("等待TurnFinish");
             await Task.Delay(1000);
@@ -193,9 +194,10 @@ public class PokeZqdEnv
 
             trainBattle.BackWard();
             agent.AddBuffers(
-                trainBattle.TempBuffer.Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
+                trainBattle.TempBuffer.Where(s => s.states != null).Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
 
             trainBattle.SetStatus(BattleStatus.GameFinish);
+            await battle.LeaveRoomAsync();
             trainBattles.TryRemove(battle.Tag, out var trainBattle1);
         }
         else
@@ -204,6 +206,7 @@ public class PokeZqdEnv
             throw new NotImplementedException();
             return;
         }
+
         // 消除他
      
     }
@@ -485,12 +488,15 @@ public class PokeZqdEnv
         }
         else if (trainBattle.BattleStatus == BattleStatus.End || trainBattle.BattleStatus == BattleStatus.Requests)
         {
+            await Task.Delay(100);
+
+            var next = ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1);
             foreach (var item in actions)
             {
                 // 这个reward也要给好
                 trainBattle.AddBuffer(
                     (state, item, battle.PlayerPos == PlayerPos.Player1 ? lastTurn.Reward1 : lastTurn.Reward2
-                    , ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1),
+                    , next,
                     trainBattle.BattleStatus == BattleStatus.End ? 1 : 0, lastTurn.TurnId)
 
                 );
@@ -523,17 +529,19 @@ public class PokeZqdEnv
         lastTurn = lastTurn with { };
         lastTurn.Player1Team.Pokemons = lastTurn.Player1Team.Pokemons.Select(s => s with { }).ToList();
         lastTurn.Player2Team.Pokemons = lastTurn.Player2Team.Pokemons.Select(s => s with { }).ToList();
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
         {
+
+            // HPRemain好像有点问题
             var aa = trainBattle.GamePokemonTeam.GamePokemons.FindIndex(s => s.MetaPokemon.DexId == battle.MySide[i].MetaPokemon.DexId);
             var aa1 = lastTurn.Player2Team.Pokemons.FindIndex(s => s.NowPos == i);
             if (battle.PlayerPos == PlayerPos.Player1)
             {
-                lastTurn.Player1Team.Pokemons[aa].HPRemain = (int)(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+                lastTurn.Player1Team.Pokemons[aa].HPRemain = (int)Math.Ceiling(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
             }
             else
             {
-                lastTurn.Player2Team.Pokemons[aa].HPRemain = (int)(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
+                lastTurn.Player2Team.Pokemons[aa].HPRemain = (int)Math.Ceiling(battle.MySide[i].NowHp * 100.0 / battle.MySide[i].MaxHP);
 
             }
         }
@@ -582,10 +590,10 @@ public class PokeZqdEnv
             if (actives[i])
             {
                 // ban一下自己人？Todo
-                // Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
+                //Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
                 if (banids.Distinct().Count() == 6)
                 {
-                    // Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
+                    //Console.WriteLine("full banid = " + string.Concat(banids.Distinct()));
 
                     chooseDatas.Add(new SwitchData { IsPass = true });
                     continue;
@@ -687,6 +695,7 @@ public class PokeZqdEnv
             if (trainBattle.BattleStatus == BattleStatus.Requests)
             {
                 float[] nextStates = ExportBattleTurn(lastTurn, (int)battle.PlayerPos + 1);
+                await Task.Delay(100);
 
                 trainBattle.AddBuffer((state, ChooseTeam[0], 0, nextStates, 0, lastTurn.TurnId));
                 trainBattle.AddBuffer((state, ChooseTeam[1] + 22, 0, nextStates, 0, lastTurn.TurnId));
@@ -777,6 +786,8 @@ public class TrainBattle
     public required double epsilon;
     public BattleStatus BattleStatus = BattleStatus.Waiting;
     public required PSReplayAnalysis.PSReplayAnalysis PSReplayAnalysis;
+    // 纯攻击ai
+    public bool AtkBot = false;
     private object _lockStatus = new();
 
     /// <summary>
@@ -785,7 +796,10 @@ public class TrainBattle
     public void BackWard()
     {
         int lastTurn = TempBuffer.Last().turn;
-        float lastReward = TempBuffer.Last().rewards;
+        float cf = lastTurn > 10 ? (lastTurn - 10.0f) / 10 : 10f / -(11 - lastTurn);
+        cf *= lastTurn / 20 + 1;
+        //lastT
+        float lastReward = TempBuffer.Last().rewards - cf;
         //float lastTemp = 1f;
         for (int i = TempBuffer.Count - 2; i >= 0; --i)
         {

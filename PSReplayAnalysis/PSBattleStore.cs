@@ -105,6 +105,7 @@ namespace PSReplayAnalysis
                             {
                                 lastTurn.Player1Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
+                            //lastTurn.Reward1 -= 0.1f;
                             // 还不行 要考虑到索罗亚直接换上来..
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;
@@ -121,6 +122,7 @@ namespace PSReplayAnalysis
                             {
                                 lastTurn.Player2Team.Pokemons.First(s => s.NowPos == swdata.pos).NowPos = -1;
                             }
+                            //lastTurn.Reward2 -= 0.1f;
 
                             Pokemon pokemon = lastTurn.Player2Team.Pokemons.First(s => s.Id == swpoke.id && s.NowPos < 0);
                             pokemon.NowPos = swdata.pos;
@@ -192,7 +194,7 @@ namespace PSReplayAnalysis
                         // 这个后面有状态 可能要记录在当前状态
                         var hpn = int.Parse(hpr[0].Replace(" fnt", ""));
                         var damageStageSide = GetSidePos(d[2]);
-                        if (hpr.Length > 1) { hpn = (int)(hpn * 100.0 / int.Parse(hpr[1].Split(" ")[0])); };
+                        if (hpr.Length > 1) { hpn = (int)Math.Ceiling(hpn * 100.0 / int.Parse(hpr[1].Split(" ")[0])); };
                         if (damageStageSide.side == 1)
                         {
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
@@ -212,6 +214,7 @@ namespace PSReplayAnalysis
                                 }
                                 else if (lastMoveSide.side == 2)
                                 {
+                                    if (hpn == 0 && delta < 50) delta = 50;
                                     lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
                                     lastTurn.Reward2 += delta * 0.5f / Math.Max(100, 1); ;
                                 }
@@ -246,6 +249,9 @@ namespace PSReplayAnalysis
                                 }
                                 else if (lastMoveSide.side == 1)
                                 {
+                                    if (hpn == 0 && delta < 50) delta = 50;
+
+
                                     lastTurn.Reward2 -= delta * 0.5f / Math.Max(100, 1); ;
                                     lastTurn.Reward1 += delta * .5f / Math.Max(100, 1); ;
                                 }
@@ -610,7 +616,6 @@ namespace PSReplayAnalysis
                         var unboostSide = GetSidePos(d[2]);
                         var unboostType = d[3][..3];
                         var unboostValue = int.Parse(d[4]);
-
                         var unboostInfo = typeof(PokemonStatus).GetProperty(
                             $"{new CultureInfo("en").TextInfo.ToTitleCase(unboostType.ToLower())}Buff");
 
@@ -663,6 +668,29 @@ namespace PSReplayAnalysis
                         }
                         break;
 
+                    case "-clearboost":
+                        var clearBoostSide = GetSidePos(d[2]);
+                        if (clearBoostSide.side == 1)
+                        {
+                            lastTurn.Side1Pokes[clearBoostSide.pos].EvaBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].AccBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].AtkBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].DefBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].SpaBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].SpdBuff =
+                            lastTurn.Side1Pokes[clearBoostSide.pos].SpeBuff = 0;
+                        }
+                        else
+                        {
+                            lastTurn.Side2Pokes[clearBoostSide.pos].EvaBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].AccBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].AtkBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].DefBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].SpaBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].SpdBuff =
+                           lastTurn.Side2Pokes[clearBoostSide.pos].SpeBuff = 0;
+                        }
+                        break;
                     case "-boost":
                         var boostSide = GetSidePos(d[2]);
                         var boostType = d[3][..3];
@@ -799,13 +827,13 @@ namespace PSReplayAnalysis
                         battle.WhoWin = winP == 1 ? BattleResult.Player1Win : BattleResult.Player2Win;
                         if (winP == 1)
                         {
-                            lastTurn.Reward1 += 1.0f;
-                            lastTurn.Reward2 -= 1.0f;
+                            lastTurn.Reward1 = 1.0f;
+                            lastTurn.Reward2 = -1.0f;
                         }
                         else
                         {
-                            lastTurn.Reward2 += 1.0f;
-                            lastTurn.Reward1 -= 1.0f;
+                            lastTurn.Reward2 = 1.0f;
+                            lastTurn.Reward1 = -1.0f;
 
                         }
                         // 实施奖励
