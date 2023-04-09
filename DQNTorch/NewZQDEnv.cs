@@ -21,7 +21,7 @@ namespace DQNTorch;
 
 public class NewZQDEnv
 {
-    public readonly NewZQDQNAgent agent;
+    public NewZQDQNAgent agent;
 
     TrainBattle trainBattle;
     public PSClient PSClient{ get => agent.PSClient; set => agent.PSClient = value; }

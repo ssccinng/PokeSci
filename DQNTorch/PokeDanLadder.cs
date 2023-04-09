@@ -67,7 +67,7 @@ public class PokeDanLadder
             Agents = Agents.OrderByDescending(s => s.agent.LadderSocre).ToArray();
             for (int j = 0; j < Agents.Length; j++)
             {
-                Agents[j].agent.learn();
+                //Agents[j].agent.learn();
                 Console.WriteLine($"{j + 1} {Agents[j].agent.PSClient.UserName} {Agents[j].agent.LadderSocre}");
             }
 
@@ -95,8 +95,9 @@ public class PokeDanLadder
                     var rnd = Random.Shared.Next(24);
                     if (j == 24) rnd = 0;
                     // 随机更新模型
-                    Agents[j].agent.model.load($"{Agents[rnd].agent.PSClient.UserName}.{i + 1}.dat");
-                    Agents[j].agent.target_model.load($"{Agents[rnd].agent.PSClient.UserName}.{i + 1}.dat");
+                    var lastPSC = Agents[j].agent.PSClient;
+                    Agents[j].agent = new NewZQDQNAgent($"{Agents[rnd].agent.PSClient.UserName}.{i + 1}.dat");
+                    Agents[j].agent.PSClient = lastPSC;
                     Agents[j].agent.LadderSocre = 1000;
                 }
                 // 淘汰一批 复制一批

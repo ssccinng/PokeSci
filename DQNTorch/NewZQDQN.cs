@@ -94,6 +94,27 @@ public class NewZQDQNAgent
         optimizer = optim.Adam(model.parameters(), lr);
     }
 
+    public NewZQDQNAgent(string modelPath, int battle_num = 1,
+                      int buffer_size = 10000,
+                      int batch_size = 32,
+                      float gamma = 0.99f,
+                      float lr = 0.001f)
+    {
+        device = torch.device(cuda.is_available() ? "cuda" : "cpu");
+        buffer_Size = buffer_size;
+        batch_Size = batch_size;
+        this.gamma = gamma;
+        this.lr = lr;
+
+        buffer = new();
+        model = new NewZQDQN(State_size, 44, 512).to(device);
+        model.load(modelPath);
+        target_model = new NewZQDQN(State_size, 44, 512).to(device);
+        target_model.load(modelPath);
+
+        optimizer = optim.Adam(model.parameters(), lr);
+    }
+
     /// <summary>
     /// 根据状态做出动作
     /// </summary>
@@ -312,16 +333,27 @@ public class NewZQDQNAgent
         }
     }
 
+    public void ClearBuffer()
+    {
+        lock (_lockBuf)
+        {
+            buffer.Clear();
+        }
+    }
     public void AddBuffers(IEnumerable<(float[] states, long actions, float rewards, float[] next_states, float dones)> datas)
     {
-        buffer.AddRange(datas);
-        //while (buffer.Count > buffer_Size)
-        if (buffer.Count > buffer_Size)
-            buffer.RemoveRange(0, buffer.Count - buffer_Size);
-        //lock (_lockLearn)
-        //{
-        //    learn();
-        //}
+        lock (_lockBuf)
+        {
+            buffer.AddRange(datas);
+            //while (buffer.Count > buffer_Size)
+            if (buffer.Count > buffer_Size)
+                buffer.RemoveRange(0, buffer.Count - buffer_Size);
+        }
+
+        lock (_lockLearn)
+        {
+            learn();
+        }
         // 这里一波推
 
     }
