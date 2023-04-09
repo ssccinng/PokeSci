@@ -23,8 +23,8 @@ namespace PSReplayAnalysis
 
             foreach (var line in datalines)
             {
-                //Console.WriteLine(data);
-                //Console.WriteLine(battle);
+                //// Console.WriteLine(data);
+                //// Console.WriteLine(battle);
                 var lastTurn = battle.BattleTurns.Last();
                 string[] d = line.Split('|');
                 if (d.Length < 2) continue;
@@ -176,7 +176,7 @@ namespace PSReplayAnalysis
                         var stProp = typeof(PokemonStatus).GetProperty(stStage);
                         if (stProp == null)
                         {
-                            // Console.WriteLine($"stStage: {stStage}为null");
+                            // // Console.WriteLine($"stStage: {stStage}为null");
                             continue;
                         }
                         if (stStageSide.side == 1)
@@ -199,7 +199,7 @@ namespace PSReplayAnalysis
                         {
                             Pokemon pokemon = lastTurn.Player1Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                             var delta = pokemon.HPRemain - hpn;
-                            Console.WriteLine(" --- delta: {0}", delta);
+                            // Console.WriteLine(" --- delta: {0}", delta);
                             if (d.Length > 4 && d[4].Trim() != string.Empty)
                             {
                                 lastTurn.Reward1 -= delta * 0.5f / Math.Max(100, 1); ;
@@ -224,7 +224,7 @@ namespace PSReplayAnalysis
 
                             
                             pokemon.HPRemain = hpn;
-                            Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
+                            // Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
 
                         }
                         else if (damageStageSide.side == 2)
@@ -232,7 +232,7 @@ namespace PSReplayAnalysis
                             var pokemon = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos);
                             var delta = lastTurn.Player2Team.Pokemons.First(s => s.NowPos == damageStageSide.pos).HPRemain - hpn;
 
-                            Console.WriteLine(" --- delta: {0}", delta);
+                            // Console.WriteLine(" --- delta: {0}", delta);
 
                             if (d.Length > 4 && d[4].Trim() != string.Empty)
                             {
@@ -258,7 +258,7 @@ namespace PSReplayAnalysis
 
                             }
                             pokemon.HPRemain = hpn;
-                            Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
+                            // Console.WriteLine(" --- NowHp: {0}", pokemon.HPRemain);
 
                         }
 
@@ -539,7 +539,7 @@ namespace PSReplayAnalysis
                         if (fsProp == null)
                         {
                             // 有场地暂时分析不了
-                            // Console.WriteLine("fsProp: " + fsMove);
+                            // // Console.WriteLine("fsProp: " + fsMove);
                             break;
                         }
                         var fsDecr = (DecreaseAttribute)fsProp.GetCustomAttribute(typeof(DecreaseAttribute));
@@ -550,7 +550,7 @@ namespace PSReplayAnalysis
                         var feProp = typeof(BattleField).GetProperty(feMove);
                         if (feProp == null)
                         {
-                            // Console.WriteLine("feProp: " + feMove);
+                            // // Console.WriteLine("feProp: " + feMove);
                             break;
                         }
                         feProp.SetValue(lastTurn.AllField, 0);
@@ -563,7 +563,7 @@ namespace PSReplayAnalysis
 
                         if (ssProp == null)
                         {
-                            // Console.WriteLine("ssProp: " + sidestartMove);
+                            // // Console.WriteLine("ssProp: " + sidestartMove);
                             break;
                         }
                         var decreaseAttribute = (DecreaseAttribute)ssProp.GetCustomAttribute(typeof(DecreaseAttribute));
@@ -583,7 +583,7 @@ namespace PSReplayAnalysis
                         var seProp = typeof(OneSideBattleField).GetProperty(sideendMove);
                         if (seProp == null)
                         {
-                            // Console.WriteLine(sideendMove);
+                            // // Console.WriteLine(sideendMove);
                             break;
                         }
                         if (GetPlayer(d[2][..2]) == 1)
@@ -627,7 +627,7 @@ namespace PSReplayAnalysis
                             var da = (DecreaseAttribute)unboostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
                             if (da == null)
                             {
-                                // Console.WriteLine($"da: {unboostType}为null");
+                                // // Console.WriteLine($"da: {unboostType}为null");
                                 continue;
                             }
                             var value = (int)unboostInfo.GetValue(lastTurn.Side1Pokes[unboostSide.pos]);
@@ -650,7 +650,7 @@ namespace PSReplayAnalysis
                             var da = (DecreaseAttribute)unboostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
                             if (da == null)
                             {
-                                // Console.WriteLine($"da: {unboostType}为null");
+                                // // Console.WriteLine($"da: {unboostType}为null");
                                 continue;
                             }
                             var value = (int)unboostInfo.GetValue(lastTurn.Side2Pokes[unboostSide.pos]);
@@ -707,7 +707,7 @@ namespace PSReplayAnalysis
                             var da = (DecreaseAttribute)boostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
                             if (da == null)
                             {
-                                // Console.WriteLine($"da: {boostType}为null");
+                                // // Console.WriteLine($"da: {boostType}为null");
                                 continue;
                             }
                             var value = (int)boostInfo.GetValue(lastTurn.Side1Pokes[boostSide.pos]);
@@ -730,7 +730,7 @@ namespace PSReplayAnalysis
                             var da = (DecreaseAttribute)boostInfo.GetCustomAttribute(typeof(DecreaseAttribute));
                             if (da == null)
                             {
-                                // Console.WriteLine($"da: {boostType}为null");
+                                // // Console.WriteLine($"da: {boostType}为null");
                                 continue;
                             }
                             var value = (int)boostInfo.GetValue(lastTurn.Side2Pokes[boostSide.pos]);
@@ -788,7 +788,7 @@ namespace PSReplayAnalysis
                                                        $"{new CultureInfo("en").TextInfo.ToTitleCase(d[3].ToLower())}");
                         if (status == null)
                         {
-                            // Console.WriteLine($"cureStatus: {d[3]} 为null");
+                            // // Console.WriteLine($"cureStatus: {d[3]} 为null");
                             break;
                         }
                         if (statusSide.side == 1)
@@ -807,7 +807,7 @@ namespace PSReplayAnalysis
                                                        $"{new CultureInfo("en").TextInfo.ToTitleCase(d[3].ToLower())}");
                         if (cureStatus == null)
                         {
-                            // Console.WriteLine($"cureStatus: {d[3]} 为null");
+                            // // Console.WriteLine($"cureStatus: {d[3]} 为null");
                             break;
                         }
                         if (cureSide.side == 1)
@@ -842,7 +842,7 @@ namespace PSReplayAnalysis
                         // 有些状态 比如睡觉在cant时要减少一次
                         break;
                     default:
-                        //// Console.WriteLine(d[1]);
+                        //// // Console.WriteLine(d[1]);
                         // 未处理 输出检查
                         break;
 

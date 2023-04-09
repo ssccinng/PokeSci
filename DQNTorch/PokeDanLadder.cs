@@ -20,7 +20,7 @@ public class PokeDanLadder
         }
     }
 
-    public void train(int episode, int max_steps = 100, float epsilon_start = 1.0f,
+    public async Task train(int episode, int max_steps = 100, float epsilon_start = 1.0f,
         float epsilon_end = 0.1f, float epsilon_decay = 0.99f, int target_update = 10)
     {
         List<Task> tasks = new List<Task>();
@@ -44,6 +44,8 @@ public class PokeDanLadder
 
             }
             Task.WaitAll(tasks.ToArray()); tasks.Clear();
+            await Task.Delay(1000);
+
             for (int j = 0; j < Agents.Length; j++)
             {
                 Agents[j].epsilon *= epsilon_decay;
@@ -65,11 +67,19 @@ public class PokeDanLadder
             Agents = Agents.OrderByDescending(s => s.agent.LadderSocre).ToArray();
             for (int j = 0; j < Agents.Length; j++)
             {
+                Agents[j].agent.learn();
                 Console.WriteLine($"{j + 1} {Agents[j].agent.PSClient.UserName} {Agents[j].agent.LadderSocre}");
             }
 
-
+            //for (int j = 0; j < Agents.Length; j++)
+            //{
+            //    Agents[j].agent.model.save($"{Agents[j].agent.PSClient.UserName}.{i + 1}.dat");
+            //}
             // 还要更新TargetModel
+            //for (int j = 0; j < Agents.Length; j++)
+            //{
+            //    Agents[j].agent.model.save($"{Agents[j].agent.PSClient.UserName}.{i + 1}.dat");
+            //}
             if (i % 100 == 99)
             {
                 for (int j = 0; j < Agents.Length; j++)
@@ -83,9 +93,11 @@ public class PokeDanLadder
                 for (int j = 24; j < 32; j++)
                 {
                     var rnd = Random.Shared.Next(24);
+                    if (j == 24) rnd = 0;
                     // 随机更新模型
                     Agents[j].agent.model.load($"{Agents[rnd].agent.PSClient.UserName}.{i + 1}.dat");
                     Agents[j].agent.target_model.load($"{Agents[rnd].agent.PSClient.UserName}.{i + 1}.dat");
+                    Agents[j].agent.LadderSocre = 1000;
                 }
                 // 淘汰一批 复制一批
             }
@@ -100,17 +112,18 @@ public class PokeDanLadder
 
         // 等待对战结束
         var res = await a1.WaitEnd();
+        await a2.WaitEnd();
         var delta = a1.agent.LadderSocre - a2.agent.LadderSocre;
         
 
         // 根据胜负情况以及双方分数，调整ai的排位分
         if (res == PSReplayAnalysis.BattleResult.Player1Win) {
             a1.agent.LadderSocre += Math.Min(31, Math.Max(1, 16.0f - delta / 25));
-            a2.agent.LadderSocre -= Math.Min(31, Math.Max(1, 16.0f + delta / 25));
+            a2.agent.LadderSocre -= Math.Min(31, Math.Max(1, 16.0f - delta / 25));
         }
         else if (res == PSReplayAnalysis.BattleResult.Player2Win) {
             a1.agent.LadderSocre -= Math.Min(31, Math.Max(1, 16.0f + delta / 25));
-            a2.agent.LadderSocre += Math.Min(31, Math.Max(1, 16.0f - delta / 25));
+            a2.agent.LadderSocre += Math.Min(31, Math.Max(1, 16.0f + delta / 25));
         }
         // 根据分数，调整ai的排位分
 

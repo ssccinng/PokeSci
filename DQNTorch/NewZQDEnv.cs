@@ -187,8 +187,9 @@ public class NewZQDEnv
             agent.AddBuffers(
                 trainBattle.TempBuffer.Where(s => s.states != null).Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
 
-            trainBattle.SetStatus(BattleStatus.GameFinish);
             await battle.LeaveRoomAsync();
+            randTeam = null;
+            trainBattle.SetStatus(BattleStatus.GameFinish);
         }
         else
         {
@@ -251,7 +252,11 @@ public class NewZQDEnv
             {
                 int aaa = 2423;
             }
+            else
+            {
+
             banid.Add(aa);
+            }
         }
         // 死去的宝也是不可换的 确认一下是否更新
         if (battle.PlayerPos == PlayerPos.Player1)
@@ -722,6 +727,9 @@ public class NewZQDEnv
 
     public async Task CreateBattleAsync(string name)
     {
+        if (trainBattle != null) { 
+        trainBattle.BattleStatus = BattleStatus.Waiting;
+        }
         lock (_lockTeam)
         {
 
@@ -749,13 +757,14 @@ public class NewZQDEnv
     }
     public async Task<BattleResult> WaitEnd()
     {
-        while (trainBattle.BattleStatus != BattleStatus.GameFinish)
+        while (trainBattle == null || trainBattle.BattleStatus != BattleStatus.GameFinish)
         {
             await Task.Delay(100);
         }
-
+        var aa = trainBattle.PSReplayAnalysis.battle.WhoWin;
+        //trainBattle = null;
         // 返回谁赢了
-        return trainBattle.PSReplayAnalysis.battle.WhoWin;
+        return aa;
     }
 
 
