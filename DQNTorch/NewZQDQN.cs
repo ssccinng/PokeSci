@@ -31,14 +31,16 @@ public class NewZQDQN : Module
 
     public NewZQDQN(int state_size, int action_size, int hidden_size) : base("NewZQDN")
     {
+        var device = torch.device(cuda.is_available() ? "cuda" : "cpu");
         state_Size = state_size;
         action_Size = action_size;
         hidden_Size = hidden_size;
 
-        fc1 = Linear(state_size, hidden_size);
-        fc2 = Linear(hidden_size, hidden_size / 2);
-        fc3 = Linear(hidden_size / 2, action_size / 4);
-        fc4 = Linear(hidden_size / 4, action_size);
+        fc1 = Linear(state_size, hidden_size).to(device);
+        fc2 = Linear(hidden_size, hidden_size / 2).to(device);
+        fc3 = Linear(hidden_size / 2, hidden_size / 4).to(device);
+        fc4 = Linear(hidden_size / 4, action_size).to(device);
+            RegisterComponents();
     }
 
     public Tensor forward(Tensor x)
@@ -89,6 +91,27 @@ public class NewZQDQNAgent
         buffer = new();
         model = new NewZQDQN(State_size, 44, 512).to(device);
         target_model = new NewZQDQN(State_size, 44, 512).to(device);
+        optimizer = optim.Adam(model.parameters(), lr);
+    }
+
+    public NewZQDQNAgent(string modelPath, int battle_num = 1,
+                      int buffer_size = 10000,
+                      int batch_size = 32,
+                      float gamma = 0.99f,
+                      float lr = 0.001f)
+    {
+        device = torch.device(cuda.is_available() ? "cuda" : "cpu");
+        buffer_Size = buffer_size;
+        batch_Size = batch_size;
+        this.gamma = gamma;
+        this.lr = lr;
+
+        buffer = new();
+        model = new NewZQDQN(State_size, 44, 512).to(device);
+        model.load(modelPath);
+        target_model = new NewZQDQN(State_size, 44, 512).to(device);
+        target_model.load(modelPath);
+
         optimizer = optim.Adam(model.parameters(), lr);
     }
 
@@ -290,8 +313,10 @@ public class NewZQDQNAgent
     // 更新Target网络
     public void update_target_model()
     {
-        this.target_model.load_state_dict(this.model.state_dict());
+        model.save($"{PSClient.UserName}temp");
 
+        this.target_model.load($"{PSClient.UserName}temp");
+        //target_model = target_model.cuda();
         //model.save($"{PSClient.UserName}temp");
         //target_model.load($"{PSClient.UserName}temp");
     }
@@ -308,16 +333,26 @@ public class NewZQDQNAgent
         }
     }
 
+    public void ClearBuffer()
+    {
+        lock (_lockBuf)
+        {
+            buffer.Clear();
+        }
+    }
     public void AddBuffers(IEnumerable<(float[] states, long actions, float rewards, float[] next_states, float dones)> datas)
     {
-        buffer.AddRange(datas);
-        //while (buffer.Count > buffer_Size)
-        if (buffer.Count > buffer_Size)
-            buffer.RemoveRange(0, buffer.Count - buffer_Size);
+        lock (_lockBuf)
+        {
+            buffer.AddRange(datas);
+            //while (buffer.Count > buffer_Size)
+            if (buffer.Count > buffer_Size)
+                buffer.RemoveRange(0, buffer.Count - buffer_Size);
+        }
+
         lock (_lockLearn)
         {
-        learn();
-
+            learn();
         }
         // 这里一波推
 
