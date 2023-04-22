@@ -14,11 +14,11 @@ using PokePSCore;
 using PSReplayAnalysis;
 
 
-//var pc21 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);
-//await pc21.ConnectAsync();
-//await Task.Delay(1000);
+var pc21 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);
+await pc21.ConnectAsync();
+await Task.Delay(1000);
 
-//Console.WriteLine(await pc21.LoginAsync());
+Console.WriteLine(await pc21.LoginAsync());
 
 PokemonContext pokemonContext = new PokemonContext();
 Console.WriteLine(pokemonContext.Pokemons.ToArray().Length);
