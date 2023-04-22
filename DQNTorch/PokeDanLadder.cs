@@ -31,7 +31,25 @@ public class PokeDanLadder
         Task.WaitAll(tasks.ToArray());
         tasks.Clear();
 
-        for (int i = 0; i < episode; i++)
+        // 前1100轮，不作匹配 修改epsilon
+        for (int i = 0; i < 1100; i++)
+        {
+            for (int j = 0; j < Agents.Length; j++)
+            {
+                Agents[j].epsilon *= epsilon_decay;
+                Agents[j].epsilon = Math.Max(Agents[j].epsilon, epsilon_end);
+            }
+        }
+
+        // 初始化为第1100轮的模型
+        for (int i = 0; i < Agents.Length; i++)
+        {
+                    var lastPSC = Agents[i].agent.PSClient;
+            Agents[i].agent = new NewZQDQNAgent($"{Agents[i].agent.PSClient.UserName}.1100.dat");
+            Agents[i].agent.PSClient = lastPSC;
+        }
+
+        for (int i = 1100; i < episode; i++)
         {
             // 随机匹配Agents中的ai 两两进行对战
 
@@ -98,8 +116,8 @@ public class PokeDanLadder
                     var lastPSC = Agents[j].agent.PSClient;
                     Agents[j].agent = new NewZQDQNAgent($"{Agents[rnd].agent.PSClient.UserName}.{i + 1}.dat");
                     Agents[j].agent.PSClient = lastPSC;
-                    Agents[j].agent.LadderSocre = 1000;
                 }
+                    Agents[j].agent.LadderSocre = 1000;
                 // 淘汰一批 复制一批
             }
  
