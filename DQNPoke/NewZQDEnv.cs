@@ -21,7 +21,7 @@ namespace DQNTorch;
 
 public class NewZQDEnv
 {
-    public readonly NewZQDQNAgent agent;
+    public NewZQDQNAgent agent;
 
     TrainBattle trainBattle;
     public PSClient PSClient { get => agent.PSClient; set => agent.PSClient = value; }
@@ -140,11 +140,11 @@ public class NewZQDEnv
             // log一下
             lock (_lockTeam)
             {
-                randTeam = GetRandomTeam().Result;
-                PSClient.ChangeYourTeamAsync(PSConverter.ConvertToPsOneLineAsync(randTeam).Result).Wait();
+                randTeam =  GetRandomTeam().Result;
+                 PSClient.ChangeYourTeamAsync( PSConverter.ConvertToPsOneLineAsync(randTeam).Result).Wait();
             }
 
-
+              
             await PSClient.AcceptChallengeAsync(player);
         }
     }
@@ -187,8 +187,9 @@ public class NewZQDEnv
             agent.AddBuffers(
                 trainBattle.TempBuffer.Where(s => s.states != null).Select(s => (s.states, s.actions, s.rewards, s.next_states, s.dones))); ;
 
-            trainBattle.SetStatus(BattleStatus.GameFinish);
             await battle.LeaveRoomAsync();
+            randTeam = null;
+            trainBattle.SetStatus(BattleStatus.GameFinish);
         }
         else
         {
@@ -321,13 +322,13 @@ public class NewZQDEnv
                 if (target == "any" || target == "normal")
                 {
                     // 不能选到自己 || target == "AdjacentAllyOrSelf"
-                    banMove[i].Add( j * 4 + (i + 2));
+                    banMove[i].Add(j * 4 + (i + 2));
                 }
                 else if (target == "adjacentFoe")
                 {
                     // 选到自己人炸裂
                     banMove[i].Add(j * 4 + 2);
-                    banMove[i].Add( j * 4 + 3);
+                    banMove[i].Add(j * 4 + 3);
 
                 }
                 else if (target == "adjacentAlly")
@@ -358,10 +359,10 @@ public class NewZQDEnv
 
         // 加入动作选择
         actions.Add(resx1);
-        foreach (var (resx, i) in new[] { (resx1 % 16, 0), (resx1 / 16, 1)})
+        foreach (var (resx, i) in new[] { (resx1 % 16, 0), (resx1 / 16, 1) })
         {
             if (battle.MySide[i].IsDead || (battle.MySide[i]?.Commanding ?? false)) continue;
-             Console.WriteLine($"battle.MySide[i].IsDead = {battle.MySide[i].IsDead}");
+            Console.WriteLine($"battle.MySide[i].IsDead = {battle.MySide[i].IsDead}");
             JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
             List<int> banmove = new();
             // 只可选择一个技能的时候
@@ -506,7 +507,7 @@ public class NewZQDEnv
             // 考虑致命双换问题
             if (actives[i])
             {
-                bool flag = true ;
+                bool flag = true;
                 // ban一下自己人？Todo
                 //Console.WriteLine("banid = " + string.Concat(banids.Distinct()));
                 while (choose < 4)
@@ -555,7 +556,7 @@ public class NewZQDEnv
                     lastTurn.Player2Team.Pokemons[i].NowPos = -2;
                 }
             }
-            
+
             await battle.OrderTeamAsync("123456");
             // 赋予招式状态
         }
@@ -575,6 +576,10 @@ public class NewZQDEnv
 
     public async Task CreateBattleAsync(string name)
     {
+        if (trainBattle != null)
+        {
+            trainBattle.BattleStatus = BattleStatus.Waiting;
+        }
         lock (_lockTeam)
         {
 
@@ -602,14 +607,14 @@ public class NewZQDEnv
     }
     public async Task<BattleResult> WaitEnd()
     {
-        await Task.Delay(5000);
-        while (trainBattle.BattleStatus != BattleStatus.GameFinish)
+        while (trainBattle == null || trainBattle.BattleStatus != BattleStatus.GameFinish)
         {
             await Task.Delay(100);
         }
-
+        var aa = trainBattle.PSReplayAnalysis.battle.WhoWin;
+        //trainBattle = null;
         // 返回谁赢了
-        return trainBattle.PSReplayAnalysis.battle.WhoWin;
+        return aa;
     }
 
 

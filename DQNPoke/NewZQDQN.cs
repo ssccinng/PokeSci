@@ -31,14 +31,16 @@ public class NewZQDQN : Module
 
     public NewZQDQN(int state_size, int action_size, int hidden_size) : base("NewZQDN")
     {
+        var device = torch.device(cuda.is_available() ? "cuda" : "cpu");
         state_Size = state_size;
         action_Size = action_size;
         hidden_Size = hidden_size;
 
-        fc1 = Linear(state_size, hidden_size);
-        fc2 = Linear(hidden_size, hidden_size / 2);
-        fc3 = Linear(hidden_size / 2, action_size / 4);
-        fc4 = Linear(hidden_size / 4, action_size);
+        fc1 = Linear(state_size, hidden_size).to(device);
+        fc2 = Linear(hidden_size, hidden_size / 2).to(device);
+        fc3 = Linear(hidden_size / 2, hidden_size / 4).to(device);
+        fc4 = Linear(hidden_size / 4, action_size).to(device);
+            RegisterComponents();
     }
 
     public Tensor forward(Tensor x)
@@ -74,6 +76,7 @@ public class NewZQDQNAgent
     private object _lockBuf = new();
     private static object _lockLearn = new();
     private const int single_action_size = 16;
+
     public NewZQDQNAgent(int battle_num = 1,
                       int buffer_size = 10000,
                       int batch_size = 32,
@@ -92,10 +95,31 @@ public class NewZQDQNAgent
         optimizer = optim.Adam(model.parameters(), lr);
     }
 
+    public NewZQDQNAgent(string modelPath, int battle_num = 1,
+                      int buffer_size = 10000,
+                      int batch_size = 32,
+                      float gamma = 0.99f,
+                      float lr = 0.001f)
+    {
+        device = torch.device(cuda.is_available() ? "cuda" : "cpu");
+        buffer_Size = buffer_size;
+        batch_Size = batch_size;
+        this.gamma = gamma;
+        this.lr = lr;
+
+        buffer = new();
+        model = new NewZQDQN(State_size, 44, 512).to(device);
+        model.load(modelPath);
+        target_model = new NewZQDQN(State_size, 44, 512).to(device);
+        target_model.load(modelPath);
+
+        optimizer = optim.Adam(model.parameters(), lr);
+    }
+
     /// <summary>
     /// 根据状态做出动作
     /// </summary>
-    /// <p aram name="states">当前状态</param>
+    /// <param name="states">当前状态</param>
     /// <param name="pos">宝可梦位置 取值0，1</param>
     /// <param name="epsilon"></param>
     /// <param name="banActions">封禁操作</param>
@@ -154,7 +178,38 @@ public class NewZQDQNAgent
     /// <param name="banActions"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
+    public int actSwitch(float[] state, int pos, double epsilon = 0.1f, IEnumerable<int>? banActions = null)
+    {
+        banActions ??= Array.Empty<int>();
+        //if (np.random.rand(1)[0].GetDouble() < epsilon)
+        if (Random.Shared.NextDouble() < epsilon)
+        {
+            while (true)
+            {
+                //var res = np.random.randint(0, 6).GetInt32();
+                var res  = Random.Shared.Next(6);
 
+                if (!banActions.Contains(res))
+                {
+                    return res;
+                }
+            }
+        }
+        else
+        {
+            var states = FloatTensor(state).unsqueeze(0).to(device);
+            using var a = no_grad();
+
+            var q_values = model.forward(states);
+            q_values = q_values.slice(1, pos * 22, 6 + pos * 22, 1);
+            foreach (var item in banActions)
+            {
+                q_values[0][item] = float.MinValue;
+            }
+            var action = argmax(q_values, 1).cpu().item<long>();
+            return (int)action;
+        }
+    }
     /// <summary>
     /// 学习
     /// </summary>
@@ -200,33 +255,121 @@ public class NewZQDQNAgent
         return result;
     }
 
+
+    //public async Task train(int episodes, int max_steps = 100, float epsilon_start = 1.0f,
+    //    float epsilon_end = 0.1f, float epsilon_decay = 0.99f, int target_update = 10)
+    //{
+    //    //Console.
+    //    List<Task> tasks = new List<Task>();
+    //    for (int i = 0; i < Envs.Length; i++)
+    //    {
+    //        tasks.Add(Envs[i].Init($"ZQD{i:00000}", ""));
+    //    }
+    //    foreach (var item in tasks)
+    //    {
+    //        await item;
+    //    }
+    //    tasks.Clear();
+    //    var epsilon = epsilon_start;
+
+    //    for (int episode = 0; episode < episodes; episode++)
+    //    {
+
+    //        for (int gg = 0; gg < Envs.Length / 2; gg++)
+    //        {
+    //            int g = gg;
+
+    //            tasks.Add(Task.Run(async () =>
+    //            {
+    //                Envs[2 * g].epsilon = Envs[2 * g + 1].epsilon = epsilon
+    //                ;
+    //                await Envs[2 * g].CreateBattleAsync(Envs[g * 2 + 1].PSClient.UserName);
+
+    //                await Envs[2 * g].WaitEnd();
+    //                await Envs[g * 2 + 1].WaitEnd();
+    //            }));
+    //        }
+    //        foreach (var item in tasks)
+    //        {
+    //            await item;
+    //        }
+    //        tasks.Clear();
+
+    //        if (episode % 100 == 99)
+    //        {
+    //            model.save($"temp2.{episode + 1}.data");
+
+    //        }
+    //        if (episode % 100 == 0)
+    //        {
+    //            Console.WriteLine($"Episode {episode}");
+    //        }
+
+    //        // 更新Target网络
+    //        if (episode % target_update == 0)
+    //        {
+    //            //var aa = this.model.to("cpu").state_dict();
+    //            model.save("temp");
+
+    //            target_model.load("temp");
+    //        }
+
+    //        // 更新探索率
+    //        if (epsilon > epsilon_end)
+    //        {
+    //            epsilon *= epsilon_decay;
+    //        }
+    //    }
+        
+    //}
+
+
     // 更新Target网络
     public void update_target_model()
     {
-        this.target_model.load_state_dict(this.model.state_dict());
+        model.save($"{PSClient.UserName}temp");
 
+        this.target_model.load($"{PSClient.UserName}temp");
+        //target_model = target_model.cuda();
         //model.save($"{PSClient.UserName}temp");
         //target_model.load($"{PSClient.UserName}temp");
     }
 
+    [Obsolete]
+    public void AddBuffer((float[] states, long actions, float rewards, float[] next_states, float dones) data)
+    {
+        if (data.states == null || data.next_states == null) return;
+        lock (_lockBuf)
+        {
+            buffer.Add(data);
+            if (buffer.Count > buffer_Size)
+                buffer.RemoveAt(0);
+        }
+    }
+
+    public void ClearBuffer()
+    {
+        lock (_lockBuf)
+        {
+            buffer.Clear();
+        }
+    }
     public void AddBuffers(IEnumerable<(float[] states, long actions, float rewards, float[] next_states, float dones)> datas)
     {
-        buffer.AddRange(datas);
-        //while (buffer.Count > buffer_Size)
-        if (buffer.Count > buffer_Size)
-            buffer.RemoveRange(0, buffer.Count - buffer_Size);
+        lock (_lockBuf)
+        {
+            buffer.AddRange(datas);
+            //while (buffer.Count > buffer_Size)
+            if (buffer.Count > buffer_Size)
+                buffer.RemoveRange(0, buffer.Count - buffer_Size);
+        }
+
         lock (_lockLearn)
         {
             learn();
-
         }
         // 这里一波推
 
     }
 
-    internal object actSwitch(float[] state, int i, double epsilon, int[] ints)
-    {
-        // 顺序拉上来就行
-        throw new NotImplementedException();
-    }
 }
