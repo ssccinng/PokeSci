@@ -291,17 +291,17 @@ public class NewZQDEnv
             JsonElement movedata = battle.ActiveStatus[i].GetProperty("moves");
             List<int> banmove = new();
             // 只可选择一个技能的时候
-            if (movedata.GetArrayLength() == 1)
-            {
-                //// 此时锁死操作 排序？？
-                chooseDatas.Add(new MoveChooseData(1, dmax: false));
-                //actions.Add()
-                //// 这里不可选 无需加入状态
-                continue;
-            }
 
             for (int j = 0; j < movedata.GetArrayLength(); ++j)
             {
+                if (movedata.GetArrayLength() == 1)
+                {
+                    //// 此时锁死操作 排序？？
+                    //chooseDatas.Add(new MoveChooseData(1, dmax: false));
+                    //actions.Add()
+                    //// 这里不可选 无需加入状态
+                    continue;
+                }
                 if (movedata[j].GetProperty("disabled").GetBoolean())
                 {
                     for (int k = 0; k < 4; k++)

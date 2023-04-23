@@ -90,8 +90,8 @@ public class NewZQDQNAgent
         this.lr = lr;
 
         buffer = new();
-        model = new NewZQDQN(State_size, 44, 512).to(device);
-        target_model = new NewZQDQN(State_size, 44, 512).to(device);
+        model = new NewZQDQN(State_size, single_action_size * single_action_size, 512).to(device);
+        target_model = new NewZQDQN(State_size, single_action_size * single_action_size, 512).to(device);
         optimizer = optim.Adam(model.parameters(), lr);
     }
 
@@ -108,9 +108,9 @@ public class NewZQDQNAgent
         this.lr = lr;
 
         buffer = new();
-        model = new NewZQDQN(State_size, 44, 512).to(device);
+        model = new NewZQDQN(State_size, single_action_size * single_action_size, 512).to(device);
         model.load(modelPath);
-        target_model = new NewZQDQN(State_size, 44, 512).to(device);
+        target_model = new NewZQDQN(State_size, single_action_size * single_action_size, 512).to(device);
         target_model.load(modelPath);
 
         optimizer = optim.Adam(model.parameters(), lr);
@@ -153,7 +153,7 @@ public class NewZQDQNAgent
             {
                 for (int i = 0; i < 16; i++)
                 {
-                    q_values[item + 16 * i][item] = float.MinValue;
+                    q_values[0][item + 16 * i] = float.MinValue;
                 }
             }
 
@@ -161,7 +161,8 @@ public class NewZQDQNAgent
             {
                 for (int i = 0; i < 16; i++)
                 {
-                    q_values[item * 16 + i][item] = float.MinValue;
+                    q_values[0][item * 16 + i] = float.MinValue;
+
                 }
             }
             var action = argmax(q_values, 1).cpu().item<long>();
