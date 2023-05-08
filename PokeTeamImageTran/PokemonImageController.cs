@@ -50,6 +50,8 @@ public class PokemonImageController : ControllerBase
     {
         //using StreamReader streamReader = new StreamReader(Request.Body);
         //var bytes1 = await streamReader.ReadToEndAsync();
+         //Console.WriteLine(lang);
+         //Console.WriteLine(Request.ContentLength);
         var bytes = new byte[(int)Request.ContentLength];
         //try
         //{
