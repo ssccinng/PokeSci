@@ -9,7 +9,7 @@ var miraiBot = new MiraiBot
     QQ = "3084029286",
     VerifyKey = "INITKEYmpZ1FAXk",
 };
-miraiBot.LaunchAsync().Wait();
+//miraiBot.LaunchAsync().Wait();
 
 PokePSCore.PSClient pSClient = new("testttt", "");
 await pSClient.ConnectAsync();
@@ -79,10 +79,11 @@ pSClient.UserDetailsAction += async (msg) =>
 
 while (true)
 {
-    //await pSClient.GetUserDetails("scixing");
+    await pSClient.GetUserDetails("scixing, Ethox");
     //await pSClient.GetUserDetails("Ethox");
     //await pSClient.GetUserDetails("RedsilverFR");
-
+    await Task.Delay(1000 * 30);
+    continue;
     foreach (var item in IdCheck.ToList())
     {
         await pSClient.GetUserDetails(item);
@@ -90,7 +91,6 @@ while (true)
 
 
     }
-    await Task.Delay(1000 * 30);
 
 }
 
