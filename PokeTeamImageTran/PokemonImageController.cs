@@ -46,7 +46,7 @@ public class PokemonImageController : ControllerBase
         return Environment.CurrentDirectory + "/" + path;
     }
         [HttpPost("GetImageData/{lang}")]
-    public async Task<object> Get(string lang)
+     public  async Task<object> Get(string lang)
     {
         //using StreamReader streamReader = new StreamReader(Request.Body);
         //var bytes1 = await streamReader.ReadToEndAsync();
@@ -78,6 +78,9 @@ public class PokemonImageController : ControllerBase
         {
             return "图片为空";
         }
+
+        List<string> teras = new();
+
         if (img.Width != 1280 || img.Height != 720)
             img.Mutate(s => s.Resize(new Size(1280, 720)));
         //img.Mutate(x => x.Crop(new Rectangle(100,100, 100, 100)));
@@ -107,11 +110,22 @@ public class PokemonImageController : ControllerBase
 
             using var pokeimg_move = pokeimg.CloneAs<Rgba32>();
             pokeimg_move.Mutate(x => x.Crop(_pokeRegions[i].RectangleMove));
+
+            using var pokeimg_tera = pokeimg.CloneAs<Rgba32>();
+            pokeimg_tera.Mutate(x => x.Crop(_pokeRegions[i].RectangleTera));
+            string pathtemp = Path.GetTempFileName();
+            await pokeimg_tera.SaveAsPngAsync(pathtemp);
             await pokeimg_name.SaveAsPngAsync(path + $"/Poke{i}_1name.png");
             await pokeimg_ability.SaveAsPngAsync(path + $"/Poke{i}_2ability.png");
             await pokeimg_item.SaveAsPngAsync(path + $"/Poke{i}_3item.png");
             await pokeimg_move.SaveAsPngAsync(path + $"/Poke{i}_4move.png");
+            //await pokeimg_tera.SaveAsPngAsync(path + $"/Poke{i}_5tera.png");
+            unsafe
+            {
 
+                teras.Add(GetTeraType.GetTeraTypeML(System.IO.File.ReadAllBytes(pathtemp)));
+
+            }
 
             //return;
         }
@@ -119,6 +133,7 @@ public class PokemonImageController : ControllerBase
         var list = PyExtensions.CallPaddleOcr(path, lang);
         StringBuilder sb = new StringBuilder();
         int type = 0;
+        int idxx = 0;
         foreach (var item in list)
         {
             if (item.StartsWith("filePath"))
@@ -152,6 +167,7 @@ public class PokemonImageController : ControllerBase
                 {
                     case 1:
                         sb.AppendLine(TranslateHelper.TranslateNameToChs(item, lang));
+                        sb.AppendLine($"太晶属性: {teras[idxx++]}");
                         break;
                     case 2:
                         sb.AppendLine(TranslateHelper.TranslateNameToChs(item, lang, "ability"));
@@ -189,6 +205,7 @@ public class PokemonImageController : ControllerBase
         //    throw;
         //}
         await Request.Body.CopyToAsync(new MemoryStream(bytes));
+        List<string> teras = new();
 
         string path = $"TeamImage/{DateTime.Now.Ticks}";
         if (!Directory.Exists(path))
@@ -231,11 +248,19 @@ public class PokemonImageController : ControllerBase
             pokeimg_item.Mutate(x => x.Crop(_pokeRegions[i].Item));
 
             using var pokeimg_move = pokeimg.CloneAs<Rgba32>();
+
+            using var pokeimg_tera = pokeimg.CloneAs<Rgba32>();
+            pokeimg_tera.Mutate(x => x.Crop(_pokeRegions[i].RectangleTera));
+            string pathtemp = Path.GetTempFileName();
+            await pokeimg_tera.SaveAsPngAsync(pathtemp);
+
             pokeimg_move.Mutate(x => x.Crop(_pokeRegions[i].RectangleMove));
             await pokeimg_name.SaveAsPngAsync(path + $"/Poke{i}_1name.png");
             await pokeimg_ability.SaveAsPngAsync(path + $"/Poke{i}_2ability.png");
             await pokeimg_item.SaveAsPngAsync(path + $"/Poke{i}_3item.png");
             await pokeimg_move.SaveAsPngAsync(path + $"/Poke{i}_4move.png");
+
+            teras.Add(GetTeraType.GetTeraTypeML(System.IO.File.ReadAllBytes(pathtemp)));
 
 
             //return;
@@ -245,15 +270,18 @@ public class PokemonImageController : ControllerBase
         StringBuilder sb = new StringBuilder();
         List<List<string>[]> ress = new ();
         int type = 0;
+        int idx = 0;
         foreach (var item in list)
         {
             if (item.StartsWith("filePath"))
             {
                 if (item.EndsWith("name.png"))
                 {
-                    ress.Add(new List<string>[4]);
+                    ress.Add(new List<string>[5]);
                     ress.Last()[0] = new();
                     sb.Append("\n宝可梦名: ");
+                    ress.Last()[4] = new();
+
                     type = 1;
                 }
                 else if (item.EndsWith("ability.png"))
@@ -286,6 +314,8 @@ public class PokemonImageController : ControllerBase
                     case 1:
                         //sb.AppendLine(TranslateHelper.TranslateNameToChs(item, lang));
                         ress.Last()[0].Add(TranslateHelper.TranslateNameToChs(item, lang));
+                        ress.Last()[4].Add(teras[idx++]);
+
                         break;
                     case 2:
                         //sb.AppendLine(TranslateHelper.TranslateNameToChs(item, lang, "ability"));
