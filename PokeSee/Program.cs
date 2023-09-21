@@ -41,7 +41,7 @@ pSClient.UserDetailsAction += async (msg) =>
             {
                 return;
             }
-            WriteToFile("dani.txt", $"{id} id变化！{id} -> {userid}\n");
+            WriteToFile($"{DateTime.Now:yyyy-MM-dd}.txt", $"{id} id变化！{id} -> {userid}\n");
             //IdCheck.Add(userid);
             //await MessageManager.SendGroupMessageAsync("770272713", $"{id} id变化！{id} -> {userid}");
         }
@@ -77,11 +77,13 @@ pSClient.UserDetailsAction += async (msg) =>
             if (id != userid && !ids.Contains(userid))
             {
                 ids.Add(userid);
-                WriteToFile("dani.txt", $"{id} id变化！{id} -> {userid}\n");
-                //IdCheck.Add(userid);
-                //await MessageManager.SendGroupMessageAsync("770272713", $"{id} id变化！{id} -> {userid}");
+                //WriteToFile("dani.txt", $"{id} id变化！{id} -> {userid}\n");
+                WriteToFile($"{DateTime.Now:yyyy-MM-dd}.txt", $"{id} id变化！{id} -> {userid}\n");
+
+                    //IdCheck.Add(userid);
+                    //await MessageManager.SendGroupMessageAsync("770272713", $"{id} id变化！{id} -> {userid}");
+                }
             }
-        }
     }
     }
     catch (Exception ex)
@@ -103,20 +105,20 @@ while (true)
     foreach (var item in topUsers.ToList())
     {
         await pSClient.GetUserDetails(item);
-        await Task.Delay(5000);
+        await Task.Delay(1500);
 
 
     }
-    await Task.Delay(1000 * 30);
+    await Task.Delay(500 * 30);
 
     foreach (var item in topUsers.ToList())
     {
         await pSClient.GetUserDetails(item);
-        await Task.Delay(5000);
+        await Task.Delay(1000);
 
 
     }
-    await Task.Delay(1000 * 30);
+    await Task.Delay(500 * 30);
 
     topUsers = await GetTopUser();
 
@@ -128,20 +130,33 @@ static async Task<List<string>> GetTopUser()
     Regex reg = new Regex(@"<td>\d+</td><td>(.+?)</td>");
 
     using HttpClient client = new();
+    HashSet<string> users = new();
+
+
     string url = "https://play.pokemonshowdown.com/ladder.php?format=gen9vgc2023regulationd&server=showdown&output=html&prefix=";
     var res = await client.GetAsync(url);
     var html = await res.Content.ReadAsStringAsync();
 
     var matchRes = reg.Matches(html);
-    List<string> users = new();
     foreach (Match item in matchRes)
     {
         var aa = Regex.Replace(item.Groups[1].Value, @"$#\d+?;", "");
         aa = Regex.Replace(aa.ToLower(), @"[^a-z0-9]", "");
         users.Add(aa);
     }
+    url = "https://play.pokemonshowdown.com/ladder.php?format=gen9vgc2023regulationd&server=showdown&output=html&prefix=";
 
-    return users;
+    res = await client.GetAsync(url);
+    html = await res.Content.ReadAsStringAsync();
+
+    matchRes = reg.Matches(html);
+    foreach (Match item in matchRes)
+    {
+        var aa = Regex.Replace(item.Groups[1].Value, @"$#\d+?;", "");
+        aa = Regex.Replace(aa.ToLower(), @"[^a-z0-9]", "");
+        users.Add(aa);
+    }
+    return users.ToList();
 
 }
 
