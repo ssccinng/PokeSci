@@ -127,12 +127,17 @@ while (true)
 
 static async Task<List<string>> GetTopUser()
 {
+
+    string[] forceUser = new[] { "BanquetforFoxes" };
     Regex reg = new Regex(@"<td>\d+</td><td>(.+?)</td>");
 
     using HttpClient client = new();
     HashSet<string> users = new();
-
-
+    
+    foreach (string user in forceUser)
+    {
+        users.Add(user);
+    }
     string url = "https://play.pokemonshowdown.com/ladder.php?format=gen9vgc2023regulationd&server=showdown&output=html&prefix=";
     var res = await client.GetAsync(url);
     var html = await res.Content.ReadAsStringAsync();

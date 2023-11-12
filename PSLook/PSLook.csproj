@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Masuda.Net" Version="6.0.13" />
     <PackageReference Include="Mirai.Net" Version="2.4.4" />
   </ItemGroup>
 

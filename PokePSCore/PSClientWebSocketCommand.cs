@@ -200,7 +200,7 @@ namespace PokePSCore
     public class RankData
     {
         [JsonPropertyName("elo")]
-        public string ELO
+        public double ELO
         {
             get; set;
         }
