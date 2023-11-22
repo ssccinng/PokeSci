@@ -70,6 +70,7 @@ HashSet<string> IdCheck = new HashSet<string>
 "Torviv",
 "Rayko",
 "RaykoVGC",
+"scesere",
 "idbgnf",
 "tericorum",
 "trickroomtest33",
@@ -86,21 +87,11 @@ HashSet<string> IdCheck = new HashSet<string>
 //"pletesukovgc",
 
 
-"vascoenadamais",
-"peidodesuvaco",
-"cabodaciolocrvg",
-"counterdoksvkids",
-"michaelkylejr",
-"pletesukovgc",
-"barcelonacheese",
-"vovomaxben10",
-"julietterainha",
-"yansalibianvgc",
-"arnaldandtironi",
-"mistergxz",
-"franklinamanford",
 
-"fricassedefrango", "sekoeappa", "ohptdm", "queiroga", "worldscts", "zorieuq", "z2rqueiroz", "noonblast", "ksvstandproud", "dustpardon"
+"fricassedefrango", "sekoeappa", "ohptdm", "queiroga", "worldscts", "zorieuq", "z2rqueiroz", "noonblast", "ksvstandproud", "dustpardon",
+
+"paquiav", "dondopon",    "venyballester","kanchomesama",
+"marianocuesta21", "nutria420"
     //"terabolin",
     //"Lordoki",
     //"Cykomore",
