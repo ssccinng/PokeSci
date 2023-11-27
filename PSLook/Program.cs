@@ -57,23 +57,23 @@ HashSet<string> IdCheck = new HashSet<string>
 //"kennec"
 
 
-"LenVGC",
-"PokeAlex",
-"Miraai1",
-"KastyTP",
-"SokaVGC",
-"itakureig",
-"JMOdri",
-"Pipagoro",
-"icebergvgc",
-"pincurchienpao",
-"Torviv",
-"Rayko",
-"RaykoVGC",
-"scesere",
-"idbgnf",
-"tericorum",
-"trickroomtest33",
+//"LenVGC",
+//"PokeAlex",
+//"Miraai1",
+//"KastyTP",
+//"SokaVGC",
+//"itakureig",
+//"JMOdri",
+//"Pipagoro",
+//"icebergvgc",
+//"pincurchienpao",
+//"Torviv",
+//"Rayko",
+//"RaykoVGC",
+//"scesere",
+//"idbgnf",
+//"tericorum",
+//"trickroomtest33",
 
 //"julietterainha",
 //"arnaldandtironi",
@@ -88,10 +88,13 @@ HashSet<string> IdCheck = new HashSet<string>
 
 
 
-"fricassedefrango", "sekoeappa", "ohptdm", "queiroga", "worldscts", "zorieuq", "z2rqueiroz", "noonblast", "ksvstandproud", "dustpardon",
+//"fricassedefrango", "sekoeappa", "ohptdm", "queiroga", "worldscts", "zorieuq", "z2rqueiroz", "noonblast", "ksvstandproud", "dustpardon",
 
-"paquiav", "dondopon",    "venyballester","kanchomesama",
-"marianocuesta21", "nutria420"
+//"paquiav", "dondopon",    "venyballester","kanchomesama",
+//"marianocuesta21", "nutria420"
+
+    "aurarayquaza","140like","smolivbread","bwenty","shimikyu","bongoblossom","popeofvgc","mishmishmoshmosh","jonotv","dokiogi","boyt","Kyriakou","calvonix","Cool Friend Jamie","DavidPartVGC","Benster"
+
     //"terabolin",
     //"Lordoki",
     //"Cykomore",
