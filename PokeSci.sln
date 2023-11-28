@@ -73,7 +73,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.ZQD.Client",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.ZQD.Shared", "PokemonIsshoni.ZQD\Shared\PokemonIsshoni.ZQD.Shared.csproj", "{00285B33-D9EB-4C74-AB79-A02D5C13C0E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeSee", "PokeSee\PokeSee.csproj", "{BA307E10-0D25-4DFE-8FC4-C96712BB9A41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeSee", "PokeSee\PokeSee.csproj", "{BA307E10-0D25-4DFE-8FC4-C96712BB9A41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseExport", "DatabaseExport\DatabaseExport.csproj", "{C56B5CF6-5387-4EB0-9238-A485B18B3281}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -703,6 +705,22 @@ Global
 		{BA307E10-0D25-4DFE-8FC4-C96712BB9A41}.Release|x64.Build.0 = Release|Any CPU
 		{BA307E10-0D25-4DFE-8FC4-C96712BB9A41}.Release|x86.ActiveCfg = Release|Any CPU
 		{BA307E10-0D25-4DFE-8FC4-C96712BB9A41}.Release|x86.Build.0 = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|arm64.Build.0 = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|x64.Build.0 = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Debug|x86.Build.0 = Debug|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|arm64.ActiveCfg = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|arm64.Build.0 = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|x64.ActiveCfg = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|x64.Build.0 = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|x86.ActiveCfg = Release|Any CPU
+		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
