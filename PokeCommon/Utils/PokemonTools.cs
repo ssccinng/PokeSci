@@ -11,7 +11,7 @@ namespace PokeCommon.Utils
     public static class PokemonTools
     {
         // 加个全部初始化
-        public static IPokemonContext PokemonContext  => new PokemonContext("PokemonDataBase.db");
+        public static IPokemonContext PokemonContext;// = new PokemonContext("PokemonDataBase.db");
         public static object _lockDB = new();
 
         private static Dictionary<int, Ability> _abilities { get; set; } = new();

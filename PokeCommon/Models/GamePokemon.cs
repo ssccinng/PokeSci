@@ -23,7 +23,7 @@ namespace PokeCommon.Models
         /// <summary>
         /// 宝可梦元数据
         /// </summary>
-        public readonly Pokemon MetaPokemon;
+        public Pokemon MetaPokemon { get;  }
         /// <summary>
         /// 昵称
         /// </summary>
