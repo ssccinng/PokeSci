@@ -9,7 +9,7 @@ namespace PokeCommon.Models
     public class GamePokemon
     {
 
-
+        public static GamePokemon Default() => new GamePokemon(new Pokemon { });
         public GamePokemon(Pokemon pokemon, EV eV = null, IV iV = null)
         {
             MetaPokemon = pokemon;
