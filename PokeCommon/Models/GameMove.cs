@@ -7,7 +7,7 @@ namespace PokeCommon.Models
     /// </summary>
     public class GameMove
     {
-        public readonly Move MetaMove;
+        public Move MetaMove { get; set; }
         public int PPMax
         {
             get; set;
@@ -23,6 +23,11 @@ namespace PokeCommon.Models
         public GameMove(Move move)
         {
             MetaMove = move;
+        }
+
+        public GameMove()
+        {
+            
         }
     }
 }

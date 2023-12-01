@@ -1,5 +1,6 @@
 ﻿using PokeCommon.GameRule;
 using PokemonDataAccess.Models;
+using System.Text.Json.Serialization;
 
 namespace PokeCommon.Models
 {
@@ -8,7 +9,6 @@ namespace PokeCommon.Models
     /// </summary>
     public class GamePokemon
     {
-
         public static GamePokemon Default() => new GamePokemon(new Pokemon { });
         public GamePokemon(Pokemon pokemon, EV eV = null, IV iV = null)
         {
@@ -19,11 +19,16 @@ namespace PokeCommon.Models
 
         }
 
+        public GamePokemon()
+        {
+            
+        }
+
         // 需要内部获取一个计算接口
         /// <summary>
         /// 宝可梦元数据
         /// </summary>
-        public Pokemon MetaPokemon { get;  }
+        public Pokemon MetaPokemon { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
@@ -117,7 +122,7 @@ namespace PokeCommon.Models
         /// </summary>
         public bool IsDead => NowHp <= 0;
 
-        public PokeType? TreaType { get; internal set; }
+        public PokeType? TreaType { get; set; }
 
         /// <summary>
         /// 回到最开始的状态
