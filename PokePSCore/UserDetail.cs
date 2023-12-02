@@ -12,7 +12,7 @@ namespace PokemonisshoniZ.Components.PokemonShowdown
         [JsonPropertyName("name")]
         public string? Name { get; set; }
         [JsonPropertyName("avatar")]
-        public string? Avatar { get; set; }
+        public JsonElement? Avatar { get; set; }
         [JsonPropertyName("group")]
         public string? Group { get; set; }
         [JsonPropertyName("autoconfirmed")]
