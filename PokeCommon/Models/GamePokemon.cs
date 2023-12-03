@@ -32,10 +32,10 @@ namespace PokeCommon.Models
         /// <summary>
         /// 昵称
         /// </summary>
-        public string NickName
+        public string? NickName
         {
             get; set;
-        }
+        } = string.Empty;
         /// <summary>
         /// 携带道具
         /// </summary>
@@ -83,18 +83,20 @@ namespace PokeCommon.Models
         /// <summary>
         /// 努力值
         /// </summary>
-        public EV EVs { get; } = new EV(0);
+        public EV EVs { get; set; } = new EV(0);
         /// <summary>
         /// 个体值
         /// </summary>
-        public IV IVs { get; } = new IV(31);
+        public IV IVs { get; set; } = new IV(31);
+
+        [JsonIgnore]
         /// <summary>
         /// 能力值
         /// </summary>
         public SixDimension Stats
         {
             get; private set;
-        }
+        } = new(0);
 
         public Gender Gender { get; set; } = Gender.Random;
         public void UpdateStats()

@@ -1,4 +1,6 @@
-﻿namespace PokeCommon.Models
+﻿using System.Text.Json.Serialization;
+
+namespace PokeCommon.Models
 {
     public enum SixDimensionValueType
     {
@@ -118,6 +120,7 @@
         {
             get; set;
         }
+        [JsonIgnore]
         /// <summary>
         /// 总和
         /// </summary>
@@ -178,7 +181,8 @@
     /// </summary>
     public class IV : SixDimension
     {
-        public IV(int value) : base(value) { }
+        public IV() : this(31) { }
+        public IV(int value ) : base(value) { }
         public IV(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0) : base(hp, atk, def, spa, spd, spe) { }
 
         public string GetHiddenPowerType()
@@ -211,6 +215,8 @@
 
     public class EV : SixDimension
     {
+        public EV() : this(0) { }
+
         public EV(int value) : base(value) { }
         public EV(int hp = 0, int atk = 0, int def = 0, int spa = 0, int spd = 0, int spe = 0) : base(hp, atk, def, spa, spd, spe) { }
     }

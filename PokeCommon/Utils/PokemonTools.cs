@@ -133,7 +133,10 @@ namespace PokeCommon.Utils
                 lock (_lockDB)
                 {
 
-                var nNature = PokemonContext.Natures.FirstOrDefaultAsync(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name).Result;
+                var nNature = PokemonContext.Natures
+                        .Include(s => s.Stat_Up)
+                        .Include(s => s.Stat_Down)
+                        .FirstOrDefaultAsync(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name).Result;
                 if (nNature != null)
                 {
                     _natures.TryAdd(nNature.NatureId, nNature);
@@ -331,7 +334,9 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nPokemon = await PokemonContext.Pokemons.FindAsync(id);
+                var nPokemon = await PokemonContext.Pokemons
+                    .Include(s => s.Type1)
+                    .Include(s => s.Type2).FirstOrDefaultAsync(s => s.Id == id);
                 if (nPokemon != null)
                 {
                     _pokemons[nPokemon.Id] = nPokemon;

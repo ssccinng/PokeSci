@@ -139,7 +139,7 @@ namespace PokeCommon.PokemonShowdownTools
             if (poke == null)
             {
                 // 返回空宝可梦还是一个null
-                return null;
+                return new GamePokemon();
             }
             GamePokemon gamePokemon = new(poke);
             gamePokemon.Gmax = gmax;
