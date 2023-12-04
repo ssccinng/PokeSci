@@ -28,7 +28,7 @@ namespace PokeCommon.Models
         /// <summary>
         /// 宝可梦元数据
         /// </summary>
-        public Pokemon MetaPokemon { get; set; }
+        public Pokemon? MetaPokemon { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
@@ -39,7 +39,7 @@ namespace PokeCommon.Models
         /// <summary>
         /// 携带道具
         /// </summary>
-        public Item Item
+        public Item? Item
         {
             get; set;
         }
@@ -53,14 +53,14 @@ namespace PokeCommon.Models
         /// <summary>
         /// 性格
         /// </summary>
-        public Nature Nature
+        public Nature? Nature
         {
             get; set;
         }
         /// <summary>
         /// 特性
         /// </summary>
-        public Ability Ability
+        public Ability? Ability
         {
             get; set;
         }
