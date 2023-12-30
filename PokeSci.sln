@@ -75,7 +75,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonIsshoni.ZQD.Shared",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeSee", "PokeSee\PokeSee.csproj", "{BA307E10-0D25-4DFE-8FC4-C96712BB9A41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseExport", "DatabaseExport\DatabaseExport.csproj", "{C56B5CF6-5387-4EB0-9238-A485B18B3281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseExport", "DatabaseExport\DatabaseExport.csproj", "{C56B5CF6-5387-4EB0-9238-A485B18B3281}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{666EF40E-5952-472E-AD6E-8984062BC579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPokemonHome", "TestPokemonHome\TestPokemonHome.csproj", "{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -721,9 +725,28 @@ Global
 		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|x64.Build.0 = Release|Any CPU
 		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|x86.ActiveCfg = Release|Any CPU
 		{C56B5CF6-5387-4EB0-9238-A485B18B3281}.Release|x86.Build.0 = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|arm64.Build.0 = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|x64.Build.0 = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Debug|x86.Build.0 = Debug|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|arm64.ActiveCfg = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|arm64.Build.0 = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|x64.ActiveCfg = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|x64.Build.0 = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|x86.ActiveCfg = Release|Any CPU
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{42144DB4-F6B0-404B-B6FE-7572C25BDBB6} = {666EF40E-5952-472E-AD6E-8984062BC579}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBFDCEAC-6E18-4868-89F1-4703F9485133}

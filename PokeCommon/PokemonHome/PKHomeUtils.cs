@@ -12,9 +12,9 @@ namespace PokeCommon.PokemonHome
 {
     public class PKHomeUtils
     {
-        public readonly string BundleUrl = "https://resource.pokemon-home.com/battledata/js/bundle.js";
-        public readonly string RankmatchApiUrl = "https://api.battle.pokemon-home.com/cbd/competition/rankmatch/list";
-        public readonly string RankmatchApiSVUrl = "https://api.battle.pokemon-home.com/tt/cbd/competition/rankmatch/list";
+        public static readonly string BundleUrl = "https://resource.pokemon-home.com/battledata/js/bundle.js";
+        public static readonly string RankmatchApiUrl = "https://api.battle.pokemon-home.com/cbd/competition/rankmatch/list";
+        public static readonly string RankmatchApiSVUrl = "https://api.battle.pokemon-home.com/tt/cbd/competition/rankmatch/list";
         public readonly string PDataUrl = "https://resource.pokemon-home.com/battledata/ranking/{0}/{1}/{2}/pdetail-{3}";
         //private string _trainerUrl = "https://resource.pokemon-home.com/battledata/ranking/{0}/{1}/{2}/traner-{3}";
         public readonly string TrainerUrl = "https://resource.pokemon-home.com/battledata/ranking/scvi/{0}/{1}/{2}/traner-{3}";
@@ -37,6 +37,11 @@ Accept-Encoding: gzip";
                 var data = item.Split(": ");
                 _httpClient.DefaultRequestHeaders.Add(data[0], data[1]);
             }
+        }
+
+        public async Task<byte[]> GetBundleAsync()
+        {
+            return await _httpClient.GetByteArrayAsync(BundleUrl);
         }
 
         public async Task<List<SVPokemonHomeSession>> GetSVPokemonHomeSessionsAsync()
