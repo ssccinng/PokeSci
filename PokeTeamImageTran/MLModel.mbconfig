@@ -1,0 +1,21 @@
+﻿{
+  "Scenario": "ImageClassification",
+  "DataSource": {
+    "Type": "Folder",
+    "Version": 1,
+    "FolderPath": "F:\\VSProject\\PokeSci\\PokeOCRSV\\bin\\Debug\\net7.0\\TeamDataTera\\TeraType"
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "Type": "TrainingConfig",
+  "Version": 4,
+  "TrainingOption": {
+    "Version": 2,
+    "Subsampling": false,
+    "Type": "ClassificationTrainingOption",
+    "TrainingTime": 2147483647,
+    "Seed": 0
+  }
+}

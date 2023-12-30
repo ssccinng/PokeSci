@@ -22,6 +22,7 @@ namespace PokeCommon.PokeMath
             dmg = (int)(dmg * eff.STAB);
             dmg = (int)(dmg * eff.Type);
             dmg = (int)(dmg * eff.Burn);
+            dmg = Math.Max(1, dmg);
             dmg = (int)(dmg * eff.Other);
             return dmg;
         }

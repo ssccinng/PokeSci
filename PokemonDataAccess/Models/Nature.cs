@@ -66,6 +66,9 @@ namespace PokemonDataAccess.Models
             get; set;
         }
 
+        [NotMapped]
+        public string FullNameChs => Stat_Up == null || Stat_Up.Id == Stat_Down.Id ? $"{Name_Chs}(无修正)" : $"{Name_Chs}(+{Stat_Up.Name_Chs} -{Stat_Down.Name_Chs})";
+
 
     }
 }

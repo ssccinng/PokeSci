@@ -1,5 +1,6 @@
 ﻿using PokeCommon.GameRule;
 using PokemonDataAccess.Models;
+using System.Text.Json.Serialization;
 
 namespace PokeCommon.Models
 {
@@ -8,8 +9,7 @@ namespace PokeCommon.Models
     /// </summary>
     public class GamePokemon
     {
-
-
+        public static GamePokemon Default() => new GamePokemon(new Pokemon { });
         public GamePokemon(Pokemon pokemon, EV eV = null, IV iV = null)
         {
             MetaPokemon = pokemon;
@@ -19,22 +19,27 @@ namespace PokeCommon.Models
 
         }
 
+        public GamePokemon()
+        {
+            
+        }
+
         // 需要内部获取一个计算接口
         /// <summary>
         /// 宝可梦元数据
         /// </summary>
-        public readonly Pokemon MetaPokemon;
+        public Pokemon? MetaPokemon { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
-        public string NickName
+        public string? NickName
         {
             get; set;
-        }
+        } = string.Empty;
         /// <summary>
         /// 携带道具
         /// </summary>
-        public Item Item
+        public Item? Item
         {
             get; set;
         }
@@ -48,14 +53,14 @@ namespace PokeCommon.Models
         /// <summary>
         /// 性格
         /// </summary>
-        public Nature Nature
+        public Nature? Nature
         {
             get; set;
         }
         /// <summary>
         /// 特性
         /// </summary>
-        public Ability Ability
+        public Ability? Ability
         {
             get; set;
         }
@@ -78,18 +83,20 @@ namespace PokeCommon.Models
         /// <summary>
         /// 努力值
         /// </summary>
-        public EV EVs { get; } = new EV(0);
+        public EV EVs { get; set; } = new EV(0);
         /// <summary>
         /// 个体值
         /// </summary>
-        public IV IVs { get; } = new IV(31);
+        public IV IVs { get; set; } = new IV(31);
+
+        [JsonIgnore]
         /// <summary>
         /// 能力值
         /// </summary>
         public SixDimension Stats
         {
             get; private set;
-        }
+        } = new(0);
 
         public Gender Gender { get; set; } = Gender.Random;
         public void UpdateStats()
@@ -117,7 +124,7 @@ namespace PokeCommon.Models
         /// </summary>
         public bool IsDead => NowHp <= 0;
 
-        public PokeType? TreaType { get; internal set; }
+        public PokeType? TreaType { get; set; }
 
         /// <summary>
         /// 回到最开始的状态

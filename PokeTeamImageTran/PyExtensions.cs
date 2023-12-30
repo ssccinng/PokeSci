@@ -30,7 +30,7 @@ public static class PyExtensions
     public static string VitPyScriptPath { get; } = "F:/VSProject/so-vits-svc/inference_main.py";
 #else
     public static string PyScriptPath { get; } = "/home/paddle/PaddleOCR/paddleocr.py";
-    public static string PythonPath { get; } = "/root/anaconda3/envs/PaddleOcr/bin/python3.10";
+    public static string PythonPath { get; } = "/root/anaconda3/envs/PaddleOCR/bin/python3.10";
 
     public static string VitPythonPath { get; } = "/root/anaconda3/envs/vit/bin/python3.10";
         public static string VitPyScriptPath { get; } = "/home/vit/so-vits-svc/inference_main.py";

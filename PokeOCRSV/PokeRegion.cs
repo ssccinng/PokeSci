@@ -39,6 +39,11 @@ internal class PokeRegion
     {
         get; set;
     } = new Rectangle(new Point(345, 0), new Size(200, 140));
+    public Rectangle RectangleTera
+    {
+        get; set;
+    } = new Rectangle(new Point(265, 0), new Size(30, 30));
+
     public PokeRegion(Point point)
     {
         BasePoint = point;

@@ -370,3 +370,5 @@ FodyWeavers.xsd
 /PokeTeamImageTran/TeamImage
 /PokeTeamImageTran/NovalImage
 *.db
+/PokemonIsshoni.ZQD
+/PokeTeamImageTran/MLModel.mlnet

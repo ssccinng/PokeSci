@@ -7,7 +7,7 @@ namespace PokeCommon.Models
     /// </summary>
     public class GameMove
     {
-        public readonly Move MetaMove;
+        public Move? MetaMove { get; set; }
         public int PPMax
         {
             get; set;
@@ -16,13 +16,18 @@ namespace PokeCommon.Models
         {
             get; set;
         }
-        public string NameChs => MetaMove.Name_Chs;
-        public string NameEng => MetaMove.Name_Eng;
-        public string NameJpn => MetaMove.Name_Jpn;
+        public string NameChs => MetaMove?.Name_Chs ?? "";
+        public string NameEng => MetaMove?.Name_Eng ?? "";
+        public string NameJpn => MetaMove?.Name_Jpn ?? "";
 
         public GameMove(Move move)
         {
             MetaMove = move;
+        }
+
+        public GameMove()
+        {
+            
         }
     }
 }

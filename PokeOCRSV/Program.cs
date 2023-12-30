@@ -8,12 +8,13 @@ using System.Text;
 
 string TeamId = "dataset";
 StringBuilder stringBuilder = new StringBuilder();
-goto py;
-if (!Directory.Exists($"TeamData/{TeamId}"))
+//goto py;
+if (!Directory.Exists($"TeamDataTera/{TeamId}"))
 {
-    Directory.CreateDirectory($"TeamData/{TeamId}");
+    Directory.CreateDirectory($"TeamDataTera/{TeamId}");
 }
-var files = Directory.GetFiles("TeamImg");
+//var files = Directory.GetFiles("TeamImg");
+var files = Directory.GetFiles("TeamBug");
 int idx = 1;
 
 files.OrderBy(s => int.Parse(s.Split("\\").Last().Split(".")[0]));
@@ -51,29 +52,32 @@ foreach (var file in files)
         var abitmap = CropImage(bitmap, new Rectangle(pokeRegions[i].BasePoint, new Size(pokeRegions[i].Width, pokeRegions[i].Height)));
         var movemap = CropImage(abitmap, pokeRegions[i].RectangleMove);
 
-        for (int ji = 0; ji < 4; ji++)
-        {
-            //CropImage(movemap, new Rectangle(new Point(0, ji * 140 / 4), new Size(200, 140/4))).Save($"TeamData/{TeamId}/test{i}_move{ji}.jpg");
-            var ad = CropImage(movemap, new Rectangle(new Point(0, ji * 140 / 4), new Size(200, 140 / 4)));
-            ad.Save($"TeamData/{TeamId}/{idx++:00000}.jpg");
-        }
-        var namemap = CropImage(abitmap, pokeRegions[i].Name);
-        var itemmap = CropImage(abitmap, pokeRegions[i].Item);
-        var abilmap = CropImage(abitmap, pokeRegions[i].Ability);
+        //for (int ji = 0; ji < 4; ji++)
+        //{
+        //    //CropImage(movemap, new Rectangle(new Point(0, ji * 140 / 4), new Size(200, 140/4))).Save($"TeamData/{TeamId}/test{i}_move{ji}.jpg");
+        //    var ad = CropImage(movemap, new Rectangle(new Point(0, ji * 140 / 4), new Size(200, 140 / 4)));
+        //    ad.Save($"TeamDataTera/{TeamId}/{idx++:00000}.jpg");
+        //}
+        var namemap = CropImage(abitmap, pokeRegions[i].RectangleTera);
+        //var itemmap = CropImage(abitmap, pokeRegions[i].Item);
+        //var abilmap = CropImage(abitmap, pokeRegions[i].Ability);
         //abitmap.Save($"TeamData/{TeamId}/test{i}.jpg");
         //movemap.Save($"TeamData/{TeamId}/test{i}_move.jpg");
         //namemap.Save($"TeamData/{TeamId}/test{i}_name.jpg");
         //itemmap.Save($"TeamData/{TeamId}/test{i}_item.jpg");
         //abilmap.Save($"TeamData/{TeamId}/test{i}_abil.jpg");
 
-        namemap.Save($"TeamData/{TeamId}/{idx++:00000}.jpg"); ;
-        itemmap.Save($"TeamData/{TeamId}/{idx++:00000}.jpg"); ;
-        abilmap.Save($"TeamData/{TeamId}/{idx++:00000}.jpg"); ;
+        namemap.Save($"TeamDataTera/{TeamId}/{idx++:00000}.jpg"); ;
+        //itemmap.Save($"TeamData/{TeamId}/{idx++:00000}.jpg"); ;
+        //abilmap.Save($"TeamData/{TeamId}/{idx++:00000}.jpg"); ;
 
         //return;
     }
 
 }
+
+
+return;
 // 这里要生成数据
 //return;
 //if (!Directory.Exists("dataset"))
