@@ -7,11 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\Abilities.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PokemonDataAccess\PokemonDataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\SV" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\**">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

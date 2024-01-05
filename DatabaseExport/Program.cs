@@ -3,8 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System;
 using System.Text.Json;
+using PokeCommon.API.Data;
 
-PokemonDataAccess.PokemonContext pokemonContext = new PokemonDataAccess.PokemonContext();
+var pokemonContext = new PokeDBContext();
+
+var cc1 = pokemonContext.Pokemons
+    .Include(s => s.Ability1)
+    .Include(s=>s.Ability2)
+    .Include(s=>s.AbilityH)
+    .Include(s=>s.Type1)
+    .Include(s=>s.Type2)
+    .ToList();
+File.WriteAllText("Pokemons.json", JsonSerializer.Serialize(cc1));
+return;
 
 var prop = pokemonContext.GetType().GetProperties();
 
