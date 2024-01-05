@@ -372,3 +372,4 @@ FodyWeavers.xsd
 *.db
 /PokemonIsshoni.ZQD
 /PokeTeamImageTran/MLModel.mlnet
+/DatabaseExport/Data/PokeDBContext.cs
