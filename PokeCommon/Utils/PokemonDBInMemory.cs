@@ -14,6 +14,7 @@ namespace PokeCommon.Utils
         public static IQueryable<Pokemon> Pokemons = LoadResourceToString<IEnumerable<Pokemon>>("Data.Pokemons.json").AsQueryable();
         public static List<PokeType> Types = LoadResourceToString<List<PokeType>>("Data.PokeTypes.json");
         public static List<Ability> Abilities = LoadResourceToString<List<Ability>>("Data.Abilities.json");
+        public static List<Move> Moves = LoadResourceToString<List<Move>>("Data.Moves.json");
 
 
         static T LoadResourceToString<T>(string path)
