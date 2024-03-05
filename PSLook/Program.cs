@@ -7,6 +7,7 @@ using Mirai.Net.Sessions.Http.Managers;
 using Masuda.Net;
 using static System.Formats.Asn1.AsnWriter;
 using System.Text.RegularExpressions;
+using Masuda.Net.HelpMessage;
 
 BotSetting BotSetting = new BotSetting
 {
@@ -23,14 +24,14 @@ BotSetting BotSetting = new BotSetting
 MasudaBot MasudaBot
     = new MasudaBot(BotSetting).LogTo(Console.WriteLine);
 //using System.Text.Json.;
-var miraiBot = new MiraiBot
-{
-    Address = "127.0.0.1:8080",
-    //Address = "43.154.235.6:8080",
-    QQ = "3084029286",
-    VerifyKey = "INITKEYmpZ1FAXk",
-};
-await miraiBot.LaunchAsync();
+//var miraiBot = new MiraiBot
+//{
+//    Address = "127.0.0.1:8080",
+//    //Address = "43.154.235.6:8080",
+//    QQ = "3084029286",
+//    VerifyKey = "INITKEYmpZ1FAXk",
+//};
+//await miraiBot.LaunchAsync();
 
 PokePSCore.PSClient pSClient = new("testttt", "");
 await pSClient.ConnectAsync();
@@ -93,8 +94,18 @@ HashSet<string> IdCheck = new HashSet<string>
 //"paquiav", "dondopon",    "venyballester","kanchomesama",
 //"marianocuesta21", "nutria420"
 
-    "aurarayquaza","140like","smolivbread","bwenty","shimikyu","bongoblossom","popeofvgc","mishmishmoshmosh","jonotv","dokiogi","boyt","Kyriakou","calvonix","Cool Friend Jamie","DavidPartVGC","Benster"
+    //"aurarayquaza","140like","smolivbread","bwenty","shimikyu","bongoblossom","popeofvgc","mishmishmoshmosh","jonotv","dokiogi","boyt","Kyriakou","calvonix","Cool Friend Jamie","DavidPartVGC","Benster"
+    //"flyingfalcons7", "PresentLP", "bigmansweep", "Val16", "JMOdri", "Sohaib", "incinsbackbaby", "dunklergeorg", "mind gaming", "Tony", "shitteronladder","rockerpon","lionladderer","soulsur","ctscheeser","throatgoatgary","zephcrustyundrwear","throatgoatgarry","mausholddeeznuts","gokuvegetafeetpics"
 
+   "zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
+    "cressbearfront", "kingambitlove", "dimsun", "increaserank", "basin6", "amoongusslove", "gholdengotobed",
+    "glimmoron", "yotamvgc", "heatranlove", "aspiringshadow", "broldengo", "choirss", "dafungusamongus",
+    "ogerponlove", "darksonic246", "notonlineyet", "dimusn", "gholdengolove", "dondozogaming", "seaofmoons",
+    "yotam", "crowntown", "volclove", "perishlove", "urshifulove", "tceremony", "ogerponandchill",
+    "darkurshifulove", "altoclefairy", "ironboomer", "gungiimaster", "zoan1p",
+    "youwilllosevgc", "ibreakamish", "wolfeyvgctest", "estrogenrelapse", "mdragonvgc", "z0mog",
+    "fricksauce", "44angelz", "bruhverlyhills", "sleighballs", "miamor2002", "robinshou",
+    "trillioneconomy", "wolfeyvgcactual"
     //"terabolin",
     //"Lordoki",
     //"Cykomore",
@@ -135,12 +146,12 @@ pSClient.UserDetailsAction += async (msg) =>
     {
         foreach (var room in rooms.EnumerateObject())
         {
-            if (room.Name.Contains("battle") && !Keys.Contains(room.Name))
+            if ((room.Name.Contains("battle") || room.Name.Contains("game")) && !Keys.Contains(room.Name))
             {
                 Console.WriteLine(room.Name);
                 Keys.Add(room.Name);
                 //await MessageManager.SendGroupMessageAsync("812028610", $"{id}正在房间{room.Name}中！");
-                await MessageManager.SendFriendMessageAsync("516408513", $"{id}正在房间{room.Name}中！");
+                //await MessageManager.SendFriendMessageAsync("516408513", $"{id}正在房间{room.Name}中！");
                 await MasudaBot.SendMessageAsync(sjb, $"{id}正在房间{room.Name}中！");
 
 
@@ -148,7 +159,7 @@ pSClient.UserDetailsAction += async (msg) =>
         }
 
         var rankData = await pSClient.GetRankAsync(id);
-        var ss = rankData.Where(s => s.FormatId.Contains("gen9vgc2023"));
+        var ss = rankData.Where(s => s.FormatId.Contains("gen9"));
         Console.WriteLine(ss.Count());
         //string score = ?.ELO ?? "0";
         // 在线
@@ -180,8 +191,9 @@ pSClient.UserDetailsAction += async (msg) =>
                     if (score != keys[id][s.FormatId])
                     {
                         //await MessageManager.SendGroupMessageAsync("812028610", $"{id} {s.FormatId} 分数变化！{keys[id]} -> {score}");
-                        await MessageManager.SendFriendMessageAsync("516408513", $"{id} {s.FormatId} 分数变化！{keys[id][s.FormatId]} -> {score}");
+                        //await MessageManager.SendFriendMessageAsync("516408513", $"{id} {s.FormatId} 分数变化！{keys[id][s.FormatId]} -> {score}");
                         await MasudaBot.SendMessageAsync(sjb, $"{id} {s.FormatId} 分数变化！{keys[id][s.FormatId]} -> {score}");
+                        await MasudaBot.SendMessageAsync(sjb, new PlainMessage($"{id} {s.FormatId} 分数变化！{keys[id][s.FormatId]} -> {score}"), new ImageMessage("asdad"));
 
                         await Console.Out.WriteLineAsync("分数变化");
                         keys[id][s.FormatId] = score;
@@ -194,7 +206,7 @@ pSClient.UserDetailsAction += async (msg) =>
                 ids.Add(userid);
                 IdCheck.Add(userid);
                 //await MessageManager.SendGroupMessageAsync("812028610", $"{id} id变化！{id} -> {userid}");
-                await MessageManager.SendFriendMessageAsync("516408513", $"{id} id变化！{id} -> {userid}");
+                //await MessageManager.SendFriendMessageAsync("516408513", $"{id} id变化！{id} -> {userid}");
 
                 await MasudaBot.SendMessageAsync(sjb, $"{id} id变化！{id} -> {userid}");
 
