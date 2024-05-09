@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PokeCommon.Models;
+using PokeCommon.Utils;
+using PokemonDataAccess.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -84,6 +87,51 @@ namespace RK9Tool
         //              </div>                          #结束标记“</div>”", RegexOptions.IgnoreCase)]
         //[GeneratedRegex(@"(((?'Open'<div>)[^(<div>|</div>)]*)+((?'Close-Open'\</div>)[^(<div>|</div>)]*)+)*(?(Open)(?!))", RegexOptions.IgnoreCase)]
         public static partial Regex GetDiv();
+        [GeneratedRegex(@"(?isx)                      #匹配模式，忽略大小写，“.”匹配任意字符
+
+                      <div[^>]*id=""lang-SC"">                      #开始标记“<div...>”
+
+                          ((?>                         #分组构造，用来限定量词“*”修饰范围
+
+                              <div[^>]*>  (?<Open>)   #命名捕获组，遇到开始标记，入栈，Open计数加1
+
+                          |                           #分支结构
+
+                              </div>  (?<-Open>)      #狭义平衡组，遇到结束标记，出栈，Open计数减1
+
+                          |                           #分支结构
+
+                              (?:(?!</?div\b).)*      #右侧不为开始或结束标记的任意字符
+
+                          )*                          #以上子串出现0次或任意多次
+
+                          (?(Open)(?!)))               #判断是否还有'OPEN'，有则说明不配对，什么都不匹配
+
+                      </div>                          #结束标记“</div>”", RegexOptions.IgnoreCase)]
+        private static partial Regex GetTeamDiv();
+
+        [GeneratedRegex(@"(?isx)                      #匹配模式，忽略大小写，“.”匹配任意字符
+
+                      <div class=""pokemon [^>]*>                      #开始标记“<div...>”
+
+                          ((?>                         #分组构造，用来限定量词“*”修饰范围
+
+                              <div[^>]*>  (?<Open>)   #命名捕获组，遇到开始标记，入栈，Open计数加1
+
+                          |                           #分支结构
+
+                              </div>  (?<-Open>)      #狭义平衡组，遇到结束标记，出栈，Open计数减1
+
+                          |                           #分支结构
+
+                              (?:(?!</?div\b).)*      #右侧不为开始或结束标记的任意字符
+
+                          )*                          #以上子串出现0次或任意多次
+
+                          (?(Open)(?!)))               #判断是否还有'OPEN'，有则说明不配对，什么都不匹配
+
+                      </div>                          #结束标记“</div>”", RegexOptions.IgnoreCase)]
+        private static partial Regex GetPokeDiv ();
 
 
         private static HttpClient _client = GetClient();
@@ -93,6 +141,8 @@ namespace RK9Tool
         static string _rosterUrl = "/roster";
         static string _pairingsUrl = "/pairings";
         //static string _eventListUrl = "https://rk9.gg/events/pokemon";
+
+        
 
         public static async Task<List<PokemonEvent>> GetEvents()
         {
@@ -327,6 +377,66 @@ namespace RK9Tool
             }
             return matchPairings;
 
+        }
+        static Pokemon[] pokemons = PokemonTools.PokemonContext.Pokemons.ToArray();
+        public static async Task<GamePokemonTeam> GetPokemonTeamAsync(string url)
+        {
+            HttpResponseMessage response = await _client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                string html = await response.Content.ReadAsStringAsync();
+                var match = GetTeamDiv().Match(html);
+                if (match.Success)
+                {
+                    GamePokemonTeam gamePokemonTeam = new();
+                    var pokes = GetDiv().Matches(match.Groups[1].Value);
+
+                    if (pokes.Count == 1)
+                    {
+                        pokes = GetDiv().Matches(pokes[0].Groups[1].Value);
+                    }
+
+                    for (int i = 0; i < pokes.Count; i++)
+                    {
+                        var poke = pokes[i].Groups[1].Value;
+                        var img = GetImg().Match(poke).Groups[1].Value;
+                        var pokeimgName = img.Split('/').Last().Split('.')[0];
+
+                        var pokeid = int.Parse(pokeimgName.Split('_')[0]);
+                        var pokeFormid = int.Parse(pokeimgName.Split('_')[1]);
+
+                        GamePokemon gamePokemon = new(pokemons.FirstOrDefault(s => s.DexId == pokeid && s.PokeFormId == pokeFormid));
+
+                        var matchPokeText = GetTexts().Matches(poke);
+
+
+                        var texts = matchPokeText.Select(s => s.Groups[1].Value.Replace("&nbsp;", "").Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList();
+
+                        if (texts.Count < 8)
+                        {
+                            continue;
+                        }   
+
+                        gamePokemon.TreaType = await PokemonTools.GetTypeAsync(texts[3]);
+                        gamePokemon.Ability = await PokemonTools.GetAbilityAsync(texts[5]);
+                        gamePokemon.Item = await PokemonTools.GetItemAsync(texts[7]);
+
+                        for (int m = 8; m < texts.Count; m++)
+                        {
+                            gamePokemon.Moves.Add(new GameMove(await PokemonTools.GetMoveAsync(texts[m])));
+                            
+                        }
+
+
+                        gamePokemonTeam.GamePokemons.Add(gamePokemon);
+
+                    }
+
+                    return gamePokemonTeam;
+
+                }
+            }
+            return null;
         }
 
         public static HttpClient GetClient()
