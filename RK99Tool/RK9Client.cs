@@ -34,9 +34,54 @@ namespace RK9Tool
         [GeneratedRegex(@"<img src=""(.+?)"".*?>", RegexOptions.IgnoreCase)]
         public static partial Regex GetImg();
 
+        [GeneratedRegex(@">([^<]+?)<", RegexOptions.IgnoreCase)]
+        public static partial Regex GetTexts();
+
         //[GeneratedRegex(@"<div\b[^>]*>([\s\S]*?((?:(?!</?div\b).)*?)*?)</div>", RegexOptions.IgnoreCase)]
         //[GeneratedRegex(@"<div\b[^>]*>([\s\S]*?((?:(?!</?div\b).)*?)*?)</div>", RegexOptions.IgnoreCase)]
-        [GeneratedRegex(@"<div[^\)]*>[^\(\)]*(((?'Open'<div[^\)]*>)[^\(\)]*)+((?'-Open'</div>)[^\(\)]*)+)*(?(Open)(?!))</div>", RegexOptions.IgnoreCase)]
+        //[GeneratedRegex(@"<div[^\)]*>[^\(\)]*(((?'Open'<div[^\)]*>)[^\(\)]*)+((?'-Open'</div>)[^\(\)]*)+)*(?(Open)(?!))</div>", RegexOptions.IgnoreCase)]
+        [GeneratedRegex(@"(?isx)                      #匹配模式，忽略大小写，“.”匹配任意字符
+
+                      <div[^>]*>                      #开始标记“<div...>”
+
+                          ((?>                         #分组构造，用来限定量词“*”修饰范围
+
+                              <div[^>]*>  (?<Open>)   #命名捕获组，遇到开始标记，入栈，Open计数加1
+
+                          |                           #分支结构
+
+                              </div>  (?<-Open>)      #狭义平衡组，遇到结束标记，出栈，Open计数减1
+
+                          |                           #分支结构
+
+                              (?:(?!</?div\b).)*      #右侧不为开始或结束标记的任意字符
+
+                          )*                          #以上子串出现0次或任意多次
+
+                          (?(Open)(?!)))               #判断是否还有'OPEN'，有则说明不配对，什么都不匹配
+
+                      </div>                          #结束标记“</div>”", RegexOptions.IgnoreCase)]
+        //[GeneratedRegex(@"(?isx)                      #匹配模式，忽略大小写，“.”匹配任意字符
+
+        //              <div[^>]*>                      #开始标记“<div...>”
+
+        //                  (?>                         #分组构造，用来限定量词“*”修饰范围
+
+        //                      <div[^>]*>  (?<Open>)   #命名捕获组，遇到开始标记，入栈，Open计数加1
+
+        //                  |                           #分支结构
+
+        //                      </div>  (?<-Open>)      #狭义平衡组，遇到结束标记，出栈，Open计数减1
+
+        //                  |                           #分支结构
+
+        //                      (?:(?!</?div\b).)*      #右侧不为开始或结束标记的任意字符
+
+        //                  )*                          #以上子串出现0次或任意多次
+
+        //                  (?(Open)(?!))               #判断是否还有'OPEN'，有则说明不配对，什么都不匹配
+
+        //              </div>                          #结束标记“</div>”", RegexOptions.IgnoreCase)]
         //[GeneratedRegex(@"(((?'Open'<div>)[^(<div>|</div>)]*)+((?'Close-Open'\</div>)[^(<div>|</div>)]*)+)*(?(Open)(?!))", RegexOptions.IgnoreCase)]
         public static partial Regex GetDiv();
 
@@ -186,11 +231,13 @@ namespace RK9Tool
 
             for (int pod = 0; pod < 3; ++pod)
             {
+                var matchPairing = new MatchPairing() { Division = pod };
+
                 int rnd = 1;
                 while (true)
                 {
                     HttpResponseMessage response = await _client.GetAsync($"{_pairingsUrl}/{id}?pod={pod}&rnd={rnd}");
-
+                    
                     if (response.IsSuccessStatusCode)
                     {
                         string html = await response.Content.ReadAsStringAsync();
@@ -200,35 +247,71 @@ namespace RK9Tool
                         }
                         var match = GetDiv().Matches(html);
 
+                        PairingRound pairingRound = new PairingRound() { Round = rnd };
+
                         for (int i = 0; i < match.Count; i++)
                         {
-                            var div = match[i].Groups[0].Value;
-                            var matchPairing = new MatchPairing();
-                            var trs = GetTr().Matches(div);
-                            if (trs.Count < 2)
-                            {
-                                continue;
-                            }
-                            var tds = GetTd().Matches(trs[0].Groups[1].Value);
-                            if (tds.Count < 3)
-                            {
-                                continue;
-                            }
-                            matchPairing.Table = int.Parse(tds[0].Groups[1].Value);
-                            matchPairing.Player1Name = tds[1].Groups[1].Value;
-                            matchPairing.Player2Name = tds[2].Groups[1].Value;
+                            PairingTable pairingTable = new() { };
 
-                            tds = GetTd().Matches(trs[1].Groups[1].Value);
-                            if (tds.Count < 3)
+                            var div = match[i].Groups[1].Value;
+
+                            var matchDivs = GetDiv().Matches(div);
+
+                            if (matchDivs.Count < 3)
                             {
                                 continue;
                             }
-                            matchPairing.Player1Score = tds[1].Groups[1].Value;
-                            matchPairing.Player2Score = tds[2].Groups[1].Value;
+                            var row = matchDivs[0].Groups[1].Value;
+                            var texts = GetTexts().Matches(row);
+                            
+                            if (texts.Count == 3)
+                            {
+                                var name1 = texts[0].Groups[1].Value;
+                                var name2andCountry = texts[1].Groups[1].Value;
+                                var name = $"{name1}{name2andCountry.Split('[')[0]}";
+                                //Console.WriteLine(name2andCountry);
+                                var country = name2andCountry.Contains("[") ? name2andCountry.Split('[')[1].Split(']')[0] : string.Empty;
+                                pairingTable.Player1Name = name.Trim();
+                                pairingTable.Player1Country = country.Trim();
+                                pairingTable.Player1Score = texts[2].Groups[1].Value.Trim();
+                                if (matchDivs[0].Groups[0].Value.Contains("winner"))
+                                {
+                                    pairingTable.Player1Win = true;
+                                }
+                            }
+                           
 
-                            matchPairings.Add(matchPairing);
+                            row = matchDivs[2].Groups[1].Value;
+                            texts = GetTexts().Matches(row);
+                            if (texts.Count == 3)
+                            {
+                                var name1 = texts[0].Groups[1].Value;
+                                var name2andCountry = texts[1].Groups[1].Value;
+                                var name = $"{name1}{name2andCountry.Split('[')[0]}";
+                                var country = name2andCountry.Contains("[") ? name2andCountry.Split('[')[1].Split(']')[0] : string.Empty;
+
+                                pairingTable.Player2Name = name.Trim();
+                                pairingTable.Player2Country = country.Trim();
+                                pairingTable.Player2Score = texts[2].Groups[1].Value.Trim();
+                                if (matchDivs[2].Groups[0].Value.Contains("winner"))
+                                {
+                                    pairingTable.Player2Win = true;
+                                }
+                            }
+
+                            row = matchDivs[1].Groups[1].Value;
+                            texts = GetTexts().Matches(row);
+                            if (texts.Count == 1)
+                            {
+
+                                pairingTable.Table = int.Parse(texts[0].Groups[1].Value);
+                            }
+
+                            pairingRound.Pairings.Add(pairingTable);
+
                         }
 
+                        matchPairing.PairingRounds.Add(pairingRound);
                         
                         
                     }
@@ -238,6 +321,8 @@ namespace RK9Tool
                     }
                     rnd++;
                 }
+                matchPairings.Add(matchPairing);
+
 
             }
             return matchPairings;
