@@ -194,7 +194,7 @@ Accept-Encoding: gzip";
 
             }
 
-
+               
             for (int i = 0; i < dex.Count - 1; i++)
             {
                 Console.WriteLine(i);
