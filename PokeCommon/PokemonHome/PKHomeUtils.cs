@@ -4,14 +4,25 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http.Json;
+using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PokeCommon.PokemonHome
 {
     public class PKHomeUtils
     {
+
+        private string[] lang_suffix = new string[] { "ja", "us", "fr", "it", "de", "es", "ko", "sc", "tc" };
+
+        string formjson = "https://resource.pokemon-home.com/battledata/json/zkn_form_{0}.json";
+        string tokuseijson = "https://resource.pokemon-home.com/battledata/json/tokuseiinfo_{0}.json";
+        string itemjson = "https://resource.pokemon-home.com/battledata/json/iteminfo_{0}.json";
+        string itemnamejson = "https://resource.pokemon-home.com/battledata/json/itemname_{0}.json";
+        string wazainfojson = "https://resource.pokemon-home.com/battledata/json/wazainfo_{0}.json";
+
         public static readonly string BundleUrl = "https://resource.pokemon-home.com/battledata/js/bundle.js";
         public static readonly string RankmatchApiUrl = "https://api.battle.pokemon-home.com/cbd/competition/rankmatch/list";
         public static readonly string RankmatchApiSVUrl = "https://api.battle.pokemon-home.com/tt/cbd/competition/rankmatch/list";
@@ -29,6 +40,8 @@ Accept-Encoding: gzip";
         //Accept-Encoding: gzip,deflate";
 
         private HttpClient _httpClient = new();
+
+        private Regex _getDex = new Regex(@"this.dex=(((?'Open'\{)[^\{\}]*)+((?'Close-Open'\})[^\{\}]*)+)*(?(Open)(?!))");
 
         public PKHomeUtils()
         {
@@ -62,6 +75,162 @@ Accept-Encoding: gzip";
             }
             return resp;
         }
+        string[] GetPoke(string str)
+        {
+            var regex = new Regex(@"poke:(\[(.*?)\])");
+            var match = regex.Match(str);
+            var result = match.Groups[1].Value.Replace("[", "").Replace("]", "").Replace("\"", "").Split(",");
+            return result;
+        }
+
+        string[] GetPokeType(string str)
+        {
+            var regex = new Regex(@"pokeType:(\[(.*?)\])");
+            var match = regex.Match(str);
+            var result = match.Groups[1].Value.Replace("[", "").Replace("]", "").Split(",");
+            return result;
+        }
+
+        string[] GetWaza(string str)
+        {
+            var regex = new Regex(@"waza:(\{([\s\S\n]*?)\})");
+            var regex1 = new Regex(@"\d:""(.+?)""");
+            var match = regex.Match(str);
+            // System.Console.WriteLine(match.Groups[1].Value);
+            //var result = match.Groups[1].Value.Replace("{", "").Replace("}", "").Trim().Split(",").Select(s => { return s.Split(":")[1]; }).ToArray();
+            var result = regex1.Matches(match.Groups[1].Value).Select(s => { return s.Groups[1].Value; }).ToArray();
+            return result;
+        }
+
+        string[] GetTokusei(string str)
+        {
+            var regex = new Regex(@"tokusei:(\{([\s\S\n]*?)\})");
+            var regex1 = new Regex(@"\d:""(.+?)""");
+
+            var match = regex.Match(str);
+            // System.Console.WriteLine(match.Groups[1].Value);
+            //var result = match.Groups[1].Value.Replace("{", "").Replace("}", "").Trim().Split(",").Select(s => { return s.Split(":")[1]; }).ToArray();
+            var result = regex1.Matches(match.Groups[1].Value).Select(s => { return s.Groups[1].Value; }).ToArray();
+
+            return result;
+        }
+
+        string[] GetSeikaku(string str)
+        {
+            var regex = new Regex(@"seikaku:(\{([\s\S\n]*?)\})");
+            var match = regex.Match(str);
+            // System.Console.WriteLine(match.Groups[1].Value);
+            var result = match.Groups[1].Value.Replace("{", "").Replace("}", "").Trim().Split(",").Select(s => { return s.Split(":")[1]; }).ToArray();
+            return result;
+        }
+
+
+
+        public async Task UpdateAll()
+        {
+            // 访问bundle并更新译名数据
+
+            string bundles = await _httpClient.GetStringAsync(BundleUrl);
+
+            // 此为获取不同语言的数据
+            var dex = _getDex.Matches(bundles);
+            List<PokeModel> pokeModels = new();
+            List<PokeModel> itemModels = new();
+            List<PokeModel> wazaModels = new();
+            List<PokeModel> tokuseiModels = new();
+            for (int i = 0; i <= 3000; i++)
+            {
+
+                pokeModels.Add(new PokeModel { Id = i });
+                itemModels.Add(new PokeModel { Id = i });
+                wazaModels.Add(new PokeModel { Id = i });
+                tokuseiModels.Add(new PokeModel { Id = i });
+            }
+
+            if (!Directory.Exists("homedata"))
+            {
+                Directory.CreateDirectory("homedata");
+            }
+            File.WriteAllText("homedata/bundle.js", bundles);
+
+            if (!Directory.Exists("homedata/wazainfo"))
+            {
+                Directory.CreateDirectory("homedata/wazainfo");
+            }
+            if (!Directory.Exists("homedata/iteminfo"))
+            {
+                Directory.CreateDirectory("homedata/iteminfo");
+            }
+            if (!Directory.Exists("homedata/itemname"))
+            {
+                Directory.CreateDirectory("homedata/itemname");
+            }
+            if (!Directory.Exists("homedata/tokuseiinfo"))
+            {
+                Directory.CreateDirectory("homedata/tokuseiinfo");
+            }
+            if (!Directory.Exists("homedata/zkn_form"))
+            {
+                Directory.CreateDirectory("homedata/zkn_form");
+            }
+
+
+            for (int i = 0; i < 9; i++)
+            {
+                File.WriteAllText($"homedata/zkn_form/{Path.GetFileName(string.Format(formjson, lang_suffix[i]))}", await _httpClient.GetStringAsync(string.Format(formjson, lang_suffix[i])));
+                File.WriteAllText($"homedata/tokuseiinfo/{Path.GetFileName(string.Format(tokuseijson, lang_suffix[i]))}", await _httpClient.GetStringAsync(string.Format(tokuseijson, lang_suffix[i])));
+                File.WriteAllText($"homedata/iteminfo/{Path.GetFileName(string.Format(itemjson, lang_suffix[i]))}", await _httpClient.GetStringAsync(string.Format(itemjson, lang_suffix[i])));
+                string itemnames = await _httpClient.GetStringAsync(string.Format(itemnamejson, lang_suffix[i]));
+                File.WriteAllText($"homedata/itemname/{Path.GetFileName(string.Format(itemnamejson, lang_suffix[i]))}", itemnames);
+                File.WriteAllText($"homedata/wazainfo/{Path.GetFileName(string.Format(wazainfojson, lang_suffix[i]))}", await _httpClient.GetStringAsync(string.Format(wazainfojson, lang_suffix[i])));
+
+                var itemnameArray = Regex.Matches(itemnames, @"""\d+?"": ""(.+?)""");
+
+                for (int j = 0; j < itemnameArray.Count; j++)
+                {
+                    itemModels[j + 1][i] = itemnameArray[j].Groups[1].Value;
+                }
+
+
+            }
+
+
+            for (int i = 0; i < dex.Count - 1; i++)
+            {
+                Console.WriteLine(i);
+                var ss = dex[i].Value.ToString();
+                var GetPokess = GetPoke(ss);
+                var GetTokuseis = GetTokusei(ss);
+                var GetWazas = GetWaza(ss);
+
+                for (int j = 0; j < GetPokess.Length; j++)
+                {
+                    pokeModels[j + 1][i] = GetPokess[j];
+                }
+
+                for (int j = 0; j < GetTokuseis.Length; j++)
+                {
+                    tokuseiModels[j + 1][i] = GetTokuseis[j];
+                }
+
+                for (int j = 0; j < GetWazas.Length; j++)
+                {
+                    wazaModels[j + 1][i] = GetWazas[j];
+                }
+            }
+
+                JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+            File.WriteAllText($"homedata/pokenameall.json", JsonSerializer.Serialize(pokeModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
+            File.WriteAllText($"homedata/itemnameall.json", JsonSerializer.Serialize(itemModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
+            File.WriteAllText($"homedata/wazanameall.json", JsonSerializer.Serialize(wazaModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
+            File.WriteAllText($"homedata/tokuseinameall.json", JsonSerializer.Serialize(tokuseiModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
+
+
+        }
+
 
         public async Task<List<SVPokemonHomeTrainerRankData>> GetSVTrainerDataAsync(string sessionId, int rst, int ts1, int page = 1)
         {

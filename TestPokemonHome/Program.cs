@@ -5,6 +5,9 @@ Console.WriteLine("Hello, World!");
 
 
 PKHomeUtils pKHomeUtils = new PKHomeUtils();
-var aa = await pKHomeUtils.GetBundleAsync();
 
-File.WriteAllBytes("dani.js", aa);
+await pKHomeUtils.UpdateAll();
+return;
+//var aa = await pKHomeUtils.GetBundleAsync();
+
+//File.WriteAllBytes("dani.js", aa);

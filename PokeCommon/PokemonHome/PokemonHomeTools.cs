@@ -22,6 +22,13 @@ namespace PokeCommon.PokemonHome
         public List<SVPokemonHomeTrainerRankData> SVPokemonHomeLastTrainerRankDatas = new();
 
         private Timer _timer;
+        private string[] lang_suffix = new string[] { "ja", "us", "fr", "it", "de", "es", "ko", "sc", "tc" };
+
+        string formjson = "https://resource.pokemon-home.com/battledata/json/zkn_form_{0}.json";
+        string tokuseijson = "https://resource.pokemon-home.com/battledata/json/tokuseiinfo_{0}.json";
+        string itemjson = "https://resource.pokemon-home.com/battledata/json/iteminfo_{0}.json";
+        string itemnamejson = "https://resource.pokemon-home.com/battledata/json/itemname_{0}.json";
+        string wazainfojson = "https://resource.pokemon-home.com/battledata/json/wazainfo_{0}.json";
 
         private string _bundleUrl = "https://resource.pokemon-home.com/battledata/js/bundle.js";
         private string _rankmatchApiUrl = "https://api.battle.pokemon-home.com/cbd/competition/rankmatch/list";
@@ -61,6 +68,44 @@ Accept-Encoding: gzip";
             }
 
         }
+
+        public async Task UpdateAll()
+        {
+            // 访问bundle并更新译名数据
+
+            File.WriteAllText("bundle.js", await _httpClient.GetStringAsync(_bundleUrl));
+            if (!Directory.Exists("wazainfo"))
+            {
+                Directory.CreateDirectory("wazainfo");
+            }
+            if (!Directory.Exists("iteminfo"))
+            {
+                Directory.CreateDirectory("iteminfo");
+            }
+            if (!Directory.Exists("itemname"))
+            {
+                Directory.CreateDirectory("itemname");
+            }
+            if (!Directory.Exists("tokuseiinfo"))
+            {
+                Directory.CreateDirectory("tokuseiinfo");
+            }
+            if (!Directory.Exists("zkn_form"))
+            {
+                Directory.CreateDirectory("zkn_form");
+            }
+            for (int i = 0; i < 9; i++)
+            {
+                File.WriteAllText($"zkn_form/{string.Format(formjson, lang_suffix[i])}", await _httpClient.GetStringAsync(string.Format(formjson, lang_suffix[i])));
+                File.WriteAllText($"tokuseiinfo/{string.Format(tokuseijson, lang_suffix[i])}", await _httpClient.GetStringAsync(string.Format(tokuseijson, lang_suffix[i])));
+                File.WriteAllText($"iteminfo/{string.Format(itemjson, lang_suffix[i])}", await _httpClient.GetStringAsync(string.Format(itemjson, lang_suffix[i])));
+                File.WriteAllText($"itemname/{string.Format(itemnamejson, lang_suffix[i])}", await _httpClient.GetStringAsync(string.Format(itemnamejson, lang_suffix[i])));
+                File.WriteAllText($"wazainfo/{string.Format(wazainfojson, lang_suffix[i])}", await _httpClient.GetStringAsync(string.Format(wazainfojson, lang_suffix[i])));
+              
+            }
+            
+        }
+
 
         public void UpdateBundle()
         {
