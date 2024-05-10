@@ -4,9 +4,8 @@ using PokeCommon.PokemonHome;
 Console.WriteLine("Hello, World!");
 
 
-PKHomeUtils pKHomeUtils = new PKHomeUtils();
 
-await pKHomeUtils.UpdateAll();
+await PKHomeUtils.UpdatePokeType();
 return;
 //var aa = await pKHomeUtils.GetBundleAsync();
 
