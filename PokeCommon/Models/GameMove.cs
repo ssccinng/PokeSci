@@ -8,6 +8,7 @@ namespace PokeCommon.Models
     public class GameMove
     {
         public Move? MetaMove { get; set; }
+        public int MoveId => MetaMove?.MoveId ?? 0;
         public int PPMax
         {
             get; set;

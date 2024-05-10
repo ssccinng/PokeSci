@@ -29,6 +29,9 @@ namespace PokeCommon.Models
         /// 宝可梦元数据
         /// </summary>
         public Pokemon? MetaPokemon { get; set; }
+
+        public int PokemonId => MetaPokemon?.Id ?? 0;
+
         /// <summary>
         /// 昵称
         /// </summary>

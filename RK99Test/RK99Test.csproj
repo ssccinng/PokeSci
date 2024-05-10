@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Poke.Usage\Poke.Usage.csproj" />
     <ProjectReference Include="..\RK99Tool\RK9Tool.csproj" />
   </ItemGroup>
 
