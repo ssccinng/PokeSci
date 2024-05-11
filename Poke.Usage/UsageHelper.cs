@@ -20,7 +20,7 @@ namespace Poke.Usage
                 i++;
                 foreach (var gamePokemon in gamePokemonTeam.GamePokemons)
                 {
-                    var pokemon = usage.PokemonUsage.FirstOrDefault(p => p.Id == gamePokemon.PokemonId);
+                    var pokemon = usage.PokemonUsage.FirstOrDefault(p => p.Id == gamePokemon.MetaPokemon?.DexId);
                     if (pokemon == null)
                     {
                         pokemon = new PokemonUsage
@@ -58,12 +58,12 @@ namespace Poke.Usage
                     {
                         if (poke.PokemonId != gamePokemon.PokemonId)
                         {
-                            var aliyPokemon = pokemon.AliyPokemonUsage.FirstOrDefault(p => p.Id == poke.PokemonId);
+                            var aliyPokemon = pokemon.AliyPokemonUsage.FirstOrDefault(p => p.Id == poke.MetaPokemon?.DexId);
                             if (aliyPokemon == null)
                             {
                                 aliyPokemon = new UsageItem
                                 {
-                                    Id = poke.PokemonId,
+                                    Id = poke.MetaPokemon?.DexId ?? 0,
                                     Count = 1
                                 };
                                 pokemon.AliyPokemonUsage.Add(aliyPokemon);

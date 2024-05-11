@@ -411,10 +411,11 @@ namespace RK9Tool
                             {
                                 pokeFormid = 2;
                             }
-                            else if(pokeFormid == 2)
+                            else if (pokeFormid == 2)
                             {
-                                {
-                                pokeFormid = 1;
+                                
+                                    pokeFormid = 1;
+                                
                             }
                         }
                         GamePokemon gamePokemon = new(pokemons.FirstOrDefault(s => s.DexId == pokeid && s.PokeFormId == pokeFormid));

@@ -8,9 +8,11 @@ namespace Poke.Usage
     {
         public List<PokemonUsage> PokemonUsage { get; set; } = [];
 
-        public async Task<string> ToTextAsync(LanguageType languageType, bool isDex = false)
+        public async Task<string> ToTextAsync(LanguageType languageType = LanguageType.CHS, bool isDex = false)
         {
             StringBuilder sb = new StringBuilder();
+
+            var pokemons = PokemonTools.PokemonContext.Pokemons.ToArray();
 
             switch (languageType)
             {
@@ -32,7 +34,7 @@ namespace Poke.Usage
 
                     foreach (var pokemonUsage in PokemonUsage)
                     {
-                        var pokemon = await PokemonTools.GetPokemonAsync(pokemonUsage.Id);
+                        var pokemon = isDex ? pokemons.FirstOrDefault(s => s.DexId == pokemonUsage.Id) : await PokemonTools.GetPokemonAsync(pokemonUsage.Id);
                         sb.AppendLine($"{(isDex ? pokemon.NameChs : pokemon.FullNameChs)} {pokemonUsage.Count} {pokemonUsage.Percentage:P}");
 
                         sb.AppendLine("技能使用率:");
@@ -46,7 +48,7 @@ namespace Poke.Usage
                         sb.AppendLine("同伴使用率:");
                         foreach (var aliyPokemonUsage in pokemonUsage.AliyPokemonUsage)
                         {
-                            var aliyPokemon = await PokemonTools.GetPokemonAsync(aliyPokemonUsage.Id);
+                            var aliyPokemon = isDex ? pokemons.FirstOrDefault(s => s.DexId == aliyPokemonUsage.Id) : await PokemonTools.GetPokemonAsync(aliyPokemonUsage.Id);
                             sb.AppendLine($"    {(isDex ? aliyPokemon.NameChs : aliyPokemon.FullNameChs)} {aliyPokemonUsage.Count} {aliyPokemonUsage.Percentage:P}");
                         }
 

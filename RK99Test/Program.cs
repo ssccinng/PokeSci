@@ -60,52 +60,56 @@ gamePokemonTeams = JsonSerializer.Deserialize<GamePokemonTeam[]>(File.ReadAllTex
 
 
 var usage = UsageHelper.GetUsage(gamePokemonTeams.Where(s => s is not null));
+var usageDex = UsageHelper.GetUsageByDexId(gamePokemonTeams.Where(s => s is not null));
 
-foreach (var pokemonUsage in usage.PokemonUsage)
-{
-    var pokemon = await PokemonTools.GetPokemonAsync(pokemonUsage.Id);
-    Console.WriteLine($"{pokemon.FullNameChs} {pokemonUsage.Count} {pokemonUsage.Percentage:P}");
+File.WriteAllText("usage.txt", await usage.ToTextAsync());
+File.WriteAllText("usageDex.txt", await usageDex.ToTextAsync(isDex: true));
 
-    Console.WriteLine("技能使用率:");
-    foreach (var moveUsage in pokemonUsage.MoveUsage)
-    {
-        var move = await PokemonTools.GetMoveAsync(moveUsage.Id);
-        Console.WriteLine($"    {move.Name_Chs} {moveUsage.Count} {moveUsage.Percentage:P}");
-    }
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine("同伴使用率:");
-    foreach (var aliyPokemonUsage in pokemonUsage.AliyPokemonUsage)
-    {
-        var aliyPokemon = await PokemonTools.GetPokemonAsync(aliyPokemonUsage.Id);
-        Console.WriteLine($"    {aliyPokemon.FullNameChs} {aliyPokemonUsage.Count} {aliyPokemonUsage.Percentage:P}");
-    }
+//foreach (var pokemonUsage in usage.PokemonUsage)
+//{
+//    var pokemon = await PokemonTools.GetPokemonAsync(pokemonUsage.Id);
+//    Console.WriteLine($"{pokemon.FullNameChs} {pokemonUsage.Count} {pokemonUsage.Percentage:P}");
+
+//    Console.WriteLine("技能使用率:");
+//    foreach (var moveUsage in pokemonUsage.MoveUsage)
+//    {
+//        var move = await PokemonTools.GetMoveAsync(moveUsage.Id);
+//        Console.WriteLine($"    {move.Name_Chs} {moveUsage.Count} {moveUsage.Percentage:P}");
+//    }
+//    Console.WriteLine();
+//    Console.WriteLine();
+//    Console.WriteLine("同伴使用率:");
+//    foreach (var aliyPokemonUsage in pokemonUsage.AliyPokemonUsage)
+//    {
+//        var aliyPokemon = await PokemonTools.GetPokemonAsync(aliyPokemonUsage.Id);
+//        Console.WriteLine($"    {aliyPokemon.FullNameChs} {aliyPokemonUsage.Count} {aliyPokemonUsage.Percentage:P}");
+//    }
 
 
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine("道具使用率:");
-    foreach (var itemUsage in pokemonUsage.ItemUsage)
-    {
-        var item = await PokemonTools.GetItemAsync(itemUsage.Id);
-        Console.WriteLine($"    {item.Name_Chs} {itemUsage.Count} {itemUsage.Percentage:P}");
-    }
+//    Console.WriteLine();
+//    Console.WriteLine();
+//    Console.WriteLine("道具使用率:");
+//    foreach (var itemUsage in pokemonUsage.ItemUsage)
+//    {
+//        var item = await PokemonTools.GetItemAsync(itemUsage.Id);
+//        Console.WriteLine($"    {item.Name_Chs} {itemUsage.Count} {itemUsage.Percentage:P}");
+//    }
 
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine("特性使用率:");
-    foreach (var abilityUsage in pokemonUsage.AbilityUsage)
-    {
-        var ability = await PokemonTools.GetAbilityAsync(abilityUsage.Id);
-        Console.WriteLine($"    {ability.Name_Chs} {abilityUsage.Count} {abilityUsage.Percentage:P}");
-    }
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine();
-}
+//    Console.WriteLine();
+//    Console.WriteLine();
+//    Console.WriteLine("特性使用率:");
+//    foreach (var abilityUsage in pokemonUsage.AbilityUsage)
+//    {
+//        var ability = await PokemonTools.GetAbilityAsync(abilityUsage.Id);
+//        Console.WriteLine($"    {ability.Name_Chs} {abilityUsage.Count} {abilityUsage.Percentage:P}");
+//    }
+//    Console.WriteLine();
+//    Console.WriteLine();
+//    Console.WriteLine();
+//    Console.WriteLine();
+//    Console.WriteLine();
+//    Console.WriteLine();
+//}
 
 File.WriteAllText("usage.json", JsonSerializer.Serialize(usage));
 
