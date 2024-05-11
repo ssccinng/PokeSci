@@ -1,4 +1,5 @@
 ﻿using PokeCommon.GameRule;
+using PokeCommon.Utils;
 using PokemonDataAccess.Models;
 using System.Text.Json.Serialization;
 
@@ -23,6 +24,7 @@ namespace PokeCommon.Models
         {
             
         }
+
 
         // 需要内部获取一个计算接口
         /// <summary>
@@ -140,5 +142,64 @@ namespace PokeCommon.Models
 
         // 这个要取决于什么game
         public IGameRule GameRule { get; set; }
+
+        public SimpleGamePokemon ToSimple()
+        {
+            return new SimpleGamePokemon
+            {
+                PokemonId = PokemonId,
+                NickName = NickName,
+                LV = LV,
+                Happiness = Happiness,
+                Shiny = Shiny,
+                Gmax = Gmax,
+                Moves = Moves.Select(x => x.MoveId).ToArray(),
+                EVs = EVs.ToSixArray(),
+                IVs = IVs.ToSixArray(),
+                NowHp = NowHp,
+                Item = Item?.ItemId ?? 0,
+                Nature = Nature?.NatureId ?? 0,
+                Ability = Ability?.AbilityId ?? 0,
+            };
+        }
+    }
+
+
+    public class SimpleGamePokemon
+    {
+        public int PokemonId { get; set; }
+        public string NickName { get; set; } = string.Empty;
+        public int LV { get; set; } = 50;
+        public int Happiness { get; set; } = 160;
+        public bool Shiny { get; set; }
+        public bool Gmax { get; set; } = false;
+
+        public int[] Moves { get; set; } = new int[4];
+        public int[] EVs { get; set; } = new int[6];
+        public int[] IVs { get; set; } = new int[6];
+        public int NowHp { get; set; }
+
+        public int Item { get; set; }
+        public int Nature { get; set; }
+        public int Ability { get; set; }
+
+        public async Task<GamePokemon> ToGamePokemon()
+        {
+            var pokemon = await PokemonTools.GetPokemonAsync(PokemonId);
+            var gamePokemon = new GamePokemon(pokemon)
+            {
+                NickName = NickName,
+                LV = LV,
+                Happiness = Happiness,
+                Shiny = Shiny,
+                Gmax = Gmax,
+                NowHp = NowHp,
+                Item = Item == 0 ? null : await PokemonTools.GetItemAsync(Item),
+                Nature = Nature == 0 ? null : await PokemonTools.GetNatureAsync(Nature),
+                Ability = Ability == 0 ? null : await PokemonTools.GetAbilityAsync(Ability),
+            };
+            gamePokemon.Moves = Moves.Select(async x => new Move(await PokemonTools.GetMoveAsync(x))).ToList();
+            return gamePokemon;
+        }
     }
 }
