@@ -89,7 +89,7 @@ namespace RK9Tool
         public static partial Regex GetDiv();
         [GeneratedRegex(@"(?isx)                      #匹配模式，忽略大小写，“.”匹配任意字符
 
-                      <div[^>]*id=""lang-SC"">                      #开始标记“<div...>”
+                      <div[^>]*id=""lang-EN"">                      #开始标记“<div...>”
 
                           ((?>                         #分组构造，用来限定量词“*”修饰范围
 
@@ -405,6 +405,18 @@ namespace RK9Tool
                         var pokeid = int.Parse(pokeimgName.Split('_')[0]);
                         var pokeFormid = int.Parse(pokeimgName.Split('_')[1]);
 
+                        if (pokeid == 1017)
+                        {
+                            if (pokeFormid == 1)
+                            {
+                                pokeFormid = 2;
+                            }
+                            else if(pokeFormid == 2)
+                            {
+                                {
+                                pokeFormid = 1;
+                            }
+                        }
                         GamePokemon gamePokemon = new(pokemons.FirstOrDefault(s => s.DexId == pokeid && s.PokeFormId == pokeFormid));
 
                         var matchPokeText = GetTexts().Matches(poke);
@@ -415,14 +427,21 @@ namespace RK9Tool
                         if (texts.Count < 8)
                         {
                             continue;
-                        }   
+                        }
+                        int idx = texts.FindIndex(0, s => s == "Tera Type:") + 1;
+                        gamePokemon.TreaType = await PokemonTools.GetTypeAsync(texts[idx]);
+                        idx = texts.FindIndex(0, s => s == "Ability:") + 1;
+                        gamePokemon.Ability = await PokemonTools.GetAbilityAsync(texts[idx]);
+                        idx = texts.FindIndex(0, s => s == "Held Item:") + 1;
+                        gamePokemon.Item = await PokemonTools.GetItemAsync(texts[idx]);
+                        idx++;
 
-                        gamePokemon.TreaType = await PokemonTools.GetTypeAsync(texts[3]);
-                        gamePokemon.Ability = await PokemonTools.GetAbilityAsync(texts[5]);
-                        gamePokemon.Item = await PokemonTools.GetItemAsync(texts[7]);
-
-                        for (int m = 8; m < texts.Count; m++)
+                        for (int m = idx; m < texts.Count; m++)
                         {
+                            if (string.IsNullOrEmpty(texts[m]))
+                            {
+                                continue;
+                            }
                             gamePokemon.Moves.Add(new GameMove(await PokemonTools.GetMoveAsync(texts[m])));
                             
                         }
