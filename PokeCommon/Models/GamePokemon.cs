@@ -198,7 +198,7 @@ namespace PokeCommon.Models
                 Nature = Nature == 0 ? null : await PokemonTools.GetNatureAsync(Nature),
                 Ability = Ability == 0 ? null : await PokemonTools.GetAbilityAsync(Ability),
             };
-            gamePokemon.Moves = Moves.Select(async x => new Move(await PokemonTools.GetMoveAsync(x))).ToList();
+            gamePokemon.Moves = (await Task.WhenAll(Moves.Select(async x => new GameMove(await PokemonTools.GetMoveAsync(x))))).ToList();
             return gamePokemon;
         }
     }
