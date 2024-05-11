@@ -201,9 +201,19 @@ namespace RK9Tool
             PokemonEvent pokemonEvent = new();
             pokemonEvent.Date = tds[0].Groups[1].Value;
             var nameHref = GetHref().Match(tds[2].Groups[1].Value);
-            var name = nameHref.Groups[2].Value;
-            pokemonEvent.Name = name;
-            pokemonEvent.EventUrl = nameHref.Groups[1].Value;
+            if (!nameHref.Success)
+            {
+                var name = tds[2].Groups[1].Value.Split('<')[0].Trim();
+                pokemonEvent.Name = name;
+
+            }
+            else
+            {
+                var name = nameHref.Groups[2].Value;
+                pokemonEvent.Name = name;
+                pokemonEvent.EventUrl = nameHref.Groups[1].Value;
+            }
+           
 
             pokemonEvent.Location = tds[3].Groups[1].Value;
 
