@@ -144,7 +144,8 @@ namespace RK9Tool
 
         
 
-        public static async Task<List<PokemonEvent>> GetEvents()
+
+        public static async Task<List<PokemonEvent>> GetEventsAsync()
         {
             List<PokemonEvent> events = new();
             HttpResponseMessage response = await _client.GetAsync(_eventListUrl);
