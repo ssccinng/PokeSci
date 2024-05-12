@@ -10,7 +10,7 @@ using System.Text.Json;
 
 PokemonTools.PokemonContext = new PokeDBContext();
 
-goto usage;
+//goto usage;
 
 //var aa = await PokemonTools.GetPokemonAsync(791);
 var players = await RK9Tool.RK9Client.GetMatchPlayers("PER02wgSg7uJW7d8FwUe");
@@ -18,7 +18,7 @@ var players = await RK9Tool.RK9Client.GetMatchPlayers("PER02wgSg7uJW7d8FwUe");
 
 var dd1 = players.Where(s => s.Division == "Masters");
 
-GamePokemonTeam[] gamePokemonTeams = new GamePokemonTeam[dd1.Count()];
+GamePokemonTeam[] gamePokemonTeams = new GamePokemonTeam[players.Count()];
 //var dd = await RK9Tool.RK9Client.GetPokemonTeamAsync("/teamlist/public/PER02wgSg7uJW7d8FwUe/1jMIAIT8W9x4Wm9HJKV3");
 //return;
 File.WriteAllText("players.json", JsonSerializer.Serialize(dd1));
@@ -29,7 +29,8 @@ List<Task> tasks = new List<Task>();
 
 int i = 0;
 
-foreach (var player in players.Where(s => s.Division == "Masters"))
+//foreach (var player in players.Where(s => s.Division == "Masters"))
+foreach (var player in players)
 {
     int ii = i;
     tasks.Add(Task.Run(async () =>
@@ -40,7 +41,7 @@ foreach (var player in players.Where(s => s.Division == "Masters"))
 
     i++;
 
-    if (i % 30 == 0)
+    if (i % 10 == 0)
     {
         await Task.WhenAll(tasks);
         tasks.Clear();
@@ -52,6 +53,7 @@ foreach (var player in players.Where(s => s.Division == "Masters"))
 await Task.WhenAll(tasks);
 
 File.WriteAllText("teams.json", JsonSerializer.Serialize(gamePokemonTeams));
+return;
 usage:
 
 

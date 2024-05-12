@@ -15,6 +15,18 @@ namespace PokeCommon.Utils
         public static List<PokeType> Types = LoadResourceToString<List<PokeType>>("Data.PokeTypes.json");
         public static List<Ability> Abilities = LoadResourceToString<List<Ability>>("Data.Abilities.json");
         public static List<Move> Moves = LoadResourceToString<List<Move>>("Data.Moves.json");
+        public static List<Item> Items = LoadResourceToString<List<Item>>("Data.Items.json");
+        public static List<PokeDex> PokeDex = LoadResourceToString<List<PokeDex>>("Data.PokeDex.json");
+        public static List<TypeEffect> TypeEffect = LoadResourceToString<List<TypeEffect>>("Data.TypeEffect.json");
+        public static List<Nature> Natures = LoadResourceToString<List<Nature>>("Data.Natures.json");
+        public static List<Statistic> Statistics = LoadResourceToString<List<Statistic>>("Data.Statistics.json");
+        public static List<Flavor> Flavors = LoadResourceToString<List<Flavor>>("Data.Flavors.json");
+        public static List<Condition> Conditions = LoadResourceToString<List<Condition>>("Data.Conditions.json");
+        public static List<Performance> Performances = LoadResourceToString<List<Performance>>("Data.Performances.json");
+        public static List<EggGroup> Egg_Groups = LoadResourceToString<List<EggGroup>>("Data.Egg_Groups.json");
+        public static List<PSPokemon> PSPokemons = LoadResourceToString<List<PSPokemon>>("Data.PSPokemons.json");
+
+
 
 
         static T LoadResourceToString<T>(string path)

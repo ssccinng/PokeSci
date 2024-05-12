@@ -1,5 +1,7 @@
-﻿using PokeCommon.Models;
+﻿using Newtonsoft.Json;
+using PokeCommon.Models;
 using PokeCommon.Utils;
+using PokemonDataAccess.Models;
 using System.Text;
 
 namespace Poke.Usage
@@ -62,6 +64,7 @@ namespace Poke.Usage
                         foreach (var itemUsage in pokemonUsage.ItemUsage)
                         {
                             var item = await PokemonTools.GetItemAsync(itemUsage.Id);
+                            if (item == null) continue;
                             sb.AppendLine($"    {item.Name_Chs} {itemUsage.Count} {itemUsage.Percentage:P}");
                         }
 
@@ -71,6 +74,8 @@ namespace Poke.Usage
                         foreach (var abilityUsage in pokemonUsage.AbilityUsage)
                         {
                             var ability = await PokemonTools.GetAbilityAsync(abilityUsage.Id);
+                            if (ability == null) continue;
+
                             sb.AppendLine($"    {ability.Name_Chs} {abilityUsage.Count} {abilityUsage.Percentage:P}");
                         }
                         sb.AppendLine();
@@ -111,4 +116,34 @@ namespace Poke.Usage
 
         public decimal Percentage { get; set; }
     }
+
+    public class UsageTextItem
+    {
+        [JsonProperty("t")]
+        public string Text { get; set; }
+        [JsonProperty("c")]
+
+        public int Count { get; set; }
+        [JsonProperty("p")]
+
+        public decimal Percentage { get; set; }
+    }
+
+    public class PokemonTextUsage : UsageTextItem
+    {
+        [JsonProperty("m")]
+
+        public List<UsageTextItem> MoveUsage { get; set; } = [];
+        [JsonProperty("i")]
+        public List<UsageTextItem> ItemUsage { get; set; } = [];
+        [JsonProperty("a")]
+        public List<UsageTextItem> AbilityUsage { get; set; } = [];
+        [JsonProperty("n")]
+
+        public List<UsageTextItem> NatureUsage { get; set; } = [];
+        [JsonProperty("ap")]
+
+        public List<UsageTextItem> AliyPokemonUsage { get; set; } = [];
+    }
+
 }

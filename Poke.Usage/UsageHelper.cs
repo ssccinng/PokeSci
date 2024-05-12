@@ -485,6 +485,8 @@ namespace Poke.Usage
                 pokemon.NatureUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AliyPokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
             }
+            usage.PokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
+
             return usage;
         }
         
@@ -556,7 +558,7 @@ namespace Poke.Usage
 
                     if (heldItem == null)
                     {
-                        if (gamePokemon.Item != null)
+                        if (gamePokemon.Item != 0)
                         {
                             heldItem = new UsageItem
                             {
@@ -574,7 +576,7 @@ namespace Poke.Usage
                     var ability = pokemon.AbilityUsage.FirstOrDefault(a => a.Id == gamePokemon.Ability);
                     if (ability == null)
                     {
-                        if (gamePokemon.Ability != null)
+                        if (gamePokemon.Ability != 0)
                         {
                             ability = new UsageItem
                             {
@@ -592,7 +594,7 @@ namespace Poke.Usage
                     var nature = pokemon.NatureUsage.FirstOrDefault(n => n.Id == gamePokemon.Nature);
                     if (nature == null)
                     {
-                        if (gamePokemon.Nature != null)
+                        if (gamePokemon.Nature != 0)
                         {
                             nature = new UsageItem
                             {
@@ -641,6 +643,8 @@ namespace Poke.Usage
                 pokemon.NatureUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AliyPokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
             }
+            usage.PokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
+
             return usage;
         }
     }

@@ -441,11 +441,19 @@ namespace RK9Tool
                             continue;
                         }
                         int idx = texts.FindIndex(0, s => s == "Tera Type:") + 1;
-                        gamePokemon.TreaType = await PokemonTools.GetTypeAsync(texts[idx]);
+                        gamePokemon.TreaType = await PokemonTools.GetTypeAsync(texts[idx].Replace('’', '\'').Replace("&#39;", "'"));
                         idx = texts.FindIndex(0, s => s == "Ability:") + 1;
-                        gamePokemon.Ability = await PokemonTools.GetAbilityAsync(texts[idx]);
+                        gamePokemon.Ability = await PokemonTools.GetAbilityAsync(texts[idx].Replace('’', '\'').Replace("&#39;", "'"));
+                        if (gamePokemon.Ability == null)
+                        {
+                            Console.WriteLine();
+                        }
                         idx = texts.FindIndex(0, s => s == "Held Item:") + 1;
-                        gamePokemon.Item = await PokemonTools.GetItemAsync(texts[idx]);
+                        gamePokemon.Item = await PokemonTools.GetItemAsync(texts[idx].Replace('’', '\'').Replace("&#39;", "'"));
+                        if (gamePokemon.Item == null)
+                        {
+                            Console.WriteLine();
+                        }
                         idx++;
 
                         for (int m = idx; m < texts.Count; m++)

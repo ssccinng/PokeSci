@@ -1,4 +1,5 @@
-﻿using PokemonDataAccess.Models;
+﻿using PokemonDataAccess;
+using PokemonDataAccess.Models;
 
 namespace PokeCommon.Utils
 {
@@ -6,6 +7,8 @@ namespace PokeCommon.Utils
     {
         // TODO: 整一个本地数据源
         // 整一个本地数据源
+
+
         private static Dictionary<int, Ability> _abilities { get; set; } = new();
         private static Dictionary<string, int> _abilityNameId { get; set; } = new();
 
@@ -25,6 +28,58 @@ namespace PokeCommon.Utils
         private static Dictionary<int, Nature> _natures { get; set; } = new();
         private static Dictionary<string, int> _natureNameId { get; set; } = new();
 
+        private static Dictionary<int, PokeType> _pokeTypes { get; set; } = new();
+        private static Dictionary<string, int> _pokeTypeNameId { get; set; } = new();
+
+        public static async ValueTask<PokeType?> GetTypeAsync(int id)
+        {
+            if (_pokeTypes.TryGetValue(id, out var type))
+            {
+                return type;
+            }
+            else
+            {
+                var nType = PokemonDBInMemory.Types.Find(s => s.Id == id);
+                if (nType != null)
+                {
+                    _pokeTypes.TryAdd(id, nType);
+                    _pokeTypeNameId.TryAdd(nType.Name_Chs, id);
+                    _pokeTypeNameId.TryAdd(nType.Name_Eng, id);
+                    _pokeTypeNameId.TryAdd(nType.Name_Jpn, id);
+                    return nType;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        public static async ValueTask<PokeType?> GetTypeAsync(string name)
+        {
+            if (_pokeTypeNameId.TryGetValue(name, out var type))
+            {
+                return await GetTypeAsync(type);
+            }
+            else
+            {
+                {
+                    var nType = PokemonDBInMemory.Types.FirstOrDefault
+                        (n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
+                    if (nType != null)
+                    {
+                        _pokeTypes.TryAdd(nType.Id, nType);
+                        _pokeTypeNameId.TryAdd(nType.Name_Chs, nType.Id);
+                        _pokeTypeNameId.TryAdd(nType.Name_Eng, nType.Id);
+                        _pokeTypeNameId.TryAdd(nType.Name_Jpn, nType.Id);
+                        return nType;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
         public static async ValueTask<Nature?> GetNatureAsync(int id)
         {
             if (_natures.TryGetValue(id, out var nature))
@@ -33,20 +88,19 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
-                //var nNature = await PokemonContext.Natures.FindAsync(id);
-                //if (nNature != null)
-                //{
-                //    _natures.Add(id, nNature);
-                //    _natureNameId.Add(nNature.Name_Chs, id);
-                //    _natureNameId.Add(nNature.Name_Eng, id);
-                //    _natureNameId.Add(nNature.Name_Jpn, id);
-                //    return nNature;
-                //}
-                //else
-                //{
-                //    return null;
-                //}
+                var nNature = PokemonDBInMemory.Natures.Find(s => s.NatureId == id);
+                if (nNature != null)
+                {
+                    _natures.TryAdd(id, nNature);
+                    _natureNameId.TryAdd(nNature.Name_Chs, id);
+                    _natureNameId.TryAdd(nNature.Name_Eng, id);
+                    _natureNameId.TryAdd(nNature.Name_Jpn, id);
+                    return nNature;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         public static async ValueTask<Nature?> GetNatureAsync(string name)
@@ -57,21 +111,23 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
+                {
 
-                //var nNature = await PokemonContext.Natures.FirstOrDefaultAsync(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
-                //if (nNature != null)
-                //{
-                //    _natures.Add(nNature.NatureId, nNature);
-                //    _natureNameId.Add(nNature.Name_Chs, nNature.NatureId);
-                //    _natureNameId.Add(nNature.Name_Eng, nNature.NatureId);
-                //    _natureNameId.Add(nNature.Name_Jpn, nNature.NatureId);
-                //    return nNature;
-                //}
-                //else
-                //{
-                //    return null;
-                //}
+                    var nNature = PokemonDBInMemory.Natures
+                            .FirstOrDefault(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
+                    if (nNature != null)
+                    {
+                        _natures.TryAdd(nNature.NatureId, nNature);
+                        _natureNameId.TryAdd(nNature.Name_Chs, nNature.NatureId);
+                        _natureNameId.TryAdd(nNature.Name_Eng, nNature.NatureId);
+                        _natureNameId.TryAdd(nNature.Name_Jpn, nNature.NatureId);
+                        return nNature;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
             }
         }
 
@@ -83,20 +139,24 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
+                {
 
-                //var nPSPoke = await PokemonContext.PSPokemons.FirstOrDefaultAsync(p => p.PSName == name);
-                //if (nPSPoke != null)
-                //{
-                //    _psPokemonId.Add(name, nPSPoke.PokemonId ?? 0);
-                //    return await GetPokemonAsync(nPSPoke.PokemonId ?? 0);
-                //}
-                //else
-                //{
-                //    return null;
-                //}
+                    var nPSPoke = PokemonDBInMemory.PSPokemons.FirstOrDefault(p => p.PSName == name);
+                    if (nPSPoke != null)
+                    {
+                        // Todo: 为啥要try
+                        _psPokemonId.TryAdd(name, nPSPoke.PokemonId ?? 0);
+                        return GetPokemonAsync(nPSPoke.PokemonId ?? 0).Result;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
             }
         }
+
+        //static object lockdb = new object();
         public static async ValueTask<PSPokemon?> GetPsPokemonAsync(int pokemonId)
         {
             if (_pokemonIdPSName.TryGetValue(pokemonId, out var name))
@@ -105,14 +165,17 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
+                PSPokemon? nPSName;
+                {
+                    nPSName = PokemonDBInMemory.PSPokemons.FirstOrDefault(s => s.PokemonId == pokemonId);
+                    if (nPSName != null)
+                    {
+                        _pokemonIdPSName.TryAdd(pokemonId, nPSName);
+                    }
+                }
 
-                //var nPSName = await PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId);
-                //if (nPSName != null)
-                //{
-                //    _pokemonIdPSName.Add(pokemonId, nPSName);
-                //}
-                //return nPSName;
+
+                return nPSName;
             }
         }
 
@@ -129,17 +192,18 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
+                {
 
-                //var nAbility = await PokemonContext.Abilities.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
-                //if (nAbility != null)
-                //{
-                //    _abilities[nAbility.AbilityId] = nAbility;
-                //    _abilityNameId[nAbility.Name_Chs] = nAbility.AbilityId;
-                //    _abilityNameId[nAbility.Name_Jpn] = nAbility.AbilityId;
-                //    _abilityNameId[nAbility.Name_Eng] = nAbility.AbilityId;
-                //}
-                //return nAbility;
+                    var nAbility = PokemonDBInMemory.Abilities.FirstOrDefault(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
+                    if (nAbility != null)
+                    {
+                        _abilities[nAbility.AbilityId] = nAbility;
+                        _abilityNameId[nAbility.Name_Chs] = nAbility.AbilityId;
+                        _abilityNameId[nAbility.Name_Jpn] = nAbility.AbilityId;
+                        _abilityNameId[nAbility.Name_Eng] = nAbility.AbilityId;
+                    }
+                    return nAbility;
+                }
             }
 
         }
@@ -156,16 +220,15 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
-                //var nAbility = await PokemonContext.Abilities.FindAsync(id);
-                //if (nAbility != null)
-                //{
-                //    _abilities[nAbility.AbilityId] = nAbility;
-                //    _abilityNameId[nAbility.Name_Chs] = nAbility.AbilityId;
-                //    _abilityNameId[nAbility.Name_Jpn] = nAbility.AbilityId;
-                //    _abilityNameId[nAbility.Name_Eng] = nAbility.AbilityId;
-                //}
-                //return nAbility;
+                var nAbility = PokemonDBInMemory.Abilities.FirstOrDefault(s => s.AbilityId == id);
+                if (nAbility != null)
+                {
+                    _abilities[nAbility.AbilityId] = nAbility;
+                    _abilityNameId[nAbility.Name_Chs] = nAbility.AbilityId;
+                    _abilityNameId[nAbility.Name_Jpn] = nAbility.AbilityId;
+                    _abilityNameId[nAbility.Name_Eng] = nAbility.AbilityId;
+                }
+                return nAbility;
             }
 
         }
@@ -178,17 +241,19 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
+                {
 
-                //var nMove = await PokemonContext.Moves.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
-                //if (nMove != null)
-                //{
-                //    _moves[nMove.MoveId] = nMove;
-                //    _moveNameId[nMove.Name_Chs] = nMove.MoveId;
-                //    _moveNameId[nMove.Name_Jpn] = nMove.MoveId;
-                //    _moveNameId[nMove.Name_Eng] = nMove.MoveId;
-                //}
-                //return nMove;
+                    var nMove =
+                           PokemonDBInMemory.Moves.FirstOrDefault(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
+                    if (nMove != null)
+                    {
+                        _moves[nMove.MoveId] = nMove;
+                        _moveNameId[nMove.Name_Chs] = nMove.MoveId;
+                        _moveNameId[nMove.Name_Jpn] = nMove.MoveId;
+                        _moveNameId[nMove.Name_Eng] = nMove.MoveId;
+                    }
+                    return nMove;
+                }
             }
         }
         /// <summary>
@@ -202,16 +267,15 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
-                //var nMove = await PokemonContext.Moves.FindAsync(id);
-                //if (nMove != null)
-                //{
-                //    _moves[nMove.MoveId] = nMove;
-                //    _moveNameId[nMove.Name_Chs] = nMove.MoveId;
-                //    _moveNameId[nMove.Name_Jpn] = nMove.MoveId;
-                //    _moveNameId[nMove.Name_Eng] = nMove.MoveId;
-                //}
-                //return nMove;
+                var nMove = PokemonDBInMemory.Moves.Find(s => s.MoveId == id);
+                if (nMove != null)
+                {
+                    _moves[nMove.MoveId] = nMove;
+                    _moveNameId[nMove.Name_Chs] = nMove.MoveId;
+                    _moveNameId[nMove.Name_Jpn] = nMove.MoveId;
+                    _moveNameId[nMove.Name_Eng] = nMove.MoveId;
+                }
+                return nMove;
             }
         }
 
@@ -223,16 +287,15 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
-                //var nPokemon = await PokemonContext.Pokemons.FirstOrDefaultAsync(s => s.NameChs == name || s.NameEng == name || s.NameJpn == name);
-                //if (nPokemon != null)
-                //{
-                //    _pokemons[nPokemon.Id] = nPokemon;
-                //    _pokemonNameId[nPokemon.NameChs] = nPokemon.Id;
-                //    _pokemonNameId[nPokemon.NameJpn] = nPokemon.Id;
-                //    _pokemonNameId[nPokemon.NameEng] = nPokemon.Id;
-                //}
-                //return nPokemon;
+                var nPokemon = PokemonDBInMemory.Pokemons.FirstOrDefault(s => s.NameChs == name || s.NameEng == name || s.NameJpn == name);
+                if (nPokemon != null)
+                {
+                    _pokemons[nPokemon.Id] = nPokemon;
+                    _pokemonNameId[nPokemon.NameChs] = nPokemon.Id;
+                    _pokemonNameId[nPokemon.NameJpn] = nPokemon.Id;
+                    _pokemonNameId[nPokemon.NameEng] = nPokemon.Id;
+                }
+                return nPokemon;
             }
         }
         public static async ValueTask<Pokemon?> GetPokemonAsync(int id)
@@ -245,16 +308,18 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
-                //var nPokemon = await PokemonContext.Pokemons.FindAsync(id);
-                //if (nPokemon != null)
-                //{
-                //    _pokemons[nPokemon.Id] = nPokemon;
-                //    _pokemonNameId[nPokemon.NameChs] = nPokemon.Id;
-                //    _pokemonNameId[nPokemon.NameJpn] = nPokemon.Id;
-                //    _pokemonNameId[nPokemon.NameEng] = nPokemon.Id;
-                //}
-                //return nPokemon;
+                var nPokemon = PokemonDBInMemory.Pokemons.FirstOrDefault(s => s.Id == id);
+                if (nPokemon != null)
+                {
+                    _pokemons[nPokemon.Id] = nPokemon;
+                    _pokemonNameId.TryAdd(nPokemon.NameChs ?? string.Empty, nPokemon.Id);
+                    _pokemonNameId.TryAdd(nPokemon.NameJpn ?? string.Empty, nPokemon.Id);
+                    _pokemonNameId.TryAdd(nPokemon.NameJpn ?? string.Empty, nPokemon.Id);
+                    //_pokemonNameId[nPokemon.NameChs] = nPokemon.Id;
+                    //_pokemonNameId[nPokemon.NameJpn] = nPokemon.Id;
+                    //_pokemonNameId[nPokemon.NameEng] = nPokemon.Id;
+                }
+                return nPokemon;
             }
         }
         public static async ValueTask<Item?> GetItemAsync(string name)
@@ -265,16 +330,18 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
-                //var nItem = await PokemonContext.Items.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
-                //if (nItem != null)
-                //{
-                //    _items[nItem.ItemId] = nItem;
-                //    _itemNameId[nItem.Name_Chs] = nItem.ItemId;
-                //    _itemNameId[nItem.Name_Jpn] = nItem.ItemId;
-                //    _itemNameId[nItem.Name_Eng] = nItem.ItemId;
-                //}
-                //return nItem;
+
+
+                    var nItem = PokemonDBInMemory.Items.FirstOrDefault(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
+                    if (nItem != null)
+                    {
+                        _items[nItem.ItemId] = nItem;
+                        _itemNameId[nItem.Name_Chs] = nItem.ItemId;
+                        _itemNameId[nItem.Name_Jpn] = nItem.ItemId;
+                        _itemNameId[nItem.Name_Eng] = nItem.ItemId;
+                    }
+                    return nItem;
+                
             }
         }
         public static async ValueTask<Item?> GetItemAsync(int id)
@@ -287,16 +354,15 @@ namespace PokeCommon.Utils
             }
             else
             {
-                return null;
-                //var nItem = await PokemonContext.Items.FindAsync(id);
-                //if (nItem != null)
-                //{
-                //    _items[nItem.ItemId] = nItem;
-                //    _itemNameId[nItem.Name_Chs] = nItem.ItemId;
-                //    _itemNameId[nItem.Name_Jpn] = nItem.ItemId;
-                //    _itemNameId[nItem.Name_Eng] = nItem.ItemId;
-                //}
-                //return nItem;
+                var nItem = PokemonDBInMemory.Items.Find(s => s.ItemId == id);
+                if (nItem != null)
+                {
+                    _items[nItem.ItemId] = nItem;
+                    _itemNameId[nItem.Name_Chs] = nItem.ItemId;
+                    _itemNameId[nItem.Name_Jpn] = nItem.ItemId;
+                    _itemNameId[nItem.Name_Eng] = nItem.ItemId;
+                }
+                return nItem;
             }
         }
 

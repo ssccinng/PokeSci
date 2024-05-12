@@ -7,21 +7,34 @@ using PokeCommon.API.Data;
 
 var pokemonContext = new PokeDBContext();
 
-var cc1 = pokemonContext.Pokemons
-    .Include(s => s.Ability1)
-    .Include(s=>s.Ability2)
-    .Include(s=>s.AbilityH)
-    .Include(s=>s.Type1)
-    .Include(s=>s.Type2)
+//var cc1 = pokemonContext.Pokemons
+//    .Include(s => s.Ability1)
+//    .Include(s => s.Ability2)
+//    .Include(s => s.AbilityH)
+//    .Include(s => s.Type1)
+//    .Include(s => s.Type2)
+//    .ToList();
+//File.WriteAllText("Pokemons.json", JsonSerializer.Serialize(cc1));
+
+var cc2 = pokemonContext.Natures
+    .Include(s => s.Stat_Down)
+    .Include(s => s.Stat_Down)
+    .Include(s => s.Perf_Up)
+    .Include(s => s.Perf_Down)
+    .Include(s => s.Flavor_Down)
+    .Include(s => s.Flavor_Up)
+
     .ToList();
-File.WriteAllText("Pokemons.json", JsonSerializer.Serialize(cc1));
+File.WriteAllText("Natures.json", JsonSerializer.Serialize(cc2));
+
 return;
 
 var prop = pokemonContext.GetType().GetProperties();
-
+// 有自动include来着
 MethodInfo toListMethod = typeof(Enumerable).GetMethod("ToList");
 foreach (var property in prop)
 {
+    if (property.Name == "Pokemons") continue;
     if (property.PropertyType.IsGenericType)
     {
         MethodInfo genericToListMethod = toListMethod.MakeGenericMethod(property.PropertyType.GetGenericArguments()[0]);
@@ -31,7 +44,7 @@ foreach (var property in prop)
 
         var cc = genericToListMethod.Invoke(null, [db]);
 
-         var tt =  JsonSerializer.Serialize(cc);
+         var tt =  JsonSerializer.Serialize(cc, new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping});
         File.WriteAllText($"{property.Name}.json", tt);
         //var cc = db.ToList();
     }
