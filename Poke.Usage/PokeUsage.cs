@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Poke.Usage
 {
+    /// <summary>
+    /// 总体使用率
+    /// </summary>
     public class PokeUsage
     {
         public List<PokemonUsage> PokemonUsage { get; set; } = [];
@@ -85,6 +88,9 @@ namespace Poke.Usage
         }
     }
 
+    /// <summary>
+    /// 单一宝可梦使用率
+    /// </summary>
     public class PokemonUsage: UsageItem
     {
 

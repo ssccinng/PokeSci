@@ -148,6 +148,7 @@ namespace PokeCommon.Models
             return new SimpleGamePokemon
             {
                 PokemonId = PokemonId,
+                DexId = MetaPokemon?.DexId ?? 0,
                 NickName = NickName,
                 LV = LV,
                 Happiness = Happiness,
@@ -168,6 +169,7 @@ namespace PokeCommon.Models
     public class SimpleGamePokemon
     {
         public int PokemonId { get; set; }
+        public int DexId { get; set; }
         public string NickName { get; set; } = string.Empty;
         public int LV { get; set; } = 50;
         public int Happiness { get; set; } = 160;

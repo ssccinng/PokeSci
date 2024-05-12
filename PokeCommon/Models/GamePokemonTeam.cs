@@ -1,9 +1,12 @@
-﻿namespace PokeCommon.Models
+﻿using System.Text.Json.Serialization;
+
+namespace PokeCommon.Models
 {
     public class GamePokemonTeam
     {
         public List<GamePokemon> GamePokemons { get; set; } = new();
         public string TrainerName { get; set; } = "zqd";
+        [JsonIgnore]
         public int Count => GamePokemons.Count;
 
         public SimpleGamePokemonTeam ToSimpleGamePokemonTeam()
@@ -32,6 +35,8 @@
     {
         public List<SimpleGamePokemon> GamePokemons { get; set; } = new();
         public string TrainerName { get; set; } = "zqd";
+        [JsonIgnore]
+
         public int Count => GamePokemons.Count;
     }
 }
