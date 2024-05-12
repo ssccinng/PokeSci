@@ -7,6 +7,11 @@ using PokeCommon.API.Data;
 
 var pokemonContext = new PokeDBContext();
 
+var ps = pokemonContext.PSPokemons
+    .ToList();
+
+File.WriteAllText("PSPokemons.json", JsonSerializer.Serialize(ps));
+return;
 //var cc1 = pokemonContext.Pokemons
 //    .Include(s => s.Ability1)
 //    .Include(s => s.Ability2)
