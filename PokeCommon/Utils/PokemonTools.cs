@@ -179,7 +179,7 @@ namespace PokeCommon.Utils
             }
         }
 
-        static object lockdb = new object();
+        //static object lockdb = new object();
         public static async ValueTask<PSPokemon?> GetPsPokemonAsync(int pokemonId)
         {
             if (_pokemonIdPSName.TryGetValue(pokemonId, out var name))
@@ -189,7 +189,7 @@ namespace PokeCommon.Utils
             else
             {
                 PSPokemon? nPSName;
-                lock (lockdb)
+                lock (_lockDB)
                 {
                     nPSName = PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId).Result;
                     if (nPSName != null)
