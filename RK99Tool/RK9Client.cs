@@ -266,7 +266,12 @@ namespace RK9Tool
                         {
                             if (thsText[i] == "Team List")
                             {
-                                matchPlayer["TeamListUrl"] = GetHref().Matches(tds[i].Groups[1].Value)[0].Groups[1].Value;
+                                var matchHref = GetHref().Match(tds[i].Groups[1].Value);
+                                if (!matchHref.Success)
+                                {
+                                    continue;
+                                }
+                                matchPlayer["TeamListUrl"] = matchHref.Groups[1].Value;
                                 continue;
                             }
 
