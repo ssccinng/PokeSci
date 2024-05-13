@@ -13,6 +13,11 @@ PokemonTools.PokemonContext = new PokeDBContext();
 //goto usage;
 
 //var aa = await PokemonTools.GetPokemonAsync(791);
+var pp = await RK9Tool.RK9Client.GetMatchPairings("EU02whGbj7Vqpe87mRZT");
+
+return;
+
+
 var players = await RK9Tool.RK9Client.GetMatchPlayers("PER02wgSg7uJW7d8FwUe");
 
 

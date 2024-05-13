@@ -2,7 +2,7 @@
 {
     public class MatchPairing
     {
-        public int Division { get; set; } = 0;
+        public Division Division { get; set; } = 0;
         public List<PairingRound> PairingRounds { get; set; } = new();
         
     }
@@ -10,7 +10,7 @@
 
     public class PairingRound
     {
-        public int Round { get; set; } = 0;
+        public int RoundId { get; set; } = 0;
         public List<PairingTable> Pairings { get; set; } = new();
     }
 

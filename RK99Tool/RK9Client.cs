@@ -39,6 +39,8 @@ namespace RK9Tool
 
         [GeneratedRegex(@">([^<]+?)<", RegexOptions.IgnoreCase)]
         public static partial Regex GetTexts();
+        [GeneratedRegex(@"id=""P(\d)-tab""", RegexOptions.IgnoreCase)]
+        public static partial Regex GetPTabs();
 
         //[GeneratedRegex(@"<div\b[^>]*>([\s\S]*?((?:(?!</?div\b).)*?)*?)</div>", RegexOptions.IgnoreCase)]
         //[GeneratedRegex(@"<div\b[^>]*>([\s\S]*?((?:(?!</?div\b).)*?)*?)</div>", RegexOptions.IgnoreCase)]
@@ -289,26 +291,36 @@ namespace RK9Tool
         public static async Task<List<MatchPairing>> GetMatchPairings(string id)
         {
             List<MatchPairing> matchPairings = new();
-
-            for (int pod = 0; pod < 3; ++pod)
+            HttpResponseMessage response1 = await _client.GetAsync($"{_pairingsUrl}/{id}");
+            if (!response1.IsSuccessStatusCode)
             {
-                var matchPairing = new MatchPairing() { Division = pod };
+                return matchPairings;
+            }
 
+            var data = await response1.Content.ReadAsStringAsync();
+
+            var matchTabs = GetPTabs().Matches(data);
+
+
+            for (int pod = 0; pod < matchTabs.Count; ++pod)
+            {
+                var matchPairing = new MatchPairing() { Division = (Division)(2 - pod) };
+                var oo = matchTabs[pod].Groups[1].Value;
                 int rnd = 1;
                 while (true)
                 {
-                    HttpResponseMessage response = await _client.GetAsync($"{_pairingsUrl}/{id}?pod={pod}&rnd={rnd}");
+                    HttpResponseMessage response = await _client.GetAsync($"{_pairingsUrl}/{id}?pod={oo}&rnd={rnd}");
                     
                     if (response.IsSuccessStatusCode)
                     {
                         string html = await response.Content.ReadAsStringAsync();
-                        if (string.IsNullOrEmpty(html))
+                        if (string.IsNullOrWhiteSpace(html))
                         {
                             break;
                         }
                         var match = GetDiv().Matches(html);
 
-                        PairingRound pairingRound = new PairingRound() { Round = rnd };
+                        PairingRound pairingRound = new PairingRound() { RoundId = rnd };
 
                         for (int i = 0; i < match.Count; i++)
                         {
