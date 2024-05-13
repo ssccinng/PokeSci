@@ -113,6 +113,12 @@ namespace Poke.Usage
         public int Id { get; set; }
 
         public int Count { get; set; }
+        /// <summary>
+        /// 有助于排序
+        /// </summary>
+        [JsonIgnore]
+        
+        public int NaCount => -Count;
 
         public decimal Percentage { get; set; }
     }
