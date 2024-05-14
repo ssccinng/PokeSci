@@ -161,6 +161,7 @@ namespace PokeCommon.Models
                 Item = Item?.ItemId ?? 0,
                 Nature = Nature?.NatureId ?? 0,
                 Ability = Ability?.AbilityId ?? 0,
+                TreaType = TreaType?.Id ?? 0,
             };
         }
     }
@@ -185,6 +186,8 @@ namespace PokeCommon.Models
         public int Nature { get; set; }
         public int Ability { get; set; }
 
+        public int TreaType { get; set; }
+
         public async Task<GamePokemon> ToGamePokemon()
         {
             var pokemon = await PokemonTools.GetPokemonAsync(PokemonId);
@@ -199,6 +202,7 @@ namespace PokeCommon.Models
                 Item = Item == 0 ? null : await PokemonTools.GetItemAsync(Item),
                 Nature = Nature == 0 ? null : await PokemonTools.GetNatureAsync(Nature),
                 Ability = Ability == 0 ? null : await PokemonTools.GetAbilityAsync(Ability),
+                TreaType = TreaType == 0 ? null : await PokemonTools.GetTypeAsync(TreaType),
             };
             gamePokemon.Moves = (await Task.WhenAll(Moves.Select(async x => new GameMove(await PokemonTools.GetMoveAsync(x))))).ToList();
             return gamePokemon;
