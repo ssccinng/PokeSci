@@ -106,6 +106,8 @@ namespace Poke.Usage
         public List<UsageItem> NatureUsage { get; set; } = [];
 
         public List<UsageItem> AliyPokemonUsage { get; set; } = [];
+
+        public PokemonVictory PokemonVictory { get; set; } = new();
     }
 
     public class UsageItem
