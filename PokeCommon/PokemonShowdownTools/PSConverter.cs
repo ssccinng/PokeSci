@@ -116,7 +116,7 @@ namespace PokeCommon.PokemonShowdownTools
                 sb.AppendLine(await ConvertToPsAsync(item));
                 sb.AppendLine();
             }
-            return sb.ToString();
+            return sb.ToString().Trim();
         }
         /// <summary>
         /// 转换PS格式文本至单独的宝可梦
@@ -145,7 +145,11 @@ namespace PokeCommon.PokemonShowdownTools
             gamePokemon.Gmax = gmax;
             gamePokemon.TreaType = poke.Type1;
             gamePokemon.NickName = nickName;
-            gamePokemon.Item = await PokemonTools.GetItemAsync(itemName);
+            if (itemName != null)
+            {
+                gamePokemon.Item = await PokemonTools.GetItemAsync(itemName);
+            }
+            //gamePokemon.Item = await PokemonTools.GetItemAsync(itemName);
             for (int i = 1; i < data.Length; i++)
             {
                 string[] temp = Regex.Split(data[i].Trim(), @"\s*:\s*");
@@ -238,7 +242,7 @@ namespace PokeCommon.PokemonShowdownTools
             return gamePokemon;
         }
 
-        public static async Task<GamePokemonTeam> ConvertToPokemonsAsync(string PStext)
+        public static async Task<GamePokemonTeam> ConvertToPokemonsAsync(string PStext, int pad = 0)
         {
             string[] team = Regex.Split(PStext.Trim(), "(?:\\r*\n){2,}", RegexOptions.IgnoreCase);
             GamePokemonTeam gamePokeTeam = new();
@@ -252,6 +256,12 @@ namespace PokeCommon.PokemonShowdownTools
             {
                 gamePokeTeam.GamePokemons.Add(await ConvertToPokemonAsync(poke));
             }
+
+            while (gamePokeTeam.GamePokemons.Count < pad)
+            {
+                gamePokeTeam.GamePokemons.Add(new GamePokemon());
+            }
+
             return gamePokeTeam;
         }
 

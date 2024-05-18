@@ -82,8 +82,8 @@ namespace PokeCommon.Utils
             {
                 lock (_lockDB)
                 {
-                    var nType = PokemonContext.PokeTypes.FirstOrDefaultAsync
-                        (n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name).Result;
+                    var nType = PokemonContext.PokeTypes.FirstOrDefault
+                        (n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
                     if (nType != null)
                     {
                         _pokeTypes.TryAdd(nType.Id, nType);
@@ -136,7 +136,7 @@ namespace PokeCommon.Utils
                 var nNature = PokemonContext.Natures
                         .Include(s => s.Stat_Up)
                         .Include(s => s.Stat_Down)
-                        .FirstOrDefaultAsync(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name).Result;
+                        .FirstOrDefault(n => n.Name_Chs == name || n.Name_Eng == name || n.Name_Jpn == name);
                 if (nNature != null)
                 {
                     _natures.TryAdd(nNature.NatureId, nNature);
@@ -164,7 +164,7 @@ namespace PokeCommon.Utils
                 lock (_lockDB)
                 {
 
-                    var nPSPoke = PokemonContext.PSPokemons.FirstOrDefaultAsync(p => p.PSName == name).Result;
+                    var nPSPoke = PokemonContext.PSPokemons.FirstOrDefault(p => p.PSName == name);
                     if (nPSPoke != null)
                     {
                         // Todo: 为啥要try
@@ -191,7 +191,7 @@ namespace PokeCommon.Utils
                 PSPokemon? nPSName;
                 lock (_lockDB)
                 {
-                    nPSName = PokemonContext.PSPokemons.FirstOrDefaultAsync(s => s.PokemonId == pokemonId).Result;
+                    nPSName = PokemonContext.PSPokemons.FirstOrDefault(s => s.PokemonId == pokemonId);
                     if (nPSName != null)
                     {
                         _pokemonIdPSName.TryAdd(pokemonId, nPSName);
@@ -219,7 +219,7 @@ namespace PokeCommon.Utils
                 lock (_lockDB)
                 {
 
-                    var nAbility = PokemonContext.Abilities.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name).Result;
+                    var nAbility = PokemonContext.Abilities.FirstOrDefault(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
                     if (nAbility != null)
                     {
                         _abilities[nAbility.AbilityId] = nAbility;
@@ -270,7 +270,7 @@ namespace PokeCommon.Utils
                 {
 
                 var nMove = 
-                       PokemonContext.Moves.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name).Result;
+                       PokemonContext.Moves.FirstOrDefault(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
                 if (nMove != null)
                 {
                     _moves[nMove.MoveId] = nMove;
@@ -313,7 +313,7 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nPokemon = await PokemonContext.Pokemons.FirstOrDefaultAsync(s => s.NameChs == name || s.NameEng == name || s.NameJpn == name);
+                var nPokemon = PokemonContext.Pokemons.FirstOrDefault(s => s.NameChs == name || s.NameEng == name || s.NameJpn == name);
                 if (nPokemon != null)
                 {
                     _pokemons[nPokemon.Id] = nPokemon;
@@ -334,9 +334,9 @@ namespace PokeCommon.Utils
             }
             else
             {
-                var nPokemon = await PokemonContext.Pokemons
+                var nPokemon = PokemonContext.Pokemons
                     .Include(s => s.Type1)
-                    .Include(s => s.Type2).FirstOrDefaultAsync(s => s.Id == id);
+                    .Include(s => s.Type2).FirstOrDefault(s => s.Id == id);
                 if (nPokemon != null)
                 {
                     _pokemons[nPokemon.Id] = nPokemon;
@@ -361,7 +361,7 @@ namespace PokeCommon.Utils
                 lock (_lockDB)
                 {
 
-                    var nItem = PokemonContext.Items.FirstOrDefaultAsync(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name).Result;
+                    var nItem = PokemonContext.Items.FirstOrDefault(s => s.Name_Chs == name || s.Name_Eng == name || s.Name_Jpn == name);
                     if (nItem != null)
                     {
                         _items[nItem.ItemId] = nItem;
