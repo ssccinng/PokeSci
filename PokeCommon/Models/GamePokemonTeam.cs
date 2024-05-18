@@ -38,5 +38,16 @@ namespace PokeCommon.Models
         [JsonIgnore]
 
         public int Count => GamePokemons.Count;
+
+        public async Task<GamePokemonTeam> ToGamePokemonTeam()
+        {
+            var gamePokemonTeam = new GamePokemonTeam();
+            foreach (var simpleGamePokemon in GamePokemons)
+            {
+                gamePokemonTeam.GamePokemons.Add(await simpleGamePokemon.ToGamePokemon());
+            }
+            gamePokemonTeam.TrainerName = TrainerName;
+            return gamePokemonTeam;
+        }
     }
 }
