@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PokemonisshoniZ.Components.PokemonShowdown
+namespace PokePSCore
 {
     public class UserDetail
     {

@@ -73,7 +73,7 @@ namespace PokePSCore
 
         //private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
         private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
-        public PSClient(string userName, string pwd, string wsUrl = $"ws://sim.smogon.com:8000/showdown/websocket")
+        public PSClient(string userName, string pwd, string wsUrl = $"wss://sim3.psim.us/showdown/websocket")
         {
             _psServer = wsUrl;
             UserName = userName;
