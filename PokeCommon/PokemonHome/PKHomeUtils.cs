@@ -31,7 +31,9 @@ namespace PokeCommon.PokemonHome
         public static readonly string BundleUrl = "https://resource.pokemon-home.com/battledata/js/bundle.js";
         public static readonly string RankmatchApiUrl = "https://api.battle.pokemon-home.com/cbd/competition/rankmatch/list";
         public static readonly string RankmatchApiSVUrl = "https://api.battle.pokemon-home.com/tt/cbd/competition/rankmatch/list";
-        public readonly static string PDataUrl = "https://resource.pokemon-home.com/battledata/ranking/{0}/{1}/{2}/pdetail-{3}";
+        //public readonly static string PDataUrl = "https://resource.pokemon-home.com/battledata/ranking/{0}/{1}/{2}/pdetail-{3}";
+        public readonly static string PJsonDataUrl = "https://resource.pokemon-home.com/battledata/ranking/scvi/{0}/{1}/{2}/pokemon";
+        public readonly static string PDataUrl = "https://resource.pokemon-home.com/battledata/ranking/scvi/{0}/{1}/{2}/pdetail-{3}";
         //private string _trainerUrl = "https://resource.pokemon-home.com/battledata/ranking/{0}/{1}/{2}/traner-{3}";
         public readonly static string TrainerUrl = "https://resource.pokemon-home.com/battledata/ranking/scvi/{0}/{1}/{2}/traner-{3}";
 
@@ -96,12 +98,12 @@ Accept-Encoding: gzip";
             }
         }
 
-        public async Task<byte[]> GetBundleAsync()
+        public static async Task<byte[]> GetBundleAsync()
         {
             return await _httpClient.GetByteArrayAsync(BundleUrl);
         }
 
-        public async Task<List<SVPokemonHomeSession>> GetSVPokemonHomeSessionsAsync()
+        public static async Task<List<SVPokemonHomeSession>> GetSVPokemonHomeSessionsAsync()
         {
             var response = await _httpClient.PostAsJsonAsync(RankmatchApiSVUrl, new { soft = "Sw" });
             List<SVPokemonHomeSession> resp = new();
@@ -348,7 +350,7 @@ Accept-Encoding: gzip";
         }
 
 
-        public async Task<List<SVPokemonHomeTrainerRankData>> GetSVTrainerDataAsync(string sessionId, int rst, int ts1, int page = 1)
+        public static async Task<List<SVPokemonHomeTrainerRankData>> GetSVTrainerDataAsync(string sessionId, int rst, int ts1, int page = 1)
         {
             List<SVPokemonHomeTrainerRankData> res = new();
 
@@ -392,9 +394,25 @@ Accept-Encoding: gzip";
         }
 
 
-        public async Task<List<SVPokemonHomeTrainerRankData>> GetSVTrainerDataAsync(SVPokemonHomeSession pokemonHomeSession, int page = 1)
+        public static async Task<List<SVPokemonHomeTrainerRankData>> GetSVTrainerDataAsync(SVPokemonHomeSession pokemonHomeSession, int page = 1)
         {
             return await GetSVTrainerDataAsync(pokemonHomeSession.SeasonId, pokemonHomeSession.RST, pokemonHomeSession.TS1, page);
+        }
+
+
+        public static async Task GetSVPokemonRankdataAsync(SVPokemonHomeSession pokemonHomeSession)
+        {
+            await GetSVPokemonRankdataAsync(pokemonHomeSession.SeasonId, pokemonHomeSession.RST, pokemonHomeSession.TS2);
+        }
+
+        public static async Task GetSVPokemonRankdataAsync(string sessionId, int rst, int ts1)
+        {
+            var pokedata = await _httpClient.GetStringAsync(string.Format(PJsonDataUrl, sessionId, rst, ts1));
+
+            for (int j = 1; j <= 5; j++)
+            {
+                var data = await _httpClient.GetStringAsync(string.Format(PDataUrl, sessionId, rst, ts1, j));
+            }
         }
     }
 }
