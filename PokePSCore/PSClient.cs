@@ -98,19 +98,28 @@ namespace PokePSCore
         {
             while (!_disposed)
             {
-                var rcvBytes = new byte[25000];
-                var rcvBuffer = new ArraySegment<byte>(rcvBytes);
-                WebSocketReceiveResult rcvResult = await _webSocket.ReceiveAsync(rcvBuffer, CancellationToken.None);
-                if (rcvResult?.MessageType != WebSocketMessageType.Text)
+                try
                 {
-                    // Console.WriteLine("未知信息");
-                    continue;
-                }
+                    var rcvBytes = new byte[25000];
+                    var rcvBuffer = new ArraySegment<byte>(rcvBytes);
+                    WebSocketReceiveResult rcvResult = await _webSocket.ReceiveAsync(rcvBuffer, CancellationToken.None);
+                    if (rcvResult?.MessageType != WebSocketMessageType.Text)
+                    {
+                        // Console.WriteLine("未知信息");
+                        continue;
+                    }
 
-                byte[] msgBytes = rcvBuffer.ToArray();
-                var res = Encoding.UTF8.GetString(msgBytes, 0, rcvResult.Count);
-                await WriteLogAsync(res, MsgType.Receive);
-                await ExcuteMessageAsync(res);
+                    byte[] msgBytes = rcvBuffer.ToArray();
+                    var res = Encoding.UTF8.GetString(msgBytes, 0, rcvResult.Count);
+                    await WriteLogAsync(res, MsgType.Receive);
+                    await ExcuteMessageAsync(res);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("已经关闭");
+                    break;
+                }
+               
 
                 //.Split('|');
             }
