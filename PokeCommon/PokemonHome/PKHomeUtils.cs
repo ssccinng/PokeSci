@@ -1,13 +1,16 @@
 ﻿using Newtonsoft.Json;
 using PokeCommon.Models;
 using System;
+using System.Buffers;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -45,6 +48,7 @@ namespace PokeCommon.PokemonHome
 //Accept-Encoding: gzip";
         private readonly static string _header = @"accept: application/json, text/javascript, */*; q=0.01
 countrycode: 304
+authorization: Bearer
 langcode: 1
 user-agent: Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Mobile Safari/537.36
 Accept-Encoding: gzip";
@@ -284,6 +288,9 @@ Accept-Encoding: gzip";
 
                 File.WriteAllText($"homedata/wazainfo/{Path.GetFileName(string.Format(wazainfojson, lang_suffix[i]))}", await _httpClient.GetStringAsync(string.Format(wazainfojson, lang_suffix[i])));
 
+
+                // 加一个新的id表对应
+
                 var itemnameArray = Regex.Matches(itemnames, @"""\d+?"": ""(.+?)""");
 
                 for (int j = 0; j < itemnameArray.Count; j++)
@@ -400,19 +407,74 @@ Accept-Encoding: gzip";
         }
 
 
-        public static async Task GetSVPokemonRankdataAsync(SVPokemonHomeSession pokemonHomeSession)
+        public static async Task<HomePokemonRankData[]> GetSVPokemonRankdataAsync(SVPokemonHomeSession pokemonHomeSession)
         {
-            await GetSVPokemonRankdataAsync(pokemonHomeSession.SeasonId, pokemonHomeSession.RST, pokemonHomeSession.TS2);
+           return  await GetSVPokemonRankdataAsync(pokemonHomeSession.SeasonId, pokemonHomeSession.RST, pokemonHomeSession.TS2);
         }
 
-        public static async Task GetSVPokemonRankdataAsync(string sessionId, int rst, int ts1)
+        public static Task<HomePokemonRankData[]> GetSVPokemonRankdataAsync(string sessionId, int rst, int ts2)
         {
-            var pokedata = await _httpClient.GetStringAsync(string.Format(PJsonDataUrl, sessionId, rst, ts1));
+            return _httpClient.GetFromJsonAsync<HomePokemonRankData[]>(string.Format(PJsonDataUrl, sessionId, rst, ts2));
 
-            for (int j = 1; j <= 5; j++)
+            //for (int j = 1; j <= 5; j++)
+            //{
+            //    var data = await _httpClient.GetStringAsync(string.Format(PDataUrl, sessionId, rst, ts2, j));
+            //}
+        }
+
+        public static async Task<JsonNode> GetSVPokemonRankdataDetailAsync(SVPokemonHomeSession pokemonHomeSession)
+        {
+            return await GetSVPokemonRankdataDetailAsync(pokemonHomeSession.CId, pokemonHomeSession.RST, pokemonHomeSession.TS2);
+        }
+        public static async Task<JsonNode> GetSVPokemonRankdataDetailAsync(string sessionId, int rst, int ts2)
+        {
+            List <JsonElement> jsonNode = new();
+            for (int j = 1; j <= 7; j++)
             {
-                var data = await _httpClient.GetStringAsync(string.Format(PDataUrl, sessionId, rst, ts1, j));
+                try
+                {
+                    var data = await _httpClient.GetFromJsonAsync<JsonElement>(string.Format(PDataUrl, sessionId, rst, ts2, j));
+                    jsonNode.Add(data);
+
+                }
+                catch //(Exception ex)
+                {
+                    break;
+                }
             }
+
+            return JsonNode.Parse(SimpleObjectMerge(jsonNode
+                .ToArray()));
+        }
+
+        public static string SimpleObjectMerge(params JsonElement[] jsonElements)
+        {
+            var outputBuffer = new ArrayBufferWriter<byte>();
+
+            using (var jsonWriter = new Utf8JsonWriter(outputBuffer, new JsonWriterOptions { Indented = true }))
+            {
+                //JsonElement[] jsonElements = jsonDocument.Select(d => d.RootElement).ToArray();
+
+                // Assuming both JSON strings are single JSON objects (i.e. {...})
+                //Debug.Assert(root1.ValueKind == JsonValueKind.Object);
+                //Debug.Assert(root2.ValueKind == JsonValueKind.Object);
+
+                jsonWriter.WriteStartObject();
+
+                foreach (var jsonElement in jsonElements)
+                {
+                    foreach (var property in jsonElement.EnumerateObject())
+                    {
+                        property.WriteTo(jsonWriter);
+                    }
+                }
+
+                jsonWriter.WriteEndObject();
+            }
+
+            return Encoding.UTF8.GetString(outputBuffer.WrittenSpan);
         }
     }
+
+
 }
