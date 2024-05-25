@@ -3,6 +3,9 @@ using PokeCommon.PokemonHome;
 
 Console.WriteLine("Hello, World!");
 
+await PKHomeUtils.UpdateAll();
+return;
+
 var data = await PKHomeUtils.GetSVPokemonHomeSessionsAsync();
 
 await PKHomeUtils.GetSVPokemonRankdataAsync(data.Last());

@@ -125,6 +125,22 @@ namespace Poke.Usage
         public decimal Percentage { get; set; }
     }
 
+    //public class TeamUsageItem
+    //{
+    //    public int[] Ids { get; set; }
+
+    //    public int Win { get; set; }
+    //    public int Lose { get; set; }
+    //    /// <summary>
+    //    /// 有助于排序
+    //    /// </summary>
+    //    [JsonIgnore]
+
+    //    public int NaCount => -(Win + Lose);
+
+    //    public decimal Percentage { get; set; }
+    //}
+
     public class UsageTextItem
     {
         [JsonProperty("t")]

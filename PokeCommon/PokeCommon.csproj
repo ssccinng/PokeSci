@@ -8,6 +8,16 @@
 
   <ItemGroup>
     <None Remove="Data\Abilities.json" />
+    <None Remove="Data\Home\formnameall.json" />
+    <None Remove="Data\Home\itemnameall.json" />
+    <None Remove="Data\Home\itemTable.json" />
+    <None Remove="Data\Home\pokenameall.json" />
+    <None Remove="Data\Home\poketype.json" />
+    <None Remove="Data\Home\seikakunameall.json" />
+    <None Remove="Data\Home\tokuseinameall.json" />
+    <None Remove="Data\Home\tokuseiTable.json" />
+    <None Remove="Data\Home\wazanameall.json" />
+    <None Remove="Data\Home\wazaTable.json" />
   </ItemGroup>
 
   <ItemGroup>

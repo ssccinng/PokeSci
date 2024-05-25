@@ -151,7 +151,16 @@ Accept-Encoding: gzip";
             var result = regex1.Matches(match.Groups[1].Value).Select(s => { return s.Groups[1].Value; }).ToArray();
             return result;
         }
-
+        static Dictionary<int, string> GetWazaDict(string str)
+        {
+            var regex = new Regex(@"waza:(\{([\s\S\n]*?)\})");
+            var regex1 = new Regex(@"(\d+?):""(.+?)""");
+            var match = regex.Match(str);
+            // System.Console.WriteLine(match.Groups[1].Value);
+            //var result = match.Groups[1].Value.Replace("{", "").Replace("}", "").Trim().Split(",").Select(s => { return s.Split(":")[1]; }).ToArray();
+            var result = regex1.Matches(match.Groups[1].Value).ToDictionary(s => int.Parse(s.Groups[1].Value), s => { return s.Groups[2].Value; });//.ToArray();
+            return result;
+        }
         static string[] GetTokusei(string str)
         {
             var regex = new Regex(@"tokusei:(\{([\s\S\n]*?)\})");
@@ -165,12 +174,25 @@ Accept-Encoding: gzip";
             return result;
         }
 
+        static Dictionary<int, string> GetTokuseiDict(string str)
+        {
+            var regex = new Regex(@"tokusei:(\{([\s\S\n]*?)\})");
+            var regex1 = new Regex(@"(\d+?):""(.+?)""");
+
+            var match = regex.Match(str);
+            // System.Console.WriteLine(match.Groups[1].Value);
+            //var result = match.Groups[1].Value.Replace("{", "").Replace("}", "").Trim().Split(",").Select(s => { return s.Split(":")[1]; }).ToArray();
+            var result = regex1.Matches(match.Groups[1].Value).ToDictionary(s => int.Parse(s.Groups[1].Value), s => { return s.Groups[2].Value; });//.ToArray();
+            return result;
+        }
+
+
         static string[] GetSeikaku(string str)
         {
             var regex = new Regex(@"seikaku:(\{([\s\S\n]*?)\})");
             var match = regex.Match(str);
             // System.Console.WriteLine(match.Groups[1].Value);
-            var result = match.Groups[1].Value.Replace("{", "").Replace("}", "").Trim().Split(",").Select(s => { return s.Split(":")[1]; }).ToArray();
+            var result = match.Groups[1].Value.Replace("{", "").Replace("}", "").Replace("\"", "").Trim().Split(",").Select(s => { return s.Split(":")[1]; }).ToArray();
             return result;
         }
 
@@ -179,8 +201,17 @@ Accept-Encoding: gzip";
         public static List<PokeModel> WazaModels ;
         public static List<PokeModel> ItemModels ;
         public static List<PokeModel> AbilityModels;
+        public static List<PokeModel> SeikakuModels;
         public static Dictionary<int, Dictionary<string, PokeModel>> FormsModels;
         public static Dictionary<int, Dictionary<int, List<int>>> PokeTypes;
+
+        public static Dictionary<int, PokeModel> WazaTable;
+        public static Dictionary<int, PokeModel> TokuseiTable;
+        public static Dictionary<int, PokeModel> ItemTable;
+
+
+
+
         // 使用前先调用这个
         public static async Task LoadAll()
         {
@@ -193,6 +224,10 @@ Accept-Encoding: gzip";
             FormsModels = JsonSerializer.Deserialize<Dictionary<int, Dictionary<string, PokeModel>>>(File.ReadAllBytes("homedata/formnameall.json"));
 
             PokeTypes = JsonSerializer.Deserialize<Dictionary<int, Dictionary<int, List<int>>>>(File.ReadAllBytes("homedata/poketype.json"));
+
+            WazaTable = JsonSerializer.Deserialize<Dictionary<int, PokeModel>>(File.ReadAllBytes("homedata/wazaTable.json"));
+            TokuseiTable = JsonSerializer.Deserialize<Dictionary<int, PokeModel>>(File.ReadAllBytes("homedata/tokuseiTable.json"));
+            ItemTable = JsonSerializer.Deserialize<Dictionary<int, PokeModel>>(File.ReadAllBytes("homedata/itemTable.json"));
 
 
 
@@ -232,6 +267,14 @@ Accept-Encoding: gzip";
             List<PokeModel> itemModels = new();
             List<PokeModel> wazaModels = new();
             List<PokeModel> tokuseiModels = new();
+            List<PokeModel> seikakuModels = new();
+
+            Dictionary<int, PokeModel> itemTable = new();
+            Dictionary<int, PokeModel> wazaTable = new();
+            Dictionary<int, PokeModel> tokuseiTable = new();
+
+
+
             Dictionary<int, Dictionary<string, PokeModel>> formModels = new();
             for (int i = 0; i <= 3000; i++)
             {
@@ -240,6 +283,7 @@ Accept-Encoding: gzip";
                 itemModels.Add(new PokeModel { Id = i });
                 wazaModels.Add(new PokeModel { Id = i });
                 tokuseiModels.Add(new PokeModel { Id = i });
+                seikakuModels.Add(new PokeModel { Id = i });
                 //formModels.Add(new ());
 
             }
@@ -291,11 +335,12 @@ Accept-Encoding: gzip";
 
                 // 加一个新的id表对应
 
-                var itemnameArray = Regex.Matches(itemnames, @"""\d+?"": ""(.+?)""");
+                var itemnameArray = Regex.Matches(itemnames, @"""(\d+?)"": ""(.+?)""");
 
                 for (int j = 0; j < itemnameArray.Count; j++)
                 {
-                    itemModels[j + 1][i] = itemnameArray[j].Groups[1].Value;
+                    itemModels[j + 1][i] = itemnameArray[j].Groups[2].Value;
+                    itemTable[int.Parse(itemnameArray[j].Groups[1].Value)] = itemModels[j + 1];
                 }
 
                 var zkn_formArray = Regex.Matches(zkn_forms, @"""(\d+?)_([0-9_]+?)"": ""(.+?)""");
@@ -325,6 +370,12 @@ Accept-Encoding: gzip";
                 var GetPokess = GetPoke(ss);
                 var GetTokuseis = GetTokusei(ss);
                 var GetWazas = GetWaza(ss);
+                var GetSeikakus = GetSeikaku(ss);
+
+                var GetWazaDicts = GetWazaDict(ss);
+                var GetTokuseiDicts = GetTokuseiDict(ss);
+
+                //var GetTokuseiDicts = GetTokuseiDicts(ss);
 
                 for (int j = 0; j < GetPokess.Length; j++)
                 {
@@ -340,6 +391,29 @@ Accept-Encoding: gzip";
                 {
                     wazaModels[j + 1][i] = GetWazas[j];
                 }
+
+                for (int j = 0; j < GetSeikakus.Length; j++)
+                {
+                    seikakuModels[j + 1][i] = GetSeikakus[j];
+                }
+
+                foreach (var item in GetWazaDicts)
+                {
+                    if (!wazaTable.ContainsKey(item.Key))
+                    {
+                        wazaTable[item.Key] = new();
+                    }
+                    wazaTable[item.Key][i] = item.Value;
+                }
+
+                foreach (var item in GetTokuseiDicts)
+                {
+                    if (!tokuseiTable.ContainsKey(item.Key))
+                    {
+                        tokuseiTable[item.Key] = new();
+                    }
+                    tokuseiTable[item.Key][i] = item.Value;
+                }
             }
 
                 JsonSerializerOptions options = new JsonSerializerOptions
@@ -350,8 +424,13 @@ Accept-Encoding: gzip";
             File.WriteAllText($"homedata/itemnameall.json", JsonSerializer.Serialize(itemModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
             File.WriteAllText($"homedata/wazanameall.json", JsonSerializer.Serialize(wazaModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
             File.WriteAllText($"homedata/tokuseinameall.json", JsonSerializer.Serialize(tokuseiModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
+            File.WriteAllText($"homedata/seikakunameall.json", JsonSerializer.Serialize(seikakuModels.Skip(1).Where(s => s.Name_Eng != null).ToList(), options));
 
             File.WriteAllText($"homedata/formnameall.json", JsonSerializer.Serialize(formModels, options));
+
+            File.WriteAllText($"homedata/wazaTable.json", JsonSerializer.Serialize(wazaTable, options));
+            File.WriteAllText($"homedata/tokuseiTable.json", JsonSerializer.Serialize(tokuseiTable, options));
+            File.WriteAllText($"homedata/itemTable.json", JsonSerializer.Serialize(itemTable, options));
 
 
         }
