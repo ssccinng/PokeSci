@@ -38,8 +38,8 @@ namespace Poke.Usage
                             pokemonVictory.OppPokemon.Add(new VictoryItem { Id = poke2.PokemonId });
                         }
                         var oppPokemon = pokemonVictory.OppPokemon.First(s => s.Id == poke2.PokemonId);
-                        oppPokemon.WinCount += item.Result == 2 ? 1 : 0;
-                        oppPokemon.LoseCount += item.Result == 1 ? 1 : 0;
+                        oppPokemon.WinCount += item.Result == 1 ? 1 : 0;
+                        oppPokemon.LoseCount += item.Result == 2 ? 1 : 0;
                         oppPokemon.DrawCount += item.Result == 0 ? 1 : 0;
 
 
@@ -55,8 +55,8 @@ namespace Poke.Usage
                             pokemonVictory2.OppPokemon.Add(new VictoryItem { Id = poke1.PokemonId });
                         }
                         var oppPokemon2 = pokemonVictory2.OppPokemon.First(s => s.Id == poke1.PokemonId);
-                        oppPokemon2.WinCount += item.Result == 1 ? 1 : 0;
-                        oppPokemon2.LoseCount += item.Result == 2 ? 1 : 0;
+                        oppPokemon2.WinCount += item.Result == 2 ? 1 : 0;
+                        oppPokemon2.LoseCount += item.Result == 1 ? 1 : 0;
                         oppPokemon2.DrawCount += item.Result == 0 ? 1 : 0;
 
 
