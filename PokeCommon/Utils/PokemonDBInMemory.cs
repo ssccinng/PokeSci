@@ -1,4 +1,5 @@
-﻿using PokemonDataAccess.Models;
+﻿using PokeCommon.Models;
+using PokemonDataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace PokeCommon.Utils
         public static List<Performance> Performances = LoadResourceToString<List<Performance>>("Data.Performances.json");
         public static List<EggGroup> Egg_Groups = LoadResourceToString<List<EggGroup>>("Data.Egg_Groups.json");
         public static List<PSPokemon> PSPokemons = LoadResourceToString<List<PSPokemon>>("Data.PSPokemons.json");
+        //public static Dictionary<int, PokeModel> PSPokemons = LoadResourceToString<Dictionary<int, PokeModel>>("Data.PSPokemons.json");
 
 
 
