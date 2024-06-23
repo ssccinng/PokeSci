@@ -6,11 +6,14 @@ using System.Text.Json;
 using PokeCommon.API.Data;
 
 var pokemonContext = new PokeDBContext();
-
-var ps = pokemonContext.PSPokemons
+var ps = pokemonContext.PokeTypes
     .ToList();
 
-File.WriteAllText("PSPokemons.json", JsonSerializer.Serialize(ps));
+File.WriteAllText("PokeTypes.json", JsonSerializer.Serialize(ps));
+//var ps = pokemonContext.PSPokemons
+//    .ToList();
+
+//File.WriteAllText("PSPokemons.json", JsonSerializer.Serialize(ps));
 return;
 //var cc1 = pokemonContext.Pokemons
 //    .Include(s => s.Ability1)

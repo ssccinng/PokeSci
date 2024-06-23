@@ -195,7 +195,7 @@ namespace PokeCommon.PokemonShowdownTools
                         break;
                     default:
                         string[] temp1 = data[i].Trim().Split(' ');
-                        if (temp1[1] == "Nature")
+                        if (temp1.Length > 1 && temp1[1] == "Nature")
                         {
                             gamePokemon.Nature = await PokemonTools.GetNatureAsync(temp1[0]) ?? (await PokemonTools.GetNatureAsync(1)!);
                         }
