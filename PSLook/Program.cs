@@ -97,15 +97,34 @@ HashSet<string> IdCheck = new HashSet<string>
     //"aurarayquaza","140like","smolivbread","bwenty","shimikyu","bongoblossom","popeofvgc","mishmishmoshmosh","jonotv","dokiogi","boyt","Kyriakou","calvonix","Cool Friend Jamie","DavidPartVGC","Benster"
     //"flyingfalcons7", "PresentLP", "bigmansweep", "Val16", "JMOdri", "Sohaib", "incinsbackbaby", "dunklergeorg", "mind gaming", "Tony", "shitteronladder","rockerpon","lionladderer","soulsur","ctscheeser","throatgoatgary","zephcrustyundrwear","throatgoatgarry","mausholddeeznuts","gokuvegetafeetpics"
 
-   "zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
-    "cressbearfront", "kingambitlove", "dimsun", "increaserank", "basin6", "amoongusslove", "gholdengotobed",
-    "glimmoron", "yotamvgc", "heatranlove", "aspiringshadow", "broldengo", "choirss", "dafungusamongus",
-    "ogerponlove", "darksonic246", "notonlineyet", "dimusn", "gholdengolove", "dondozogaming", "seaofmoons",
-    "yotam", "crowntown", "volclove", "perishlove", "urshifulove", "tceremony", "ogerponandchill",
-    "darkurshifulove", "altoclefairy", "ironboomer", "gungiimaster", "zoan1p",
-    "youwilllosevgc", "ibreakamish", "wolfeyvgctest", "estrogenrelapse", "mdragonvgc", "z0mog",
-    "fricksauce", "44angelz", "bruhverlyhills", "sleighballs", "miamor2002", "robinshou",
-    "trillioneconomy", "wolfeyvgcactual"
+    //"PL",
+
+    "luguodeSTWB",
+
+    "Shenlan",
+
+    "AsukaHikaru",
+    "asukatestplay",
+
+    "niuqiezi2"
+    ,
+    "Lika007",
+    "hvlief",
+    "hvlief001",
+
+    "ahriduck",
+
+    "bee"
+
+   //"zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
+   // "cressbearfront", "kingambitlove", "dimsun", "increaserank", "basin6", "amoongusslove", "gholdengotobed",
+   // "glimmoron", "yotamvgc", "heatranlove", "aspiringshadow", "broldengo", "choirss", "dafungusamongus",
+   // "ogerponlove", "darksonic246", "notonlineyet", "dimusn", "gholdengolove", "dondozogaming", "seaofmoons",
+   // "yotam", "crowntown", "volclove", "perishlove", "urshifulove", "tceremony", "ogerponandchill",
+   // "darkurshifulove", "altoclefairy", "ironboomer", "gungiimaster", "zoan1p",
+   // "youwilllosevgc", "ibreakamish", "wolfeyvgctest", "estrogenrelapse", "mdragonvgc", "z0mog",
+   // "fricksauce", "44angelz", "bruhverlyhills", "sleighballs", "miamor2002", "robinshou",
+   // "trillioneconomy", "wolfeyvgcactual"
     //"terabolin",
     //"Lordoki",
     //"Cykomore",
@@ -121,7 +140,7 @@ IdCheck = IdCheck.Select(x => Regex.Replace(x, "[^A-Za-z]", "").ToLower()).ToHas
 var guilds = await MasudaBot.GetMeGuildsAsync();
 var channels = await MasudaBot.GetChannelsAsync(guilds.First().Id);
 
-var sjb = channels.FirstOrDefault(s => s.Name.Contains("世界杯")).Id;
+var sjb = channels.FirstOrDefault(s => s.Name.Contains("菇赛")).Id;
 
 HashSet<string> Keys = new();
 pSClient.UserDetailsAction += async (msg) =>

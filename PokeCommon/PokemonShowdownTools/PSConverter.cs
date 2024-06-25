@@ -13,6 +13,101 @@ namespace PokeCommon.PokemonShowdownTools
         {
             return reg.Replace(val, "").ToLower();
         }
+
+        public static async ValueTask<string> ConvertToChsPsAsync(GamePokemon gamePokemon)
+        {
+            StringBuilder sb = new();
+            if (gamePokemon == null || gamePokemon.MetaPokemon == null)
+            {
+                return "";
+            }
+            // 思考昵称加在哪里
+            // 这里要获取PS名字
+            sb.Append((await PokemonTools.GetPsPokemonAsync(gamePokemon.MetaPokemon.Id))?.PSChsName);
+            if (gamePokemon.Gmax) sb.Append("-超极巨");
+            if (gamePokemon.Item != null) sb.Append($" @ {gamePokemon.Item.Name_Chs}");
+            sb.AppendLine();
+            if (gamePokemon.Ability != null) sb.AppendLine($"特性: {gamePokemon.Ability.Name_Chs}");
+            sb.AppendLine($"等级: {gamePokemon.LV}");
+            if (gamePokemon.TreaType != null)
+            {
+                sb.AppendLine("太晶属性: " + gamePokemon.TreaType.Name_Chs);
+
+            }
+            if (gamePokemon.Happiness != 160) sb.AppendLine($"请密度: {gamePokemon.Happiness}");
+            string[] orz = { "HP", "攻击", "防御", "特攻", "特防", "速度" };
+            bool flag = false;
+            if (gamePokemon.EVs.ToSixArray().Any(s => s != 0))
+            {
+                sb.Append("努力值: ");
+                for (int i = 0; i < 6; i++)
+                {
+                    if (gamePokemon.EVs[i] > 0)
+                    {
+                        if (flag)
+                        {
+                            sb.Append(" / ");
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                        sb.Append($"{gamePokemon.EVs[i]} {orz[i]}");
+                    }
+                }
+                sb.AppendLine();
+            }
+
+
+
+            if (gamePokemon.Shiny)
+            {
+                sb.AppendLine("闪光: Yes");
+            }
+            if (gamePokemon.Nature != null)
+            {
+                sb.AppendLine($"{gamePokemon.Nature.Name_Chs} 性格");
+            }
+
+            flag = false;
+            if (gamePokemon.IVs.ToSixArray().Any(s => s != 31))
+            {
+                sb.Append("个体值: ");
+                for (int i = 0; i < 6; i++)
+                {
+                    if (gamePokemon.IVs[i] != 31)
+                    {
+                        if (flag)
+                        {
+                            sb.Append(" / ");
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                        sb.Append($"{gamePokemon.IVs[i]} {orz[i]}");
+                    }
+                }
+                sb.AppendLine();
+            }
+            foreach (var move in gamePokemon.Moves)
+            {
+                if (move != null)
+                {
+                    // 这个地方 用id特判
+                    if (move.NameChs.StartsWith("觉醒力量"))
+                    {
+
+                    }
+                    else
+                    {
+                        sb.AppendLine($"- {move.NameChs}");
+                    }
+                }
+
+            }
+            return sb.ToString();
+        }
         public static async ValueTask<string> ConvertToPsAsync(GamePokemon gamePokemon)
         {
             StringBuilder sb = new();
@@ -108,13 +203,21 @@ namespace PokeCommon.PokemonShowdownTools
             return sb.ToString();
         }
 
-        public static async ValueTask<string> ConvertToPsAsync(GamePokemonTeam gamePokemonTeam)
+        public static async ValueTask<string> ConvertToPsAsync(GamePokemonTeam gamePokemonTeam, LanguageType languageType = LanguageType.ENG)
         {
             var sb = new StringBuilder();
             foreach (var item in gamePokemonTeam.GamePokemons)
             {
-                sb.AppendLine(await ConvertToPsAsync(item));
+                if (languageType == LanguageType.CHS)
+                {
+                    sb.AppendLine(await ConvertToChsPsAsync(item));
+                }
+                else
+                {
+                    sb.AppendLine(await ConvertToPsAsync(item));
+                }
                 sb.AppendLine();
+
             }
             return sb.ToString().Trim();
         }
