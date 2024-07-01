@@ -99,22 +99,50 @@ HashSet<string> IdCheck = new HashSet<string>
 
     //"PL",
 
-    "luguodeSTWB",
+    //"luguodeSTWB",
 
-    "Shenlan",
+    //"Shenlan",
 
-    "AsukaHikaru",
-    "asukatestplay",
+    //"AsukaHikaru",
+    //"asukatestplay",
 
-    "niuqiezi2"
-    ,
-    "Lika007",
-    "hvlief",
-    "hvlief001",
+    //"niuqiezi2"
+    //,
+    //"Lika007",
+    //"hvlief",
+    //"hvlief001",
 
-    "ahriduck",
+    //"ahriduck",
+    //"shenmiwanjia",
 
-    "bee"
+    //"bee",
+    //"Fairychomp"
+
+    
+  
+    "JurgenKlopp"
+  ,
+  
+    "zhuange"
+  ,
+  
+    "Takami Chika8"
+  ,
+  
+    "Piplup33"
+  ,
+  
+    "Johan"
+  ,
+  
+    "RedJoker"
+  ,
+  
+    "ZHIYUAN"
+  ,
+  
+    "dianmawei"
+
 
    //"zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
    // "cressbearfront", "kingambitlove", "dimsun", "increaserank", "basin6", "amoongusslove", "gholdengotobed",
