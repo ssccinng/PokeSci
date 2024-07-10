@@ -120,28 +120,40 @@ HashSet<string> IdCheck = new HashSet<string>
 
     
   
-    "JurgenKlopp"
-  ,
+  //  "JurgenKlopp"
+  //,
   
-    "zhuange"
-  ,
+  //  "zhuange"
+  //,
   
-    "Takami Chika8"
-  ,
+  //  "Takami Chika8"
+  //,
   
-    "Piplup33"
-  ,
+  //  "Piplup33"
+  //,
   
-    "Johan"
-  ,
+  //  "Johan"
+  //,
   
-    "RedJoker"
-  ,
+  //  "RedJoker"
+  //,
   
-    "ZHIYUAN"
-  ,
+  //  "ZHIYUAN"
+  //,
   
-    "dianmawei"
+  //  "dianmawei",
+  //  "kevindbvgc",
+
+
+    "rongxi",
+    "NingZhi",
+    "sys",
+    "zhiyuan",
+    "TJYVGC",
+    "Kars",
+    "bingx",
+    "leafblade"
+
 
 
    //"zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",

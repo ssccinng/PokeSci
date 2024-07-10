@@ -1,4 +1,4 @@
-﻿using PSReplayAnalysis.PokeLib;
+﻿using PokemonDataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace PSReplayAnalysis
     public partial class PSReplayAnalysis
     {
         public static ImmutableDictionary<string, PSPokemon> Pokemons =
-            JsonSerializer.Deserialize<List<PSPokemon>>(File.ReadAllText("PSPokemons.json"))!.ToImmutableDictionary(s => s.PSName, s => s);
+            PokeCommon.Utils.PokemonDBInMemory.PSPokemons.ToImmutableDictionary(s => s.PSName, s => s);
         public static ImmutableDictionary<string, int> PsPokes =
             JsonSerializer.Deserialize<List<PSData>>(File.ReadAllText("Pokedata.zqd"))!.Select((s, i) => new { s = s, i = i })
             .ToImmutableDictionary(s => s.s.name, s => s.i);
@@ -32,6 +32,18 @@ namespace PSReplayAnalysis
         public static string ConvFile(string path)
         {
             var txt = File.ReadAllText(path);
+            var sidx = txt.IndexOf(">battle-gen");
+            var eidx = txt.IndexOf("</script>", sidx);
+
+            var tt = txt.Substring(sidx, eidx - sidx);
+            //tt.Length
+            var cc = tt.Trim();
+            return cc;
+
+        }
+        public static string ConvFileContent(string fileContent)
+        {
+            var txt = fileContent;
             var sidx = txt.IndexOf(">battle-gen");
             var eidx = txt.IndexOf("</script>", sidx);
 
@@ -1010,13 +1022,13 @@ namespace PSReplayAnalysis
         public string _0 { get; set; }
     }
 
-    public class PSPokemon
-    {
-        public string Id { get; set; }
-        public string PSName { get; set; }
-        public string AllValue { get; set; }
-        public string PokemonId { get; set; }
-    }
+    //public class PSPokemon
+    //{
+    //    public string Id { get; set; }
+    //    public string PSName { get; set; }
+    //    public string AllValue { get; set; }
+    //    public string PokemonId { get; set; }
+    //}
 
 }
 
