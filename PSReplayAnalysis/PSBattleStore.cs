@@ -1,5 +1,4 @@
 ﻿using PSReplayAnalysis;
-using PSReplayAnalysis.PokeLib;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

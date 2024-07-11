@@ -1,5 +1,4 @@
-﻿using PSReplayAnalysis.PokeLib;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using static PSReplayAnalysis.ExporttoTrainData;
 
 namespace PSReplayAnalysis;
@@ -101,7 +100,8 @@ public struct Team
                 res[vidx + 4] = pSMove.basePower * 1f / 300;
                 // 不行就把这个展开
                 res[vidx + 5] = GetTargetId(pSMove.target);
-                res[vidx + 2 + Pokemondata.GetEngTypeId(pSMove.type)] = 1;
+                // 撕烤
+                //res[vidx + 2 + Pokemondata.GetEngTypeId(pSMove.type)] = 1;
 
                 switch (pSMove.category)
                 {
@@ -161,7 +161,8 @@ public struct Team
 
             for (int j = 0; j < poke.types.Length; j++)
             {
-                res[i * len + 7 + Pokemondata.GetEngTypeId(poke.types[j]) - 1] = 1;
+                // sikao 
+                //res[i * len + 7 + Pokemondata.GetEngTypeId(poke.types[j]) - 1] = 1;
             }
 
             res[i * len + 25] = Pokemons[i].HPRemain * 1f / 100;

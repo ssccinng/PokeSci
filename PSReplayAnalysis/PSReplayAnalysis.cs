@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PSReplayAnalysis
@@ -29,6 +30,40 @@ namespace PSReplayAnalysis
         JsonSerializer.Deserialize<List<PSMove>>(File.ReadAllText("MoveData.zqd"))!.DistinctBy(s => s.num)
             //.Select((s, i) => new { s = s, i = i })
             .ToImmutableDictionary(s => s.num, s => s);
+
+
+        public static string GetOfficialReplayData(string content)
+        {
+            var ss = "<script type=\"text/plain\" class=\"battle-log-data\">";
+            var sidx = content.IndexOf(ss) + ss.Length;
+            var eidx = content.IndexOf("</script>", sidx);
+
+            return content[sidx..eidx].Trim();
+        }
+
+
+        public static PSReplayDS GetReplayDetail(string content)
+        {
+
+            var replay = GetOfficialReplayData(content);
+
+            Regex replayidReg = ReplayIdRegex();
+
+
+
+            var replayId = replayidReg.Match(content).Groups[1].Value;
+            var title = content[(content.IndexOf("<title>") + 7)..content.IndexOf("</title>")];
+
+            var tier = title.Split(':')[0].Trim();
+
+            var player1 = title.Split(':')[1].Split(" vs. ")[0].Trim();
+            var player2 = title.Split(':')[1].Split(" - ")[0].Split(" vs. ")[1].Trim();
+            return new PSReplayDS
+            {
+                id = replayId, you = player1, replay = replay.Split("\n"), tier = tier, p1 = player1, p2 = player2
+            };
+        }
+
         public static string ConvFile(string path)
         {
             var txt = File.ReadAllText(path);
@@ -980,7 +1015,9 @@ namespace PSReplayAnalysis
             //// 数据库里去搜
             //return res.FirstOrDefault();
         }
-        
+
+        [GeneratedRegex("<input type=\"hidden\" name=\"replayid\" value=\"(.+?)\" />")]
+        public static partial Regex ReplayIdRegex();
     }
 
 
