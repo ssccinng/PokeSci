@@ -145,15 +145,15 @@ HashSet<string> IdCheck = new HashSet<string>
   //  "kevindbvgc",
 
 
-    "rongxi",
-    "NingZhi",
-    "sys",
-    "zhiyuan",
-    "TJYVGC",
-    "Kars",
-    "bingx",
-    "leafblade"
-
+    //"rongxi",
+    //"NingZhi",
+    //"sys",
+    //"zhiyuan",
+    //"TJYVGC",
+    //"Kars",
+    //"bingx",
+    //"leafblade"
+    "91jyjyjya","Baerli_VGC","Kemoho","91GongSang","TdrunnerVGC","Last9VGC","XJQJ", "of130"
 
 
    //"zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
