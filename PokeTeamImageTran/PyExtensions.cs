@@ -25,9 +25,9 @@ public static class PyExtensions
 
 #if DEBUG
     public static string PythonPath { get; } = "F:/anaconda3/envs/PaddleOCR/python.exe";
-    public static string PyScriptPath { get; } = " f:/VSProject/PaddleOCR/paddleocr.py";
+    public static string PyScriptPath { get; } = " G:/VSProject/PaddleOCR/paddleocr.py";
     public static string VitPythonPath { get; } = "F:/anaconda3/envs/vit/python.exe";
-    public static string VitPyScriptPath { get; } = "F:/VSProject/so-vits-svc/inference_main.py";
+    public static string VitPyScriptPath { get; } = "G:/VSProject/so-vits-svc/inference_main.py";
 #else
     public static string PyScriptPath { get; } = "/home/paddle/PaddleOCR/paddleocr.py";
     public static string PythonPath { get; } = "/root/anaconda3/envs/PaddleOCR/bin/python3.10";
