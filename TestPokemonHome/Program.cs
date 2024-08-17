@@ -8,7 +8,7 @@ Console.WriteLine("Hello, World!");
 
 var data = await PKHomeUtils.GetSVPokemonHomeSessionsAsync();
 
-await PKHomeUtils.GetSVPokemonRankdataAsync(data.Last());
+var cc = await PKHomeUtils.GetSVTrainerDataAsync(data[1]);
 
 return;
 //var aa = await pKHomeUtils.GetBundleAsync();

@@ -358,9 +358,11 @@ public class PokemonImageController : ControllerBase
         {
             using var pokeimg = img.CloneAs<Rgba32>();
             pokeimg.Mutate(x => x.Crop(new Rectangle(
-                rect[i].X + 14, rect[i].Y + 14,
+                rect[i].X, rect[i].Y,
                 rect[i].Width, rect[i].Height)));
             pokeimg.Mutate(x => x.Resize(new Size(586, 160)));
+
+            pokeimg.Mutate(x => x.Crop(new Rectangle(14, 14, 572, 146)));
 
             using var pokeimg_name = pokeimg.CloneAs<Rgba32>();
             pokeimg_name.Mutate(x => x.Crop(_pokeRegions1[i].Name));

@@ -15,7 +15,7 @@ namespace PokeDelectCV
             var upper = InputArray.Create([179, 255, 255]);
             Cv2.InRange(image, lower, upper, image);
 
-            Cv2.ImWrite("test.jpg", image);
+            //Cv2.ImWrite("test.jpg", image);
 
             Cv2.Threshold(image, image, 127, 255, ThresholdTypes.BinaryInv);
             Cv2.FindContours(image, out Point[][] point, out var h, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
