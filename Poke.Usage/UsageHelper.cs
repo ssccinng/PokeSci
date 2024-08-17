@@ -176,12 +176,18 @@ namespace Poke.Usage
                 {
                     aliyPokemon.Percentage = (decimal)aliyPokemon.Count / pokemon.Count;
                 }
+                foreach (var treaType in pokemon.TreaUsage)
+                {
+                    treaType.Percentage = (decimal)treaType.Count / pokemon.Count;
+                }
+
 
                 pokemon.MoveUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.ItemUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AbilityUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.NatureUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AliyPokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
+                pokemon.TreaUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
             }
 
             usage.PokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
@@ -356,12 +362,17 @@ namespace Poke.Usage
                 {
                     aliyPokemon.Percentage = (decimal)aliyPokemon.Count / pokemon.Count;
                 }
+                foreach (var treaType in pokemon.TreaUsage)
+                {
+                    treaType.Percentage = (decimal)treaType.Count / pokemon.Count;
+                }
 
                 pokemon.MoveUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.ItemUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AbilityUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.NatureUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AliyPokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
+                pokemon.TreaUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
             }
 
             usage.PokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
@@ -533,12 +544,17 @@ namespace Poke.Usage
                 {
                     aliyPokemon.Percentage = (decimal)aliyPokemon.Count / pokemon.Count;
                 }
+                foreach (var treaType in pokemon.TreaUsage)
+                {
+                    treaType.Percentage = (decimal)treaType.Count / pokemon.Count;
+                }
 
                 pokemon.MoveUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.ItemUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AbilityUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.NatureUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AliyPokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
+                pokemon.TreaUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
             }
             usage.PokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
 
@@ -708,12 +724,17 @@ namespace Poke.Usage
                 {
                     aliyPokemon.Percentage = (decimal)aliyPokemon.Count / pokemon.Count;
                 }
+                foreach (var treaType in pokemon.TreaUsage)
+                {
+                    treaType.Percentage = (decimal)treaType.Count / pokemon.Count;
+                }
 
                 pokemon.MoveUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.ItemUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AbilityUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.NatureUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
                 pokemon.AliyPokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
+                pokemon.TreaUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
             }
             usage.PokemonUsage.Sort((a, b) => b.Count.CompareTo(a.Count));
 
