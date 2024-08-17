@@ -131,6 +131,25 @@ namespace Poke.Usage
                     {
                         nature.Count++;
                     }
+
+                    var treaType = pokemon.TreaUsage.FirstOrDefault(t => t.Id == gamePokemon.TreaType?.Id);
+                    if (treaType == null)
+                    {
+                        if (gamePokemon.TreaType != null)
+                        {
+                            treaType = new UsageItem
+                            {
+                                Id = gamePokemon.TreaType.Id,
+                                Count = 1
+                            };
+                            pokemon.TreaUsage.Add(treaType);
+                        }
+                    }
+                    else
+                    {
+                        treaType.Count++;
+                    }
+
                 }
             }
 
@@ -293,6 +312,24 @@ namespace Poke.Usage
                     {
                         nature.Count++;
                     }
+
+                    var treaType = pokemon.TreaUsage.FirstOrDefault(t => t.Id == gamePokemon.TreaType?.Id);
+                    if (treaType == null)
+                    {
+                        if (gamePokemon.TreaType != null)
+                        {
+                            treaType = new UsageItem
+                            {
+                                Id = gamePokemon.TreaType.Id,
+                                Count = 1
+                            };
+                            pokemon.TreaUsage.Add(treaType);
+                        }
+                    }
+                    else
+                    {
+                        treaType.Count++;
+                    }
                 }
             }
 
@@ -452,6 +489,24 @@ namespace Poke.Usage
                     {
                         nature.Count++;
                     }
+
+                    var treaType = pokemon.TreaUsage.FirstOrDefault(t => t.Id == gamePokemon.TreaType);
+                    if (treaType == null)
+                    {
+                        if (gamePokemon.TreaType != null)
+                        {
+                            treaType = new UsageItem
+                            {
+                                Id = gamePokemon.TreaType,
+                                Count = 1
+                            };
+                            pokemon.TreaUsage.Add(treaType);
+                        }
+                    }
+                    else
+                    {
+                        treaType.Count++;
+                    }
                 }
             }
 
@@ -609,6 +664,23 @@ namespace Poke.Usage
                         nature.Count++;
                     }
 
+                    var treaType = pokemon.TreaUsage.FirstOrDefault(t => t.Id == gamePokemon.TreaType);
+                    if (treaType == null)
+                    {
+                        if (gamePokemon.TreaType != null)
+                        {
+                            treaType = new UsageItem
+                            {
+                                Id = gamePokemon.TreaType,
+                                Count = 1
+                            };
+                            pokemon.TreaUsage.Add(treaType);
+                        }
+                    }
+                    else
+                    {
+                        treaType.Count++;
+                    }
 
                 }
             }
