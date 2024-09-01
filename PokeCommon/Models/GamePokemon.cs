@@ -1,4 +1,5 @@
-﻿using PokeCommon.GameRule;
+﻿using MessagePack;
+using PokeCommon.GameRule;
 using PokeCommon.Utils;
 using PokemonDataAccess.Models;
 using System.Text.Json.Serialization;
@@ -166,31 +167,32 @@ namespace PokeCommon.Models
         }
     }
 
+    [MessagePackObject]
 
     public class SimpleGamePokemon
     {
-        public int PokemonId { get; set; }
-        public int DexId { get; set; }
-        public string NickName { get; set; } = string.Empty;
-        public int LV { get; set; } = 50;
-        public int Happiness { get; set; } = 160;
-        public bool Shiny { get; set; }
-        public bool Gmax { get; set; } = false;
+        [Key(0)] public int PokemonId { get; set; }
+        [Key(1)] public int DexId { get; set; }
+        [Key(2)] public string NickName { get; set; } = string.Empty;
+        [Key(3)] public int LV { get; set; } = 50;
+        [Key(4)] public int Happiness { get; set; } = 160;
+        [Key(5)] public bool Shiny { get; set; }
+        [Key(6)] public bool Gmax { get; set; } = false;
 
-        public int[] Moves { get; set; } = new int[4];
-        public int[] EVs { get; set; } = new int[6];
-        public int[] IVs { get; set; } = new int[6];
-        public int NowHp { get; set; }
+        [Key(7)] public int[] Moves { get; set; } = new int[4];
+        [Key(8)] public int[] EVs { get; set; } = new int[6];
+        [Key(9)] public int[] IVs { get; set; } = new int[6];
+        [Key(10)] public int NowHp { get; set; }
 
-        public int Item { get; set; }
-        public int Nature { get; set; }
-        public int Ability { get; set; }
+        [Key(11)] public int Item { get; set; }
+        [Key(12)] public int Nature { get; set; }
+        [Key(13)] public int Ability { get; set; }
 
-        public int TreaType { get; set; }
+        [Key(14)] public int TreaType { get; set; }
 
         public async Task<GamePokemon> ToGamePokemon()
         {
-            var pokemon = await PokemonTools.GetPokemonAsync(PokemonId);
+            var pokemon = await PokemonToolsWithoutDB.GetPokemonAsync(PokemonId);
             var gamePokemon = new GamePokemon(pokemon)
             {
                 NickName = NickName,
@@ -199,12 +201,12 @@ namespace PokeCommon.Models
                 Shiny = Shiny,
                 Gmax = Gmax,
                 NowHp = NowHp,
-                Item = Item == 0 ? null : await PokemonTools.GetItemAsync(Item),
-                Nature = Nature == 0 ? null : await PokemonTools.GetNatureAsync(Nature),
-                Ability = Ability == 0 ? null : await PokemonTools.GetAbilityAsync(Ability),
-                TreaType = TreaType == 0 ? null : await PokemonTools.GetTypeAsync(TreaType),
+                Item = Item == 0 ? null : await PokemonToolsWithoutDB.GetItemAsync(Item),
+                Nature = Nature == 0 ? null : await PokemonToolsWithoutDB.GetNatureAsync(Nature),
+                Ability = Ability == 0 ? null : await PokemonToolsWithoutDB.GetAbilityAsync(Ability),
+                TreaType = TreaType == 0 ? null : await PokemonToolsWithoutDB.GetTypeAsync(TreaType),
             };
-            gamePokemon.Moves = (await Task.WhenAll(Moves.Select(async x => new GameMove(await PokemonTools.GetMoveAsync(x))))).ToList();
+            gamePokemon.Moves = (await Task.WhenAll(Moves.Select(async x => new GameMove(await PokemonToolsWithoutDB.GetMoveAsync(x))))).ToList();
             return gamePokemon;
         }
     }

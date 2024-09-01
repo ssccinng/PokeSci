@@ -13,6 +13,22 @@ using PokemonDataAccess;
 using PokePSCore;
 using PSReplayAnalysis;
 
+string priteamps = @"test (Primarina) (F) @ Aguav Berry  
+Ability: Torrent  
+Level: 70  
+Shiny: Yes  
+Tera Type: Dark  
+EVs: 4 HP / 44 Atk / 4 Def / 4 SpA / 4 SpD / 4 Spe  
+Mild Nature  
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe  
+- Acrobatics  
+- Chilling Water  
+- Haze  
+- Ice Beam";
+
+var teampri = await PSConverterWithoutDB.ConvertToPokemonsAsync(priteamps);
+return;
+
 
 var pc21 = new PSClient("kirbyrbp", "11998whs").LogTo(Console.WriteLine);
 await pc21.ConnectAsync();

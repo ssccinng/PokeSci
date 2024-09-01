@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using MessagePack;
+using System.Text.Json.Serialization;
 
 namespace PokeCommon.Models
 {
@@ -30,13 +31,14 @@ namespace PokeCommon.Models
             return simpleGamePokemons;
         }
     }
+    [MessagePackObject]
 
     public class SimpleGamePokemonTeam
     {
-        public List<SimpleGamePokemon> GamePokemons { get; set; } = new();
-        public string TrainerName { get; set; } = "zqd";
+        [Key(0)] public List<SimpleGamePokemon> GamePokemons { get; set; } = new();
+        [Key(1)] public string TrainerName { get; set; } = "zqd";
         [JsonIgnore]
-
+        [Key(2)]
         public int Count => GamePokemons.Count;
 
         public async Task<GamePokemonTeam> ToGamePokemonTeam()
