@@ -21,9 +21,9 @@ public static class SwissTool
 
         int full = 1 << roundCnt;
 
-        double[] res = new double[roundCnt];
+        double[] res = new double[roundCnt + 1];
 
-        for (int i = 0; i < roundCnt; i++)
+        for (int i = 0; i <= roundCnt; i++)
         {
             res[i] = c[roundCnt, i] * num / (double)full;
         }
