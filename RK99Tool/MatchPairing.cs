@@ -30,8 +30,8 @@
 
     public enum Division
     {
-        Junior = 0,
-        Senior = 1,
-        Master = 2
+        Juniors = 0,
+        Seniors = 1,
+        Masters = 2
     }
 }
