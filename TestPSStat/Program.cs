@@ -12,7 +12,9 @@ using System.Text.Json;
 //    Console.WriteLine(item);
 //}
 
-//var chaos = await Utils.GetChaos("2024-08", "gen9vgc2024reghbo3");
+var bb = await Utils.GetRules("2024-08");
+
+var chaos = await Utils.GetChaos("2024-08", "gen9vgc2024reghbo3-1760");
 JsonDocument doc = JsonDocument.Parse(File.ReadAllBytes("chaos.json"));
 // 完美字典序列化
 var aa1 = JsonSerializer.Deserialize<Dictionary<string, ItemProbability>>(doc.RootElement.GetProperty("data"));

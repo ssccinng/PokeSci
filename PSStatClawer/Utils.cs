@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO.Compression;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -27,6 +28,9 @@ namespace PSStatClawer
         [GeneratedRegex(@"href=""(.+?)/""", RegexOptions.IgnoreCase)]
         public  static partial Regex GetHref();
 
+        [GeneratedRegex(@"href=""([^/]+?)""", RegexOptions.IgnoreCase)]
+        public static partial Regex GetRuleHref();
+
         // moveset, chaos
         // 0 1500 1630 1760
         public async static Task<string[]> GetDates()
@@ -35,25 +39,51 @@ namespace PSStatClawer
 
             var match = GetHref().Matches(data);
 
-            string[] dates = new string[match.Count - 2];
+            string[] dates = new string[match.Count];
 
-            for (int i = 2; i < match.Count; i++)
+            for (int i = 0; i < match.Count; i++)
             {
-                dates[i-2] = match[i-2].Groups[1].Value;
+                dates[i] = match[i].Groups[1].Value;
             }
             return dates;
 
         }
 
-        public async static Task<Dictionary<string, ItemProbability>> GetChaos(string date, string rule, StatisticScore statisticScore)
+        public async static Task<string[]> GetRules(string date)
         {
-            var data = await Client.GetByteArrayAsync($"{date}/chaos/{rule}-{(int)statisticScore}.json.gz");
+            var data = await Client.GetStringAsync($"{date}/");
+            var match = GetRuleHref().Matches(data);
+            string[] rules = new string[match.Count - 0];
+            for (int i = 0; i < match.Count; i++)
+            {
+                rules[i - 0] = match[i - 0].Groups[1].Value;
+            }
+
+            rules = rules.Select(s => s.Split('.')[0]).Distinct().ToArray();
+
+            return rules;
+
+        }
+
+        public async static Task<Dictionary<string, ItemProbability>> GetChaos(string date, string rule)
+        {
+            var data = await Client.GetByteArrayAsync($"{date}/chaos/{rule}.json.gz");
 
             using GZipStream stream = new GZipStream(new System.IO.MemoryStream(data), CompressionMode.Decompress);
 
             using var reader = new System.IO.StreamReader(stream);
 
-            return JsonSerializer.Deserialize< Dictionary<string, ItemProbability>>(reader.ReadToEnd());
+            var datastr = reader.ReadToEnd();
+
+            var jsonData = JsonSerializer.Deserialize<JsonElement>(datastr).GetProperty("data");
+
+            return JsonSerializer.Deserialize<Dictionary<string, ItemProbability>>(jsonData);
+        }
+        public async static Task<Dictionary<string, ItemProbability>> GetChaos(string date, string rule, StatisticScore statisticScore)
+        {
+
+            return await GetChaos(date, $"{rule}-{statisticScore}");
+
 
         }
     }
