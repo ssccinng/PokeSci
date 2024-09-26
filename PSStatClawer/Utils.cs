@@ -1,11 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO.Compression;
 using System.Net.Http;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PSStatClawer
 {
+
+    public enum StatisticScore
+    {
+        _0 = 0,
+        _1500 = 1500,
+        _1630 = 1630,
+        _1760 = 1760
+    }
+
     public static partial class Utils
     {
         public static readonly string StatisticUrl = "https://www.smogon.com/stats/";
@@ -33,10 +45,16 @@ namespace PSStatClawer
 
         }
 
-        public async static Task<string> GetChaos(string date, string rule)
+        public async static Task<Dictionary<string, ItemProbability>> GetChaos(string date, string rule, StatisticScore statisticScore)
         {
-            var data = await Client.GetStringAsync(date);
-            return data;
+            var data = await Client.GetByteArrayAsync($"{date}/chaos/{rule}-{(int)statisticScore}.json.gz");
+
+            using GZipStream stream = new GZipStream(new System.IO.MemoryStream(data), CompressionMode.Decompress);
+
+            using var reader = new System.IO.StreamReader(stream);
+
+            return JsonSerializer.Deserialize< Dictionary<string, ItemProbability>>(reader.ReadToEnd());
+
         }
     }
 }
