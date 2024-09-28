@@ -568,6 +568,11 @@ namespace Poke.Usage
             foreach (var gamePokemonTeam in gamePokemonTeams)
             {
                 i++;
+                if (gamePokemonTeam == null)
+                {
+                    continue;
+                }
+
                 foreach (var gamePokemon in gamePokemonTeam.GamePokemons)
                 {
                     var pokemon = usage.PokemonUsage.FirstOrDefault(p => p.Id == gamePokemon.PokemonId);
