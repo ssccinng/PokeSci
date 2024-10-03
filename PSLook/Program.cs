@@ -153,8 +153,8 @@ HashSet<string> IdCheck = new HashSet<string>
     //"Kars",
     //"bingx",
     //"leafblade"
-    "91jyjyjya","Baerli_VGC","Kemoho","91GongSang","TdrunnerVGC","Last9VGC","XJQJ", "of130"
-
+    //"91jyjyjya","Baerli_VGC","Kemoho","91GongSang","TdrunnerVGC","Last9VGC","XJQJ", "of130"
+    "arbys", "ambassador"
 
    //"zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
    // "cressbearfront", "kingambitlove", "dimsun", "increaserank", "basin6", "amoongusslove", "gholdengotobed",
@@ -180,7 +180,8 @@ IdCheck = IdCheck.Select(x => Regex.Replace(x, "[^A-Za-z]", "").ToLower()).ToHas
 var guilds = await MasudaBot.GetMeGuildsAsync();
 var channels = await MasudaBot.GetChannelsAsync(guilds.First().Id);
 
-var sjb = channels.FirstOrDefault(s => s.Name.Contains("菇赛")).Id;
+//var sjb = channels.FirstOrDefault(s => s.Name.Contains("菇赛")).Id;
+var sjb = channels.FirstOrDefault(s => s.Name.Contains("世界杯")).Id;
 
 HashSet<string> Keys = new();
 pSClient.UserDetailsAction += async (msg) =>
