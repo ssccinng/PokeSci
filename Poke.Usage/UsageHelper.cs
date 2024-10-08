@@ -575,6 +575,11 @@ namespace Poke.Usage
 
                 foreach (var gamePokemon in gamePokemonTeam.GamePokemons)
                 {
+                    if (gamePokemon.PokemonId == 0)
+                    {
+                        continue;
+                    }
+
                     var pokemon = usage.PokemonUsage.FirstOrDefault(p => p.Id == gamePokemon.PokemonId);
                     if (pokemon == null)
                     {
@@ -592,6 +597,11 @@ namespace Poke.Usage
 
                     foreach (var gamePokemonMove in gamePokemon.Moves)
                     {
+                        if (gamePokemonMove == 0)
+                        {
+                            continue;
+                        }
+
                         var move = pokemon.MoveUsage.FirstOrDefault(m => m.Id == gamePokemonMove);
                         if (move == null)
                         {
@@ -610,6 +620,11 @@ namespace Poke.Usage
 
                     foreach (var poke in gamePokemonTeam.GamePokemons)
                     {
+                        if (poke.PokemonId == 0)
+                        {
+                            continue;
+                        }
+
                         if (poke.PokemonId != gamePokemon.PokemonId)
                         {
                             var aliyPokemon = pokemon.AliyPokemonUsage.FirstOrDefault(p => p.Id == poke.PokemonId);
@@ -629,78 +644,88 @@ namespace Poke.Usage
                         }
                         
                     }
-
-                    var heldItem = pokemon.ItemUsage.FirstOrDefault(i => i.Id == gamePokemon.Item);
-
-                    if (heldItem == null)
+                    if (gamePokemon.Item != 0)
                     {
-                        if (gamePokemon.Item != 0)
+                        var heldItem = pokemon.ItemUsage.FirstOrDefault(i => i.Id == gamePokemon.Item);
+                        if (heldItem == null)
                         {
-                            heldItem = new UsageItem
+                            if (gamePokemon.Item != 0)
                             {
-                                Id = gamePokemon.Item,
-                                Count = 1
-                            };
-                            pokemon.ItemUsage.Add(heldItem);
+                                heldItem = new UsageItem
+                                {
+                                    Id = gamePokemon.Item,
+                                    Count = 1
+                                };
+                                pokemon.ItemUsage.Add(heldItem);
+                            }
+                        }
+                        else
+                        {
+                            heldItem.Count++;
                         }
                     }
-                    else
-                    {
-                        heldItem.Count++;
-                    }
 
-                    var ability = pokemon.AbilityUsage.FirstOrDefault(a => a.Id == gamePokemon.Ability);
-                    if (ability == null)
+                    if (gamePokemon.Ability != 0)
                     {
-                        if (gamePokemon.Ability != 0)
+                        var ability = pokemon.AbilityUsage.FirstOrDefault(a => a.Id == gamePokemon.Ability);
+                        if (ability == null)
                         {
-                            ability = new UsageItem
+                            if (gamePokemon.Ability != 0)
                             {
-                                Id = gamePokemon.Ability,
-                                Count = 1
-                            };
-                            pokemon.AbilityUsage.Add(ability);
+                                ability = new UsageItem
+                                {
+                                    Id = gamePokemon.Ability,
+                                    Count = 1
+                                };
+                                pokemon.AbilityUsage.Add(ability);
+                            }
+                        }
+                        else
+                        {
+                            ability.Count++;
                         }
                     }
-                    else
-                    {
-                        ability.Count++;
-                    }
 
-                    var nature = pokemon.NatureUsage.FirstOrDefault(n => n.Id == gamePokemon.Nature);
-                    if (nature == null)
+                    if (gamePokemon.Nature != 0)
                     {
-                        if (gamePokemon.Nature != 0)
+                        var nature = pokemon.NatureUsage.FirstOrDefault(n => n.Id == gamePokemon.Nature);
+                        if (nature == null)
                         {
-                            nature = new UsageItem
+                            if (gamePokemon.Nature != 0)
                             {
-                                Id = gamePokemon.Nature,
-                                Count = 1
-                            };
-                            pokemon.NatureUsage.Add(nature);
+                                nature = new UsageItem
+                                {
+                                    Id = gamePokemon.Nature,
+                                    Count = 1
+                                };
+                                pokemon.NatureUsage.Add(nature);
+                            }
+                        }
+                        else
+                        {
+                            nature.Count++;
                         }
                     }
-                    else
-                    {
-                        nature.Count++;
-                    }
 
-                    var treaType = pokemon.TreaUsage.FirstOrDefault(t => t.Id == gamePokemon.TreaType);
-                    if (treaType == null)
+                    if (gamePokemon.TreaType != 0)
                     {
-                        if (gamePokemon.TreaType != null)
+                        var treaType = pokemon.TreaUsage.FirstOrDefault(t => t.Id == gamePokemon.TreaType);
+                        if (treaType == null)
                         {
-                            treaType = new UsageItem
+                            if (gamePokemon.TreaType != null)
                             {
-                                Id = gamePokemon.TreaType,
-                                Count = 1
-                            };
-                            pokemon.TreaUsage.Add(treaType);
+                                treaType = new UsageItem
+                                {
+                                    Id = gamePokemon.TreaType,
+                                    Count = 1
+                                };
+                                pokemon.TreaUsage.Add(treaType);
+                            }
                         }
-                    }
-                    else
-                    {
-                        treaType.Count++;
+                        else
+                        {
+                            treaType.Count++;
+                        }
                     }
 
                 }

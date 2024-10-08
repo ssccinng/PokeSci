@@ -194,7 +194,7 @@ namespace PokeCommon.PokemonShowdownTools
                         break;
                     default:
                         string[] temp1 = data[i].Trim().Split(' ');
-                        if (temp1[1] == "Nature")
+                        if (temp1.Length > 1 && temp1[1] == "Nature")
                         {
                             gamePokemon.Nature = await PokemonToolsWithoutDB.GetNatureAsync(temp1[0]) ?? (await PokemonToolsWithoutDB.GetNatureAsync(1)!);
                         }
@@ -202,6 +202,9 @@ namespace PokeCommon.PokemonShowdownTools
                         {
                             //string move1 = Regex.Replace(data[i].Trim(), @"\s*-\s+", "");
                             string move1 = data[i][1..].Trim();
+
+                            if (string.IsNullOrEmpty(move1)) continue;
+
                             if (move1.Contains("Hidden Power"))
                             {
 
