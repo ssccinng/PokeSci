@@ -354,6 +354,9 @@ Accept-Encoding: gzip";
                 {
                     itemModels[j + 1][i] = itemnameArray[j].Groups[2].Value;
                     itemTable[int.Parse(itemnameArray[j].Groups[1].Value)] = itemModels[j + 1];
+                    // 新加的 到时看看
+                    itemModels[j + 1].Id = int.Parse(itemnameArray[j].Groups[1].Value);
+
                 }
 
                 var zkn_formArray = Regex.Matches(zkn_forms, @"""(\d+?)_([0-9_]+?)"": ""(.+?)""");
