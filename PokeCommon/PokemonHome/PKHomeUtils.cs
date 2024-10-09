@@ -40,12 +40,22 @@ namespace PokeCommon.PokemonHome
         //private string _trainerUrl = "https://resource.pokemon-home.com/battledata/ranking/{0}/{1}/{2}/traner-{3}";
         public readonly static string TrainerUrl = "https://resource.pokemon-home.com/battledata/ranking/scvi/{0}/{1}/{2}/traner-{3}";
 
-//        private readonly static string _header = @"accept: application/json, text/javascript, */*; q=0.01
-//countrycode: 304
-//authorization: Bearer
-//langcode: 1
-//user-agent: Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Mobile Safari/537.36
-//Accept-Encoding: gzip";
+
+        public readonly static string ItemImageUrl = "https://resource.pokemon-home.com/battledata/img/item/item_{0}.png";
+        public readonly static string PokeImageUrl = "https://resource.pokemon-home.com/battledata/img/pokei128/icon{0}_f{1}_s0.png";
+        public readonly static string PokeCapImageUrl = "https://resource.pokemon-home.com/battledata/img/poke/cap{0}_f{1}_s0.png";
+
+
+        public readonly static string TerastalImageUrl = "https://resource.pokemon-home.com/battledata/img/terastal/icon_terastal_type_{0}.png";
+
+
+
+        //        private readonly static string _header = @"accept: application/json, text/javascript, */*; q=0.01
+        //countrycode: 304
+        //authorization: Bearer
+        //langcode: 1
+        //user-agent: Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Mobile Safari/537.36
+        //Accept-Encoding: gzip";
         private readonly static string _header = @"accept: application/json, text/javascript, */*; q=0.01
 countrycode: 304
 authorization: Bearer
@@ -81,6 +91,9 @@ Accept-Encoding: gzip";
                         \})                        #普通闭括弧
 
                      ", RegexOptions.IgnorePatternWhitespace);
+
+
+
 
         static HttpClient InitHttpClient()
         {
