@@ -43,7 +43,7 @@ namespace PokePSCore
 
         public Action<PsBattle> OnTeampreview;
         public Action<PsBattle, bool[]> OnForceSwitch;
-        public  Action<PsBattle> OnChooseMove;
+        public Action<PsBattle> OnChooseMove;
         /// <summary>
         /// 参数为对战和是否赢了
         /// </summary>
@@ -73,6 +73,9 @@ namespace PokePSCore
 
         //private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
         private string _loginUrl = "https://play.pokemonshowdown.com/~~showdown/action.php";
+
+        public event Action<Roomlist> OnGetRoomList;
+
         public PSClient(string userName, string pwd, string wsUrl = $"wss://sim3.psim.us/showdown/websocket")
         {
             _psServer = wsUrl;
@@ -119,7 +122,7 @@ namespace PokePSCore
                     Console.WriteLine("已经关闭");
                     break;
                 }
-               
+
 
                 //.Split('|');
             }
@@ -381,11 +384,16 @@ namespace PokePSCore
                     case "deinit":
                         // 对战结束
                         break;
+                    case "init":
+                        break;
                     case "queryresponse":
                         switch (data[2])
                         {
                             case "roomlist":
                                 // 想办法传回去
+
+                                OnGetRoomList?.Invoke(JsonSerializer.Deserialize<Roomlist>(data[3]));
+
                                 break;
                             case "userdetails":
                                 UserDetailsAction?.Invoke(data[3]);
@@ -506,5 +514,18 @@ namespace PokePSCore
                 }
             });
         }
+    }
+
+    public class Roomlist
+    {
+        public Dictionary<string, RoomPlayer> rooms { get; set; }
+    }
+    public class RoomPlayer
+    {
+        public string p1 { get; set; }
+        public string p2 { get; set; }
+
+
+
     }
 }
