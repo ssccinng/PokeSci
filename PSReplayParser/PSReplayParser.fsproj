@@ -9,10 +9,4 @@
     <Compile Include="Library.fs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PokePSCore\PokePSCore.csproj" />
-	 <ProjectReference Include="..\PSReplayParser\PSReplayParser.fsproj" />
-
-  </ItemGroup>
-
 </Project>

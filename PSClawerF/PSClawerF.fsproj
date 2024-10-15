@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PokePSCore\PokePSCore.csproj" />
+    <ProjectReference Include="..\PsRoomListener\PsRoomListener.fsproj" />
   </ItemGroup>
 
 </Project>

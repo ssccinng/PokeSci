@@ -1,11 +1,12 @@
 ﻿namespace PsRoomListener
 
 open PokePSCore
+open PSReplayParser
 
 module ListenBot = 
     type Bot(rule: string, score: option<int>) =
         let psClient = PSClient ("testt", "")
-        let mutable roomSet = set<string>()
+        let mutable roomSet = set []
 
         let connectAndLoginAsync() =
             async {
@@ -25,9 +26,12 @@ module ListenBot =
                 while true do
                     do! psClient.GetRoomListAsync(rule, scoreLimit)
                         |> Async.AwaitTask
+
+                    do! Async.Sleep 10000
+                    
             }
 
-        let initRoomListener() =
+        member this.initRoomListener() =
             psClient.add_OnGetRoomList (
                 fun e -> 
                     async {
@@ -40,14 +44,24 @@ module ListenBot =
                             newRoomSet |> Set.difference roomSet
 
                         for key in diff do
-                            let! res = psClient.SendJoinAsync key |> Async.AwaitTask
+                            do! psClient.SendJoinAsync key |> Async.AwaitTask
+
                             // Process `res` if needed
                             do! Async.Sleep 1000 // Replace Thread.Sleep with Async.Sleep to avoid blocking
+                            do! psClient.SendLeaveAsync key |> Async.AwaitTask
+                            do! Async.Sleep 1000
+
+                        roomSet <- newRoomSet
                     }
                     |> Async.Start // Start the async operation non-blocking
+            )
 
-
-
+            psClient.add_BattleRoomData(
+                fun e -> 
+                    printfn "BattleRoomData: %A" e
+                    printfn "BattleRoomData: %A" (e |> PSReplayParser.Parser)
+                    // Process `e` if needed
+                    ()
             )
 
             do loopToSendGetRoom() |> Async.Start

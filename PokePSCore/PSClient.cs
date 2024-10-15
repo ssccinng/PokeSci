@@ -52,6 +52,9 @@ namespace PokePSCore
         public event Action<PsBattle, string> BattleErrorAction;
 
         public event Action<PsBattle, string> BattleInfo;
+        public event Action<string> BattleRoomData;
+
+
 
         private string _challId;
 
@@ -119,7 +122,7 @@ namespace PokePSCore
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("已经关闭");
+                    Console.WriteLine("ex: {0}", ex);
                     break;
                 }
 
@@ -359,7 +362,9 @@ namespace PokePSCore
             Debug.WriteLine(message);
             var data = message.Split('|');
             // Console.WriteLine(data[0]);
-            if (data[0].Contains("battle"))
+
+            
+            if (data[0].Contains("battle") && false)
             {
                 // 对战数据
                 // Console.WriteLine("这里是对战...");
@@ -385,6 +390,9 @@ namespace PokePSCore
                         // 对战结束
                         break;
                     case "init":
+
+                        BattleRoomData?.Invoke(message);
+
                         break;
                     case "queryresponse":
                         switch (data[2])
