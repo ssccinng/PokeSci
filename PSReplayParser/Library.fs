@@ -5,9 +5,9 @@ open System
 module PSReplayParser =
 
     type WhoWin =
-        | Player1Win
-        | Player2Win
-        | Draw
+        | Player1Win = 0
+        | Player2Win = 1
+        | Draw = 2
 
     type Poke = { Name: string; Level: int; Sex: string }
 
