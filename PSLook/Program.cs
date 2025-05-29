@@ -102,7 +102,7 @@ HashSet<string> IdCheck = new HashSet<string>
     //"luguodeSTWB",
 
     //"Shenlan",
-
+    
     //"AsukaHikaru",
     //"asukatestplay",
 
@@ -154,7 +154,8 @@ HashSet<string> IdCheck = new HashSet<string>
     //"bingx",
     //"leafblade"
     //"91jyjyjya","Baerli_VGC","Kemoho","91GongSang","TdrunnerVGC","Last9VGC","XJQJ", "of130"
-    "arbys", "ambassador"
+    //"arbys", "ambassador"
+     "Discord Labrat"
 
    //"zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
    // "cressbearfront", "kingambitlove", "dimsun", "increaserank", "basin6", "amoongusslove", "gholdengotobed",

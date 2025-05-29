@@ -15,4 +15,8 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="9.0.300" />
+  </ItemGroup>
+
 </Project>

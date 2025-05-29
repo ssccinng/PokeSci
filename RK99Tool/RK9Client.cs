@@ -381,8 +381,9 @@ namespace RK9Tool
                             texts = GetTexts().Matches(row);
                             if (texts.Count == 1)
                             {
-
-                                pairingTable.Table = int.Parse(texts[0].Groups[1].Value);
+                               int.TryParse(texts[0].Groups[1].Value, out var t);
+                                pairingTable.Table = t;
+                                 
                             }
 
                             pairingRound.Pairings.Add(pairingTable);

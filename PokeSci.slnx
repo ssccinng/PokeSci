@@ -1,0 +1,95 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="arm64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/" />
+  <Folder Name="/Solution Items/src/" Id="b26dd35d-41fa-382c-4bb6-bbdf70484f0e">
+    <Project Path="Poke.Usage/Poke.Usage.csproj" />
+    <Project Path="PokeCommon/PokeCommon.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/src/Demo/" Id="312046e3-db46-378f-9519-352c10432598" />
+  <Folder Name="/Solution Items/src/Lib/" Id="9ef49c15-c6f0-e227-8665-a202a7b68468">
+    <Project Path="Poke.Data/Poke.Data.csproj" />
+    <Project Path="Poke.UPDL/Poke.UPDL.csproj" />
+    <Project Path="PokeDelectCV/PokeDelectCV.csproj" />
+    <Project Path="PokeShitLib/PokeShitLib.csproj" />
+    <Project Path="PSReplayParser/PSReplayParser.fsproj" />
+  </Folder>
+  <Folder Name="/Solution Items/src/Tools/" Id="e9536cf5-2f65-11b2-a358-76a124e8a7ac">
+    <Project Path="DatabaseTool/DatabaseTool.csproj" />
+    <Project Path="PokemonHomeIcon/PokemonHomeIcon.csproj" />
+    <Project Path="PSStatClawer/PSStatClawer.csproj" />
+    <Project Path="RK99Tool/RK9Tool.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/test/" Id="e500a4c9-60d2-eb4d-3fe3-f98b111ef09d">
+    <Project Path="RK99Test/RK99Test.csproj" />
+    <Project Path="TestPokemonHome/TestPokemonHome.csproj" />
+    <Project Path="TestPSStat/TestPSStat.csproj" />
+    <Project Path="TestUPDL/TestUPDL.csproj" />
+  </Folder>
+  <Project Path="../MudBlazor/src/MudBlazor/MudBlazor.csproj" />
+  <Project Path="DatabaseExport/DatabaseExport.csproj" />
+  <Project Path="DQNPoke/DQNPoke.csproj" />
+  <Project Path="DQNTorch/DQNTorch.csproj" />
+  <Project Path="OcrLiteLib/OcrLiteLib.csproj" Id="3a1647da-83cd-4f9d-9ffa-f663bb55ff6a">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="Poke.CodeGenerator/Poke.CodeGenerator.csproj" />
+  <Project Path="Poke.Core/Poke.Core.csproj" />
+  <Project Path="PokeAI/PokeAI.csproj" />
+  <Project Path="PokeBattleEngine/PokeBattleEngine.csproj" />
+  <Project Path="PokeCodeGenerator/PokeCodeGenerator.csproj" />
+  <Project Path="PokeDanTorch/PokeDanTorch.csproj" />
+  <Project Path="PokeMath/PokeMath.csproj" />
+  <Project Path="PokeMaui/PokeMaui.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="PokemonDataAccess/PokemonDataAccess.csproj" />
+  <Project Path="PokemonIsshoni.Net/Client/PokemonIsshoni.Net.Client.csproj" />
+  <Project Path="PokemonIsshoni.Net/Server/PokemonIsshoni.Net.Server.csproj" />
+  <Project Path="PokemonIsshoni.Net/Shared/PokemonIsshoni.Net.Shared.csproj" />
+  <Project Path="PokemonIsshoni.ZQD/Client/PokemonIsshoni.ZQD.Client.csproj" />
+  <Project Path="PokemonIsshoni.ZQD/Server/PokemonIsshoni.ZQD.Server.csproj" />
+  <Project Path="PokemonIsshoni.ZQD/Shared/PokemonIsshoni.ZQD.Shared.csproj" />
+  <Project Path="PokeOcr/PokeOcr.csproj" />
+  <Project Path="PokeOCRSV/PokeOCRSV.csproj" />
+  <Project Path="PokePSCore/PokePSCore.csproj" />
+  <Project Path="PokeSci/PokeSci.csproj" />
+  <Project Path="PokeSee/PokeSee.csproj" />
+  <Project Path="PokeTeamImageTran/PokeTeamImageTran.csproj" />
+  <Project Path="PokeUI3/PokeUI3.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|arm64" Project="arm64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Deploy />
+  </Project>
+  <Project Path="PSAITest/PSAITest.csproj" />
+  <Project Path="PSBattleHelper.Core/PSBattleHelper.Core.csproj">
+    <Platform Solution="*|arm64" Project="arm64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="PSBattleHelper/PSBattleHelper.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|arm64" Project="arm64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Deploy />
+  </Project>
+  <Project Path="PSClawerF/PSClawerF.fsproj" />
+  <Project Path="PSLook/PSLook.csproj" />
+  <Project Path="PSReplayAnalysis/PSReplayAnalysis.csproj" />
+  <Project Path="PsRoomListener/PsRoomListener.fsproj" />
+  <Project Path="ReplayCheck/ReplayCheck.csproj" />
+  <Project Path="SVData/SVData.csproj" />
+  <Project Path="SVDex/SVDex.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="SVPokeDex/SVPokeDex.csproj">
+    <Deploy />
+  </Project>
+</Solution>

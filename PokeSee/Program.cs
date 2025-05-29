@@ -212,6 +212,30 @@ static async Task<List<string>> GetTopUser()
         aa = Regex.Replace(aa.ToLower(), @"[^a-z0-9]", "");
         users.Add(aa);
     }
+    url = "https://play.pokemonshowdown.com/ladder.php?format=gen9vgc2024regibo3&server=showdown&output=html&prefix=";
+
+    res = await client.GetAsync(url);
+    html = await res.Content.ReadAsStringAsync();
+
+    matchRes = reg.Matches(html);
+    foreach (Match item in matchRes)
+    {
+        var aa = Regex.Replace(item.Groups[1].Value, @"$#\d+?;", "");
+        aa = Regex.Replace(aa.ToLower(), @"[^a-z0-9]", "");
+        users.Add(aa);
+    }
+
+    url = "https://play.pokemonshowdown.com/ladder.php?format=gen9vgc2024regi&server=showdown&output=html&prefix=";
+    res = await client.GetAsync(url);
+    html = await res.Content.ReadAsStringAsync();
+
+    matchRes = reg.Matches(html);
+    foreach (Match item in matchRes)
+    {
+        var aa = Regex.Replace(item.Groups[1].Value, @"$#\d+?;", "");
+        aa = Regex.Replace(aa.ToLower(), @"[^a-z0-9]", "");
+        users.Add(aa);
+    }
 
 
 
