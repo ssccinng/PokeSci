@@ -155,7 +155,17 @@ HashSet<string> IdCheck = new HashSet<string>
     //"leafblade"
     //"91jyjyjya","Baerli_VGC","Kemoho","91GongSang","TdrunnerVGC","Last9VGC","XJQJ", "of130"
     //"arbys", "ambassador"
-     "Discord Labrat"
+
+    "Daniel2705xD",
+"lsmookyquartz"   ,
+"FanPoke2011"     ,
+"gatot"           ,
+"c0ntr0ldevil"    ,
+"drknssdevil"     ,
+"kommander"       ,
+"kommanderVGC"    ,
+"thacow"          ,"iamelegy", "morningelegy","okidogiplayer"
+
 
    //"zanzibarvgc", "pizzahutpr", "fuchickenparmbozo", "vgclteeao", "dynastan",
    // "cressbearfront", "kingambitlove", "dimsun", "increaserank", "basin6", "amoongusslove", "gholdengotobed",
