@@ -6,25 +6,26 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/Solution Items/" />
-  <Folder Name="/Solution Items/src/" Id="b26dd35d-41fa-382c-4bb6-bbdf70484f0e">
+  <Folder Name="/Solution Items/src/">
     <Project Path="Poke.Usage/Poke.Usage.csproj" />
     <Project Path="PokeCommon/PokeCommon.csproj" />
   </Folder>
-  <Folder Name="/Solution Items/src/Demo/" Id="312046e3-db46-378f-9519-352c10432598" />
-  <Folder Name="/Solution Items/src/Lib/" Id="9ef49c15-c6f0-e227-8665-a202a7b68468">
+  <Folder Name="/Solution Items/src/Demo/" />
+  <Folder Name="/Solution Items/src/Lib/">
     <Project Path="Poke.Data/Poke.Data.csproj" />
     <Project Path="Poke.UPDL/Poke.UPDL.csproj" />
     <Project Path="PokeDelectCV/PokeDelectCV.csproj" />
+    <Project Path="PokeDetectTools/PokeDetectTools.csproj" Id="f0edd2d3-3aa6-4dd1-b6ce-7b5b5090ee74" />
     <Project Path="PokeShitLib/PokeShitLib.csproj" />
     <Project Path="PSReplayParser/PSReplayParser.fsproj" />
   </Folder>
-  <Folder Name="/Solution Items/src/Tools/" Id="e9536cf5-2f65-11b2-a358-76a124e8a7ac">
+  <Folder Name="/Solution Items/src/Tools/">
     <Project Path="DatabaseTool/DatabaseTool.csproj" />
     <Project Path="PokemonHomeIcon/PokemonHomeIcon.csproj" />
     <Project Path="PSStatClawer/PSStatClawer.csproj" />
     <Project Path="RK99Tool/RK9Tool.csproj" />
   </Folder>
-  <Folder Name="/Solution Items/test/" Id="e500a4c9-60d2-eb4d-3fe3-f98b111ef09d">
+  <Folder Name="/Solution Items/test/">
     <Project Path="RK99Test/RK99Test.csproj" />
     <Project Path="TestPokemonHome/TestPokemonHome.csproj" />
     <Project Path="TestPSStat/TestPSStat.csproj" />
