@@ -1,5 +1,4 @@
-﻿using PokeTranslate;
-
+﻿
 namespace PokeDetectTools
 {
     public class GetTeraType
@@ -29,13 +28,13 @@ namespace PokeDetectTools
         public static string GetTeraTypeML(byte[] bytes)
         {
             //var imageBytes = File.ReadAllBytes(@"F:\VSProject\PokeSci\PokeOCRSV\bin\Debug\net7.0\TeamDataTera\TeraType\Bug\00001.jpg");
-            MLModel.ModelInput sampleData = new MLModel.ModelInput()
+            MLModel1.ModelInput sampleData = new MLModel1.ModelInput()
             {
                 ImageSource = bytes,
             };
 
             //Load model and predict output
-            var result = MLModel.Predict(sampleData);
+            var result = MLModel1.Predict(sampleData);
             return TypeTable[result.PredictedLabel];
         }
     }

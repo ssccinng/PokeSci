@@ -5,12 +5,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-namespace PokeTranslate
+namespace PokeDetectTools
 {
-    public partial class MLModel
+    public partial class MLModel1
     {
         /// <summary>
-        /// model input class for MLModel.
+        /// model input class for MLModel1.
         /// </summary>
         #region model input class
         public class ModelInput
@@ -28,7 +28,7 @@ namespace PokeTranslate
         #endregion
 
         /// <summary>
-        /// model output class for MLModel.
+        /// model output class for MLModel1.
         /// </summary>
         #region model output class
         public class ModelOutput
@@ -49,7 +49,7 @@ namespace PokeTranslate
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath("MLModel.mlnet");
+        private static string MLNetModelPath = Path.GetFullPath("MLModel1.mlnet");
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 
@@ -127,6 +127,5 @@ namespace PokeTranslate
             var predEngine = PredictEngine.Value;
             return predEngine.Predict(input);
         }
-
     }
 }
