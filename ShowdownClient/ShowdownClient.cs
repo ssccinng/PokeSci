@@ -52,11 +52,11 @@ public partial class ShowdownClient
     /// <summary>
     /// 参数为playerid和规则
     /// </summary>
-    public event Action<string, string> ChallengeAction;
+    public event Action<string, string> OnChallenge;
     /// <summary>
     /// 参数为playerid和信息
     /// </summary>
-    public Action<string, string> ChatAction;
+    public Action<string, string> OnChat;
     public event Action<PSBattle> RequestsAction;
     //public Action<string, string> RequestsAction;
     public Action<string> OnUserDetails;
@@ -444,7 +444,7 @@ public partial class ShowdownClient
                                 {
                                     WriteLogAsync($"收到{pmP1}挑战, 规则：{rule}", MsgType.Receive);
                                     // 触发挑战事件
-                                    ChallengeAction?.Invoke(pmP1, rule);
+                                    OnChallenge?.Invoke(pmP1, rule);
                                 }
 
                                 break;
@@ -460,7 +460,7 @@ public partial class ShowdownClient
                         WriteLogAsync($"[聊天信息] {pmP1} -> {pmP2}: {data[4]}", MsgType.Receive);
                         if (pmP2 == ClientInfo.Name)
                         {
-                            ChatAction?.Invoke(pmP1, data[4]);
+                            OnChat?.Invoke(pmP1, data[4]);
                         }
                     }
 

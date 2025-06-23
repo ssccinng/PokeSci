@@ -351,7 +351,7 @@ namespace Showdown
                     {
                         // 主要是这里
 
-                        MyTeam[i] = (new PSBattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0]), detail[0]));
+                        MyTeam[i] = (new PSBattlePokemon(await PokemonToolsWithoutDB.GetPokemonFromPsNameAsync(detail[0]), detail[0]));
 
 
                         // 要记录nickname 虽然也可自取

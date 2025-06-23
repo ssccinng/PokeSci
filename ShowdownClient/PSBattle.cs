@@ -1,3 +1,4 @@
+using PokeCommon.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
@@ -18,6 +19,8 @@ namespace Showdown
         public event Action<PSBattle, bool[]> OnForceSwitch;
         public event Action<PSBattle> OnChooseMove;
         public event Action<PSBattle> RequestsAction;
+
+        public GamePokemonTeam MyTeamConfig { get; set; }
 
         public ShowdownClient Client; // 这个大概率不需要了
 
@@ -75,6 +78,9 @@ namespace Showdown
 
         public PSBattlePokemon[] MySide => PlayerPosition == PlayerPosition.Player1 ? Side1 : Side2;
         public PSBattlePokemon[] OppSide => PlayerPosition == PlayerPosition.Player1 ? Side2 : Side1;
+
+        public string MyName => PlayerPosition == PlayerPosition.Player1 ? Player1 : Player2;
+        public string OppName => PlayerPosition == PlayerPosition.Player1 ? Player2 : Player1;
 
         public PSBattle(ShowdownClient client, string tag)
         {
