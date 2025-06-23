@@ -1009,7 +1009,7 @@ public enum Weather
     /// <summary>
     /// 雨天
     /// </summary>
-    Rain,
+    RainDance,
 
     /// <summary>
     /// 晴天

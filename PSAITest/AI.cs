@@ -1,5 +1,5 @@
 ﻿using PokeCommon.Utils;
-using PokePSCore;
+using Showdown;
 
 namespace PSAITest
 {

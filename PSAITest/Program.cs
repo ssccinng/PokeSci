@@ -4,8 +4,8 @@ using System.Text.Json;
 using PokeCommon.PokemonShowdownTools;
 using PokeCommon.Utils;
 using PokemonDataAccess;
-using PokePSCore;
 using PSAITest;
+using Showdown;
 
 AIConfig config = new AIConfig();
 PokemonTools.PokemonContext = new PokemonContext();
@@ -60,7 +60,7 @@ var team1 = await PSConverter.ConvertToPokemonsAsync(config.Team);
 Console.WriteLine("准备登录");
 
 //var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
-var pc = new PSClient(config.Username, config.Password, "ws://20.189.119.15:37999/showdown/websocket").LogTo(Console.WriteLine);
+var pc = new ShowdownClient(ClientInfo.Create(config.Username, config.Password, "20.189.119.15:37999"));//.LogTo(Console.WriteLine);
 await pc.ConnectAsync();
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
@@ -82,125 +82,239 @@ Console.WriteLine(await pc.LoginAsync());
 //    }
 //};
 string[] xc = new[] { "2345", "1623" };
-pc.OnTeampreview += async battle =>
-{
-    // await battle.SendMessageAsync("让我康康");
-    // await battle.OrderTeamAsync("123456");
-    //await battle.OrderTeamAsync
-    //(await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
-    await Task.Delay(1000);
-     await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
-};
+//pc.OnTeampreview += async battle =>
+//{
+//    // await battle.SendMessageAsync("让我康康");
+//    // await battle.OrderTeamAsync("123456");
+//    //await battle.OrderTeamAsync
+//    //(await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
+//    await Task.Delay(1000);
+//     await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
+//};
 
-pc.OnForceSwitch += async (battle, bools) =>
-{
-    Console.WriteLine("让我康康你有没有触发");
-    List<ChooseData> chooseDatas = new List<ChooseData>();
-    for (int i = 0; i < bools.Length; i++)
-    {
-        if (bools[i])
-        {
-            int idx = -1;
-            for (int j = 0; j < 4; j++)
-            {
-                if (battle.Actives[j] == false && !battle.MyTeam[j].IsDead)
-                {
-                    idx = j;
-                    battle.Actives[j] = true;
-                    break; ;
-                }
-            }
-            if (idx == -1)
-            {
-                chooseDatas.Add(new SwitchData { IsPass = true });
-            }
-            else
-            {
-                chooseDatas.Add(new SwitchData { PokeId = idx + 1 });
+//pc.OnForceSwitch += async (battle, bools) =>
+//{
+//    Console.WriteLine("让我康康你有没有触发");
+//    List<ChooseData> chooseDatas = new List<ChooseData>();
+//    for (int i = 0; i < bools.Length; i++)
+//    {
+//        if (bools[i])
+//        {
+//            int idx = -1;
+//            for (int j = 0; j < 4; j++)
+//            {
+//                if (battle.Actives[j] == false && !battle.MyTeam[j].IsDead)
+//                {
+//                    idx = j;
+//                    battle.Actives[j] = true;
+//                    break; ;
+//                }
+//            }
+//            if (idx == -1)
+//            {
+//                chooseDatas.Add(new SwitchData { IsPass = true });
+//            }
+//            else
+//            {
+//                chooseDatas.Add(new SwitchData { PokeId = idx + 1 });
 
-            }
-        }
-    }
+//            }
+//        }
+//    }
 
-    await battle.SendMoveAsunc(chooseDatas.ToArray());
-};
+//    await battle.SendMoveAsunc(chooseDatas.ToArray());
+//};
 
-pc.OnChooseMove += async battle =>
-{
-    List<ChooseData> chooseDatas = new List<ChooseData>();
-    bool dm = false;
-    for (int i = 0; i < battle.ActiveStatus.Length; i++)
-    {
-        int moveid = Random.Shared.Next(4);
-        string target;
-        bool dflag = false;
-        Console.WriteLine('1');
-        if (!dm)
-        {
-            if (battle.ActiveStatus[i].TryGetProperty("canDynamax", out var cdmj))
-            {
-                if (Random.Shared.Next(2) > 0 && cdmj.GetBoolean())
-                {
-                    //(chooseDatas.Last() as MoveChooseData).Dmax = true;
-                    dm = true;
-                    dflag = true;
-                    battle.MySide[i].Dynamax = true;
-                }
-            }
+//pc.OnChooseMove += async battle =>
+//{
+//    List<ChooseData> chooseDatas = new List<ChooseData>();
+//    bool dm = false;
+//    for (int i = 0; i < battle.ActiveStatus.Length; i++)
+//    {
+//        int moveid = Random.Shared.Next(4);
+//        string target;
+//        bool dflag = false;
+//        Console.WriteLine('1');
+//        if (!dm)
+//        {
+//            if (battle.ActiveStatus[i].TryGetProperty("canDynamax", out var cdmj))
+//            {
+//                if (Random.Shared.Next(2) > 0 && cdmj.GetBoolean())
+//                {
+//                    //(chooseDatas.Last() as MoveChooseData).Dmax = true;
+//                    dm = true;
+//                    dflag = true;
+//                    battle.MySide[i].Dynamax = true;
+//                }
+//            }
 
-        }
-        try
-        {
+//        }
+//        try
+//        {
 
-            if (battle.MySide[i].Dynamax)
-            {
-                Console.WriteLine(i + "这里dmax了");
-                target = battle.ActiveStatus[i].GetProperty("maxMoves").GetProperty("maxMoves")[moveid].GetProperty("target").GetString();
+//            if (battle.MySide[i].Dynamax)
+//            {
+//                Console.WriteLine(i + "这里dmax了");
+//                target = battle.ActiveStatus[i].GetProperty("maxMoves").GetProperty("maxMoves")[moveid].GetProperty("target").GetString();
 
-            }
-            else
-            {
-                target = battle.ActiveStatus[i].GetProperty("moves")[moveid].GetProperty("target").GetString();
+//            }
+//            else
+//            {
+//                target = battle.ActiveStatus[i].GetProperty("moves")[moveid].GetProperty("target").GetString();
 
-            }
-            Console.WriteLine(target);
-            if (target == "any" || target == "normal" || target == "adjacentFoe")
-            {
-                chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag) { Target = Random.Shared.Next(2) + 1 });
+//            }
+//            Console.WriteLine(target);
+//            if (target == "any" || target == "normal" || target == "adjacentFoe")
+//            {
+//                chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag) { Target = Random.Shared.Next(2) + 1 });
 
-            }
-            else
-            {
+//            }
+//            else
+//            {
 
-                chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag));
+//                chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag));
 
-            }
-        }
-        catch (global::System.Exception e)
-        {
-            Console.WriteLine(e.Message);
-            Console.WriteLine("异常了");
-            chooseDatas.Add(new MoveChooseData(1));
-        }
+//            }
+//        }
+//        catch (global::System.Exception e)
+//        {
+//            Console.WriteLine(e.Message);
+//            Console.WriteLine("异常了");
+//            chooseDatas.Add(new MoveChooseData(1));
+//        }
 
 
 
-    }
-    await battle.SendMoveAsunc(chooseDatas.ToArray());
-    //chooseDatas.ForEach(s =>
-    //{
-    //    if (s is MoveChooseData)
-    //    {
-    //        (s as MoveChooseData).Target = Random.Shared.Next(2) + 1;
-    //    }
-    //});
-    //await battle.SendMoveAsunc(chooseDatas.ToArray());
-};
+//    }
+//    await battle.SendMoveAsunc(chooseDatas.ToArray());
+//    //chooseDatas.ForEach(s =>
+//    //{
+//    //    if (s is MoveChooseData)
+//    //    {
+//    //        (s as MoveChooseData).Target = Random.Shared.Next(2) + 1;
+//    //    }
+//    //});
+//    //await battle.SendMoveAsunc(chooseDatas.ToArray());
+//};
 int idx = 0;
 bool isSearching = false;
-pc.BattleStartAction += async battle =>
+pc.OnBattleStart += async battle =>
 {
     isSearching = false;
+    battle.OnTeampreview += async battle =>
+    {
+        // await battle.SendMessageAsync("让我康康");
+        await battle.OrderTeamAsync("123456");
+        //await battle.OrderTeamAsync
+        //(await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
+        //await Task.Delay(1000);
+        //await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
+    };
+
+    battle.OnForceSwitch += async (battle, bools) =>
+    {
+        Console.WriteLine("让我康康你有没有触发");
+        List<ChooseData> chooseDatas = new List<ChooseData>();
+        for (int i = 0; i < bools.Length; i++)
+        {
+            if (bools[i])
+            {
+                int idx = -1;
+                for (int j = 0; j < 4; j++)
+                {
+                    if (battle.Actives[j] == false && !battle.MyTeam[j].IsDead)
+                    {
+                        idx = j;
+                        battle.Actives[j] = true;
+                        break; ;
+                    }
+                }
+                if (idx == -1)
+                {
+                    chooseDatas.Add(new SwitchData { IsPass = true });
+                }
+                else
+                {
+                    chooseDatas.Add(new SwitchData { PokeId = idx + 1 });
+
+                }
+            }
+        }
+
+        await battle.SendMoveAsunc(chooseDatas.ToArray());
+    };
+
+    battle.OnChooseMove += async battle =>
+    {
+        List<ChooseData> chooseDatas = new List<ChooseData>();
+        bool dm = false;
+        for (int i = 0; i < battle.ActiveStatus.Length; i++)
+        {
+            int moveid = Random.Shared.Next(4);
+            string target;
+            bool dflag = false;
+            Console.WriteLine('1');
+            if (!dm)
+            {
+                if (battle.ActiveStatus[i].TryGetProperty("canDynamax", out var cdmj))
+                {
+                    if (Random.Shared.Next(2) > 0 && cdmj.GetBoolean())
+                    {
+                        //(chooseDatas.Last() as MoveChooseData).Dmax = true;
+                        dm = true;
+                        dflag = true;
+                        battle.MySide[i].Dynamax = true;
+                    }
+                }
+
+            }
+            try
+            {
+
+                if (battle.MySide[i].Dynamax)
+                {
+                    Console.WriteLine(i + "这里dmax了");
+                    target = battle.ActiveStatus[i].GetProperty("maxMoves").GetProperty("maxMoves")[moveid].GetProperty("target").GetString();
+
+                }
+                else
+                {
+                    target = battle.ActiveStatus[i].GetProperty("moves")[moveid].GetProperty("target").GetString();
+
+                }
+                Console.WriteLine(target);
+                if (target == "any" || target == "normal" || target == "adjacentFoe")
+                {
+                    chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag) { Target = Random.Shared.Next(2) + 1 });
+
+                }
+                else
+                {
+
+                    chooseDatas.Add(new MoveChooseData(moveid + 1, dmax: dflag));
+
+                }
+            }
+            catch (global::System.Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("异常了");
+                chooseDatas.Add(new MoveChooseData(1));
+            }
+
+
+
+        }
+        await battle.SendMoveAsunc(chooseDatas.ToArray());
+        //chooseDatas.ForEach(s =>
+        //{
+        //    if (s is MoveChooseData)
+        //    {
+        //        (s as MoveChooseData).Target = Random.Shared.Next(2) + 1;
+        //    }
+        //});
+        //await battle.SendMoveAsunc(chooseDatas.ToArray());
+    };
     //await battle.SendTimerOnAsync();
 
     //if (idx++ < 4)
@@ -228,7 +342,7 @@ pc.ChallengeAction += async (player, rule) =>
 };
 
 
-pc.BattleEndAction += async (s, b) =>
+pc.OnBattleEnd += async (s, b) =>
 {
     await s.LeaveRoomAsync();
     // await pc.SearchBattleAsync("gen8vgc2022");
