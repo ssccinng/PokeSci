@@ -282,7 +282,7 @@ namespace PokePSCore
                         break;
                     case "teampreview":
                         // 后面还有个
-                        OnTeampreview?.Invoke(battle);
+                        //OnTeampreview?.Invoke(battle);
                         // 选择队伍
                         // 可能需要事件通知
                         // MakeOrder
@@ -292,7 +292,7 @@ namespace PokePSCore
                         // 做出操作
                         // MakeAction
                         // Console.WriteLine("到了turn");
-                        OnChooseMove?.Invoke(battle);
+                        //OnChooseMove?.Invoke(battle);
                         // await SendMoveAsync(tag, 1, battle.Turn);
                         break;
                     case "callback":
@@ -364,7 +364,7 @@ namespace PokePSCore
             // Console.WriteLine(data[0]);
 
             
-            if (data[0].Contains("battle") && false)
+            if (data[0].Contains("battle"))
             {
                 // 对战数据
                 // Console.WriteLine("这里是对战...");

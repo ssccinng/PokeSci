@@ -2,10 +2,13 @@
 
 using System.Text.Json;
 using PokeCommon.PokemonShowdownTools;
+using PokeCommon.Utils;
+using PokemonDataAccess;
 using PokePSCore;
 using PSAITest;
 
 AIConfig config = new AIConfig();
+PokemonTools.PokemonContext = new PokemonContext();
 
 if (!File.Exists("AIConfig.json"))
 {
@@ -57,7 +60,7 @@ var team1 = await PSConverter.ConvertToPokemonsAsync(config.Team);
 Console.WriteLine("准备登录");
 
 //var pc = new PSClient("scixing", "11998whs").LogTo(Console.WriteLine);
-var pc = new PSClient(config.Username, config.Password).LogTo(Console.WriteLine);
+var pc = new PSClient(config.Username, config.Password, "ws://20.189.119.15:37999/showdown/websocket").LogTo(Console.WriteLine);
 await pc.ConnectAsync();
 await Task.Delay(500);
 Console.WriteLine(await pc.LoginAsync());
@@ -83,10 +86,10 @@ pc.OnTeampreview += async battle =>
 {
     // await battle.SendMessageAsync("让我康康");
     // await battle.OrderTeamAsync("123456");
-    await battle.OrderTeamAsync
-    (await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
-
-    // await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
+    //await battle.OrderTeamAsync
+    //(await AI.MakeTeamOrderAsync(config.TeamOrderPolicies, battle.OppTeam.ToArray(), battle.MyTeam.ToArray()));
+    await Task.Delay(1000);
+     await battle.OrderTeamAsync(xc[Random.Shared.Next(xc.Length)]);
 };
 
 pc.OnForceSwitch += async (battle, bools) =>
@@ -198,7 +201,7 @@ bool isSearching = false;
 pc.BattleStartAction += async battle =>
 {
     isSearching = false;
-    await battle.SendTimerOnAsync();
+    //await battle.SendTimerOnAsync();
 
     //if (idx++ < 4)
     //{
@@ -207,6 +210,22 @@ pc.BattleStartAction += async battle =>
     //}
 };
 
+
+pc.ChallengeAction += async (player, rule) =>
+{
+    if (rule == "gen8vgc2022")
+    {
+        await pc.ChatWithIdAsync(player, "随机战斗，玩了");
+        await pc.ChatWithIdAsync(player, "就决定是你了");
+        // await pc.ChangeYourTeamAsync("null");
+        await pc.ChangeYourTeamAsync(await PSConverter.ConvertToPsOneLineAsync(team1));
+        await pc.AcceptChallengeAsync(player);
+    }
+    else
+    {
+        await pc.CancelChallengeAsync(player, rule);
+    }
+};
 
 
 pc.BattleEndAction += async (s, b) =>

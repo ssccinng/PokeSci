@@ -19,6 +19,7 @@
     <Project Path="PokeShitLib/PokeShitLib.csproj" />
     <Project Path="PSClient/PSClient.csproj" Id="947c1aea-1916-4e8b-965c-5b6d33445837" />
     <Project Path="PSReplayParser/PSReplayParser.fsproj" />
+    <Project Path="ShowdownClient/ShowdownClient.csproj" />
   </Folder>
   <Folder Name="/Solution Items/src/Tools/">
     <Project Path="DatabaseTool/DatabaseTool.csproj" />

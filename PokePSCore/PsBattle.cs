@@ -196,7 +196,9 @@ public partial class PsBattle
 
                     // 只需更新状态
                 }
-                MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
+                //MyTeam[i].Commanding = pokes[i].GetProperty("commanding").GetBoolean();
+
+                // todo: 暂不用commanding
 
                 //MyTeam[i].MetaPokemon = await PokemonTools.GetPokemonFromPsNameAsync(detail[0]);
                 //MyTeam[i] = (new BattlePokemon(await PokemonTools.GetPokemonFromPsNameAsync(detail[0])));
@@ -254,11 +256,11 @@ public partial class PsBattle
         }
         else if (data.TryGetProperty("teamPreview", out var tt))
         {
-            //Client.OnTeampreview?.Invoke(this);
+            Client.OnTeampreview?.Invoke(this);
         }
         else
         {
-               //Client.OnChooseMove?.Invoke(this);
+               Client.OnChooseMove?.Invoke(this);
 
         }
         //else
