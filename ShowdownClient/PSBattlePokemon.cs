@@ -3,7 +3,7 @@ using PokemonDataAccess.Models;
 
 namespace Showdown
 {
-    public class PSBattlePokemon : BattlePokemon
+    public record PSBattlePokemon : PokeCommon.Models.BattlePokemon
     {
         public PSBattlePokemon(Pokemon pokemon, string psName) : base(pokemon)
         {

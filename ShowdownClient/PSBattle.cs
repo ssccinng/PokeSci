@@ -92,10 +92,10 @@ namespace Showdown
 
         internal void NextTurn()
         {
-            var turn =  (BattleTurns.Count > 0) ? BattleTurns[^1].NextTurn() : new();
+            //var turn =  (BattleTurns.Count > 0) ? BattleTurns[^1].NextTurn() : new();
 
-            NowTurn = turn;
-            BattleTurns.Add(turn);
+            BattleTurns.Add(NowTurn);
+            NowTurn = NowTurn.NextTurn();
         }
     }
 }

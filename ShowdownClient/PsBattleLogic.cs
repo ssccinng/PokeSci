@@ -1,10 +1,67 @@
 ﻿using PokeCommon.Utils;
+using System.Reflection;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace Showdown
 {
+    
+
+    
     public partial class PSBattle
     {
+
+        public BattleData BattleData = new();
+
+
+        public static (int side, int pos) GetSidePos(string data)
+        {
+            if (data.StartsWith("p1a"))
+            {
+                return (1, 0);
+                //battle.p
+            }
+            else if (data.StartsWith("p1b"))
+            {
+                return (1, 1);
+            }
+            else if (data.StartsWith("p2a"))
+            {
+                return (2, 0);
+            }
+            else if (data.StartsWith("p2b"))
+            {
+                return (2, 1);
+
+            }
+            //return (-1, -1);
+            // 怪异
+            return (1, 0);
+        }
+
+        public static int GetPlayer(string data)
+        {
+            if (data.Trim() == "p1")
+            {
+                return 1;
+            }
+            return 2;
+        }
+        //public static int GetPlayerByName(BattleData battle, string data)
+        //{
+        //    if (data.Trim() == battle.Player1Id)
+        //    {
+        //        return 1;
+        //    }
+        //    return 2;
+        //}
+
+        // 将字符串中的空格消除
+
+        public static string RemoveSpace(string data)
+        {
+            return data.Replace(" ", "");
+        }
         public BattleStatus BattleStatus { get; set; }
 
         public void LogParse(string cmd, string[] lines)
@@ -26,48 +83,9 @@ namespace Showdown
                 case "move":
                     break;
                 case "switch":
-                    // Enemy pokemon has switched in
-                    if (lines[0][1] == '1')
-                    {
-                        if (Side1[0] != null)
-                        {
-                            if (lines[0][2] == 'a')
-                            {
-                                //Side1[0].Faint();
-                                //Side1[0].NowHp = 0;
-                            }
-                            else
-                            {
-                                //Side1[1].Faint();
+                    // 切换
+                    
 
-                                //Side1[1].Dynamax = false;
-                                //Side1[0].NowHp = 0;
-
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (Side2[0] != null)
-                        {
-                            if (lines[0][2] == 'a')
-                            {
-                                //Side2[0].Dynamax = false;
-                                //Side2[0].Faint();
-
-                            }
-                            else
-                            {
-                                //Side2[1].Dynamax = false;
-                                //Side2[1].Faint();
-
-                            }
-                        }
-
-                    }
-                    // regex = re.compile(r'p\da: (.*?)\|(.*?), (?:L(\d+), )?.*')
-                    // name, variant, level = regex.match('|'.join(split_line[0:2])).groups()
-                    // battle.update_enemy(name, split_line[2], variant, level if level else '100')
                     break;
                 case "swap":
                     break;
@@ -179,7 +197,18 @@ namespace Showdown
                         NowTurn.AllField.Weather = Weather.None;
                         return;
                     }
-                    break;
+                    else
+                    {
+                        if( Enum.TryParse(weather, true, out Weather parsedWeather))
+                        {
+                            NowTurn.AllField.Weather = parsedWeather;
+
+                            var fsDecr = (DecreaseAttribute)(typeof(BattleField).GetProperty("WeatherRemain")).GetCustomAttribute(typeof(DecreaseAttribute));
+                            NowTurn.AllField.WeatherRemain = fsDecr.InitValue; // 或者max
+                        }
+
+                    }
+                        break;
                 case "-fieldstart":
                     // battle.fields.append(split_line[0])
                     // print("** " + battle.fields)
@@ -211,6 +240,7 @@ namespace Showdown
                     // battle.get_team(split_line[0]).active().item = None
                     break;
                 case "-ability":
+                    // 这里可以推算特性
                     break;
                 case "-endability":
                     break;

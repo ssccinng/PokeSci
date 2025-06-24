@@ -9,7 +9,7 @@ namespace PokeCommon.Models
     /// <summary>
     /// 游戏中的宝可梦
     /// </summary>
-    public class GamePokemon
+    public record GamePokemon
     {
         public static GamePokemon Default() => new GamePokemon(new Pokemon { });
         public GamePokemon(Pokemon pokemon, EV eV = null, IV iV = null)

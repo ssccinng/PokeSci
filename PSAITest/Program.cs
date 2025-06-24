@@ -325,7 +325,7 @@ pc.OnBattleStart += async battle =>
 };
 
 
-pc.ChallengeAction += async (player, rule) =>
+pc.OnChallenge += async (player, rule) =>
 {
     if (rule == "gen8vgc2022")
     {

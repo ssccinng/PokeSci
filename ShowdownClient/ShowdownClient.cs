@@ -52,6 +52,7 @@ public partial class ShowdownClient
     /// <summary>
     /// 参数为playerid和规则
     /// </summary>
+    public event Action<PSBattle> OnSetTeam;
     public event Action<string, string> OnChallenge;
     /// <summary>
     /// 参数为playerid和信息
@@ -235,6 +236,10 @@ public partial class ShowdownClient
             if (currData.Length < 2) continue;
             string cmd = currData[1];
             string[] other = currData[2..];
+
+
+            battle.BattleData = await battle.BattleData.ApplyLog(cmd, other);
+
             switch (cmd)
             {
                 case "init":
@@ -242,6 +247,7 @@ public partial class ShowdownClient
                     OnBattleStart?.Invoke(battle);
                     break;
                 case "player":
+                    // Todo: 这个也要高的battledata里
                     if (other[1] == ClientInfo.Name)
                     {
                         battle.PlayerPosition = other[0] == "p1" ? PlayerPosition.Player1 : PlayerPosition.Player2;
@@ -299,6 +305,8 @@ public partial class ShowdownClient
                     break;
                 case "teampreview":
                     // 后面还有个
+                    OnSetTeam?.Invoke(battle);
+
                     //OnTeampreview?.Invoke(battle);
                     // 选择队伍
                     // 可能需要事件通知

@@ -15,7 +15,7 @@ namespace PokeCommon.Models
 
     // 
 
-    public class BattlePokemon : GamePokemon
+    public record BattlePokemon : GamePokemon
     {
         public BattlePokemon(Pokemon pokemon) : base(pokemon)
         {
