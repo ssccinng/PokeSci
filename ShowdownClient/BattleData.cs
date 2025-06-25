@@ -19,6 +19,8 @@ namespace Showdown
         public int MySlot { get; init; } = 1; // 我的槽位
         public string MyName { get; init; } = string.Empty; // 我的名字
 
+        public string[] MyOrderTeam { get; init; } = Array.Empty<string>(); // 我选择的宝可梦顺序
+
         public ImmutableArray<PlayerData> PlayerDatas { get; init; } = [new PlayerData(), new PlayerData()]; // 玩家数据
 
         // 推测出的对手队伍信息
@@ -43,6 +45,7 @@ namespace Showdown
         public string PlayerName { get; init; } = string.Empty; // 玩家名字
         public GamePokemonTeam Team { get; init; } = new(); // 我的队伍
         public int Score { get; init; } = 0; // 分数
+
     }
 
     public record BattleTurnN

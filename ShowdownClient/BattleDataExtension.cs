@@ -188,7 +188,10 @@ namespace Showdown
                 };
             }
 
-
+            public BattleData SetMyOrderTeam(string[] myOrder)
+            {
+                return battleData with { MyOrderTeam = myOrder };
+            }
 
             public async Task<BattleData> ApplyLog(string cmd, string[] lines)
             {
@@ -202,6 +205,8 @@ namespace Showdown
                     "drag" => battleData.ApplyDrag(lines),
                     "detailschange" => await battleData.ApplyDetailsChange(lines),
                     "move" => await battleData.ApplyMove(lines),
+                    "faint" => battleData.ApplyFaint(lines),
+                    "request" => battleData.ApplyRequest(lines),
 
 
                     "-ability" => battleData.ApplyAbility(lines),
@@ -256,7 +261,7 @@ namespace Showdown
                 }
             }
 
-            
+
             public async Task<BattleData> ApplyPoke(string[] lines)
             {
                 var pokemonName = lines[1].Split(',')[0];
@@ -319,7 +324,7 @@ namespace Showdown
                         x.PsName == switchPokemonName
                         ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
                         : x);
-                        //.ToImmutableArray();
+                    //.ToImmutableArray();
 
                     if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
                     {
@@ -346,7 +351,7 @@ namespace Showdown
                         x.PsName == switchPokemonName
                         ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
                         : x);
-                        //.ToImmutableArray();
+                    //.ToImmutableArray();
 
                     if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
                     {
@@ -413,6 +418,8 @@ namespace Showdown
                 var sideData = GetSidePos(lines[0]);
                 var abilityName = lines[1];
 
+                // 想想特性放哪里
+
                 return battleData;
             }
 
@@ -448,8 +455,8 @@ namespace Showdown
                 var pokemonName = lines[1].Split(',')[0];
                 var lastTurn = battleData.GetLastTurn();
                 var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
-                    .Select(x => 
-                    x.Position == sideData.pos 
+                    .Select(x =>
+                    x.Position == sideData.pos
                     ? (x with { BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
                     : x)
                     .ToImmutableArray();
@@ -475,8 +482,8 @@ namespace Showdown
                     var status = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)!.Status with { };
                     prop.SetValue(status, 1); // 设置为1
 
-                    var newPokes= lastTurn.SideTeam[sideData.side - 1].Pokemons
-                        .Select(x => x.Position == sideData.pos 
+                    var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                        .Select(x => x.Position == sideData.pos
                         ? x with { Status = status }
                         : x
                     )!;
@@ -497,14 +504,14 @@ namespace Showdown
                 var hpNumber = int.Parse(hpRemain[0].Replace(" fnt", ""));
 
                 var sideData = GetSidePos(lines[0]);
-                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, - hpNumber);
+                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, -hpNumber);
 
 
 
                 return battleData.UpdateLastTurn(lastTurn);
             }
 
-       
+
 
             public BattleData ApplyHeal(string[] lines)
             {
@@ -534,11 +541,14 @@ namespace Showdown
 
                         var fsDecr = (DecreaseAttribute)(typeof(BattleField).GetProperty("WeatherRemain")).GetCustomAttribute(typeof(DecreaseAttribute));
 
-                        lastTurn = lastTurn with { 
-                            BattleField = lastTurn.BattleField with 
-                            { Weather = Weather.None,
+                        lastTurn = lastTurn with
+                        {
+                            BattleField = lastTurn.BattleField with
+                            {
+                                Weather = Weather.None,
                                 WeatherRemain = fsDecr.InitValue // 或者max
-                            } };
+                            }
+                        };
                     }
 
                 }
@@ -559,6 +569,28 @@ namespace Showdown
 
                 return battleData;
             }
+
+            public BattleData ApplyFaint(string[] lines)
+            {
+                var sideData = GetSidePos(lines[0]);
+                var lastTurn = battleData.GetLastTurn()!;
+
+                var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                    .Select(x =>
+                    x.Position == sideData.pos
+                    ? (x with { BattleStatus = PsBattleStatus.IsDead, Position = -1 }).SwitchOut()
+                    : x).ToImmutableArray();
+
+                return battleData;
+            }
+            public BattleData ApplyRequest(string[] lines)
+            {
+
+
+
+                return battleData;
+            }
+
             public BattleData ApplyTemplate(string[] lines)
             {
 
@@ -581,6 +613,63 @@ namespace Showdown
 
 }
 
+
+public class RequestData
+{
+    public Active[] active { get; set; }
+    public Side side { get; set; }
+    public int rqid { get; set; }
+}
+
+public class Side
+{
+    public string name { get; set; }
+    public string id { get; set; }
+    public Pokemon1[] pokemon { get; set; }
+}
+
+public class Pokemon1
+{
+    public string ident { get; set; }
+    public string details { get; set; }
+    public string condition { get; set; }
+    public bool active { get; set; }
+    public Stats stats { get; set; }
+    public string[] moves { get; set; }
+    public string baseAbility { get; set; }
+    public string item { get; set; }
+    public string pokeball { get; set; }
+    public string ability { get; set; }
+    public bool commanding { get; set; }
+    public bool reviving { get; set; }
+    public string teraType { get; set; }
+    public string terastallized { get; set; }
+}
+
+public class Stats
+{
+    public int atk { get; set; }
+    public int def { get; set; }
+    public int spa { get; set; }
+    public int spd { get; set; }
+    public int spe { get; set; }
+}
+
+public class Active
+{
+    public Move[] moves { get; set; }
+    public string canTerastallize { get; set; }
+}
+
+public class Move
+{
+    public string move { get; set; }
+    public string id { get; set; }
+    public int pp { get; set; }
+    public int maxpp { get; set; }
+    public string target { get; set; }
+    public bool disabled { get; set; }
+}
 
 
 
