@@ -1,6 +1,6 @@
 ﻿namespace Showdown;
 
-public class ChooseData
+public record ChooseData
 {
     /// <summary>
     /// 是否跳过

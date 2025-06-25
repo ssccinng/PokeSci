@@ -1,6 +1,42 @@
 ﻿namespace Showdown
 {
-    public class MoveChooseData : ChooseData
+    public record SVChooseData : ChooseData
+    {
+        public int MoveId { get; set; } = 0;
+        public int Target { get; set; } = 999;
+        public bool Terastallize { get; set; } = false; // 0: 不使用，1: 使用，2: 强制使用
+        public override string ToString()
+        {
+            if (IsPass)
+            {
+                return "Pass";
+            }
+
+            if (Target == 999)
+            {
+                if (Terastallize)
+                {
+                    return $"move {MoveId} terastallize";
+                }
+                else
+                {
+                    return $"move {MoveId}";
+                }
+            }
+            else
+            {
+                if (Terastallize)
+                {
+                    return $"move {MoveId} {Target} terastallize";
+                }
+                else
+                {
+                    return $"move {MoveId} {Target}";
+                }
+            }
+        }
+    }
+    public record MoveChooseData : ChooseData
     {
 
         public int MoveId { get; set; } = 0;

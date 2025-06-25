@@ -1,6 +1,6 @@
 ﻿namespace Showdown;
 
-public class SwitchData : ChooseData
+public record SwitchData : ChooseData
 {
 
     /// <summary>

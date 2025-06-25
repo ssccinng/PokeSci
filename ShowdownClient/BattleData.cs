@@ -1,6 +1,7 @@
 ﻿
 using PokeCommon.Models;
 using PokeCommon.Utils;
+using PokemonDataAccess.Models;
 using Showdown;
 using System;
 using System.Collections.Generic;
@@ -57,12 +58,15 @@ namespace Showdown
 
         public ImmutableArray<OneSideBattleField> SideField { get; set; } = [new(), new()]; // 要维护
 
+        
+
 
     }
 
 
     public record BattleTeam
     {
+        public bool CanTerastallize { get; init; } = true; // 是否可以太晶化
         public ImmutableArray<BattlePokemon> Pokemons { get; init; } = ImmutableArray<BattlePokemon>.Empty;
     }
 
@@ -88,6 +92,16 @@ namespace Showdown
     public record InField: PsBattleStatus; // 在场地上
     public record NotInBattleTeam: PsBattleStatus; // 不在战斗队伍中
 
+
+    public interface TeratallizeStatus
+    {
+        public static NotTeraSallized NotTeraSallized { get; } = new NotTeraSallized();
+    }
+
+    public record TeraSallized(PokeType Type) : TeratallizeStatus; // 已经太晶化
+    public record NotTeraSallized : TeratallizeStatus; // 未太晶化
+
+
     public record BattlePokemon
     {
         public PokemonStatus Status { get; init; } = new();
@@ -95,7 +109,7 @@ namespace Showdown
         public int HpRemain { get; init; } = 100; // 生命值剩余百分比
         public int Position { get; init; } = -1; // 位置 0-2
         public string PsName { get; init; } = string.Empty; // 可能是PS的名字
-
+        public TeratallizeStatus TeratallizeStatus { get; init; } = TeratallizeStatus.NotTeraSallized; // 太晶化状态
         public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
 
 

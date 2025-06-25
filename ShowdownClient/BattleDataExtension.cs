@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Showdown
 {
@@ -131,7 +132,7 @@ namespace Showdown
 
             public BattlePokemon SwitchOut()
             {
-                var newPoke = pokemon with { };
+                var newPoke = pokemon with { TeratallizeStatus = TeratallizeStatus.NotTeraSallized };
                 // 反射修改其中changRefresh的
                 foreach (var property in newPoke.GetType().GetProperties())
                 {
@@ -149,7 +150,7 @@ namespace Showdown
                         property.SetValue(newPoke, 0);
                     }
                 }
-
+                // 太晶清理一下
                 return newPoke;
             }
 
@@ -204,7 +205,7 @@ namespace Showdown
 
 
                     "-ability" => battleData.ApplyAbility(lines),
-                    "-terastallize" => battleData.ApplyTerastallize(lines),
+                    "-terastallize" => await battleData.ApplyTerastallize(lines),
                     "-singleturn" => battleData.ApplySingleturn(lines),
                     "-damage" => battleData.ApplyDamage(lines),
                     "-heal" => battleData.ApplyHeal(lines),
@@ -259,6 +260,7 @@ namespace Showdown
             public async Task<BattleData> ApplyPoke(string[] lines)
             {
                 var pokemonName = lines[1].Split(',')[0];
+                pokemonName = pokemonName.Replace("-*", "");
                 var lastTurn = battleData.GetLastTurn()!;
                 if (lines[0] == "p1")
                 {
@@ -408,15 +410,37 @@ namespace Showdown
 
             public BattleData ApplyAbility(string[] lines)
             {
+                var sideData = GetSidePos(lines[0]);
+                var abilityName = lines[1];
+
                 return battleData;
             }
 
-            public BattleData ApplyTerastallize(string[] lines)
+            public async Task<BattleData> ApplyTerastallize(string[] lines)
             {
                 var teraType = lines[1];
                 var sideData = GetSidePos(lines[0]);
+
+                var lastTurn = battleData.GetLastTurn()!;
+
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
+                var teraType1 = await PokemonToolsWithoutDB.GetTypeAsync(teraType);
+
+
+                var newPokes = sideTeam.Pokemons
+                    .Select(x =>
+                    x.Position == sideData.pos
+                    ? x with { TeratallizeStatus = new TeraSallized(teraType1) } // 不能再太晶了
+                    : x).ToImmutableArray();
+
+
+                var newTurn = lastTurn with { SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, sideTeam with { CanTerastallize = false }) };
+
+
+
                 // 修改宝可梦的teraType
-                return battleData;
+                return battleData.UpdateLastTurn(newTurn);
+
             }
             public BattleData ApplyDrag(string[] lines)
             {
