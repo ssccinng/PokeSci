@@ -1,4 +1,6 @@
 ﻿using PokeCommon.Models;
+using PokeCommon.Utils;
+using Serilog;
 using Showdown;
 using System;
 using System.Collections.Generic;
@@ -52,6 +54,26 @@ namespace Showdown
                 };
                 return newTurn;
             }
+
+            public BattleTurnN WithUpdatedSidePokemons(int sideIndex, ImmutableArray<BattlePokemon> newPokes)
+            {
+                var newSideTeam = battleTurnN.SideTeam.SetItem(sideIndex, battleTurnN.SideTeam[sideIndex] with { Pokemons = [.. newPokes] });
+                return battleTurnN with { SideTeam = newSideTeam };
+            }
+            /// <summary>
+            /// 更新血量百分比
+            /// </summary>
+            /// <param name="sideData"></param>
+            /// <param name="hp">变化血量（百分比）</param>
+            /// <returns></returns>
+            public BattleTurnN UpdatePokemonHp((int side, int pos) sideData, int hp)
+            {
+                var newPokes = battleTurnN.SideTeam[sideData.side - 1].Pokemons
+                   .Select(x => x.Position == sideData.pos ? x with { HpRemain = x.HpRemain + hp } : x).ToImmutableArray();
+
+                return battleTurnN.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
+
+            }
         }
 
         extension(BattleField battleField)
@@ -100,6 +122,38 @@ namespace Showdown
             }
         }
 
+        extension(BattlePokemon pokemon)
+        {
+            public BattlePokemon SwitchIn()
+            {
+                return pokemon with { Status = pokemon.Status with { SwitchIn = 1 } };
+            }
+
+            public BattlePokemon SwitchOut()
+            {
+                var newPoke = pokemon with { };
+                // 反射修改其中changRefresh的
+                foreach (var property in newPoke.GetType().GetProperties())
+                {
+
+                    var changeRefresh = property.GetCustomAttribute<ChangeRefreshAttribute>();
+                    if (changeRefresh != null)
+                    {
+                        property.SetValue(newPoke, 0);
+                    }
+
+
+                    var singleTurn = property.GetCustomAttribute<SingleTurnAttribute>();
+                    if (singleTurn != null)
+                    {
+                        property.SetValue(newPoke, 0);
+                    }
+                }
+
+                return newPoke;
+            }
+
+        }
         extension(BattleData battleData)
         {
             public BattleData UpdateLastTurn(BattleTurnN newTurn)
@@ -110,13 +164,26 @@ namespace Showdown
                 };
             }
 
+            public BattleData SetMyName(string name)
+            {
+                int slot = battleData.PlayerDatas[0].PlayerName == name ? 0 : 1;
+                return battleData with
+                {
+                    MySlot = slot,
+                    MyName = name,
+                };
+            }
+
 
             public BattleData SetMyTeam(GamePokemonTeam gamePokemonTeam)
             {
+                var myData = battleData.PlayerDatas[battleData.MySlot];
                 return battleData with
                 {
-                    Player1Team = gamePokemonTeam,
-                    Player2Team = gamePokemonTeam
+                    PlayerDatas = battleData.PlayerDatas.SetItem(battleData.MySlot, myData with
+                    {
+                        Team = gamePokemonTeam
+                    })
                 };
             }
 
@@ -128,11 +195,21 @@ namespace Showdown
                 {
                     "player" => battleData.ApplyPlayer(lines),
                     "turn" => battleData.ApplyTurn(lines),
-                    "teampreview" => battleData with { ChooseSize = int.Parse( lines[0]) }, // 这个不需要处理
-                    //"win" => battleData.ApplyWin(lines),
+                    "teampreview" => battleData with { ChooseSize = int.Parse(lines[0]) }, // 这个不需要处理
                     "poke" => await battleData.ApplyPoke(lines),
                     "switch" => battleData.ApplySwitch(lines),
-                    //"teampreview" => battleData.ApplyTeamPreview(lines),
+                    "drag" => battleData.ApplyDrag(lines),
+                    "detailschange" => await battleData.ApplyDetailsChange(lines),
+                    "move" => await battleData.ApplyMove(lines),
+
+
+                    "-ability" => battleData.ApplyAbility(lines),
+                    "-terastallize" => battleData.ApplyTerastallize(lines),
+                    "-singleturn" => battleData.ApplySingleturn(lines),
+                    "-damage" => battleData.ApplyDamage(lines),
+                    "-heal" => battleData.ApplyHeal(lines),
+                    "-weather" => battleData.ApplyWeather(lines),
+
                     _ => battleData
                 };
             }
@@ -142,14 +219,19 @@ namespace Showdown
                 if (lines.Length > 4)
                 {
                     int.TryParse(lines[3], out int score);
-                    if (lines[0] == "p1")
+                    int pos = lines[0] == "p1" ? 0 : 1; // p1是0 p2是1
+
+                    return battleData with
                     {
-                        return battleData with { Player1Id = lines[2], Player1Score = score };
+                        PlayerDatas = battleData.PlayerDatas.SetItem(pos, new PlayerData
+                        {
+                            PlayerId = lines[2],
+                            PlayerName = lines[1],
+                            Score = score
+                        })
                     }
-                    else
-                    {
-                        return battleData with { Player2Id = lines[2], Player2Score = score };
-                    }
+                    ;
+
                 }
                 return battleData;
             }
@@ -177,7 +259,7 @@ namespace Showdown
             public async Task<BattleData> ApplyPoke(string[] lines)
             {
                 var pokemonName = lines[1].Split(',')[0];
-                var lastTurn = battleData.BattleTurns.Last()!;
+                var lastTurn = battleData.GetLastTurn()!;
                 if (lines[0] == "p1")
                 {
                     var sideTeam = lastTurn.SideTeam[0];
@@ -204,12 +286,20 @@ namespace Showdown
                 }
             }
 
-
+            /// <summary>
+            /// 处理Switch命令 //记得刷新宝的状态
+            /// </summary>
+            /// <param name="lines"></param>
+            /// <returns></returns>
             public BattleData ApplySwitch(string[] lines)
             {
+                Func<BattlePokemon, BattlePokemon> SetUnkonwnToNoInBattle = x =>
+                            x.BattleStatus is UnKnown
+                            ? x with { BattleStatus = PsBattleStatus.NotInBattleTeam }
+                            : x;
                 // 开局的turn要看好了
                 var switchPokemonName = lines[1].Split(',')[0];
-                var lastTurn = battleData.BattleTurns.Last()!;
+                var lastTurn = battleData.GetLastTurn()!;
                 //var switchNickName = lines[1].Split(',')[0];
                 var switchData = GetSidePos(lines[0][..3]);
 
@@ -219,20 +309,24 @@ namespace Showdown
                 {
                     var sideTeam = lastTurn.SideTeam[0];
                     var newPokes = sideTeam.Pokemons
-                        .Select(x => 
-                        x.Position == switchData.pos 
-                        ? x with { Position = -1, BattleStatus = PsBattleStatus.InBackField } 
-                        : x).ToImmutableArray();
-                    newPokes = sideTeam.Pokemons
-                        .Select(x => 
-                        x.PsName == switchPokemonName 
-                        ? x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }
+                        .Select(x =>
+                        x.Position == switchData.pos
+                        ? (x with { Position = -1, BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
                         : x)
-                        .ToImmutableArray();
+                        .Select(x => // 设置后排宝可梦上场
+                        x.PsName == switchPokemonName
+                        ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
+                        : x);
+                        //.ToImmutableArray();
+
+                    if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
+                    {
+                        newPokes = newPokes.Select(SetUnkonwnToNoInBattle);
+                    }
 
                     var newTurn = lastTurn with
                     {
-                        SideTeam = lastTurn.SideTeam.SetItem(0, sideTeam with { Pokemons = newPokes })
+                        SideTeam = lastTurn.SideTeam.SetItem(0, sideTeam with { Pokemons = [.. newPokes] })
                     };
 
                     return battleData.UpdateLastTurn(newTurn);
@@ -242,19 +336,23 @@ namespace Showdown
                 {
                     var sideTeam = lastTurn.SideTeam[1];
                     var newPokes = sideTeam.Pokemons
-                        .Select(x => 
-                        x.Position == switchData.pos 
-                        ? x with { Position = -1, BattleStatus = PsBattleStatus.InBackField } 
-                        : x).ToImmutableArray();
-                    newPokes = sideTeam.Pokemons
-                        .Select(x => 
-                        x.PsName == switchPokemonName 
-                        ? x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }
+                        .Select(x =>
+                        x.Position == switchData.pos
+                        ? (x with { Position = -1, BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
                         : x)
-                        .ToImmutableArray();
+                        .Select(x =>
+                        x.PsName == switchPokemonName
+                        ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
+                        : x);
+                        //.ToImmutableArray();
+
+                    if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
+                    {
+                        newPokes = newPokes.Select(SetUnkonwnToNoInBattle);
+                    }
                     var newTurn = lastTurn with
                     {
-                        SideTeam = lastTurn.SideTeam.SetItem(1, sideTeam with { Pokemons = newPokes })
+                        SideTeam = lastTurn.SideTeam.SetItem(1, sideTeam with { Pokemons = [.. newPokes] })
                     };
 
                     return battleData.UpdateLastTurn(newTurn);
@@ -262,6 +360,195 @@ namespace Showdown
 
             }
 
+            /// <summary>
+            /// 宝可梦形态发生改变
+            /// </summary>
+            /// <param name="lines"></param>
+            /// <returns></returns>
+            public async Task<BattleData> ApplyDetailsChange(string[] lines)
+            {
+                // 开局的turn要看好了
+                var lastTurn = battleData.GetLastTurn()!;
+                var sideData = GetSidePos(lines[0][..3]);
+                var pokemonName = lines[1].Split(',')[0];
+
+                var pokemon = await PokemonToolsWithoutDB.GetPokemonFromPsNameAsync(pokemonName);
+
+                if (sideData.side == 1)
+                {
+                    var sideTeam = lastTurn.SideTeam[0];
+                    var newPokes = sideTeam.Pokemons
+                        .Select(x =>
+                        x.Position == sideData.pos
+                        ? x with { Pokemon = x.Pokemon with { MetaPokemon = pokemon } }
+                        : x).ToImmutableArray();
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(0, sideTeam with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData.UpdateLastTurn(newTurn);
+                }
+                else
+                {
+                    var sideTeam = lastTurn.SideTeam[1];
+                    var newPokes = sideTeam.Pokemons
+                        .Select(x =>
+                        x.Position == sideData.pos
+                        ? x with { Pokemon = x.Pokemon with { MetaPokemon = pokemon } }
+                        : x).ToImmutableArray();
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(1, sideTeam with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData.UpdateLastTurn(newTurn);
+                }
+
+                //return battleData;
+            }
+
+            public BattleData ApplyAbility(string[] lines)
+            {
+                return battleData;
+            }
+
+            public BattleData ApplyTerastallize(string[] lines)
+            {
+                var teraType = lines[1];
+                var sideData = GetSidePos(lines[0]);
+                // 修改宝可梦的teraType
+                return battleData;
+            }
+            public BattleData ApplyDrag(string[] lines)
+            {
+                var sideData = GetSidePos(lines[0]);
+                var pokemonName = lines[1].Split(',')[0];
+                var lastTurn = battleData.GetLastTurn();
+                var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                    .Select(x => 
+                    x.Position == sideData.pos 
+                    ? (x with { BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
+                    : x)
+                    .ToImmutableArray();
+                return battleData.UpdateLastTurn(lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes));
+            }
+            public BattleData ApplySingleturn(string[] lines)
+            {
+                var sideData = GetSidePos(lines[0]);
+                var singleTurnStatus = lines[1].Split(":").Last().Replace(" ", "").Trim();
+                var prop = typeof(PokemonStatus).GetProperty(singleTurnStatus);
+
+                if (prop == null)
+                {
+                    Log.Logger.Error($"Unknown single turn status: {singleTurnStatus}");
+                    return battleData;
+
+                }
+
+                else
+                {
+                    // 开局的turn要看好了
+                    var lastTurn = battleData.BattleTurns.Last()!;
+                    var status = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)!.Status with { };
+                    prop.SetValue(status, 1); // 设置为1
+
+                    var newPokes= lastTurn.SideTeam[sideData.side - 1].Pokemons
+                        .Select(x => x.Position == sideData.pos 
+                        ? x with { Status = status }
+                        : x
+                    )!;
+
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, lastTurn.SideTeam[sideData.side - 1] with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData.UpdateLastTurn(newTurn);
+
+                }
+
+
+            }
+            public BattleData ApplyDamage(string[] lines)
+            {
+                var hpRemain = lines[1].Split('/');
+                var hpNumber = int.Parse(hpRemain[0].Replace(" fnt", ""));
+
+                var sideData = GetSidePos(lines[0]);
+                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, - hpNumber);
+
+
+
+                return battleData.UpdateLastTurn(lastTurn);
+            }
+
+       
+
+            public BattleData ApplyHeal(string[] lines)
+            {
+                var hpRemain = lines[1].Split('/');
+                var hpNumber = int.Parse(hpRemain[0].Replace(" fnt", ""));
+
+                var sideData = GetSidePos(lines[0]);
+                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, hpNumber);
+
+
+                return battleData.UpdateLastTurn(lastTurn);
+            }
+
+
+            public BattleData ApplyWeather(string[] lines)
+            {
+                var lastTurn = battleData.GetLastTurn();
+                var weather = lines[0];
+                if (weather == "none")
+                {
+                    lastTurn = lastTurn with { BattleField = lastTurn.BattleField with { Weather = Weather.None } };
+                }
+                else
+                {
+                    if (Enum.TryParse(weather, true, out Weather parsedWeather))
+                    {
+
+                        var fsDecr = (DecreaseAttribute)(typeof(BattleField).GetProperty("WeatherRemain")).GetCustomAttribute(typeof(DecreaseAttribute));
+
+                        lastTurn = lastTurn with { 
+                            BattleField = lastTurn.BattleField with 
+                            { Weather = Weather.None,
+                                WeatherRemain = fsDecr.InitValue // 或者max
+                            } };
+                    }
+
+                }
+                return battleData.UpdateLastTurn(lastTurn);
+            }
+
+            public async Task<BattleData> ApplyMove(string[] lines)
+            {
+                var sideData = GetSidePos(lines[0]);
+                var targetSideData = GetSidePos(lines[2]);
+                var moveName = lines[1].Split(',')[0];
+                var move = await PokemonToolsWithoutDB.GetMoveAsync(moveName);
+                var newPokes = battleData.GetLastTurn().SideTeam[sideData.side - 1].Pokemons
+                    .Select(x =>
+                    x.Position == sideData.pos
+                    ? x with { Moves = [.. x.Moves, new GameMove(move)] }
+                    : x).ToImmutableArray();
+
+                return battleData;
+            }
+            public BattleData ApplyTemplate(string[] lines)
+            {
+
+
+                return battleData;
+            }
+
+
+
+            public GamePokemon GetMyPokemonDetail(BattlePokemon battlePokemon)
+            {
+                // 获取我宝可梦的完整数据 也许不用
+                return new();
+            }
         }
 
     }

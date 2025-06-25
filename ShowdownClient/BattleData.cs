@@ -12,35 +12,46 @@ using System.Threading.Tasks;
 
 namespace Showdown
 {
-    public record BattleData
+    public record  BattleData
     {
-        public string Player1Id { get; init; } = string.Empty;
-        public int Player1Score { get; init; } = 0; // 可能是分数 可能是胜利次数
-        public string Player2Id { get; init; } = string.Empty;
-        public int Player2Score { get; init; } = 0; // 可能是分数 可能是胜利次数
+
+        public int MySlot { get; init; } = 1; // 我的槽位
+        public string MyName { get; init; } = string.Empty; // 我的名字
+
+        public ImmutableArray<PlayerData> PlayerDatas { get; init; } = [new PlayerData(), new PlayerData()]; // 玩家数据
+
+        // 推测出的对手队伍信息
+
         /// <summary>
         /// 默认选出4只
         /// </summary>
         public int ChooseSize { get; init; } = 4;
         public string BattleRule { get; init; } = string.Empty; // 规则
         // 对战 但一人队伍是已知的 也可能是两人
-        public GamePokemonTeam Player1Team { get; init; } = new GamePokemonTeam();
-        public GamePokemonTeam Player2Team { get; init; } = new GamePokemonTeam();
+        //public GamePokemonTeam Player1Team { get; init; } = new GamePokemonTeam();
+        //public GamePokemonTeam Player2Team { get; init; } = new GamePokemonTeam();
 
         public ImmutableArray<BattleTurnN> BattleTurns { get; init; } = [new()];
 
         
     }
 
+    public record PlayerData
+    {
+        public string PlayerId { get; init; } = string.Empty; // 玩家ID
+        public string PlayerName { get; init; } = string.Empty; // 玩家名字
+        public GamePokemonTeam Team { get; init; } = new(); // 我的队伍
+        public int Score { get; init; } = 0; // 分数
+    }
+
     public record BattleTurnN
     {
-        public int Turn { get; init; } = 0;
-        public ImmutableArray<BattleTeam> SideTeam { get; set; } = [new (), new()]; // 要维护 分两个side // 暗信息
+        public int Turn { get; init; } = 1;
+        public ImmutableArray<BattleTeam> SideTeam { get; set; } = [new (), new()]; // 要维护 分两个side // 暗信息 // 或是除旁观者知道的信息 // 可能还需要有持久化信息
         // 是否信息明牌，
 
         public BattleTeam MyTeam { get; init; } = new(); // 要维护 只有是对战才有
 
-        //public object OpponentTeam { get; set; } = new(); // 要维护
 
         public BattleField BattleField { get; init; } = new(); // 要维护
 
@@ -85,6 +96,9 @@ namespace Showdown
         public int Position { get; init; } = -1; // 位置 0-2
         public string PsName { get; init; } = string.Empty; // 可能是PS的名字
 
+        public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
+
+
         public PsBattleStatus BattleStatus { get; init; } = new UnKnown(); // 是否在战斗中
 
 
@@ -98,7 +112,7 @@ namespace Showdown
                 Pokemon = new GamePokemon(poke),
                 PsName = psname,
                 HpRemain = 100, // 默认100%
-                Position = 0, // 默认位置0
+                Position = -1, // 默认位置0
             };
 
 
