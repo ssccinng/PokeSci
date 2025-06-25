@@ -79,9 +79,8 @@ namespace Showdown
 
         extension(BattleField battleField)
         {
-            public BattleField NextTurn()
-            {
-                return battleField with
+            public BattleField NextTurn() =>
+                battleField with
                 {
                     WeatherRemain = GetSub1(battleField.WeatherRemain),
                     TerrainRemain = GetSub1(battleField.TerrainRemain),
@@ -94,7 +93,6 @@ namespace Showdown
                     WaterSport = GetSub1(battleField.WaterSport),
 
                 };
-            }
         }
 
         extension(OneSideBattleField oneSideBattleField)
@@ -193,32 +191,29 @@ namespace Showdown
                 return battleData with { MyOrderTeam = myOrder };
             }
 
-            public async Task<BattleData> ApplyLog(string cmd, string[] lines)
+            public async Task<BattleData> ApplyLog(string cmd, string[] lines) => cmd switch
             {
-                return cmd switch
-                {
-                    "player" => battleData.ApplyPlayer(lines),
-                    "turn" => battleData.ApplyTurn(lines),
-                    "teampreview" => battleData with { ChooseSize = int.Parse(lines[0]) }, // 这个不需要处理
-                    "poke" => await battleData.ApplyPoke(lines),
-                    "switch" => battleData.ApplySwitch(lines),
-                    "drag" => battleData.ApplyDrag(lines),
-                    "detailschange" => await battleData.ApplyDetailsChange(lines),
-                    "move" => await battleData.ApplyMove(lines),
-                    "faint" => battleData.ApplyFaint(lines),
-                    "request" => battleData.ApplyRequest(lines),
+                "player" => battleData.ApplyPlayer(lines),
+                "turn" => battleData.ApplyTurn(lines),
+                "teampreview" => battleData with { ChooseSize = int.Parse(lines[0]) }, // 这个不需要处理
+                "poke" => await battleData.ApplyPoke(lines),
+                "switch" => battleData.ApplySwitch(lines),
+                "drag" => battleData.ApplyDrag(lines),
+                "detailschange" => await battleData.ApplyDetailsChange(lines),
+                "move" => await battleData.ApplyMove(lines),
+                "faint" => battleData.ApplyFaint(lines),
+                "request" => battleData.ApplyRequest(lines),
 
 
-                    "-ability" => battleData.ApplyAbility(lines),
-                    "-terastallize" => await battleData.ApplyTerastallize(lines),
-                    "-singleturn" => battleData.ApplySingleturn(lines),
-                    "-damage" => battleData.ApplyDamage(lines),
-                    "-heal" => battleData.ApplyHeal(lines),
-                    "-weather" => battleData.ApplyWeather(lines),
+                "-ability" => battleData.ApplyAbility(lines),
+                "-terastallize" => await battleData.ApplyTerastallize(lines),
+                "-singleturn" => battleData.ApplySingleturn(lines),
+                "-damage" => battleData.ApplyDamage(lines),
+                "-heal" => battleData.ApplyHeal(lines),
+                "-weather" => battleData.ApplyWeather(lines),
 
-                    _ => battleData
-                };
-            }
+                _ => battleData
+            };
 
             public BattleData ApplyPlayer(string[] lines)
             {
@@ -585,10 +580,17 @@ namespace Showdown
             }
             public BattleData ApplyRequest(string[] lines)
             {
+                var requestData = System.Text.Json.JsonSerializer.Deserialize<RequestData>(lines[0]);
+
+                var lastTurn = battleData.GetLastTurn()!;
+
+                var newTurn = lastTurn with
+                {
+                    Requests = lastTurn.Requests.Add(requestData),
+                };
 
 
-
-                return battleData;
+                return battleData.UpdateLastTurn(newTurn);
             }
 
             public BattleData ApplyTemplate(string[] lines)

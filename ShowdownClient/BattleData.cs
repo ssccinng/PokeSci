@@ -23,6 +23,8 @@ namespace Showdown
 
         public ImmutableArray<PlayerData> PlayerDatas { get; init; } = [new PlayerData(), new PlayerData()]; // 玩家数据
 
+        public ImmutableList<string> Historys { get; init; } = ImmutableList<string>.Empty; // 可能是对战信息
+
         // 推测出的对手队伍信息
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace Showdown
 
         public ImmutableArray<OneSideBattleField> SideField { get; set; } = [new(), new()]; // 要维护
 
-        
+        public ImmutableList<RequestData> Requests { get; init; } = ImmutableList<RequestData>.Empty; // 请求数据 // 可能是对战信息
 
 
     }
