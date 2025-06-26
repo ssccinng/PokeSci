@@ -148,7 +148,7 @@ namespace Showdown
 
     public record PokemonStatus
     {
-        private int protect;
+        //private int protect;
 
         // 生成一个将自己成员依据SingleTurn特性修改自己的值的方法
         // 接口一下
@@ -590,9 +590,9 @@ namespace Showdown
         [SingleTurn]
         public int Protect
         {
-            get => protect; set
+            get => field; set
             {
-                protect = value;
+                field = value;
                 if (value != 0)
                 {
                     ProtectCnt = 2;
@@ -602,7 +602,16 @@ namespace Showdown
         [Decrease(initValue: 1, decreaseValue: -1)]
         public int ProtectCnt { get; set; }
         [SingleTurn]
-        public int WideGuard { get; set; }
+        public int WideGuard {
+            get => field; set
+            {
+                field = value;
+                if (value != 0)
+                {
+                    ProtectCnt = 2;
+                }
+            }
+        }
         public int QuickGuard { get; set; }
         [SingleTurn]
         public int Roost { get; set; }

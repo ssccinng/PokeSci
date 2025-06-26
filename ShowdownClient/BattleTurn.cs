@@ -1005,10 +1005,10 @@ public enum MoveCategory
 public enum Terrain
 {
     None,
-    Electric,
-    Grass,
-    Psychic,
-    Misty,
+    ElectricTerrain,
+    GrassyTerrain,
+    PsychicTerrain,
+    MistyTerrain,
 }
 
 public enum Weather

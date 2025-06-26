@@ -41,7 +41,14 @@ namespace Showdown
             // 怪异
             return (1, 0);
         }
-
+        public static int GetPlayer(string data)
+        {
+            if (data.Trim() == "p1")
+            {
+                return 0;
+            }
+            return 1;
+        }
         extension(BattleTurnN battleTurnN)
         {
             public BattleTurnN NextTurn()
@@ -211,6 +218,10 @@ namespace Showdown
                 "-damage" => battleData.ApplyDamage(lines),
                 "-heal" => battleData.ApplyHeal(lines),
                 "-weather" => battleData.ApplyWeather(lines),
+                "-sidestart" => battleData.ApplySide(lines, true),
+                "-sideend" => battleData.ApplySide(lines, false),
+                "-fieldstart" => battleData.ApplyField(lines, true),
+                "-fieldend" => battleData.ApplyField(lines, false),
 
                 _ => battleData
             };
@@ -511,44 +522,18 @@ namespace Showdown
             public BattleData ApplyHeal(string[] lines)
             {
                 var hpRemain = lines[1].Split('/');
-                var hpNumber = int.Parse(hpRemain[0].Replace(" fnt", ""));
-
+                var hpNumber = int.Parse(hpRemain[0].Replace(" fnt", "")); 
+                var maxHp = int.Parse(hpRemain[1].Split(' ')[0]);
+                // 这两个要改 结算出百分比
                 var sideData = GetSidePos(lines[0]);
-                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, hpNumber);
+                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, hpNumber * 100 / maxHp);
 
 
                 return battleData.UpdateLastTurn(lastTurn);
             }
 
 
-            public BattleData ApplyWeather(string[] lines)
-            {
-                var lastTurn = battleData.GetLastTurn();
-                var weather = lines[0];
-                if (weather == "none")
-                {
-                    lastTurn = lastTurn with { BattleField = lastTurn.BattleField with { Weather = Weather.None } };
-                }
-                else
-                {
-                    if (Enum.TryParse(weather, true, out Weather parsedWeather))
-                    {
-
-                        var fsDecr = (DecreaseAttribute)(typeof(BattleField).GetProperty("WeatherRemain")).GetCustomAttribute(typeof(DecreaseAttribute));
-
-                        lastTurn = lastTurn with
-                        {
-                            BattleField = lastTurn.BattleField with
-                            {
-                                Weather = Weather.None,
-                                WeatherRemain = fsDecr.InitValue // 或者max
-                            }
-                        };
-                    }
-
-                }
-                return battleData.UpdateLastTurn(lastTurn);
-            }
+           
 
             public async Task<BattleData> ApplyMove(string[] lines)
             {
@@ -593,6 +578,117 @@ namespace Showdown
                 return battleData.UpdateLastTurn(newTurn);
             }
 
+           
+            public BattleData ApplyWeather(string[] lines)
+            {
+                var lastTurn = battleData.GetLastTurn();
+                var weather = lines[0];
+                if (weather == "none")
+                {
+                    lastTurn = lastTurn with { BattleField = lastTurn.BattleField with { Weather = Weather.None } };
+                }
+                else
+                {
+                    if (Enum.TryParse(weather, true, out Weather parsedWeather))
+                    {
+
+                        var fsDecr = (DecreaseAttribute)(typeof(BattleField).GetProperty("WeatherRemain")).GetCustomAttribute(typeof(DecreaseAttribute));
+
+                        lastTurn = lastTurn with
+                        {
+                            BattleField = lastTurn.BattleField with
+                            {
+                                Weather = Weather.None,
+                                WeatherRemain = fsDecr.InitValue // 或者max
+                            }
+                        };
+                    }
+
+                }
+                return battleData.UpdateLastTurn(lastTurn);
+            }
+
+            public BattleData ApplySide(string[] lines, bool start)
+            {
+                var lastTurn = battleData.GetLastTurn()!;
+                var side = lines[1].Split(":").Last().Trim().Replace(" ", "");
+                var reasonLines = lines[2..];
+                var sideData = GetPlayer(lines[0][..2]);
+
+                var sideFieldProperty = typeof(OneSideBattleField).GetProperty(side);
+                if (sideFieldProperty == null)
+                {
+                    Log.Logger.Error($"Unknown side field property: {side}");
+                    return battleData;
+                }
+                var fsDecr = (DecreaseAttribute)sideFieldProperty.GetCustomAttribute(typeof(DecreaseAttribute));
+                var newSideField = lastTurn.SideField[sideData] with { };
+
+                
+                if (start)
+                {
+                    sideFieldProperty.SetValue(newSideField, fsDecr.InitValue); // 或者max
+                }
+                else
+                {
+                    sideFieldProperty.SetValue(newSideField, 0);
+                }
+                lastTurn = lastTurn with
+                {
+                    SideField = lastTurn.SideField.SetItem(sideData, newSideField)
+                };
+
+                return battleData.UpdateLastTurn(lastTurn);
+            }
+
+            public BattleData ApplyField(string[] lines, bool start)
+            {
+                // yysy // 这里后面还有产生原因
+
+
+                var lastTurn = battleData.GetLastTurn()!;
+                var field = lines[0].Split(":").Last().Trim().Replace(" ", "");
+                var reasonLines = lines[1..];
+                if (field.EndsWith("Terrain"))
+                {
+                    if (Enum.TryParse(field, true, out Terrain terrain))
+                    {
+                        var fsDecr = (DecreaseAttribute)(typeof(BattleField).GetProperty("TerrainRemain")).GetCustomAttribute(typeof(DecreaseAttribute));
+
+                        lastTurn = lastTurn with
+                        {
+                            BattleField = lastTurn.BattleField with
+                            {
+                                Terrain = terrain,
+                                TerrainRemain = fsDecr.InitValue // 或者max
+                            }
+                        };
+                    }
+                }
+                else
+                {
+                    var fieldroperty = typeof(BattleField).GetProperty(field);
+                    if (fieldroperty == null)
+                    {
+                        Log.Logger.Error($"Unknown field property: {field}");
+                        return battleData;
+                    }
+                    var fsDecr = (DecreaseAttribute)fieldroperty.GetCustomAttribute(typeof(DecreaseAttribute));
+                    lastTurn = lastTurn with { };
+                    if (start)
+                    {
+                        fieldroperty.SetValue(lastTurn.BattleField, fsDecr.InitValue); // 或者max
+                    }
+                    else
+                    {
+                        fieldroperty.SetValue(lastTurn.BattleField, 0);
+                    }
+                }
+
+
+
+                return battleData.UpdateLastTurn(lastTurn);
+            }
             public BattleData ApplyTemplate(string[] lines)
             {
 
