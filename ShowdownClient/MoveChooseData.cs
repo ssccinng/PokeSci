@@ -9,7 +9,7 @@
         {
             if (IsPass)
             {
-                return "Pass";
+                return "pass";
             }
 
             if (Target == 999)
@@ -27,7 +27,7 @@
             {
                 if (Terastallize)
                 {
-                    return $"move {MoveId} {Target} terastallize";
+                    return $"move {MoveId} terastallize {Target} ";
                 }
                 else
                 {
@@ -53,7 +53,7 @@
         {
             if (IsPass)
             {
-                return "Pass";
+                return "pass";
             }
 
             if (Target == 999)

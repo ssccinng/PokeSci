@@ -5,6 +5,7 @@ using Showdown;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -222,6 +223,10 @@ namespace Showdown
                 "-sideend" => battleData.ApplySide(lines, false),
                 "-fieldstart" => battleData.ApplyField(lines, true),
                 "-fieldend" => battleData.ApplyField(lines, false),
+                "-status" => battleData.ApplyStatus(lines, true),
+                "-curestatus" => battleData.ApplyStatus(lines, false),
+                "-boost" => battleData.ApplyBoost(lines, true),
+                "-unboost" => battleData.ApplyBoost(lines, false),
 
                 _ => battleData
             };
@@ -508,9 +513,11 @@ namespace Showdown
             {
                 var hpRemain = lines[1].Split('/');
                 var hpNumber = int.Parse(hpRemain[0].Replace(" fnt", ""));
+                var maxHp = hpRemain.Length == 1 ? 100 : int.Parse(hpRemain[1].Split(' ')[0]);
+
 
                 var sideData = GetSidePos(lines[0]);
-                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, -hpNumber);
+                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, -hpNumber * 100 / maxHp);
 
 
 
@@ -540,6 +547,7 @@ namespace Showdown
                 var sideData = GetSidePos(lines[0]);
                 var targetSideData = GetSidePos(lines[2]);
                 var moveName = lines[1].Split(',')[0];
+                var lastTurn = battleData.GetLastTurn()!;
                 var move = await PokemonToolsWithoutDB.GetMoveAsync(moveName);
                 var newPokes = battleData.GetLastTurn().SideTeam[sideData.side - 1].Pokemons
                     .Select(x =>
@@ -547,7 +555,9 @@ namespace Showdown
                     ? x with { Moves = [.. x.Moves, new GameMove(move)] }
                     : x).ToImmutableArray();
 
-                return battleData;
+                var newTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
+
+                return battleData.UpdateLastTurn(newTurn);
             }
 
             public BattleData ApplyFaint(string[] lines)
@@ -561,7 +571,9 @@ namespace Showdown
                     ? (x with { BattleStatus = PsBattleStatus.IsDead, Position = -1 }).SwitchOut()
                     : x).ToImmutableArray();
 
-                return battleData;
+                var newTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
+
+                return battleData.UpdateLastTurn(newTurn);
             }
             public BattleData ApplyRequest(string[] lines)
             {
@@ -689,6 +701,58 @@ namespace Showdown
 
                 return battleData.UpdateLastTurn(lastTurn);
             }
+            public BattleData ApplyStatus(string[] lines, bool start)
+            {
+                var sideData = GetSidePos(lines[0]);
+                var status = typeof(PokemonStatus).GetProperty(
+                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].ToLower())}");
+
+
+                var lastTurn = battleData.GetLastTurn()!;
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
+                if (status == null)
+                {
+                    Log.Logger.Error($"Unknown status property: {status}");
+                    return battleData;
+                }
+
+                else
+                {
+                    // 开局的turn要看好了
+
+
+                    var status1 = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)!.Status with { };
+
+                    if (start)
+                    {
+                        status.SetValue(status1, lines[1] == "slp" ? 3 : 1); // 设置为1
+                    }
+                    else
+                    {
+                        status.SetValue(status1, 0); // 设置为1
+                    }
+
+                    var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                        .Select(x => x.Position == sideData.pos
+                        ? x with { Status = status1 }
+                        : x
+                    )!;
+
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, lastTurn.SideTeam[sideData.side - 1] with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData.UpdateLastTurn(newTurn);
+
+                }
+
+            }
+            public BattleData ApplyBoost(string[] lines, bool boost)
+            {
+
+
+                return battleData;
+            }
             public BattleData ApplyTemplate(string[] lines)
             {
 
@@ -717,6 +781,7 @@ public class RequestData
     public Active[] active { get; set; }
     public Side side { get; set; }
     public int rqid { get; set; }
+    public bool wait { get; set; }
 }
 
 public class Side
