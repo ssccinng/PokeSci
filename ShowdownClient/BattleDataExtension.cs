@@ -60,6 +60,7 @@ namespace Showdown
                     Turn = battleTurnN.Turn + 1,
                     BattleField = battleTurnN.BattleField.NextTurn(),
                     SideField = [.. battleTurnN.SideField.Select(x => x.NextTurn())],
+                    SideTeam = battleTurnN.SideTeam.Select(x => x with { Pokemons = x.Pokemons.Select(p => p.NextTurn()).ToImmutableArray() }).ToImmutableArray(),
                 };
                 return newTurn;
             }
@@ -133,7 +134,7 @@ namespace Showdown
         {
             public BattlePokemon SwitchIn()
             {
-                return pokemon with { Status = pokemon.Status with { FirstTurnInField = 1 } };
+                return pokemon with { Status = pokemon.Status with { InField_First_Turn = 1 } };
             }
 
             public BattlePokemon SwitchOut()
@@ -157,10 +158,42 @@ namespace Showdown
                     }
                 }
                 // 太晶清理一下
+                
+
+
                 return newPoke;
             }
 
+            public BattlePokemon NextTurn()
+            {
+                return pokemon with { Status = pokemon.Status.NextTurn() };
+            }
         }
+        extension (PokemonStatus pokemonStatus)
+        {
+            public PokemonStatus NextTurn()
+            {
+                var newStatus = pokemonStatus with { };
+                foreach (var property in newStatus.GetType().GetProperties())
+                {
+                    var decrease = property.GetCustomAttribute<DecreaseAttribute>();
+                    if (decrease != null)
+                    {
+                        var value = (int)property.GetValue(newStatus);
+                        if (value > 0)
+                            value = Math.Max(value + decrease.DeltaValue, 0);
+                        property.SetValue(newStatus, value);
+                    }
+                    var singleTurn = property.GetCustomAttribute<SingleTurnAttribute>();
+                    if (singleTurn != null)
+                    {
+                        property.SetValue(newStatus, 0);
+                    }
+                }
+                return newStatus;
+            }
+        }
+
         extension(BattleData battleData)
         {
             public BattleData UpdateLastTurn(BattleTurnN newTurn)
@@ -517,7 +550,7 @@ namespace Showdown
 
 
                 var sideData = GetSidePos(lines[0]);
-                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, -hpNumber * 100 / maxHp);
+                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, hpNumber * 100 / maxHp);
 
 
 
@@ -568,7 +601,9 @@ namespace Showdown
                 var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
                     .Select(x =>
                     x.Position == sideData.pos
-                    ? (x with { BattleStatus = PsBattleStatus.IsDead, Position = -1 }).SwitchOut()
+                    ? (x with { BattleStatus = PsBattleStatus.IsDead
+                    //, Position = -1 
+                    })//.SwitchOut()
                     : x).ToImmutableArray();
 
                 var newTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
@@ -721,7 +756,7 @@ namespace Showdown
                     // 开局的turn要看好了
 
 
-                    var status1 = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)!.Status with { };
+                    var status1 = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)!.Status with { }; 
 
                     if (start)
                     {

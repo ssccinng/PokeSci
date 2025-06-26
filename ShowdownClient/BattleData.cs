@@ -58,7 +58,6 @@ namespace Showdown
 
         public BattleTeam MyTeam { get; init; } = new(); // 要维护 只有是对战才有
 
-
         public BattleField BattleField { get; init; } = new(); // 要维护
 
         public ImmutableArray<OneSideBattleField> SideField { get; set; } = [new(), new()]; // 要维护
@@ -152,33 +151,37 @@ namespace Showdown
 
         // 生成一个将自己成员依据SingleTurn特性修改自己的值的方法
         // 接口一下
-        public void NextTurn()
-        {
-            foreach (var property in GetType().GetProperties())
-            {
-                var decrease = property.GetCustomAttribute<DecreaseAttribute>();
-                if (decrease != null)
-                {
-                    var value = (int)property.GetValue(this);
-                    if (value > 0)
-                        value = Math.Max(value + decrease.DeltaValue, 0);
-                    property.SetValue(this, value);
-                }
-                //var changeRefresh = property.GetCustomAttribute<ChangeRefreshAttribute>();
-                //if (changeRefresh != null)
-                //{
-                //    property.SetValue(this, 0);
-                //}
+        //public void NextTurn()
+        //{
+        //    foreach (var property in GetType().GetProperties())
+        //    {
+        //        var decrease = property.GetCustomAttribute<DecreaseAttribute>();
+        //        if (decrease != null)
+        //        {
+        //            var value = (int)property.GetValue(this);
+        //            if (value > 0)
+        //                value = Math.Max(value + decrease.DeltaValue, 0);
+        //            property.SetValue(this, value);
+        //        }
+        //        //var changeRefresh = property.GetCustomAttribute<ChangeRefreshAttribute>();
+        //        //if (changeRefresh != null)
+        //        //{
+        //        //    property.SetValue(this, 0);
+        //        //}
 
-                // 生成一个将自己成员依据SingleTurn特性修改自己的值的方法
+        //        // 生成一个将自己成员依据SingleTurn特性修改自己的值的方法
 
-                var singleTurn = property.GetCustomAttribute<SingleTurnAttribute>();
-                if (singleTurn != null)
-                {
-                    property.SetValue(this, 0);
-                }
-            }
-        }
+        //        var singleTurn = property.GetCustomAttribute<SingleTurnAttribute>();
+        //        if (singleTurn != null)
+        //        {
+        //            property.SetValue(this, 0);
+        //        }
+        //    }
+        //}
+        //[Decrease(initValue: 1, decreaseValue: -1)]
+
+        //public int Rounds_InField { get; set; } = 0; // 在场地上回合数
+
         // 利用反射 将所有成员映射到一个数组中
         #region  能力变化
         [ChangeRefresh]
@@ -599,7 +602,7 @@ namespace Showdown
                 }
             }
         }
-        [Decrease(initValue: 1, decreaseValue: -1)]
+        [Decrease(initValue: 1)]
         public int ProtectCnt { get; set; }
         [SingleTurn]
         public int WideGuard {
@@ -627,7 +630,7 @@ namespace Showdown
         public int RagePowder { get; set; }
 
         [Decrease(initValue: 1, decreaseValue: -1)]
-        public int FirstTurnInField { get; set; }
+        public int InField_First_Turn { get; set; }  
     }
 
     public record BattleField
