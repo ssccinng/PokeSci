@@ -20,6 +20,7 @@ namespace Showdown
         public event Action<PSBattle> OnChooseMove;
         public event Action<PSBattle> RequestsAction;
 
+        public Dictionary<string, object> Additions = [];
         public GamePokemonTeam MyTeamConfig { get; set; }
 
         public ShowdownClient Client; // 这个大概率不需要了
