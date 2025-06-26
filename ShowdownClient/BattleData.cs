@@ -19,7 +19,7 @@ namespace Showdown
         public int MySlot { get; init; } = 1; // 我的槽位
         public string MyName { get; init; } = string.Empty; // 我的名字
 
-        public string[] MyOrderTeam { get; init; } = Array.Empty<string>(); // 我选择的宝可梦顺序
+        public ImmutableArray<string> MyOrderTeam { get; init; } = []; // 我选择的宝可梦顺序
 
         public ImmutableArray<PlayerData> PlayerDatas { get; init; } = [new PlayerData(), new PlayerData()]; // 玩家数据
 
@@ -627,7 +627,7 @@ namespace Showdown
         public int RagePowder { get; set; }
 
         [Decrease(initValue: 1, decreaseValue: -1)]
-        public int SwitchIn { get; set; }
+        public int FirstTurnInField { get; set; }
     }
 
     public record BattleField

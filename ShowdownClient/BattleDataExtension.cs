@@ -77,7 +77,7 @@ namespace Showdown
             public BattleTurnN UpdatePokemonHp((int side, int pos) sideData, int hp)
             {
                 var newPokes = battleTurnN.SideTeam[sideData.side - 1].Pokemons
-                   .Select(x => x.Position == sideData.pos ? x with { HpRemain = x.HpRemain + hp } : x).ToImmutableArray();
+                   .Select(x => x.Position == sideData.pos ? x with { HpRemain = hp } : x).ToImmutableArray();
 
                 return battleTurnN.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
 
@@ -132,7 +132,7 @@ namespace Showdown
         {
             public BattlePokemon SwitchIn()
             {
-                return pokemon with { Status = pokemon.Status with { SwitchIn = 1 } };
+                return pokemon with { Status = pokemon.Status with { FirstTurnInField = 1 } };
             }
 
             public BattlePokemon SwitchOut()
@@ -195,7 +195,7 @@ namespace Showdown
 
             public BattleData SetMyOrderTeam(string[] myOrder)
             {
-                return battleData with { MyOrderTeam = myOrder };
+                return battleData with { MyOrderTeam = [..myOrder] };
             }
 
             public async Task<BattleData> ApplyLog(string cmd, string[] lines) => cmd switch
