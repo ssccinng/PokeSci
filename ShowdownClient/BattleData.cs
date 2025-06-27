@@ -56,6 +56,7 @@ namespace Showdown
         public ImmutableArray<BattleTeam> SideTeam { get; set; } = [new (), new()]; // 要维护 分两个side // 暗信息 // 或是除旁观者知道的信息 // 可能还需要有持久化信息
         // 是否信息明牌，
 
+        public ImmutableArray<string> TurnLog = [];
         public BattleTeam MyTeam { get; init; } = new(); // 要维护 只有是对战才有
 
         public BattleField BattleField { get; init; } = new(); // 要维护

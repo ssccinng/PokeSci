@@ -60,6 +60,7 @@ namespace Showdown
                     Turn = battleTurnN.Turn + 1,
                     BattleField = battleTurnN.BattleField.NextTurn(),
                     SideField = [.. battleTurnN.SideField.Select(x => x.NextTurn())],
+                    TurnLog = [],
                     SideTeam = battleTurnN.SideTeam.Select(x => x with { Pokemons = x.Pokemons.Select(p => p.NextTurn()).ToImmutableArray() }).ToImmutableArray(),
                 };
                 return newTurn;
@@ -263,6 +264,15 @@ namespace Showdown
 
                 _ => battleData
             };
+
+            public BattleData AddTurnLog(string line)
+            {
+                var lastTurn = battleData.GetLastTurn();
+                lastTurn = lastTurn with { TurnLog = lastTurn.TurnLog.Add(line) };
+
+                return battleData.UpdateLastTurn(lastTurn);
+            }
+
 
             public BattleData ApplyPlayer(string[] lines)
             {

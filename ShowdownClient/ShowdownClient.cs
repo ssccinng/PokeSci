@@ -238,7 +238,7 @@ public partial class ShowdownClient
             string[] other = currData[2..];
 
 
-            battle.BattleData = await battle.BattleData.ApplyLog(cmd, other);
+            battle.BattleData = (await battle.BattleData.ApplyLog(cmd, other)).AddTurnLog(battleData[i]);
 
             switch (cmd)
             {
