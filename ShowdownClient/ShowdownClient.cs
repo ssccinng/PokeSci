@@ -102,6 +102,15 @@ public partial class ShowdownClient
     private bool _disposed = false;
     Thread? _recvThread = null;
 
+    public async Task<bool> ConnectSSLAsync()
+    {
+        var uri = new Uri($"wss://{ClientInfo.Server}/showdown/websocket");
+        await _webSocket.ConnectAsync(uri, CancellationToken.None);
+        _recvThread = new Thread(async () => await RecvAsync());
+        _recvThread.Start();
+        return _webSocket.State == WebSocketState.Open;
+        
+    }
     public async Task<bool> ConnectAsync()
     {
         var uri = new Uri($"ws://{ClientInfo.Server}/showdown/websocket");
