@@ -91,6 +91,30 @@ namespace Showdown
         public static InField InField { get; } = new InField();
         public static NotInBattleTeam NotInBattleTeam { get; } = new NotInBattleTeam();
     }
+    public static class PsBattleStatusExtensions
+    {
+        public static string GetStatusPrompt(this PsBattleStatus status)
+        {
+            return status switch
+            {
+                UnKnown => "可能在后场",
+                IsDead => "已死亡",
+                InBackField => "在后场",
+                InField => "在场地上",
+                NotInBattleTeam => "不在战斗队伍中",
+            };
+        }
+
+        public static string GetStatusPrompt(this TeratallizeStatus status)
+        {
+            return status switch
+            {
+                TeraSallized teraSallized => $"已太晶化，类型为{teraSallized.Type}",
+                NotTeraSallized => "未太晶化",
+            };
+        }
+    }
+
     public record UnKnown: PsBattleStatus; // 未知状态
     public record IsDead: PsBattleStatus; // 死亡状态
     public record InBackField: PsBattleStatus; // 在战斗队伍中
