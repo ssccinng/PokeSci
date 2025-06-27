@@ -293,7 +293,7 @@ namespace Showdown
                     ;
 
                 }
-                return battleData;
+                return battleData ;
             }
 
             public BattleTurnN GetLastTurn()
@@ -533,7 +533,15 @@ namespace Showdown
                 {
                     // 开局的turn要看好了
                     var lastTurn = battleData.BattleTurns.Last()!;
-                    var status = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)!.Status with { };
+                    var status = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)?.Status ;
+
+                    if (status == null)
+                    {
+                        Log.Logger.Error($"Pokemon at side {sideData.side}, position {sideData.pos} not found for single turn status {singleTurnStatus}");
+                        return battleData;
+                    }
+
+                    status = status with { };
                     prop.SetValue(status, 1); // 设置为1
 
                     var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
@@ -592,15 +600,29 @@ namespace Showdown
                 var moveName = lines[1].Split(',')[0];
                 var lastTurn = battleData.GetLastTurn()!;
                 var move = await PokemonToolsWithoutDB.GetMoveAsync(moveName);
-                var newPokes = battleData.GetLastTurn().SideTeam[sideData.side - 1].Pokemons
+
+                // 如果之前没有记录这个招式，就添加到宝可梦的招式列表中
+                if (lastTurn.SideTeam[sideData.side - 1].Pokemons
+                    .FirstOrDefault(x => x.Position == sideData.pos)?.Moves.All(x => x.MetaMove.Name_Eng != move.Name_Eng) ?? true)
+                {
+                    Log.Logger.Debug($"Adding move {move.Name_Eng} to pokemon at side {sideData.side}, position {sideData.pos}");
+
+                    var newPokes = battleData.GetLastTurn().SideTeam[sideData.side - 1].Pokemons
                     .Select(x =>
                     x.Position == sideData.pos
                     ? x with { Moves = [.. x.Moves, new GameMove(move)] }
                     : x).ToImmutableArray();
 
-                var newTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
+                    lastTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
+                }
+                else
+                {
+                    Log.Logger.Debug($"Move {move.Name_Eng} already exists for pokemon at side {sideData.side}, position {sideData.pos}");
+                }
 
-                return battleData.UpdateLastTurn(newTurn);
+                
+
+                return battleData.UpdateLastTurn(lastTurn);
             }
 
             public BattleData ApplyFaint(string[] lines)
@@ -752,7 +774,6 @@ namespace Showdown
                 var status = typeof(PokemonStatus).GetProperty(
                                                            $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].ToLower())}");
 
-
                 var lastTurn = battleData.GetLastTurn()!;
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
                 if (status == null)
@@ -766,8 +787,16 @@ namespace Showdown
                     // 开局的turn要看好了
 
 
-                    var status1 = lastTurn.SideTeam[sideData.side - 1].Pokemons.FirstOrDefault(x => x.Position == sideData.pos)!.Status with { }; 
+                    var status1 = sideTeam.Pokemons.FirstOrDefault(x => x.Position == sideData.pos)?.Status;
 
+                    if (status1 == null)
+                    {
+                        // 输出宝可梦坐标信息
+                        Log.Logger.Error($"Pokemon not found at position {sideData.pos} for side {sideData.side}");
+                        Log.Logger.Warning(string.Join("\n", sideTeam.Pokemons.Select(s => $"{s.Pokemon.MetaPokemon.NameChs} {s.Position}")));
+                        return battleData;
+                    }
+                    status1 = status1 with { };
                     if (start)
                     {
                         status.SetValue(status1, lines[1] == "slp" ? 3 : 1); // 设置为1
