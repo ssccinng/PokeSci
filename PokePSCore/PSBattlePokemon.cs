@@ -3,7 +3,7 @@ using PokemonDataAccess.Models;
 
 namespace PokePSCore
 {
-    public class PSBattlePokemon : BattlePokemon
+    public record PSBattlePokemon : BattlePokemon
     {
         public PSBattlePokemon(Pokemon pokemon, string psName) : base(pokemon)
         {
