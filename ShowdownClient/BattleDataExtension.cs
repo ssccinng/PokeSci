@@ -245,6 +245,7 @@ namespace Showdown
                 "move" => await battleData.ApplyMove(lines),
                 "faint" => battleData.ApplyFaint(lines),
                 "request" => battleData.ApplyRequest(lines),
+                "replace" => battleData.ApplyReplace(lines),
 
 
                 "-ability" => battleData.ApplyAbility(lines),
@@ -258,6 +259,8 @@ namespace Showdown
                 "-fieldstart" => battleData.ApplyField(lines, true),
                 "-fieldend" => battleData.ApplyField(lines, false),
                 "-status" => battleData.ApplyStatus(lines, true),
+                "-start" => battleData.ApplyStartMove(lines, true),
+                "-end" => battleData.ApplyStartMove(lines, false),
                 "-curestatus" => battleData.ApplyStatus(lines, false),
                 "-boost" => battleData.ApplyBoost(lines, true),
                 "-unboost" => battleData.ApplyBoost(lines, false),
@@ -276,7 +279,7 @@ namespace Showdown
 
             public BattleData ApplyPlayer(string[] lines)
             {
-                if (lines.Length > 4)
+                if (lines.Length >= 4)
                 {
                     int.TryParse(lines[3], out int score);
                     int pos = lines[0] == "p1" ? 0 : 1; // p1是0 p2是1
@@ -495,7 +498,10 @@ namespace Showdown
                     : x).ToImmutableArray();
 
 
-                var newTurn = lastTurn with { SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, sideTeam with { CanTerastallize = false }) };
+
+
+
+                var newTurn = lastTurn with { SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, sideTeam with { CanTerastallize = false, Pokemons = [.. newPokes] }) };
 
 
 
@@ -768,6 +774,59 @@ namespace Showdown
 
                 return battleData.UpdateLastTurn(lastTurn);
             }
+
+            public BattleData ApplyStartMove(string[] lines, bool start)
+            {
+                var sideData = GetSidePos(lines[0]);
+                var status = typeof(PokemonStatus).GetProperty(
+                                                           $"{lines[1].Split(":").Last().Trim()}");
+
+                var lastTurn = battleData.GetLastTurn()!;
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
+                if (status == null)
+                {
+                    Log.Logger.Error($"Unknown status property: {status}");
+                    return battleData;
+                }
+
+                else
+                {
+                    // 开局的turn要看好了
+
+
+                    var status1 = sideTeam.Pokemons.FirstOrDefault(x => x.Position == sideData.pos)?.Status;
+
+                    if (status1 == null)
+                    {
+                        // 输出宝可梦坐标信息
+                        Log.Logger.Error($"Pokemon not found at position {sideData.pos} for side {sideData.side}");
+                        Log.Logger.Warning(string.Join("\n", sideTeam.Pokemons.Select(s => $"{s.Pokemon.MetaPokemon.NameChs} {s.Position}")));
+                        return battleData;
+                    }
+                    status1 = status1 with { };
+                    if (start)
+                    {
+                        status.SetValue(status1, 3); // 设置为1 // 默认为3先
+                    }
+                    else
+                    {
+                        status.SetValue(status1, 0); // 设置为1
+                    }
+
+                    var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                        .Select(x => x.Position == sideData.pos
+                        ? x with { Status = status1 }
+                        : x
+                    )!;
+
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, lastTurn.SideTeam[sideData.side - 1] with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData.UpdateLastTurn(newTurn);
+
+                }
+            }
             public BattleData ApplyStatus(string[] lines, bool start)
             {
                 var sideData = GetSidePos(lines[0]);
@@ -827,6 +886,17 @@ namespace Showdown
 
                 return battleData;
             }
+            public BattleData ApplyReplace(string[] lines)
+            {
+                var sideData = GetSidePos(lines[0]);
+                var pokemonName = lines[1].Split(',')[0];
+
+
+
+                return battleData;
+            }
+
+
             public BattleData ApplyTemplate(string[] lines)
             {
 

@@ -296,6 +296,7 @@ namespace Showdown
         /// 再来一次
         /// </summary>
         [SingleTurn]
+        [Decrease(initValue:3)]
         public int Encore { get; set; }
         /// <summary>
         /// 无特性
@@ -321,6 +322,7 @@ namespace Showdown
         /// 定身法
         /// </summary>
         [ChangeRefresh]
+        [Decrease(initValue:3)]
         public int Disable { get; set; }
         /// <summary>
         /// 无法逃走
@@ -341,6 +343,7 @@ namespace Showdown
         /// 挑衅
         /// </summary>
         [ChangeRefresh]
+        [Decrease(initValue:3)]
         public int Taunt { get; set; }
         /// <summary>
         /// 意念移物
@@ -361,6 +364,7 @@ namespace Showdown
         /// 灭亡之歌
         /// </summary>
         [ChangeRefresh]
+        [Decrease(initValue:3)]
         public int PerishSong { get; set; }
         /// <summary>
         /// 森林诅咒

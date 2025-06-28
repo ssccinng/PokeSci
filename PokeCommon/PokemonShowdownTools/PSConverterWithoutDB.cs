@@ -371,7 +371,7 @@ namespace PokeCommon.PokemonShowdownTools
             }
             if (gamePokemon.TreaType != null)
             {
-                data[10] = $",,,,,{gamePokemon.TreaType.Name_Eng}";
+                data[11] = $",,,,,{gamePokemon.TreaType.Name_Eng}";
 
             }
             // if (gamePokemon.)
