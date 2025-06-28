@@ -932,6 +932,7 @@ namespace Showdown
 
 public class RequestData
 {
+    public bool[] forceSwitch { get; set; }
     public Active[] active { get; set; }
     public Side side { get; set; }
     public int rqid { get; set; }
