@@ -709,10 +709,20 @@ namespace Showdown
                 var fsDecr = (DecreaseAttribute)sideFieldProperty.GetCustomAttribute(typeof(DecreaseAttribute));
                 var newSideField = lastTurn.SideField[sideData] with { };
 
+
                 
                 if (start)
                 {
-                    sideFieldProperty.SetValue(newSideField, fsDecr.InitValue); // 或者max
+                    if (fsDecr.MaxValue > fsDecr.InitValue)
+                    {
+                        sideFieldProperty.SetValue(newSideField, fsDecr.MaxValue); // 或者max
+
+                    }
+                    else
+                    {
+                        sideFieldProperty.SetValue(newSideField, fsDecr.InitValue); // 或者max
+
+                    }
                 }
                 else
                 {
