@@ -109,7 +109,7 @@ namespace Showdown
         {
             return status switch
             {
-                TeraSallized teraSallized => $"已太晶化，类型为{teraSallized.Type}",
+                TeraSallized teraSallized => $"已太晶化，类型为{teraSallized.Type.Name_Eng}",
                 NotTeraSallized => "未太晶化",
             };
         }
