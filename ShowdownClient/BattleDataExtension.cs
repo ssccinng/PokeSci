@@ -246,7 +246,7 @@ namespace Showdown
                 "faint" => battleData.ApplyFaint(lines),
                 "request" => battleData.ApplyRequest(lines),
                 "replace" => battleData.ApplyReplace(lines),
-
+                //otsrequest
 
                 "-ability" => battleData.ApplyAbility(lines),
                 "-terastallize" => await battleData.ApplyTerastallize(lines),
@@ -350,6 +350,19 @@ namespace Showdown
                 }
             }
 
+
+            public static string RemoveNonAlphanumeric(string input)
+            {
+                if (string.IsNullOrEmpty(input)) return input;
+                var sb = new StringBuilder(input.Length);
+                foreach (var c in input)
+                {
+                    if (char.IsLetterOrDigit(c))
+                        sb.Append(c);
+                }
+                return sb.ToString();
+            }
+
             /// <summary>
             /// 处理Switch命令 //记得刷新宝的状态
             /// </summary>
@@ -362,7 +375,8 @@ namespace Showdown
                             ? x with { BattleStatus = PsBattleStatus.NotInBattleTeam }
                             : x;
                 // 开局的turn要看好了
-                var switchPokemonName = lines[1].Split(',')[0];
+                var switchPokemonName =  lines[1].Split(',')[0];
+                switchPokemonName = RemoveNonAlphanumeric(switchPokemonName);
                 var lastTurn = battleData.GetLastTurn()!;
                 //var switchNickName = lines[1].Split(',')[0];
                 var switchData = GetSidePos(lines[0][..3]);
@@ -378,7 +392,7 @@ namespace Showdown
                         ? (x with { Position = -1, BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
                         : x)
                         .Select(x => // 设置后排宝可梦上场
-                        x.PsName == switchPokemonName
+                        switchPokemonName.Contains(RemoveNonAlphanumeric( x.PsName)) 
                         ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
                         : x);
                     //.ToImmutableArray();
@@ -405,7 +419,7 @@ namespace Showdown
                         ? (x with { Position = -1, BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
                         : x)
                         .Select(x =>
-                        x.PsName == switchPokemonName
+                        switchPokemonName.Contains(RemoveNonAlphanumeric(x.PsName))
                         ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
                         : x);
                     //.ToImmutableArray();
@@ -494,7 +508,7 @@ namespace Showdown
                 var newPokes = sideTeam.Pokemons
                     .Select(x =>
                     x.Position == sideData.pos
-                    ? x with { TeratallizeStatus = new TeraSallized(teraType1) } // 不能再太晶了
+                    ? x with { TeratallizeStatus = new TeraStallized(teraType1) } // 不能再太晶了
                     : x).ToImmutableArray();
 
 
@@ -892,18 +906,96 @@ namespace Showdown
             }
             public BattleData ApplyBoost(string[] lines, bool boost)
             {
+                var sideData = GetSidePos(lines[0]);
+                var boostType = lines[1].Trim();
+                int value = int.Parse(lines[2].Trim());
+
+                var lastTurn = battleData.GetLastTurn()!;
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
 
 
-                return battleData;
+
+                var status1 = sideTeam.Pokemons.FirstOrDefault(x => x.Position == sideData.pos)?.Status;
+
+                if (status1 == null)
+                {
+                    // 输出宝可梦坐标信息
+                    Log.Logger.Error($"Pokemon not found at position {sideData.pos} for side {sideData.side}");
+                    Log.Logger.Warning(string.Join("\n", sideTeam.Pokemons.Select(s => $"{s.Pokemon.MetaPokemon.NameChs} {s.Position}")));
+                    return battleData;
+                }
+
+                status1 = status1 with { };
+
+                var boostProperty = typeof(PokemonStatus).GetProperty(new CultureInfo("en").TextInfo.ToTitleCase(boostType.ToLower()) + "Buff");
+                if (boostProperty == null)
+                {
+                    Log.Logger.Error($"Unknown boost property: {boostType}");
+                    return battleData;
+                }
+                var currentValue = (int)boostProperty.GetValue(status1)!;
+                if (boost)
+                {
+                    boostProperty.SetValue(status1, Math.Min(currentValue + value, 6)); // 最大6
+                }
+                else
+                {
+                    boostProperty.SetValue(status1, Math.Max(currentValue - value, -6)); // 最小-6
+                }
+
+                var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                    .Select(x => x.Position == sideData.pos
+                    ? x with { Status = status1 }
+                    : x
+                )!;
+
+                var newTurn = lastTurn with
+                {
+                    SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, lastTurn.SideTeam[sideData.side - 1] with { Pokemons = [.. newPokes] })
+                };
+
+                return battleData.UpdateLastTurn(newTurn);
             }
             public BattleData ApplyReplace(string[] lines)
             {
                 var sideData = GetSidePos(lines[0]);
                 var pokemonName = lines[1].Split(',')[0];
 
+                var lastTurn = battleData.GetLastTurn()!;
+
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
 
 
-                return battleData;
+                // 原来这个位置的宝可梦下场
+
+                var oldPokemon = sideTeam.Pokemons.FirstOrDefault(x => x.Position == sideData.pos);
+
+                if (oldPokemon == null)
+                {
+                    Log.Logger.Error($"Pokemon not found at position {sideData.pos} for side {sideData.side}");
+                    return battleData;
+                }
+
+                // 这里要注意宝可梦的状态
+
+                // 这里问题有点大 后面再说
+
+                //var newPokes = sideTeam.Pokemons
+                //    .Select(x =>
+                //    x.Position == sideData.pos
+                //    ? (x with { PsName = pokemonName, BattleStatus = PsBattleStatus.InField }).SwitchIn()
+                //    : x).ToImmutableArray();
+                //var newTurn = lastTurn with
+                //    {
+                //    SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, sideTeam with { Pokemons = [.. newPokes] })
+                //};
+
+
+
+
+
+
+                return battleData;// .UpdateLastTurn(newTurn);
             }
 
 

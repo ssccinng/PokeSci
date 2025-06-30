@@ -109,8 +109,8 @@ namespace Showdown
         {
             return status switch
             {
-                TeraSallized teraSallized => $"已太晶化，类型为{teraSallized.Type.Name_Eng}",
-                NotTeraSallized => "未太晶化",
+                TeraStallized teraSallized => $"已太晶化，类型为{teraSallized.Type.Name_Eng}",
+                NotTeraStallized => "未太晶化",
             };
         }
     }
@@ -124,11 +124,11 @@ namespace Showdown
 
     public interface TeratallizeStatus
     {
-        public static NotTeraSallized NotTeraSallized { get; } = new NotTeraSallized();
+        public static NotTeraStallized NotTeraSallized { get; } = new NotTeraStallized();
     }
 
-    public record TeraSallized(PokeType Type) : TeratallizeStatus; // 已经太晶化
-    public record NotTeraSallized : TeratallizeStatus; // 未太晶化
+    public record TeraStallized(PokeType Type) : TeratallizeStatus; // 已经太晶化
+    public record NotTeraStallized : TeratallizeStatus; // 未太晶化
 
 
     public record BattlePokemon
