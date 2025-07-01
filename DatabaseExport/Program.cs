@@ -6,23 +6,25 @@ using System.Text.Json;
 using PokeCommon.API.Data;
 
 var pokemonContext = new PokeDBContext();
-var ps = pokemonContext.PokeTypes
+//var ps = pokemonContext.PokeTypes
+//    .ToList();
+
+//File.WriteAllText("PokeTypes.json", JsonSerializer.Serialize(ps));
+////var ps = pokemonContext.PSPokemons
+////    .ToList();
+
+////File.WriteAllText("PSPokemons.json", JsonSerializer.Serialize(ps));
+//return;
+var cc1 = pokemonContext.Pokemons
+    .Include(s => s.Ability1)
+    .Include(s => s.Ability2)
+    .Include(s => s.AbilityH)
+    .Include(s => s.Type1)
+    .Include(s => s.Type2)
+    .Include(s => s.PSPokemon)
     .ToList();
-
-File.WriteAllText("PokeTypes.json", JsonSerializer.Serialize(ps));
-//var ps = pokemonContext.PSPokemons
-//    .ToList();
-
-//File.WriteAllText("PSPokemons.json", JsonSerializer.Serialize(ps));
+File.WriteAllText("Pokemons1.json", JsonSerializer.Serialize(cc1));
 return;
-//var cc1 = pokemonContext.Pokemons
-//    .Include(s => s.Ability1)
-//    .Include(s => s.Ability2)
-//    .Include(s => s.AbilityH)
-//    .Include(s => s.Type1)
-//    .Include(s => s.Type2)
-//    .ToList();
-//File.WriteAllText("Pokemons.json", JsonSerializer.Serialize(cc1));
 
 var cc2 = pokemonContext.Natures
     .Include(s => s.Stat_Down)

@@ -380,3 +380,4 @@ FodyWeavers.xsd
 /RK99Tool/PokeDBContext.cs
 /PokeDetectTools/MLModel.mlnet
 /PokeDetectTools/MLModel1.mlnet
+/DatabaseExport/Program.cs
