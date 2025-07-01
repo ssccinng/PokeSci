@@ -267,6 +267,7 @@ namespace Showdown
                 "faint" => battleData.ApplyFaint(lines),
                 "request" => battleData.ApplyRequest(lines),
                 "replace" => battleData.ApplyReplace(lines),
+                "win" => battleData.ApplyWin(lines),
                 //otsrequest
 
                 "-ability" => battleData.ApplyAbility(lines),
@@ -990,6 +991,19 @@ namespace Showdown
                 return battleData;// .UpdateLastTurn(newTurn);
             }
 
+
+            public BattleData ApplyWin(string[] lines)
+            {
+                var playerId = lines[0].Split(":").Last().Trim();
+                if (playerId == battleData.MyName) 
+                {
+                    return battleData with { Win = true };
+                }
+                else
+                {
+                    return battleData with { Win = false };
+                }
+            }
 
             public BattleData ApplyTemplate(string[] lines)
             {

@@ -38,7 +38,9 @@ namespace Showdown
 
         public ImmutableArray<BattleTurnN> BattleTurns { get; init; } = [new()];
 
-        
+        public  bool Win { get; init; } = false; // 是否赢了
+
+
     }
 
     public record PlayerData
