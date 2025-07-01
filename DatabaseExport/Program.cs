@@ -24,7 +24,12 @@ var cc1 = pokemonContext.Pokemons
     .Include(s => s.Type2)
     .Include(s => s.PSPokemon)
     .ToList();
-File.WriteAllText("Pokemons1.json", JsonSerializer.Serialize(cc1, new JsonSerializerOptions { ReferenceHandler = ReferenceHandler.Preserve }));
+
+foreach (var item in cc1)
+{
+    item.PSPokemon?.Pokemon = null;
+}
+File.WriteAllText("Pokemons1.json", JsonSerializer.Serialize(cc1, new JsonSerializerOptions {  }));
 return;
 
 var cc2 = pokemonContext.Natures

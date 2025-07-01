@@ -178,6 +178,7 @@ namespace Showdown
 
                 return pokemon with
                 {
+                    PsName = fact.PSPokemon.PSName,
                     Pokemon = new GamePokemon(fact)
                 };
 
@@ -411,7 +412,7 @@ namespace Showdown
                         : x)
                         .Select(x => // 设置后排宝可梦上场
                         switchPokemonName.Contains(RemoveNonAlphanumeric(x.PsName))
-                        ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
+                        ? (x.UpdatePoke(switchPokemonName) with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
                         : x);
                 //.ToImmutableArray();
 
