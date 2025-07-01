@@ -140,7 +140,7 @@ namespace Showdown
 
             public BattlePokemon SwitchOut()
             {
-                var newPoke = pokemon with { TeratallizeStatus = TeratallizeStatus.NotTeraSallized };
+                var newPoke = pokemon with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized };
                 // 反射修改其中changRefresh的
                 foreach (var property in newPoke.GetType().GetProperties())
                 {
@@ -162,8 +162,28 @@ namespace Showdown
                 
 
 
-                return newPoke;
+                return newPoke with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized };
             }
+            public BattlePokemon UpdatePoke(string newpokeName)
+            {
+                var metaPokemon = pokemon.Pokemon.MetaPokemon;
+                var pokes = PokemonDBInMemory.Pokemons.Where(s => s.DexId == metaPokemon.DexId);
+                var fact = pokes.FirstOrDefault(s => RemoveNonAlphanumeric(s.PSPokemon.PSName) == newpokeName);
+
+                if (fact == null || fact.Id == pokemon.Pokemon.MetaPokemon?.Id)
+                {
+                    return pokemon;
+                }
+
+
+                return pokemon with
+                {
+                    Pokemon = new GamePokemon(fact)
+                };
+
+                // 宝可梦形态可能发生改变
+            }
+
 
             public BattlePokemon NextTurn()
             {
@@ -382,62 +402,33 @@ namespace Showdown
                 var switchData = GetSidePos(lines[0][..3]);
 
                 // 对公开信息处理
+                var sideTeam = lastTurn.SideTeam[switchData.side - 1];
 
-                if (switchData.side == 1)
-                {
-                    var sideTeam = lastTurn.SideTeam[0];
-                    var newPokes = sideTeam.Pokemons
+                var newPokes = sideTeam.Pokemons
                         .Select(x =>
                         x.Position == switchData.pos
                         ? (x with { Position = -1, BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
                         : x)
                         .Select(x => // 设置后排宝可梦上场
-                        switchPokemonName.Contains(RemoveNonAlphanumeric( x.PsName)) 
-                        ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
-                        : x);
-                    //.ToImmutableArray();
-
-                    if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
-                    {
-                        newPokes = newPokes.Select(SetUnkonwnToNoInBattle);
-                    }
-
-                    var newTurn = lastTurn with
-                    {
-                        SideTeam = lastTurn.SideTeam.SetItem(0, sideTeam with { Pokemons = [.. newPokes] })
-                    };
-
-                    return battleData.UpdateLastTurn(newTurn);
-
-                }
-                else
-                {
-                    var sideTeam = lastTurn.SideTeam[1];
-                    var newPokes = sideTeam.Pokemons
-                        .Select(x =>
-                        x.Position == switchData.pos
-                        ? (x with { Position = -1, BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
-                        : x)
-                        .Select(x =>
                         switchPokemonName.Contains(RemoveNonAlphanumeric(x.PsName))
                         ? (x with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
                         : x);
-                    //.ToImmutableArray();
+                //.ToImmutableArray();
 
-                    if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
-                    {
-                        newPokes = newPokes.Select(SetUnkonwnToNoInBattle);
-                    }
-                    var newTurn = lastTurn with
-                    {
-                        SideTeam = lastTurn.SideTeam.SetItem(1, sideTeam with { Pokemons = [.. newPokes] })
-                    };
-
-                    return battleData.UpdateLastTurn(newTurn);
+                if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
+                {
+                    newPokes = newPokes.Select(SetUnkonwnToNoInBattle);
                 }
 
-            }
+                var newTurn = lastTurn with
+                {
+                    SideTeam = lastTurn.SideTeam.SetItem(switchData.side - 1, sideTeam with { Pokemons = [.. newPokes] })
+                };
 
+                return battleData.UpdateLastTurn(newTurn);
+
+            }
+           
             /// <summary>
             /// 宝可梦形态发生改变
             /// </summary>

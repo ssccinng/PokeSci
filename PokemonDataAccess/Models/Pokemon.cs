@@ -270,7 +270,10 @@ namespace PokemonDataAccess.Models
         // public Pokemon BeforeBattle {get; set;}
         // public Pokemon BattleData {get; set;}
         // public Pokemon IconData {get; set;}
-
+        public PSPokemon PSPokemon
+        {
+            get; set;
+        }
 
     }
 }

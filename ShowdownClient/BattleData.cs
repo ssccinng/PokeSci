@@ -124,7 +124,7 @@ namespace Showdown
 
     public interface TeratallizeStatus
     {
-        public static NotTeraStallized NotTeraSallized { get; } = new NotTeraStallized();
+        public static NotTeraStallized NotTeraStallized { get; } = new NotTeraStallized();
     }
 
     public record TeraStallized(PokeType Type) : TeratallizeStatus; // 已经太晶化
@@ -138,7 +138,7 @@ namespace Showdown
         public int HpRemain { get; init; } = 100; // 生命值剩余百分比
         public int Position { get; init; } = -1; // 位置 0-2
         public string PsName { get; init; } = string.Empty; // 可能是PS的名字
-        public TeratallizeStatus TeratallizeStatus { get; init; } = TeratallizeStatus.NotTeraSallized; // 太晶化状态
+        public TeratallizeStatus TeratallizeStatus { get; init; } = TeratallizeStatus.NotTeraStallized; // 太晶化状态
         public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
 
 
@@ -231,6 +231,25 @@ namespace Showdown
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
         public int EvaBuff { get; set; }
+        #endregion
+
+
+        #region  能力变化
+        [ChangeRefresh]
+
+        public int protosynthesisatk { get; set; }
+        [ChangeRefresh]
+        public int protosynthesisdef { get; set; }
+        [ChangeRefresh]
+
+        public int protosynthesisspa { get; set; }
+        [ChangeRefresh]
+
+        public int protosynthesisspd { get; set; }
+        [ChangeRefresh]
+
+        public int protosynthesisspe { get; set; }
+
         #endregion
 
         #region 异常状态
