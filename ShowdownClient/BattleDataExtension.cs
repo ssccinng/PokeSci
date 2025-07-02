@@ -167,6 +167,12 @@ namespace Showdown
             public BattlePokemon UpdatePoke(string newpokeName)
             {
                 var metaPokemon = pokemon.Pokemon.MetaPokemon;
+                if (metaPokemon == null)
+                {
+                    Log.Logger.Error($"MetaPokemon is null for {pokemon.PsName}");
+                    return pokemon;
+                }
+
                 var pokes = PokemonDBInMemory.Pokemons.Where(s => s.DexId == metaPokemon.DexId);
                 var fact = pokes.FirstOrDefault(s => RemoveNonAlphanumeric(s.PSPokemon.PSName) == newpokeName);
 
@@ -802,7 +808,7 @@ namespace Showdown
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
                 if (status == null)
                 {
-                    Log.Logger.Error($"Unknown status property: {status}");
+                    Log.Logger.Error($"Unknown status property: {lines[1]}");
                     return battleData;
                 }
 
@@ -854,7 +860,7 @@ namespace Showdown
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
                 if (status == null)
                 {
-                    Log.Logger.Error($"Unknown status property: {status}");
+                    Log.Logger.Error($"Unknown status property: {lines[1]}");
                     return battleData;
                 }
 
