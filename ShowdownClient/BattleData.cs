@@ -13,11 +13,14 @@ using System.Threading.Tasks;
 
 namespace Showdown
 {
+    public record GameRule(int MaxChoose, int TeamSize, int BattleSize);
     public record  BattleData
     {
 
         public int MySlot { get; init; } = 1; // 我的槽位
         public string MyName { get; init; } = string.Empty; // 我的名字
+
+        public GameRule Rule { get; init; } = new(4, 6, 2);// 规则
 
         public ImmutableArray<string> MyOrderTeam { get; init; } = []; // 我选择的宝可梦顺序
 
