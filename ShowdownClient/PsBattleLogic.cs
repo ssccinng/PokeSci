@@ -470,7 +470,6 @@ namespace Showdown
         {
             await Client.SendTeamOrderAsync(Tag, order, Turn);
         }
-
         public async Task SendMoveAsunc(ChooseData[] chooseDatas)
         {
             await Client.SendMoveAsync(Tag, Turn, chooseDatas);

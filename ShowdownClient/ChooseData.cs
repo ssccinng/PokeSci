@@ -7,3 +7,5 @@ public record ChooseData
     /// </summary>
     public bool IsPass { get; set; } = false;
 }
+
+public record TeamOrderData(string Order) : ChooseData;

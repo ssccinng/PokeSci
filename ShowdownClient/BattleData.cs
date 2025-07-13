@@ -11,11 +11,16 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+using LanguageExt;
+using static LanguageExt.Prelude;
+
 namespace Showdown
 {
     public record GameRule(int MaxChoose, int TeamSize, int BattleSize);
-    public record  BattleData
+    public record  BattleData // 如果是bo3, 要继承经验/队伍推测
     {
+
+        public bool OpenSheet { get; init; } = false;
 
         public int MySlot { get; init; } = 1; // 我的槽位
         public string MyName { get; init; } = string.Empty; // 我的名字
@@ -50,7 +55,7 @@ namespace Showdown
     {
         public string PlayerId { get; init; } = string.Empty; // 玩家ID
         public string PlayerName { get; init; } = string.Empty; // 玩家名字
-        public GamePokemonTeam Team { get; init; } = new(); // 我的队伍
+        public Option<GamePokemonTeam> Team { get; init; } = None; // 我的队伍
         public int Score { get; init; } = 0; // 分数
 
     }
@@ -145,7 +150,8 @@ namespace Showdown
         public string PsName { get; init; } = string.Empty; // 可能是PS的名字
         public TeratallizeStatus TeratallizeStatus { get; init; } = TeratallizeStatus.NotTeraStallized; // 太晶化状态
         public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
-
+        public Option<Ability> Ability { get; init; } = None;
+        public Option<Item> Item { get; init; } = None;
 
         public PsBattleStatus BattleStatus { get; init; } = new UnKnown(); // 是否在战斗中
 
