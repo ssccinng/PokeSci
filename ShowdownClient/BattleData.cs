@@ -17,8 +17,14 @@ using static LanguageExt.Prelude;
 namespace Showdown
 {
     public record GameRule(int MaxChoose, int TeamSize, int BattleSize);
+
+    public record PsChallange(PlayerData Challanger, string Rulename, int BO, ImmutableList<BattleData> BattleDatas);
+
+    public record BoBattle(string Tag, int BO, ImmutableList<BattleData> BattleDatas);
+
     public record  BattleData // 如果是bo3, 要继承经验/队伍推测
     {
+
 
         public bool OpenSheet { get; init; } = false;
 
@@ -107,11 +113,11 @@ namespace Showdown
         {
             return status switch
             {
-                UnKnown => "可能在后场",
-                IsDead => "已死亡",
-                InBackField => "在后场",
-                InField => "在场地上",
-                NotInBattleTeam => "不在战斗队伍中",
+                UnKnown => "Possibly in backfield",
+                IsDead => "Fainted",
+                InBackField => "In backfield",
+                InField => "On the field",
+                NotInBattleTeam => "Not in battle team",
             };
         }
 
@@ -119,8 +125,8 @@ namespace Showdown
         {
             return status switch
             {
-                TeraStallized teraSallized => $"已太晶化，类型为{teraSallized.Type.Name_Eng}",
-                NotTeraStallized => "未太晶化",
+                TeraStallized teraSallized => $"Terastallized, type: {teraSallized.Type.Name_Eng}",
+                NotTeraStallized => "Not terastallized",
             };
         }
     }

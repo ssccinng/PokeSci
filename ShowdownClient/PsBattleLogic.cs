@@ -474,6 +474,15 @@ namespace Showdown
         {
             await Client.SendMoveAsync(Tag, Turn, chooseDatas);
         }
+        public async Task SendRejectOpenTeamSheetsAsync()
+        {
+            await Client.SendRejectOpenTeamSheetsAsync(Tag);
+
+        }
+        public async Task SendAcceptOpenTeamSheetsAsync()
+        {
+            await Client.SendAcceptOpenTeamSheetsAsync(Tag);
+        }
         public async Task LeaveRoomAsync()
         {
             await Client.SendLeaveAsync(Tag);

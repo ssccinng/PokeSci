@@ -1,4 +1,5 @@
 ﻿using PokeCommon.Models;
+using PokeCommon.PokemonShowdownTools;
 using PokeCommon.Utils;
 using Serilog;
 using Showdown;
@@ -274,6 +275,7 @@ namespace Showdown
                 "request" => battleData.ApplyRequest(lines),
                 "replace" => battleData.ApplyReplace(lines),
                 "win" => battleData.ApplyWin(lines),
+                "uhtml" => battleData.ApplyUhtml(lines),
                 //otsrequest
 
                 "-ability" => battleData.ApplyAbility(lines),
@@ -292,6 +294,7 @@ namespace Showdown
                 "-curestatus" => battleData.ApplyStatus(lines, false),
                 "-boost" => battleData.ApplyBoost(lines, true),
                 "-unboost" => battleData.ApplyBoost(lines, false),
+                "-showteam" => await battleData.ApplyShowteam(lines),
 
                 _ => battleData
             };
@@ -1010,6 +1013,42 @@ namespace Showdown
                     return battleData with { Win = false };
                 }
             }
+
+            public async Task<BattleData> ApplyShowteam(string[] lines)
+            {
+                var sideData = GetPlayer(lines[0][..2]);
+                var team = await PSConverterWithoutDBNorm.ConvertTeamFromPsOneLineAsync(lines[1]);
+
+                var newBattleData = battleData with
+                { PlayerDatas = battleData.PlayerDatas.SetItem(sideData, battleData.PlayerDatas[sideData] with { Team = team }) 
+                };
+
+                return newBattleData with { OpenSheet = true} ;
+            }
+
+            public BattleData Bo3Next()
+            {
+                return battleData with
+                {
+                    BattleTurns = []
+                };
+            }
+
+            public BattleData ApplyUhtml(string[] lines)
+            {
+                if (lines.Length > 0)
+                {
+                    return lines[0] switch
+                    {
+                        "bestof" => battleData,
+                        _ => battleData
+                    };
+                }
+
+                return battleData;
+            }
+
+
 
             public BattleData ApplyTemplate(string[] lines)
             {

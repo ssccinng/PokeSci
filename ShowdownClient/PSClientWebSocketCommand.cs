@@ -99,6 +99,14 @@ namespace Showdown
         {
             await SendAsync(battleTag, $"/choose switch {pokemon}", turn.ToString());
         }
+        public async Task SendAcceptOpenTeamSheetsAsync(string battleTag)
+        {
+            await SendAsync(battleTag, $"/acceptopenteamsheets");
+        }
+        public async Task SendRejectOpenTeamSheetsAsync(string battleTag)
+        {
+            await SendAsync(battleTag, $"/rejectopenteamsheets");
+        }
 
         /// <summary>
         /// 离开房间
