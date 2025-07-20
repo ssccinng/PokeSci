@@ -1,4 +1,5 @@
-﻿using PokeCommon.Models;
+﻿using LanguageExt;
+using PokeCommon.Models;
 using PokeCommon.PokemonShowdownTools;
 using PokeCommon.Utils;
 using Serilog;
@@ -1064,6 +1065,8 @@ namespace Showdown
                 // 获取我宝可梦的完整数据 也许不用
                 return new();
             }
+
+            public Option<GamePokemonTeam> GetMyTeam() => battleData.PlayerDatas[battleData.MySlot].Team;
         }
 
     }
