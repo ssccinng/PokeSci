@@ -440,6 +440,10 @@ namespace PokeCommon.PokemonShowdownTools
             // 3: 特性
             if (!string.IsNullOrEmpty(data[3]))
             {
+                if (data[3].StartsWith("AsOne"))
+                {
+                    data[3] = "AsOne";
+                }
                 gamePokemon.Ability = await PokemonToolsWithoutDBNorm.GetAbilityAsync(data[3]);
             }
 

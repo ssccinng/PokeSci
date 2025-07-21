@@ -451,11 +451,23 @@ namespace Showdown
             }
             else if (data.TryGetProperty("teamPreview", out var tt))
             {
-                OnTeampreview?.Invoke(this);
+                Task.Run(() =>
+                {
+                    // Console.WriteLine("检测到队伍预览");
+                    // 需要预览
+                    OnTeampreview?.Invoke(this);
+                });
+                //OnTeampreview?.Invoke(this);
             }
             else
             {
-                OnChooseMove?.Invoke(this);
+                Task.Run(() =>
+                {
+                    // Console.WriteLine("检测到队伍预览");
+                    // 需要预览
+                    OnChooseMove?.Invoke(this);
+                });
+                //OnChooseMove?.Invoke(this);
 
             }
             //else
@@ -472,7 +484,16 @@ namespace Showdown
         }
         public async Task SendMoveAsunc(ChooseData[] chooseDatas)
         {
-            await Client.SendMoveAsync(Tag, Turn, chooseDatas);
+            if (chooseDatas[0]  is TeamOrderData o)
+            {
+                await Client.SendTeamOrderAsync(Tag, o.Order, Turn);
+
+            }
+            else
+            {
+                await Client.SendMoveAsync(Tag, Turn, chooseDatas);
+
+            }
         }
         public async Task SendRejectOpenTeamSheetsAsync()
         {

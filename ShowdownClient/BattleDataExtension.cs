@@ -277,6 +277,7 @@ namespace Showdown
                 "replace" => battleData.ApplyReplace(lines),
                 "win" => battleData.ApplyWin(lines),
                 "uhtml" => battleData.ApplyUhtml(lines),
+                "showteam" => await battleData.ApplyShowteam(lines),
                 //otsrequest
 
                 "-ability" => battleData.ApplyAbility(lines),
@@ -295,7 +296,6 @@ namespace Showdown
                 "-curestatus" => battleData.ApplyStatus(lines, false),
                 "-boost" => battleData.ApplyBoost(lines, true),
                 "-unboost" => battleData.ApplyBoost(lines, false),
-                "-showteam" => await battleData.ApplyShowteam(lines),
 
                 _ => battleData
             };
@@ -318,7 +318,7 @@ namespace Showdown
 
                     return battleData with
                     {
-                        PlayerDatas = battleData.PlayerDatas.SetItem(pos, new PlayerData
+                        PlayerDatas = battleData.PlayerDatas.SetItem(pos, battleData.PlayerDatas[pos] with
                         {
                             PlayerId = lines[2],
                             PlayerName = lines[1],
@@ -1018,7 +1018,7 @@ namespace Showdown
             public async Task<BattleData> ApplyShowteam(string[] lines)
             {
                 var sideData = GetPlayer(lines[0][..2]);
-                var team = await PSConverterWithoutDBNorm.ConvertTeamFromPsOneLineAsync(lines[1]);
+                var team = await PSConverterWithoutDBNorm.ConvertTeamFromPsOneLineAsync(string.Join("|", lines[1..]));
 
                 var newBattleData = battleData with
                 { PlayerDatas = battleData.PlayerDatas.SetItem(sideData, battleData.PlayerDatas[sideData] with { Team = team }) 

@@ -282,9 +282,11 @@ public partial class ShowdownClient
             string cmd = currData[1];
             string[] other = currData[2..];
 
-
+            //Console.WriteLine(cmd);
+            //Console.WriteLine(battle.BattleData.GetMyTeam());
             battle.BattleData = (await battle.BattleData.ApplyLog(cmd, other)).AddTurnLog(battleData[i]);
-
+            //Console.WriteLine(cmd);
+            //Console.WriteLine(battle.BattleData.GetMyTeam());
             switch (cmd)
             {
                 case "init":

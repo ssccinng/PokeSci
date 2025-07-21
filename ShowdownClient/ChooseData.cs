@@ -8,4 +8,10 @@ public record ChooseData
     public bool IsPass { get; set; } = false;
 }
 
-public record TeamOrderData(string Order) : ChooseData;
+public record TeamOrderData(string Order) : ChooseData
+{
+    public override string ToString()
+    {
+        return Order;
+    }
+}
