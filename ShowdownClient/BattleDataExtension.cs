@@ -143,7 +143,7 @@ namespace Showdown
 
             public BattlePokemon SwitchOut()
             {
-                var newPoke = pokemon with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized };
+                var newPoke = pokemon;// with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized };
                 // 反射修改其中changRefresh的
                 foreach (var property in newPoke.GetType().GetProperties())
                 {
