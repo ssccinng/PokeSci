@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -1041,12 +1042,20 @@ namespace Showdown
                 {
                     return lines[0] switch
                     {
-                        "bestof" => battleData,
+                        "bestof" => battleData.ApplyBestof(lines),
                         _ => battleData
                     };
                 }
 
                 return battleData;
+            }
+
+            public BattleData ApplyBestof(string[] lines)
+            {
+                var boTag = Regex.Match(lines[1], @"<a href=""/(.+?)"">").Groups[1].Value;
+                // 加入一下之前的对局 需要
+                return battleData with { BattleInfo = new BoBattle(battleData.BattleInfo.GetTag(), boTag, []) }; // 不应该是空哦
+
             }
 
 

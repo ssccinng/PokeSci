@@ -89,6 +89,7 @@ namespace Showdown
             Tag = tag;
             GamePokemonTeam1 = [null, null, null, null, null, null];
             GamePokemonTeam2 = [null, null, null, null, null, null];
+            BattleData = BattleData with { BattleInfo = new SingleBattle(Tag) };
         }
 
         internal void NextTurn()

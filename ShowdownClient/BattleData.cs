@@ -16,15 +16,21 @@ using static LanguageExt.Prelude;
 
 namespace Showdown
 {
+    public interface BoInfo;
+
+    public record SingleBattle(string Tag): BoInfo;
+    public record BoBattle(string Tag, string BoTag, string[] BoExp): BoInfo;
+
+
     public record GameRule(int MaxChoose, int TeamSize, int BattleSize);
 
     public record PsChallange(PlayerData Challanger, string Rulename, int BO, ImmutableList<BattleData> BattleDatas);
 
-    public record BoBattle(string Tag, int BO, ImmutableList<BattleData> BattleDatas);
+    //public record BoBattle(string Tag, int BO, ImmutableList<BattleData> BattleDatas);
 
     public record  BattleData // 如果是bo3, 要继承经验/队伍推测
     {
-
+        public BoInfo BattleInfo { get; init; }
 
         public bool OpenSheet { get; init; } = false;
 
@@ -107,8 +113,22 @@ namespace Showdown
         public static InField InField { get; } = new InField();
         public static NotInBattleTeam NotInBattleTeam { get; } = new NotInBattleTeam();
     }
+    public static class BoInfoExtensions
+    {
+        public static string GetTag(this BoInfo boInfo)
+        {
+            return boInfo switch
+            {
+                SingleBattle singleBattle => singleBattle.Tag,
+                BoBattle boBattle => boBattle.BoTag,
+                _ => throw new NotSupportedException("Unsupported BoInfo type")
+            };
+        }
+    }
     public static class PsBattleStatusExtensions
     {
+
+
         public static string GetStatusPrompt(this PsBattleStatus status)
         {
             return status switch
