@@ -177,7 +177,7 @@ namespace Showdown
         public TeratallizeStatus TeratallizeStatus { get; init; } = TeratallizeStatus.NotTeraStallized; // 太晶化状态
         public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
         public Option<Ability> Ability { get; init; } = None;
-        public Option<Item> Item { get; init; } = None;
+        public Option<Item> Item { get; init; } = Some(new Item());
 
         public PsBattleStatus BattleStatus { get; init; } = new UnKnown(); // 是否在战斗中
 
@@ -351,7 +351,6 @@ namespace Showdown
         /// <summary>
         /// 再来一次
         /// </summary>
-        [SingleTurn]
         [Decrease(initValue:3)]
         public int Encore { get; set; }
         /// <summary>

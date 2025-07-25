@@ -21,7 +21,7 @@ public enum Usage
 public record ClientInfo(
     string Name, 
     string Password,
-     string Server = "sim.smogon.com:8000",
+     string Server = "sim3.psim.us",
      string AuthSUrl = "https://play.pokemonshowdown.com/~~showdown/action.php",
      bool UseSSL = true
 

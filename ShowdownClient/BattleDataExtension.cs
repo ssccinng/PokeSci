@@ -298,6 +298,9 @@ namespace Showdown
                 "-boost" => battleData.ApplyBoost(lines, true),
                 "-unboost" => battleData.ApplyBoost(lines, false),
 
+
+                "-enditem" => battleData.ApplyItem(lines, false),
+
                 _ => battleData
             };
 
@@ -1059,6 +1062,38 @@ namespace Showdown
             }
 
 
+
+            public BattleData ApplyItem(string[] lines, bool start)
+            {
+                var sideData = GetSidePos(lines[0]);
+
+                var lastTurn = battleData.GetLastTurn()!;
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
+
+
+                var itemName = lines[1].Split(',')[0];
+                if (start)
+                {
+                    return battleData;
+
+                }
+                else
+                {
+                    // 这里是物品消失
+                    var newPokes = sideTeam.Pokemons
+                        .Select(x =>
+                        x.Position == sideData.pos
+                        ? x with { Item = Option<PokemonDataAccess.Models.Item>.None } // 物品消失
+                        : x).ToImmutableArray();
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, sideTeam with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData.UpdateLastTurn(newTurn);
+                }
+
+
+            }
 
             public BattleData ApplyTemplate(string[] lines)
             {
