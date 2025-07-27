@@ -162,10 +162,10 @@ namespace Showdown
                     }
                 }
                 // 太晶清理一下
-                
 
 
-                return newPoke with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized };
+
+                return newPoke with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized, LastMove = Option<PokemonDataAccess.Models.Move>.None };
             }
             public BattlePokemon UpdatePoke(string newpokeName)
             {
@@ -628,26 +628,32 @@ namespace Showdown
                 var lastTurn = battleData.GetLastTurn()!;
                 var move = await PokemonToolsWithoutDB.GetMoveAsync(moveName);
 
+                var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                    .Select(x =>
+                    x.Position == sideData.pos
+                    ? x with { LastMove = move }
+                    : x).ToImmutableArray();
+
                 // 如果之前没有记录这个招式，就添加到宝可梦的招式列表中
                 if (lastTurn.SideTeam[sideData.side - 1].Pokemons
                     .FirstOrDefault(x => x.Position == sideData.pos)?.Moves.All(x => x.MetaMove.Name_Eng != move.Name_Eng) ?? true)
                 {
                     Log.Logger.Debug($"Adding move {move.Name_Eng} to pokemon at side {sideData.side}, position {sideData.pos}");
 
-                    var newPokes = battleData.GetLastTurn().SideTeam[sideData.side - 1].Pokemons
+                    newPokes = battleData.GetLastTurn().SideTeam[sideData.side - 1].Pokemons
                     .Select(x =>
                     x.Position == sideData.pos
                     ? x with { Moves = [.. x.Moves, new GameMove(move)] }
                     : x).ToImmutableArray();
 
-                    lastTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
                 }
                 else
                 {
                     Log.Logger.Debug($"Move {move.Name_Eng} already exists for pokemon at side {sideData.side}, position {sideData.pos}");
                 }
 
-                
+                lastTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
+
 
                 return battleData.UpdateLastTurn(lastTurn);
             }

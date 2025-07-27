@@ -37,9 +37,9 @@ namespace PokeCommon.Utils
         /// </summary>
         /// <param name="input">输入字符串</param>
         /// <returns>标准化后的字符串</returns>
-        private static string NormalizeString(string input)
+        public static string NormalizeString(string input)
         {
-            return input?.Replace(" ", "").ToLowerInvariant() ?? string.Empty;
+            return input?.Replace(" ", "").Replace("-", "").ToLowerInvariant() ?? string.Empty;
         }
 
         public static async ValueTask<PokeType?> GetTypeAsync(int id)

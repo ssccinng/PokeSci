@@ -178,6 +178,7 @@ namespace Showdown
         public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
         public Option<Ability> Ability { get; init; } = None;
         public Option<Item> Item { get; init; } = Some(new Item());
+        public Option<PokemonDataAccess.Models.Move> LastMove { get; init; } = None; // 上一招
 
         public PsBattleStatus BattleStatus { get; init; } = new UnKnown(); // 是否在战斗中
 
