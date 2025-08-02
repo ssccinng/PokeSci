@@ -138,7 +138,7 @@ namespace Showdown
         {
             public BattlePokemon SwitchIn()
             {
-                return pokemon with { Status = pokemon.Status with { InField_First_Turn = 1 } };
+                return pokemon with { Status = pokemon.Status with { InField_First_Turn = 2 } };
             }
 
             public BattlePokemon SwitchOut()
@@ -344,6 +344,8 @@ namespace Showdown
             {
                 // 开局的turn要看好了
                 var lastTurn = battleData.GetLastTurn();
+                return battleData with { BattleTurns = battleData.BattleTurns.Add(lastTurn.NextTurn()) };
+
                 if (lines[0] != "1")
                 {
                     return battleData with { BattleTurns = battleData.BattleTurns.Add(lastTurn.NextTurn()) };
@@ -423,7 +425,7 @@ namespace Showdown
                 var newPokes = sideTeam.Pokemons
                         .Select(x =>
                         x.Position == switchData.pos
-                        ? (x with { Position = -1, BattleStatus = PsBattleStatus.InBackField }).SwitchOut()
+                        ? (x with { Position = -1, BattleStatus = x.BattleStatus is IsDead ? x.BattleStatus : PsBattleStatus.InBackField }).SwitchOut()
                         : x)
                         .Select(x => // 设置后排宝可梦上场
                         switchPokemonName.Contains(RemoveNonAlphanumeric(x.PsName))
@@ -710,7 +712,7 @@ namespace Showdown
                         {
                             BattleField = lastTurn.BattleField with
                             {
-                                Weather = Weather.None,
+                                Weather = parsedWeather,
                                 WeatherRemain = fsDecr.InitValue // 或者max
                             }
                         };
@@ -740,12 +742,12 @@ namespace Showdown
                 
                 if (start)
                 {
-                    if (fsDecr.MaxValue > fsDecr.InitValue)
-                    {
-                        sideFieldProperty.SetValue(newSideField, fsDecr.MaxValue); // 或者max
+                    //if (fsDecr.MaxValue > fsDecr.InitValue)
+                    //{
+                    //    sideFieldProperty.SetValue(newSideField, fsDecr.MaxValue); // 或者max
 
-                    }
-                    else
+                    //}
+                    //else
                     {
                         sideFieldProperty.SetValue(newSideField, fsDecr.InitValue); // 或者max
 
