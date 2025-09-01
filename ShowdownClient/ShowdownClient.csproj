@@ -5,6 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <LangVersion>preview</LangVersion>
+	  <PackageReadmeFile>Readme.md</PackageReadmeFile>
+	  <RepositoryUrl>https://github.com/ssccinng/PokeSci</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <Authors>scixing</Authors>
+	  <Company>scixing</Company>
+	  <PackageProjectUrl>https://github.com/ssccinng/PokeSci</PackageProjectUrl>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
   </PropertyGroup>
 
@@ -18,6 +25,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PokeCommon\PokeCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
