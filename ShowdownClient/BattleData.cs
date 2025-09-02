@@ -60,6 +60,8 @@ namespace Showdown
 
         public  bool Win { get; init; } = false; // 是否赢了
 
+        public int Turn => BattleTurns.Length;
+
 
     }
 

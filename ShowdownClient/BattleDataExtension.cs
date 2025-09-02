@@ -267,7 +267,9 @@ namespace Showdown
             {
                 "player" => battleData.ApplyPlayer(lines),
                 "turn" => battleData.ApplyTurn(lines),
-                "teampreview" => battleData with { ChooseSize = int.Parse(lines[0]) }, // 这个不需要处理
+                "teampreview" => lines.Length > 0 
+                                    ? battleData with { ChooseSize = int.Parse(lines[0]) } // 这个不需要处理
+                                    : battleData with { ChooseSize = 1 },
                 "poke" => await battleData.ApplyPoke(lines),
                 "switch" => battleData.ApplySwitch(lines),
                 "drag" => battleData.ApplyDrag(lines),
