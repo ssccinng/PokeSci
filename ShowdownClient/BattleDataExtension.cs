@@ -281,6 +281,8 @@ namespace Showdown
                 "win" => battleData.ApplyWin(lines),
                 "uhtml" => battleData.ApplyUhtml(lines),
                 "showteam" => await battleData.ApplyShowteam(lines),
+                "inactive" => await battleData.ApplyInactive(lines),
+                "inactiveoff" => await battleData.ApplyInactiveOff(lines),
                 //otsrequest
 
                 "-ability" => battleData.ApplyAbility(lines),
@@ -1039,6 +1041,52 @@ namespace Showdown
                 };
 
                 return newBattleData with { OpenSheet = true} ;
+            }
+
+
+            public async Task<BattleData> ApplyInactiveOff(string[] lines)
+            {
+
+                var lastTurn = battleData.GetLastTurn()!;
+                lastTurn = lastTurn with
+                {
+                    AllTime = 999,
+                    TurnTime = 999,
+                };
+
+                return await Task.FromResult(battleData.UpdateLastTurn(lastTurn));
+
+            }
+            public async Task<BattleData> ApplyInactive(string[] lines)
+            {
+                var lastTurn = battleData.GetLastTurn()!;
+                if (lines == null || lines.Length == 0)
+                {
+                    return battleData;
+                }
+
+                // 合并后便于匹配（原始格式类似：Time left: 150 sec this turn | 150 sec total）
+                var raw = string.Join(" | ", lines);
+
+                // 正则：提取本回合与总剩余时间
+                var m = Regex.Match(raw, @"Time left:\s*(\d+)\s*sec this turn\s*\|\s*(\d+)\s*sec total", RegexOptions.IgnoreCase);
+                if (m.Success)
+                {
+                    var turnSec = int.Parse(m.Groups[1].Value);
+                    var totalSec = int.Parse(m.Groups[2].Value);
+
+                    // 将时间信息写入 TurnLog（可后续再解析）；格式：INACTIVE_TIME <turnSec> <totalSec>
+                    lastTurn = lastTurn with
+                    {
+                        AllTime = totalSec,
+                        TurnTime = turnSec,
+                    };
+
+                    return await Task.FromResult(battleData.UpdateLastTurn(lastTurn));
+                }
+
+                // 未匹配到则直接返回
+                return await Task.FromResult(battleData);
             }
 
             public BattleData Bo3Next()

@@ -88,7 +88,14 @@ namespace Showdown
         public ImmutableArray<OneSideBattleField> SideField { get; set; } = [new(), new()]; // 要维护
 
         public ImmutableList<RequestData> Requests { get; init; } = ImmutableList<RequestData>.Empty; // 请求数据 // 可能是对战信息
-
+        /// <summary>
+        /// 回合时间
+        /// </summary>
+        public int TurnTime { get; init; } = 150;
+        /// <summary>
+        /// 总时间
+        /// </summary>
+        public int AllTime { get; init; } = 150;
 
     }
 
