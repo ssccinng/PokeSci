@@ -145,27 +145,31 @@ namespace Showdown
             {
                 var newPoke = pokemon;// with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized };
                 // 反射修改其中changRefresh的
-                foreach (var property in newPoke.GetType().GetProperties())
+                var newStat = newPoke.Status with { };
+                foreach (var property in newStat.GetType().GetProperties())
                 {
 
                     var changeRefresh = property.GetCustomAttribute<ChangeRefreshAttribute>();
                     if (changeRefresh != null)
                     {
-                        property.SetValue(newPoke, 0);
+                        property.SetValue(newStat, 0);
                     }
 
 
                     var singleTurn = property.GetCustomAttribute<SingleTurnAttribute>();
                     if (singleTurn != null)
                     {
-                        property.SetValue(newPoke, 0);
+                        property.SetValue(newStat, 0);
                     }
                 }
                 // 太晶清理一下
 
 
 
-                return newPoke with { TeratallizeStatus = TeratallizeStatus.NotTeraStallized, LastMove = Option<PokemonDataAccess.Models.Move>.None };
+                return newPoke with { 
+                    Status = newStat,
+                    TeratallizeStatus = TeratallizeStatus.NotTeraStallized,
+                    LastMove = Option<PokemonDataAccess.Models.Move>.None };
             }
             public BattlePokemon UpdatePoke(string newpokeName)
             {
