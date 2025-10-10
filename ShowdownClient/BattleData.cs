@@ -331,11 +331,14 @@ namespace Showdown
 
         #region 向对手施加的状态变化
 
-
+    
+        [ChangeRefresh]
+        public int NeutralizingGas { get; set; }
 
         /// <summary>
         /// 混乱
         /// </summary>
+
         [ChangeRefresh]
         public int Confusion { get; set; }
         /// <summary>

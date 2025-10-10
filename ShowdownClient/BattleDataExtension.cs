@@ -441,7 +441,7 @@ namespace Showdown
                         : x);
                 //.ToImmutableArray();
 
-                if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.ChooseSize)
+                if (newPokes.Count(x => x.BattleStatus is not UnKnown) == battleData.Rule.TeamSize)
                 {
                     newPokes = newPokes.Select(SetUnkonwnToNoInBattle);
                 }
@@ -826,8 +826,7 @@ namespace Showdown
             {
                 var sideData = GetSidePos(lines[0]);
                 var status = typeof(PokemonStatus).GetProperty(
-                                                           $"{lines[1].Split(":").Last().Trim()}");
-
+                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].Split(":").Last().Trim().Replace(" ", "").Replace("-", ""))}");
                 var lastTurn = battleData.GetLastTurn()!;
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
                 if (status == null)
@@ -878,7 +877,7 @@ namespace Showdown
             {
                 var sideData = GetSidePos(lines[0]);
                 var status = typeof(PokemonStatus).GetProperty(
-                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].ToLower())}");
+                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].ToLower().Replace(" ", "").Replace("-", ""))}");
 
                 var lastTurn = battleData.GetLastTurn()!;
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
