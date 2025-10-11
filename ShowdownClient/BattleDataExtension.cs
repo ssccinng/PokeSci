@@ -373,7 +373,14 @@ namespace Showdown
                 if (lines[0] == "p1")
                 {
                     var sideTeam = lastTurn.SideTeam[0];
-                    var newPokes = sideTeam.Pokemons.Add(await BattlePokemon.CreateAsync(pokemonName));
+                    var newPokes = sideTeam.Pokemons.Add(
+                        (await BattlePokemon.CreateAsync(pokemonName)) 
+                        with { 
+                            BattleStatus = battleData.Rule.MaxChoose == 6 
+                            ? PsBattleStatus.InBackField 
+                            : PsBattleStatus.UnKnown
+                        }
+                        );
                     var newTurn = lastTurn with
                     {
                         SideTeam = lastTurn.SideTeam.SetItem(0, sideTeam with { Pokemons = newPokes })
@@ -387,7 +394,15 @@ namespace Showdown
                 else
                 {
                     var sideTeam = lastTurn.SideTeam[1];
-                    var newPokes = sideTeam.Pokemons.Add(await BattlePokemon.CreateAsync(pokemonName));
+                    var newPokes = sideTeam.Pokemons.Add(
+                        (await BattlePokemon.CreateAsync(pokemonName))
+                        with
+                        {
+                            BattleStatus = battleData.Rule.MaxChoose == 6
+                            ? PsBattleStatus.InBackField
+                            : PsBattleStatus.UnKnown
+                        }
+                        );
                     var newTurn = lastTurn with
                     {
                         SideTeam = lastTurn.SideTeam.SetItem(1, sideTeam with { Pokemons = newPokes })
@@ -826,7 +841,7 @@ namespace Showdown
             {
                 var sideData = GetSidePos(lines[0]);
                 var status = typeof(PokemonStatus).GetProperty(
-                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].Split(":").Last().Trim().Replace(" ", "").Replace("-", ""))}");
+                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].Split(":").Last().Trim()).Replace(" ", "").Replace("-", "")}");
                 var lastTurn = battleData.GetLastTurn()!;
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
                 if (status == null)
@@ -931,6 +946,19 @@ namespace Showdown
                 var sideData = GetSidePos(lines[0]);
                 var boostType = lines[1].Trim();
                 int value = int.Parse(lines[2].Trim());
+                //if (boostType == "spd") boostType = "spdef";
+                boostType = boostType switch
+                {
+                    "atk" => "Attack",
+                    "def" => "Defense",
+                    "spa" => "SpAttack",
+                    "spd" => "SpDefense",
+                    "spe" => "Speed",
+                    "acc" => "Accuracy",
+                    "eva" => "Evasion",
+                    _ => boostType
+                };
+
 
                 var lastTurn = battleData.GetLastTurn()!;
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
@@ -949,7 +977,9 @@ namespace Showdown
 
                 status1 = status1 with { };
 
-                var boostProperty = typeof(PokemonStatus).GetProperty(new CultureInfo("en").TextInfo.ToTitleCase(boostType.ToLower()) + "Buff");
+                var boostProperty = typeof(PokemonStatus).GetProperty(
+                    //new CultureInfo("en").TextInfo.ToTitleCase(boostType.ToLower())
+                    boostType + "Buff");
                 if (boostProperty == null)
                 {
                     Log.Logger.Error($"Unknown boost property: {boostType}");

@@ -258,26 +258,26 @@ namespace Showdown
         #region  能力变化
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
-        public int AtkBuff { get; set; }
+        public int AttackBuff { get; set; }
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
-        public int DefBuff { get; set; }
+        public int DefenseBuff { get; set; }
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
-        public int SpaBuff { get; set; }
+        public int SpAttackBuff { get; set; }
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
-        public int SpdBuff { get; set; }
+        public int SpDefenseBuff { get; set; }
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
-        public int SpeBuff { get; set; }
+        public int SpeedBuff { get; set; }
 
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
-        public int AccBuff { get; set; }
+        public int AccuracyBuff { get; set; }
         [ChangeRefresh]
         [Decrease(0, 0, 6, -6)]
-        public int EvaBuff { get; set; }
+        public int EvasionBuff { get; set; }
         #endregion
 
 
