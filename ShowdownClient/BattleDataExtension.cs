@@ -307,6 +307,7 @@ namespace Showdown
                 "-unboost" => battleData.ApplyBoost(lines, false),
 
 
+                "-item" => battleData.ApplyItem(lines, true),
                 "-enditem" => battleData.ApplyItem(lines, false),
 
                 _ => battleData
