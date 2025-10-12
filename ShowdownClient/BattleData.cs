@@ -81,7 +81,7 @@ namespace Showdown
         // 是否信息明牌，
 
         public ImmutableArray<string> TurnLog = [];
-        public BattleTeam MyTeam { get; init; } = new(); // 要维护 只有是对战才有
+        //public BattleTeam MyTeam { get; init; } = new(); // 要维护 只有是对战才有
 
         public BattleField BattleField { get; init; } = new(); // 要维护
 
