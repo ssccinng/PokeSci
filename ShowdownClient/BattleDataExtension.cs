@@ -1176,7 +1176,9 @@ namespace Showdown
                     var newPokes = sideTeam.Pokemons
                         .Select(x =>
                         x.Position == sideData.pos
-                        ? x with { Item = Option<PokemonDataAccess.Models.Item>.None } // 物品消失
+                        ? x with { Item =
+                        BattleInfo<PokemonDataAccess.Models.Item>.None } 
+                        // 物品消失
                         : x).ToImmutableArray();
                     var newTurn = lastTurn with
                     {

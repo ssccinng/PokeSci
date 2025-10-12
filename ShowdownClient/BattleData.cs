@@ -175,11 +175,30 @@ namespace Showdown
     public record TeraStallized(PokeType Type) : TeratallizeStatus; // 已经太晶化
     public record NotTeraStallized : TeratallizeStatus; // 未太晶化
 
-    public interface BattleInfo<T>;
+    public interface BattleInfo<T>
+    {
+        public static UnKnown<T> UnKnown { get; } = new UnKnown<T>();
+        public static Some<T> Some(T value) => new Some<T>(value);
+        public static None<T> None { get; } = new None<T>();
+
+    }
     public record UnKnown<T>: BattleInfo<T>;
-    public record Some<T>: BattleInfo<T>;
+    public record Some<T>(T Value): BattleInfo<T>;
     public record None<T>: BattleInfo<T>;
 
+    public static class BattleInfoExtensions
+    {
+        public static string GetItemPrompt(this BattleInfo<Item> item)
+        {
+            return item switch
+            {
+                UnKnown<Item> => "Unknown item",
+                Some<Item> some => $"Holding item: {some.Value.Name_Eng}",
+                None<Item> => "No item",
+                _ => throw new NotSupportedException("Unsupported BattleInfo type")
+            };
+        }
+    }
 
     public record BattlePokemon
     {
@@ -191,7 +210,7 @@ namespace Showdown
         public TeratallizeStatus TeratallizeStatus { get; init; } = TeratallizeStatus.NotTeraStallized; // 太晶化状态
         public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
         public Option<Ability> Ability { get; init; } = None;
-        public Option<Item> Item { get; init; } = Some(new Item());
+        public BattleInfo<Item> Item { get; init; } = BattleInfo<Item>.UnKnown;
         public Option<PokemonDataAccess.Models.Move> LastMove { get; init; } = None; // 上一招
 
         public PsBattleStatus BattleStatus { get; init; } = new UnKnown(); // 是否在战斗中
