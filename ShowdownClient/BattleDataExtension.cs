@@ -956,7 +956,8 @@ namespace Showdown
                     "spd" => "SpDefense",
                     "spe" => "Speed",
                     "acc" => "Accuracy",
-                    "eva" => "Evasion",
+                    "accuracy" => "Accuracy",
+                    "evasion" => "Evasion",
                     _ => boostType
                 };
 

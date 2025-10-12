@@ -175,6 +175,11 @@ namespace Showdown
     public record TeraStallized(PokeType Type) : TeratallizeStatus; // 已经太晶化
     public record NotTeraStallized : TeratallizeStatus; // 未太晶化
 
+    public interface BattleInfo<T>;
+    public record UnKnown<T>: BattleInfo<T>;
+    public record Some<T>: BattleInfo<T>;
+    public record None<T>: BattleInfo<T>;
+
 
     public record BattlePokemon
     {
