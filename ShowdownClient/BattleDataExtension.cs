@@ -305,6 +305,7 @@ namespace Showdown
                 "-curestatus" => battleData.ApplyStatus(lines, false),
                 "-boost" => battleData.ApplyBoost(lines, true),
                 "-unboost" => battleData.ApplyBoost(lines, false),
+                "-swapsideconditions" => battleData.ApplySwapSideconditions(lines),
 
 
                 "-item" => battleData.ApplyItem(lines, true),
@@ -1009,6 +1010,13 @@ namespace Showdown
                 };
 
                 return battleData.UpdateLastTurn(newTurn);
+            }
+            public BattleData ApplySwapSideconditions(string[] lines)
+            {
+                // 交换场地状态
+                var lastTurn = battleData.GetLastTurn()!;
+                return battleData.UpdateLastTurn(lastTurn with { SideField = lastTurn.SideField.Reverse().ToImmutableArray() });
+
             }
             public BattleData ApplyReplace(string[] lines)
             {

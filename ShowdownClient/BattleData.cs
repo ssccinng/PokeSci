@@ -193,7 +193,7 @@ namespace Showdown
             return item switch
             {
                 UnKnown<Item> => "Unknown item",
-                Some<Item> some => $"Holding item: {some.Value.Name_Eng}",
+                Some<Item> some => $"{some.Value.Name_Eng}",
                 None<Item> => "No item",
                 _ => throw new NotSupportedException("Unsupported BattleInfo type")
             };
