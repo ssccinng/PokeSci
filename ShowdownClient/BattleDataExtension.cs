@@ -804,14 +804,31 @@ namespace Showdown
                     {
                         var fsDecr = (DecreaseAttribute)(typeof(BattleField).GetProperty("TerrainRemain")).GetCustomAttribute(typeof(DecreaseAttribute));
 
-                        lastTurn = lastTurn with
+
+                        if (start)
                         {
-                            BattleField = lastTurn.BattleField with
+
+                            lastTurn = lastTurn with
                             {
-                                Terrain = terrain,
-                                TerrainRemain = fsDecr.InitValue // 或者max
-                            }
-                        };
+                                BattleField = lastTurn.BattleField with
+                                {
+                                    Terrain = terrain,
+                                    TerrainRemain = fsDecr.InitValue // 或者max
+                                }
+                            };
+                        }
+                        else
+                        {
+
+                            lastTurn = lastTurn with
+                            {
+                                BattleField = lastTurn.BattleField with
+                                {
+                                    Terrain = Terrain.None,
+                                    TerrainRemain = 0 // 或者max
+                                }
+                            };
+                        }
                     }
                 }
                 else
