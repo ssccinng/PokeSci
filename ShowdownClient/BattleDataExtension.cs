@@ -306,6 +306,7 @@ namespace Showdown
                 "-boost" => battleData.ApplyBoost(lines, true),
                 "-unboost" => battleData.ApplyBoost(lines, false),
                 "-swapsideconditions" => battleData.ApplySwapSideconditions(lines),
+                "-immune" => battleData.ApplyRethink(lines),
 
 
                 "-item" => battleData.ApplyItem(lines, true),
@@ -700,7 +701,7 @@ namespace Showdown
 
                 var newTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
 
-                return battleData.UpdateLastTurn(newTurn);
+                return battleData.UpdateLastTurn(newTurn).ApplyRethink([]);
             }
             public BattleData ApplyRequest(string[] lines)
             {
@@ -1028,6 +1029,12 @@ namespace Showdown
 
                 return battleData.UpdateLastTurn(newTurn);
             }
+
+            public BattleData ApplyRethink(string[] lines)
+            {
+                return battleData; // with { ReThink = true };
+            }
+
             public BattleData ApplySwapSideconditions(string[] lines)
             {
                 // 交换场地状态

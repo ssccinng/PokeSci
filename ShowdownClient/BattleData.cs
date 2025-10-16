@@ -33,6 +33,7 @@ namespace Showdown
         public BoInfo BattleInfo { get; init; }
 
         public bool OpenSheet { get; init; } = false;
+        public bool ReThink { get; init; } = false;
 
         public int MySlot { get; init; } = 1; // 我的槽位
         public string MyName { get; init; } = string.Empty; // 我的名字
