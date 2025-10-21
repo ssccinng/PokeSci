@@ -85,6 +85,7 @@
   </Project>
   <Project Path="PSClawerF/PSClawerF.fsproj" />
   <Project Path="PSLook/PSLook.csproj" />
+  <Project Path="PSLook2/PSLook2.csproj" Id="5213058b-5b32-4ba0-8cfd-ede4c5e77602" />
   <Project Path="PSReplayAnalysis/PSReplayAnalysis.csproj" />
   <Project Path="PsRoomListener/PsRoomListener.fsproj" />
   <Project Path="ReplayCheck/ReplayCheck.csproj" />

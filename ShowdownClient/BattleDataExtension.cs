@@ -774,10 +774,20 @@ namespace Showdown
 
                     //}
                     //else
+
+                    var getValue  = sideFieldProperty.GetValue(newSideField);
+                    if (getValue is int intValue && intValue > 0)
+                    {
+                        // 已经存在效果，不做修改
+                        sideFieldProperty.SetValue(newSideField, intValue + 1);
+                    }
+                    else
+
                     {
                         sideFieldProperty.SetValue(newSideField, fsDecr.InitValue); // 或者max
 
                     }
+
                 }
                 else
                 {

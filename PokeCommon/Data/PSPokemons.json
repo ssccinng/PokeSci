@@ -4569,7 +4569,7 @@
     "PSChsName": "\u4EE3\u6B27\u5947\u5E0C\u65AF-\u653B\u51FB\u7684\u6837\u5B50",
     "AllValue": 600,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 386
   },
   {
     "Id": 509,
@@ -4578,7 +4578,7 @@
     "PSChsName": "\u4EE3\u6B27\u5947\u5E0C\u65AF-\u9632\u5FA1\u7684\u6837\u5B50",
     "AllValue": 600,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 386
   },
   {
     "Id": 510,
@@ -4587,7 +4587,7 @@
     "PSChsName": "\u4EE3\u6B27\u5947\u5E0C\u65AF-\u901F\u5EA6\u7684\u6837\u5B50",
     "AllValue": 600,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 386
   },
   {
     "Id": 511,
@@ -6486,7 +6486,7 @@
     "PSChsName": "\u8FBE\u6469\u72D2\u72D2-\u4F3D\u52D2\u5C14\u7684\u6837\u5B50",
     "AllValue": 480,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 1059
   },
   {
     "Id": 722,
@@ -7404,7 +7404,7 @@
     "PSChsName": "\u6697\u9ED1\u914B\u96F7\u59C6",
     "AllValue": 700,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 646
   },
   {
     "Id": 824,
@@ -7413,7 +7413,7 @@
     "PSChsName": "\u7130\u767D\u914B\u96F7\u59C6",
     "AllValue": 700,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 646
   },
   {
     "Id": 825,
@@ -9078,7 +9078,7 @@
     "PSChsName": "Minior-Meteor",
     "AllValue": 440,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 774
   },
   {
     "Id": 1010,
@@ -9402,7 +9402,7 @@
     "PSChsName": "\u739B\u673A\u96C5\u5A1C-500\u5E74\u524D\u7684\u989C\u8272",
     "AllValue": 600,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 801
   },
   {
     "Id": 1046,
@@ -10032,7 +10032,7 @@
     "PSChsName": "\u6765\u60B2\u8336",
     "AllValue": 308,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 854
   },
   {
     "Id": 1116,
@@ -10041,7 +10041,7 @@
     "PSChsName": "\u6765\u60B2\u8336-\u771F\u54C1",
     "AllValue": 308,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 854
   },
   {
     "Id": 1117,
@@ -10050,7 +10050,7 @@
     "PSChsName": "\u6016\u601D\u58F6",
     "AllValue": 508,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 855
   },
   {
     "Id": 1118,
@@ -10059,7 +10059,7 @@
     "PSChsName": "\u6016\u601D\u58F6-\u771F\u54C1",
     "AllValue": 508,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 855
   },
   {
     "Id": 1119,

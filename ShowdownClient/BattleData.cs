@@ -328,30 +328,30 @@ namespace Showdown
         /// <summary>
         /// 烧伤
         /// </summary>
-        public int Brn { get; set; }
+        public int Brn { get; set { field = value; if (value != 0) Slp = Frz = Par = Psn = Tox = 0; } }
         /// <summary>
         /// 睡觉
         /// </summary>
         [Decrease(3, 0, 3, 0)]
-        public int Slp { get; set; }
+        public int Slp { get; set { field = value; if (value != 0) Brn = Frz = Par = Psn = Tox = 0; } }
         /// <summary>
         /// 冰冻
         /// </summary>
-        public int Frz { get; set; }
+        public int Frz { get; set { field = value; if (value != 0) Brn = Slp = Par = Psn = Tox = 0; } }
         /// <summary>
         /// 麻痹
         /// </summary>
-        public int Par { get; set; }
+        public int Par { get; set { field = value; if (value != 0) Brn = Frz = Slp = Psn = Tox = 0; } }
         /// <summary>
         /// 中毒
         /// </summary>
-        public int Psn { get; set; }
+        public int Psn { get; set { field = value; if (value != 0) Brn = Frz = Par = Slp = Tox = 0; } }
         /// <summary>
         /// 剧毒 要回合++
         /// </summary>
         [Decrease(0, 1, 15, 0)]
 
-        public int Tox { get; set; }
+        public int Tox { get; set { field = value; if (value != 0) Brn = Frz = Par = Psn = Slp = 0; } }
         #endregion
 
         #region 向对手施加的状态变化
