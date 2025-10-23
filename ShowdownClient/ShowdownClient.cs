@@ -153,6 +153,9 @@ public partial class ShowdownClient
             catch (Exception ex)
             {
                 Logger.Error(ex, "Error in receiving thread");
+                _webSocket = new ClientWebSocket();
+                await ConnectAsync();
+                await LoginAsync();
                 break;
             }
 
