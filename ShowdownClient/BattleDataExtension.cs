@@ -678,6 +678,16 @@ namespace Showdown
                 else
                 {
                     Log.Logger.Debug($"Move {move.Name_Eng} already exists for pokemon at side {sideData.side}, position {sideData.pos}");
+                    // 删减一个pp 
+
+                    var move1 = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                            .FirstOrDefault(x => x.Position == sideData.pos) ?
+                            .Moves.FirstOrDefault(m => m.MetaMove.Name_Eng == moveName);
+                    if (move1 != null && move1.PP > 0)
+                    {
+                        move1.PP -= 1; // 好似共用了
+                    }
+
                 }
 
                 lastTurn = lastTurn.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
@@ -921,8 +931,16 @@ namespace Showdown
             public BattleData ApplyStatus(string[] lines, bool start)
             {
                 var sideData = GetSidePos(lines[0]);
+                int fallencnt = 0;
+                if (lines[1].StartsWith("fallen", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    fallencnt = int.Parse(lines[1].Split(":").Last().Trim());
+                    lines[1] = "fallen";
+                }
                 var status = typeof(PokemonStatus).GetProperty(
                                                            $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].ToLower().Replace(" ", "").Replace("-", ""))}");
+
+                
 
                 var lastTurn = battleData.GetLastTurn()!;
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
@@ -949,7 +967,16 @@ namespace Showdown
                     status1 = status1 with { };
                     if (start)
                     {
-                        status.SetValue(status1, lines[1] == "slp" ? 3 : 1); // 设置为1
+                        if (lines[1] == "fallen")
+                        {
+                            status.SetValue(status1, fallencnt);
+                        }
+                        else
+                        {
+                            status.SetValue(status1, lines[1] == "slp" ? 3 : 1); // 设置为1
+
+                        }
+
                     }
                     else
                     {

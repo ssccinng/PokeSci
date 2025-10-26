@@ -63,6 +63,7 @@ namespace Showdown
             return data.Replace(" ", "");
         }
         public BattleStatus BattleStatus { get; set; }
+        public string LastThink { get; set; }
 
         public void LogParse(string cmd, string[] lines)
         {

@@ -24,6 +24,8 @@ namespace PokeCommon.Models
         public GameMove(Move move)
         {
             MetaMove = move;
+            PPMax = move.PP * 3 / 2;
+            PP = PPMax;
         }
 
         public GameMove()

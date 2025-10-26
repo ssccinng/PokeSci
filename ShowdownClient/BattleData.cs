@@ -98,6 +98,7 @@ namespace Showdown
         /// </summary>
         public int AllTime { get; init; } = 150;
 
+
     }
 
 
@@ -209,7 +210,7 @@ namespace Showdown
         public int Position { get; init; } = -1; // 位置 0-2
         public string PsName { get; init; } = string.Empty; // 可能是PS的名字
         public TeratallizeStatus TeratallizeStatus { get; init; } = TeratallizeStatus.NotTeraStallized; // 太晶化状态
-        public ImmutableArray<PokeCommon.Models.GameMove> Moves { get; init; } = ImmutableArray<PokeCommon.Models.GameMove>.Empty; // 可能是PS的名字
+        public ImmutableArray<GameMove> Moves { get; init; } = ImmutableArray<GameMove>.Empty; // 可能是PS的名字
         public Option<Ability> Ability { get; init; } = None;
         public BattleInfo<Item> Item { get; init; } = BattleInfo<Item>.UnKnown;
         public Option<PokemonDataAccess.Models.Move> LastMove { get; init; } = None; // 上一招
@@ -304,6 +305,20 @@ namespace Showdown
         [Decrease(0, 0, 6, -6)]
         public int EvasionBuff { get; set; }
         #endregion
+
+        [ChangeRefresh]
+        public int quarkdrivespe { get; set; }
+        [ChangeRefresh]
+        public int quarkdriveatk { get; set; }
+        [ChangeRefresh]
+        public int quarkdrivespd { get; set; }
+        [ChangeRefresh]
+        public int quarkdrivespa { get; set; }
+        [ChangeRefresh]
+        public int quarkdrivesdef { get; set; }
+        [ChangeRefresh]
+        public int fallen { get; set; }
+
 
 
         #region  能力变化
