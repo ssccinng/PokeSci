@@ -307,17 +307,30 @@ namespace Showdown
         #endregion
 
         [ChangeRefresh]
-        public int quarkdrivespe { get; set; }
+        public int Quarkdrivespe { get; set; }
         [ChangeRefresh]
-        public int quarkdriveatk { get; set; }
+        public int Quarkdriveatk { get; set; }
         [ChangeRefresh]
-        public int quarkdrivespd { get; set; }
+        public int Quarkdrivespd { get; set; }
         [ChangeRefresh]
-        public int quarkdrivespa { get; set; }
+        public int Quarkdrivespa { get; set; }
         [ChangeRefresh]
-        public int quarkdrivesdef { get; set; }
+        public int Quarkdrivesdef { get; set; }
+
+
+
         [ChangeRefresh]
-        public int fallen { get; set; }
+        public int Protosynthesisspe { get; set; }
+        [ChangeRefresh]
+        public int Protosynthesisatk { get; set; }
+        [ChangeRefresh]
+        public int Protosynthesisspd { get; set; }
+        [ChangeRefresh]
+        public int Protosynthesisspa { get; set; }
+        [ChangeRefresh]
+        public int Protosynthesisdef { get; set; }
+        [ChangeRefresh]
+        public int Fallen { get; set; }
 
 
 

@@ -1,4 +1,5 @@
-﻿using System.Net.WebSockets;
+﻿using System.Data;
+using System.Net.WebSockets;
 using System.Text;
 
 using System.Text.Json;
@@ -132,6 +133,13 @@ namespace Showdown
             await SendAsync("", $"/join {battleTag}");
         }
 
+     
+        public async Task GetUserRankAsync(string userId)
+        {
+            string data = $"/rank {userId}";
+            await SendAsync("", data);
+        }
+
         /// <summary>
         /// 获取房间
         /// </summary>
@@ -201,7 +209,9 @@ namespace Showdown
 
         public async Task<List<RankData>> GetRankAsync(string name)
         {
-            var res = await _httpClient.GetAsync($"https://play.pokemonshowdown.com/~~showdown/action.php?act=ladderget&user={name}");
+            var res = await _httpClient
+                .GetAsync($"https://play.pokemonshowdown.com/~~showdown/action.php?act=ladderget&user={name}");
+            //var res = await _httpClient.GetAsync($"{url}?act=ladderget&user={name}");
 
             var data = (await res.Content.ReadAsStringAsync())[1..];
             return JsonSerializer.Deserialize<List<RankData>>(data);

@@ -309,8 +309,8 @@ namespace Showdown
                 "-immune" => battleData.ApplyRethink(lines),
 
 
-                "-item" => battleData.ApplyItem(lines, true),
-                "-enditem" => battleData.ApplyItem(lines, false),
+                "-item" => await battleData.ApplyItem(lines, true),
+                "-enditem" => await battleData.ApplyItem(lines, false),
 
                 _ => battleData
             };
@@ -880,68 +880,14 @@ namespace Showdown
             public BattleData ApplyStartMove(string[] lines, bool start)
             {
                 var sideData = GetSidePos(lines[0]);
-                var status = typeof(PokemonStatus).GetProperty(
-                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].Split(":").Last().Trim()).Replace(" ", "").Replace("-", "")}");
-                var lastTurn = battleData.GetLastTurn()!;
-                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
-                if (status == null)
-                {
-                    Log.Logger.Error($"Unknown status property: {lines[1]}");
-                    return battleData;
-                }
-
-                else
-                {
-                    // 开局的turn要看好了
-
-
-                    var status1 = sideTeam.Pokemons.FirstOrDefault(x => x.Position == sideData.pos)?.Status;
-
-                    if (status1 == null)
-                    {
-                        // 输出宝可梦坐标信息
-                        Log.Logger.Error($"Pokemon not found at position {sideData.pos} for side {sideData.side}");
-                        Log.Logger.Warning(string.Join("\n", sideTeam.Pokemons.Select(s => $"{s.Pokemon.MetaPokemon.NameChs} {s.Position}")));
-                        return battleData;
-                    }
-                    status1 = status1 with { };
-                    if (start)
-                    {
-                        status.SetValue(status1, 3); // 设置为1 // 默认为3先
-                    }
-                    else
-                    {
-                        status.SetValue(status1, 0); // 设置为1
-                    }
-
-                    var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
-                        .Select(x => x.Position == sideData.pos
-                        ? x with { Status = status1 }
-                        : x
-                    )!;
-
-                    var newTurn = lastTurn with
-                    {
-                        SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, lastTurn.SideTeam[sideData.side - 1] with { Pokemons = [.. newPokes] })
-                    };
-                    return battleData.UpdateLastTurn(newTurn);
-
-                }
-            }
-            public BattleData ApplyStatus(string[] lines, bool start)
-            {
-                var sideData = GetSidePos(lines[0]);
                 int fallencnt = 0;
                 if (lines[1].StartsWith("fallen", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    fallencnt = int.Parse(lines[1].Split(":").Last().Trim());
+                    int.TryParse(lines[1].Split(":").Last().Trim(), out fallencnt);
                     lines[1] = "fallen";
                 }
                 var status = typeof(PokemonStatus).GetProperty(
-                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].ToLower().Replace(" ", "").Replace("-", ""))}");
-
-                
-
+                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].Split(":").Last().Trim()).Replace(" ", "").Replace("-", "")}");
                 var lastTurn = battleData.GetLastTurn()!;
                 var sideTeam = lastTurn.SideTeam[sideData.side - 1];
                 if (status == null)
@@ -972,6 +918,66 @@ namespace Showdown
                             status.SetValue(status1, fallencnt);
                         }
                         else
+                        {
+                            status.SetValue(status1, 3); // 设置为1 // 默认为3先
+                        }
+
+
+                    }
+                    else
+                    {
+                        status.SetValue(status1, 0); // 设置为1
+                    }
+
+                    var newPokes = lastTurn.SideTeam[sideData.side - 1].Pokemons
+                        .Select(x => x.Position == sideData.pos
+                        ? x with { Status = status1 }
+                        : x
+                    )!;
+
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, lastTurn.SideTeam[sideData.side - 1] with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData.UpdateLastTurn(newTurn);
+
+                }
+            }
+            public BattleData ApplyStatus(string[] lines, bool start)
+            {
+                var sideData = GetSidePos(lines[0]);
+                
+                var status = typeof(PokemonStatus).GetProperty(
+                                                           $"{new CultureInfo("en").TextInfo.ToTitleCase(lines[1].ToLower().Replace(" ", "").Replace("-", ""))}");
+
+                
+
+                var lastTurn = battleData.GetLastTurn()!;
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
+                if (status == null)
+                {
+                    Log.Logger.Error($"Unknown status property: {lines[1]}");
+                    return battleData;
+                }
+
+                else
+                {
+                    // 开局的turn要看好了
+
+
+                    var status1 = sideTeam.Pokemons.FirstOrDefault(x => x.Position == sideData.pos)?.Status;
+
+                    if (status1 == null)
+                    {
+                        // 输出宝可梦坐标信息
+                        Log.Logger.Error($"Pokemon not found at position {sideData.pos} for side {sideData.side}");
+                        Log.Logger.Warning(string.Join("\n", sideTeam.Pokemons.Select(s => $"{s.Pokemon.MetaPokemon.NameChs} {s.Position}")));
+                        return battleData;
+                    }
+                    status1 = status1 with { };
+                    if (start)
+                    {
+                        
                         {
                             status.SetValue(status1, lines[1] == "slp" ? 3 : 1); // 设置为1
 
@@ -1225,7 +1231,7 @@ namespace Showdown
 
 
 
-            public BattleData ApplyItem(string[] lines, bool start)
+            public async Task<BattleData> ApplyItem(string[] lines, bool start)
             {
                 var sideData = GetSidePos(lines[0]);
 
@@ -1236,6 +1242,13 @@ namespace Showdown
                 var itemName = lines[1].Split(',')[0];
                 if (start)
                 {
+                    var item = await PokemonToolsWithoutDBNorm.GetItemAsync(itemName);
+                    var newPokes = sideTeam.Pokemons
+                        .Select(x =>
+                        x.Position == sideData.pos
+                        ? x with { Item = BattleInfo<PokemonDataAccess.Models.Item>.Some(item 
+                            ) } // 物品获得
+                        : x).ToImmutableArray();
                     return battleData;
 
                 }
@@ -1291,6 +1304,7 @@ public class RequestData
     public Side side { get; set; }
     public int rqid { get; set; }
     public bool wait { get; set; }
+    public bool trapped { get; set; }
 }
 
 public class Side

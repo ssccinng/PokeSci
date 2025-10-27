@@ -401,6 +401,10 @@ public partial class ShowdownClient
                     OnBattleError?.Invoke(battle, other[0]);
                     // 出现异常
                     break;
+                //case "raw":
+                //    // 一些信息
+                //    break;
+
                 default:
                     battle.LogParse(cmd, other);
                     break;
