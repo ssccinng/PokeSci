@@ -88,6 +88,13 @@ namespace Showdown
                 return battleTurnN.WithUpdatedSidePokemons(sideData.side - 1, newPokes);
 
             }
+
+            public int GetPokemonHp((int side, int pos) sideData)
+            {
+                var poke = battleTurnN.SideTeam[sideData.side - 1].Pokemons
+                   .FirstOrDefault(x => x.Position == sideData.pos);
+                return poke?.HpRemain ?? 0;
+            }
         }
 
         extension(BattleField battleField)
@@ -623,7 +630,12 @@ namespace Showdown
 
 
                 var sideData = GetSidePos(lines[0]);
-                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, hpNumber * 100 / maxHp);
+                int hp = hpNumber * 100 / maxHp;
+                var lastTurn = battleData.GetLastTurn()!.UpdatePokemonHp(sideData, hp);
+                var prevHp = battleData.GetLastTurn().GetPokemonHp(sideData);
+                // 也许需要
+                if (hp < 50 && prevHp > 50 && prevHp - hp > 30) 
+                    battleData = battleData with { ReThink = true };
 
 
 
