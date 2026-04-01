@@ -164,8 +164,8 @@ HashSet<string> IdCheck = new HashSet<string>
     //"Mashazard",
     //"RdmH3",
     //"yale-a",
-    "ZoroarkBM",
-    "SneaslerBro"
+    "sumifyear",
+    "summerfeswithyou"
 };
 IdCheck = IdCheck.Select(x => Regex.Replace(x, "[^A-Za-z]", "").ToLower()).ToHashSet();
 

@@ -1261,7 +1261,11 @@ namespace Showdown
                         ? x with { Item = BattleInfo<PokemonDataAccess.Models.Item>.Some(item 
                             ) } // 物品获得
                         : x).ToImmutableArray();
-                    return battleData;
+                    var newTurn = lastTurn with
+                    {
+                        SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, sideTeam with { Pokemons = [.. newPokes] })
+                    };
+                    return battleData .UpdateLastTurn(newTurn);
 
                 }
                 else

@@ -318,6 +318,11 @@ namespace Showdown
         public int Quarkdrivesdef { get; set; }
 
 
+        [Decrease(initValue: 3)]
+        [ChangeRefresh]
+        public int FutureSight { get; set; }
+
+
 
         [ChangeRefresh]
         public int Protosynthesisspe { get; set; }
