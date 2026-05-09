@@ -374,10 +374,10 @@ FodyWeavers.xsd
 /PokeTeamImageTran/MLModel.mlnet
 /DatabaseExport/Data/PokeDBContext.cs
 /RK99Tool/RK9Tool.csproj
-/DatabaseTool/DatabaseTool.csproj
 /RK99Tool/PokeDBContext.cs
-/DatabaseTool
 /RK99Tool/PokeDBContext.cs
 /PokeDetectTools/MLModel.mlnet
 /PokeDetectTools/MLModel1.mlnet
 /DatabaseExport/Program.cs
+/ShitLibBuilder/.dotnet-home/.dotnet
+/ShitLibBuilder/.nuget-packages
