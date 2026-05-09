@@ -4,7 +4,7 @@ using PokeCommon.PokemonHome;
 Console.WriteLine("Hello, World!");
 var aa = await PKHomeUtils.GetBundleAsync();
 
-//File.WriteAllBytes("bundle.js", aa);
+File.WriteAllBytes("bundle.js", aa);
 //return;
 
 await PKHomeUtils.UpdateAll();

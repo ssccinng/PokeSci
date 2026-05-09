@@ -23,9 +23,12 @@ namespace PokeCommon.Utils
             var map = TypeEffectMap.Empty.Map;
             foreach (var type in types)
             {
-                var effect = PokemonDBInMemory.TypeEffect
-                    .Where(te => te.Type2.Id == type.Id);
-                foreach (var kv in effect)
+                if (!PokemonDBInMemory.TypeEffectsByTargetTypeId.TryGetValue(type.Id, out var effects))
+                {
+                    continue;
+                }
+
+                foreach (var kv in effects)
                 {
                     map = map.SetItem(kv.Type1.Id, map[kv.Type1.Id] * kv.Effect);
                 }

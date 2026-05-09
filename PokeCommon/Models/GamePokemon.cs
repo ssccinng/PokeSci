@@ -193,20 +193,32 @@ namespace PokeCommon.Models
         public async Task<GamePokemon> ToGamePokemon()
         {
             var pokemon = await PokemonToolsWithoutDB.GetPokemonAsync(PokemonId);
-            var gamePokemon = new GamePokemon(pokemon)
+            var gamePokemon = pokemon == null ? new GamePokemon() : new GamePokemon(pokemon);
+            gamePokemon.NickName = NickName;
+            gamePokemon.LV = LV;
+            gamePokemon.Happiness = Happiness;
+            gamePokemon.Shiny = Shiny;
+            gamePokemon.Gmax = Gmax;
+            gamePokemon.NowHp = NowHp;
+            gamePokemon.Item = Item == 0 ? null : await PokemonToolsWithoutDB.GetItemAsync(Item);
+            gamePokemon.Nature = Nature == 0 ? null : await PokemonToolsWithoutDB.GetNatureAsync(Nature);
+            gamePokemon.Ability = Ability == 0 ? null : await PokemonToolsWithoutDB.GetAbilityAsync(Ability);
+            gamePokemon.TreaType = TreaType == 0 ? null : await PokemonToolsWithoutDB.GetTypeAsync(TreaType);
+            gamePokemon.Moves.Clear();
+            foreach (var moveId in Moves)
             {
-                NickName = NickName,
-                LV = LV,
-                Happiness = Happiness,
-                Shiny = Shiny,
-                Gmax = Gmax,
-                NowHp = NowHp,
-                Item = Item == 0 ? null : await PokemonToolsWithoutDB.GetItemAsync(Item),
-                Nature = Nature == 0 ? null : await PokemonToolsWithoutDB.GetNatureAsync(Nature),
-                Ability = Ability == 0 ? null : await PokemonToolsWithoutDB.GetAbilityAsync(Ability),
-                TreaType = TreaType == 0 ? null : await PokemonToolsWithoutDB.GetTypeAsync(TreaType),
-            };
-            gamePokemon.Moves = (await Task.WhenAll(Moves.Select(async x => new GameMove(await PokemonToolsWithoutDB.GetMoveAsync(x))))).ToList();
+                if (moveId == 0)
+                {
+                    continue;
+                }
+
+                var move = await PokemonToolsWithoutDB.GetMoveAsync(moveId);
+                if (move != null)
+                {
+                    gamePokemon.Moves.Add(new GameMove(move));
+                }
+            }
+
             return gamePokemon;
         }
     }

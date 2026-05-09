@@ -7,93 +7,94 @@
   </Configurations>
   <Folder Name="/Solution Items/" />
   <Folder Name="/Solution Items/src/">
-    <Project Path="Poke.Usage/Poke.Usage.csproj" />
-    <Project Path="PokeCommon/PokeCommon.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.Usage/Poke.Usage.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeCommon/PokeCommon.csproj" />
   </Folder>
   <Folder Name="/Solution Items/src/Demo/" />
   <Folder Name="/Solution Items/src/Lib/">
-    <Project Path="Poke.Data/Poke.Data.csproj" />
-    <Project Path="Poke.UPDL/Poke.UPDL.csproj" />
-    <Project Path="PokeDelectCV/PokeDelectCV.csproj" />
-    <Project Path="PokeDetectTools/PokeDetectTools.csproj" Id="f0edd2d3-3aa6-4dd1-b6ce-7b5b5090ee74" />
-    <Project Path="PokeShitLib/PokeShitLib.csproj" />
-    <Project Path="PSClient/PSClient.csproj" Id="947c1aea-1916-4e8b-965c-5b6d33445837" />
-    <Project Path="PSReplayParser/PSReplayParser.fsproj" />
-    <Project Path="ShowdownClient/ShowdownClient.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.Data/Poke.Data.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.UPDL/Poke.UPDL.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeDelectCV/PokeDelectCV.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeDetectTools/PokeDetectTools.csproj" Id="f0edd2d3-3aa6-4dd1-b6ce-7b5b5090ee74" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeShitLib/PokeShitLib.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSClient/PSClient.csproj" Id="947c1aea-1916-4e8b-965c-5b6d33445837" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSReplayParser/PSReplayParser.fsproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/ShitLibBuilder/ShitLibBuilder.csproj" Id="7b59037f-d661-408b-87c7-70a45c8c049f" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/ShowdownClient/ShowdownClient.csproj" />
   </Folder>
   <Folder Name="/Solution Items/src/Tools/">
-    <Project Path="DatabaseTool/DatabaseTool.csproj" />
-    <Project Path="PokemonHomeIcon/PokemonHomeIcon.csproj" />
-    <Project Path="PSStatClawer/PSStatClawer.csproj" />
-    <Project Path="RK99Tool/RK9Tool.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/DatabaseTool/DatabaseTool.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonHomeIcon/PokemonHomeIcon.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSStatClawer/PSStatClawer.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/RK99Tool/RK9Tool.csproj" />
   </Folder>
   <Folder Name="/Solution Items/test/">
-    <Project Path="RK99Test/RK99Test.csproj" />
-    <Project Path="TestPokemonHome/TestPokemonHome.csproj" />
-    <Project Path="TestPSStat/TestPSStat.csproj" />
-    <Project Path="TestUPDL/TestUPDL.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/RK99Test/RK99Test.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/TestPokemonHome/TestPokemonHome.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/TestPSStat/TestPSStat.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/TestUPDL/TestUPDL.csproj" />
   </Folder>
-  <Project Path="../MudBlazor/src/MudBlazor/MudBlazor.csproj" />
-  <Project Path="DatabaseExport/DatabaseExport.csproj" />
-  <Project Path="DQNPoke/DQNPoke.csproj" />
-  <Project Path="DQNTorch/DQNTorch.csproj" />
-  <Project Path="OcrLiteLib/OcrLiteLib.csproj" Id="3a1647da-83cd-4f9d-9ffa-f663bb55ff6a">
+  <Project Path="G:/CSharpDev/ssccinng/MudBlazor/src/MudBlazor/MudBlazor.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/DatabaseExport/DatabaseExport.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/DQNPoke/DQNPoke.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/DQNTorch/DQNTorch.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/OcrLiteLib/OcrLiteLib.csproj" Id="3a1647da-83cd-4f9d-9ffa-f663bb55ff6a">
     <Platform Solution="*|x64" Project="x64" />
   </Project>
-  <Project Path="Poke.CodeGenerator/Poke.CodeGenerator.csproj" />
-  <Project Path="Poke.Core/Poke.Core.csproj" />
-  <Project Path="PokeAI/PokeAI.csproj" />
-  <Project Path="PokeBattleEngine/PokeBattleEngine.csproj" />
-  <Project Path="PokeCodeGenerator/PokeCodeGenerator.csproj" />
-  <Project Path="PokeDanTorch/PokeDanTorch.csproj" />
-  <Project Path="PokeMath/PokeMath.csproj" />
-  <Project Path="PokeMaui/PokeMaui.csproj">
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.CodeGenerator/Poke.CodeGenerator.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.Core/Poke.Core.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeAI/PokeAI.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeBattleEngine/PokeBattleEngine.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeCodeGenerator/PokeCodeGenerator.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeDanTorch/PokeDanTorch.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeMath/PokeMath.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeMaui/PokeMaui.csproj">
     <Deploy />
   </Project>
-  <Project Path="PokemonDataAccess/PokemonDataAccess.csproj" />
-  <Project Path="PokemonIsshoni.Net/Client/PokemonIsshoni.Net.Client.csproj" />
-  <Project Path="PokemonIsshoni.Net/Server/PokemonIsshoni.Net.Server.csproj" />
-  <Project Path="PokemonIsshoni.Net/Shared/PokemonIsshoni.Net.Shared.csproj" />
-  <Project Path="PokemonIsshoni.ZQD/Client/PokemonIsshoni.ZQD.Client.csproj" />
-  <Project Path="PokemonIsshoni.ZQD/Server/PokemonIsshoni.ZQD.Server.csproj" />
-  <Project Path="PokemonIsshoni.ZQD/Shared/PokemonIsshoni.ZQD.Shared.csproj" />
-  <Project Path="PokeOcr/PokeOcr.csproj" />
-  <Project Path="PokeOCRSV/PokeOCRSV.csproj" />
-  <Project Path="PokePSCore/PokePSCore.csproj" />
-  <Project Path="PokeSci/PokeSci.csproj" />
-  <Project Path="PokeSee/PokeSee.csproj" />
-  <Project Path="PokeTeamImageTran/PokeTeamImageTran.csproj" />
-  <Project Path="PokeUI3/PokeUI3.csproj">
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonDataAccess/PokemonDataAccess.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonIsshoni.Net/Client/PokemonIsshoni.Net.Client.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonIsshoni.Net/Server/PokemonIsshoni.Net.Server.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonIsshoni.Net/Shared/PokemonIsshoni.Net.Shared.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonIsshoni.ZQD/Client/PokemonIsshoni.ZQD.Client.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonIsshoni.ZQD/Server/PokemonIsshoni.ZQD.Server.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokemonIsshoni.ZQD/Shared/PokemonIsshoni.ZQD.Shared.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeOcr/PokeOcr.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeOCRSV/PokeOCRSV.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokePSCore/PokePSCore.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeSci/PokeSci.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeSee/PokeSee.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeTeamImageTran/PokeTeamImageTran.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeUI3/PokeUI3.csproj">
     <Platform Solution="*|Any CPU" Project="x64" />
     <Platform Solution="*|arm64" Project="arm64" />
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|x86" Project="x86" />
     <Deploy />
   </Project>
-  <Project Path="PSAITest/PSAITest.csproj" />
-  <Project Path="PSBattleHelper.Core/PSBattleHelper.Core.csproj">
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSAITest/PSAITest.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSBattleHelper.Core/PSBattleHelper.Core.csproj">
     <Platform Solution="*|arm64" Project="arm64" />
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|x86" Project="x86" />
   </Project>
-  <Project Path="PSBattleHelper/PSBattleHelper.csproj">
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSBattleHelper/PSBattleHelper.csproj">
     <Platform Solution="*|Any CPU" Project="x64" />
     <Platform Solution="*|arm64" Project="arm64" />
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|x86" Project="x86" />
     <Deploy />
   </Project>
-  <Project Path="PSClawerF/PSClawerF.fsproj" />
-  <Project Path="PSLook/PSLook.csproj" />
-  <Project Path="PSLook2/PSLook2.csproj" Id="5213058b-5b32-4ba0-8cfd-ede4c5e77602" />
-  <Project Path="PSReplayAnalysis/PSReplayAnalysis.csproj" />
-  <Project Path="PsRoomListener/PsRoomListener.fsproj" />
-  <Project Path="ReplayCheck/ReplayCheck.csproj" />
-  <Project Path="SVData/SVData.csproj" />
-  <Project Path="SVDex/SVDex.csproj">
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSClawerF/PSClawerF.fsproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSLook/PSLook.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSLook2/PSLook2.csproj" Id="5213058b-5b32-4ba0-8cfd-ede4c5e77602" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PSReplayAnalysis/PSReplayAnalysis.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/PsRoomListener/PsRoomListener.fsproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/ReplayCheck/ReplayCheck.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/SVData/SVData.csproj" />
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/SVDex/SVDex.csproj">
     <Deploy />
   </Project>
-  <Project Path="SVPokeDex/SVPokeDex.csproj">
+  <Project Path="G:/CSharpDev/ssccinng/PokeSci/SVPokeDex/SVPokeDex.csproj">
     <Deploy />
   </Project>
 </Solution>
