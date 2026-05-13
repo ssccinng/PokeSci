@@ -407,9 +407,36 @@ namespace RK9Tool
             return matchPairings;
 
         }
-        static Pokemon[] pokemons = PokemonTools.PokemonContext.Pokemons.ToArray();
+        private static readonly object PokemonsLock = new();
+        private static Pokemon[]? cachedPokemons;
+
+        private static Pokemon[] GetPokemons()
+        {
+            if (cachedPokemons is not null)
+            {
+                return cachedPokemons;
+            }
+
+            lock (PokemonsLock)
+            {
+                if (cachedPokemons is not null)
+                {
+                    return cachedPokemons;
+                }
+
+            if (PokemonTools.PokemonContext is null)
+            {
+                throw new InvalidOperationException("Connection string 'PokedataConnection' is not configured. RK9 team parsing requires Pokemon data.");
+            }
+
+                cachedPokemons = PokemonTools.PokemonContext.Pokemons.ToArray();
+                return cachedPokemons;
+            }
+        }
+
         public static async Task<GamePokemonTeam> GetPokemonTeamAsync(string url)
         {
+            var pokemons = GetPokemons();
             HttpResponseMessage response = await _client.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
