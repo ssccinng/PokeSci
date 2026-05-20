@@ -11959,5 +11959,500 @@
     "AllValue": 475,
     "Pokemon": null,
     "PokemonId": 1332
+  },
+  {
+    "Id": 1337,
+    "PSName": "Tauros-Paldea-Blaze",
+    "PSImgName": "taurospaldeablaze",
+    "PSChsName": "\u80AF\u6CF0\u7F57-\u5E15\u5E95\u4E9A\u7684\u6837\u5B50\u706B\u70BD\u79CD",
+    "AllValue": 490,
+    "Pokemon": null,
+    "PokemonId": 1443
+  },
+  {
+    "Id": 1338,
+    "PSName": "Tauros-Paldea-Aqua",
+    "PSImgName": "taurospaldeaaqua",
+    "PSChsName": "\u80AF\u6CF0\u7F57-\u5E15\u5E95\u4E9A\u7684\u6837\u5B50\u6C34\u6F9C\u79CD",
+    "AllValue": 490,
+    "Pokemon": null,
+    "PokemonId": 1444
+  },
+  {
+    "Id": 1339,
+    "PSName": "Gastrodon-East",
+    "PSImgName": "gastrodoneast",
+    "PSChsName": "\u6D77\u5154\u517D-\u4E1C\u6D77",
+    "AllValue": 475,
+    "Pokemon": null,
+    "PokemonId": 1026
+  },
+  {
+    "Id": 1340,
+    "PSName": "Ursaluna-Bloodmoon",
+    "PSImgName": "ursalunabloodmoon",
+    "PSChsName": "\u6708\u6708\u718A-\u90DD\u6708",
+    "AllValue": 555,
+    "Pokemon": null,
+    "PokemonId": 1459
+  },
+  {
+    "Id": 1341,
+    "PSName": "Raichu-Mega-X",
+    "PSImgName": "raichumegax",
+    "PSChsName": "\u8D85\u7EA7\u96F7\u4E18X",
+    "AllValue": 585,
+    "Pokemon": null,
+    "PokemonId": 1460
+  },
+  {
+    "Id": 1342,
+    "PSName": "Raichu-Mega-Y",
+    "PSImgName": "raichumegay",
+    "PSChsName": "\u8D85\u7EA7\u96F7\u4E18Y",
+    "AllValue": 585,
+    "Pokemon": null,
+    "PokemonId": 1461
+  },
+  {
+    "Id": 1343,
+    "PSName": "Clefable-Mega",
+    "PSImgName": "clefablemega",
+    "PSChsName": "\u8D85\u7EA7\u76AE\u53EF\u897F",
+    "AllValue": 583,
+    "Pokemon": null,
+    "PokemonId": 1462
+  },
+  {
+    "Id": 1344,
+    "PSName": "Victreebel-Mega",
+    "PSImgName": "victreebelmega",
+    "PSChsName": "\u8D85\u7EA7\u5927\u98DF\u82B1",
+    "AllValue": 590,
+    "Pokemon": null,
+    "PokemonId": 1463
+  },
+  {
+    "Id": 1345,
+    "PSName": "Starmie-Mega",
+    "PSImgName": "starmiemega",
+    "PSChsName": "\u8D85\u7EA7\u5B9D\u77F3\u6D77\u661F",
+    "AllValue": 620,
+    "Pokemon": null,
+    "PokemonId": 1464
+  },
+  {
+    "Id": 1346,
+    "PSName": "Dragonite-Mega",
+    "PSImgName": "dragonitemega",
+    "PSChsName": "\u8D85\u7EA7\u5FEB\u9F99",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1465
+  },
+  {
+    "Id": 1347,
+    "PSName": "Meganium-Mega",
+    "PSImgName": "meganiummega",
+    "PSChsName": "\u8D85\u7EA7\u5927\u7AFA\u8475",
+    "AllValue": 625,
+    "Pokemon": null,
+    "PokemonId": 1466
+  },
+  {
+    "Id": 1348,
+    "PSName": "Feraligatr-Mega",
+    "PSImgName": "feraligatrmega",
+    "PSChsName": "\u8D85\u7EA7\u5927\u529B\u9CC4",
+    "AllValue": 630,
+    "Pokemon": null,
+    "PokemonId": 1467
+  },
+  {
+    "Id": 1349,
+    "PSName": "Skarmory-Mega",
+    "PSImgName": "skarmorymega",
+    "PSChsName": "\u8D85\u7EA7\u76D4\u7532\u9E1F",
+    "AllValue": 565,
+    "Pokemon": null,
+    "PokemonId": 1468
+  },
+  {
+    "Id": 1350,
+    "PSName": "Chimecho-Mega",
+    "PSImgName": "chimechomega",
+    "PSChsName": "\u8D85\u7EA7\u98CE\u94C3\u94C3",
+    "AllValue": 555,
+    "Pokemon": null,
+    "PokemonId": 1469
+  },
+  {
+    "Id": 1351,
+    "PSName": "Absol-Mega-Z",
+    "PSImgName": "absolmegaz",
+    "PSChsName": "\u8D85\u7EA7\u963F\u52C3\u68AD\u9C81Z",
+    "AllValue": 565,
+    "Pokemon": null,
+    "PokemonId": 1470
+  },
+  {
+    "Id": 1352,
+    "PSName": "Staraptor-Mega",
+    "PSImgName": "staraptormega",
+    "PSChsName": "\u8D85\u7EA7\u59C6\u514B\u9E70",
+    "AllValue": 585,
+    "Pokemon": null,
+    "PokemonId": 1471
+  },
+  {
+    "Id": 1353,
+    "PSName": "Garchomp-Mega-Z",
+    "PSImgName": "garchompmegaz",
+    "PSChsName": "\u8D85\u7EA7\u70C8\u54AC\u9646\u9CA8Z",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1472
+  },
+  {
+    "Id": 1354,
+    "PSName": "Lucario-Mega-Z",
+    "PSImgName": "lucariomegaz",
+    "PSChsName": "\u8D85\u7EA7\u8DEF\u5361\u5229\u6B27Z",
+    "AllValue": 625,
+    "Pokemon": null,
+    "PokemonId": 1473
+  },
+  {
+    "Id": 1355,
+    "PSName": "Froslass-Mega",
+    "PSImgName": "froslassmega",
+    "PSChsName": "\u8D85\u7EA7\u96EA\u5996\u5973",
+    "AllValue": 580,
+    "Pokemon": null,
+    "PokemonId": 1474
+  },
+  {
+    "Id": 1356,
+    "PSName": "Heatran-Mega",
+    "PSImgName": "heatranmega",
+    "PSChsName": "\u8D85\u7EA7\u5E2D\u591A\u84DD\u6069",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1475
+  },
+  {
+    "Id": 1357,
+    "PSName": "Darkrai-Mega",
+    "PSImgName": "darkraimega",
+    "PSChsName": "\u8D85\u7EA7\u8FBE\u514B\u83B1\u4F0A",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1476
+  },
+  {
+    "Id": 1358,
+    "PSName": "Emboar-Mega",
+    "PSImgName": "emboarmega",
+    "PSChsName": "\u8D85\u7EA7\u708E\u6B66\u738B",
+    "AllValue": 628,
+    "Pokemon": null,
+    "PokemonId": 1477
+  },
+  {
+    "Id": 1359,
+    "PSName": "Excadrill-Mega",
+    "PSImgName": "excadrillmega",
+    "PSChsName": "\u8D85\u7EA7\u9F99\u5934\u5730\u9F20",
+    "AllValue": 608,
+    "Pokemon": null,
+    "PokemonId": 1478
+  },
+  {
+    "Id": 1360,
+    "PSName": "Scolipede-Mega",
+    "PSImgName": "scolipedemega",
+    "PSChsName": "\u8D85\u7EA7\u8708\u86A3\u738B",
+    "AllValue": 585,
+    "Pokemon": null,
+    "PokemonId": 1479
+  },
+  {
+    "Id": 1361,
+    "PSName": "Scrafty-Mega",
+    "PSImgName": "scraftymega",
+    "PSChsName": "\u8D85\u7EA7\u5934\u5DFE\u6DF7\u6DF7",
+    "AllValue": 588,
+    "Pokemon": null,
+    "PokemonId": 1480
+  },
+  {
+    "Id": 1362,
+    "PSName": "Eelektross-Mega",
+    "PSImgName": "eelektrossmega",
+    "PSChsName": "\u8D85\u7EA7\u9EBB\u9EBB\u9CD7\u9C7C\u738B",
+    "AllValue": 615,
+    "Pokemon": null,
+    "PokemonId": 1481
+  },
+  {
+    "Id": 1363,
+    "PSName": "Chandelure-Mega",
+    "PSImgName": "chandeluremega",
+    "PSChsName": "\u8D85\u7EA7\u6C34\u6676\u706F\u706B\u7075",
+    "AllValue": 620,
+    "Pokemon": null,
+    "PokemonId": 1482
+  },
+  {
+    "Id": 1364,
+    "PSName": "Golurk-Mega",
+    "PSImgName": "golurkmega",
+    "PSChsName": "\u8D85\u7EA7\u6CE5\u5076\u5DE8\u4EBA",
+    "AllValue": 583,
+    "Pokemon": null,
+    "PokemonId": 1483
+  },
+  {
+    "Id": 1365,
+    "PSName": "Chesnaught-Mega",
+    "PSImgName": "chesnaughtmega",
+    "PSChsName": "\u8D85\u7EA7\u5E03\u91CC\u5361\u9686",
+    "AllValue": 630,
+    "Pokemon": null,
+    "PokemonId": 1484
+  },
+  {
+    "Id": 1366,
+    "PSName": "Delphox-Mega",
+    "PSImgName": "delphoxmega",
+    "PSChsName": "\u8D85\u7EA7\u5996\u706B\u7EA2\u72D0",
+    "AllValue": 634,
+    "Pokemon": null,
+    "PokemonId": 1485
+  },
+  {
+    "Id": 1367,
+    "PSName": "Greninja-Bond",
+    "PSImgName": "greninjabond",
+    "PSChsName": "\u7532\u8D3A\u5FCD\u86D9-\u7275\u7ECA",
+    "AllValue": 530,
+    "Pokemon": null,
+    "PokemonId": 1486
+  },
+  {
+    "Id": 1368,
+    "PSName": "Greninja-Mega",
+    "PSImgName": "greninjamega",
+    "PSChsName": "\u8D85\u7EA7\u7532\u8D3A\u5FCD\u86D9",
+    "AllValue": 630,
+    "Pokemon": null,
+    "PokemonId": 1487
+  },
+  {
+    "Id": 1369,
+    "PSName": "Pyroar-Mega",
+    "PSImgName": "pyroarmega",
+    "PSChsName": "\u8D85\u7EA7\u706B\u708E\u72EE",
+    "AllValue": 607,
+    "Pokemon": null,
+    "PokemonId": 1488
+  },
+  {
+    "Id": 1370,
+    "PSName": "Floette-Mega",
+    "PSImgName": "floettemega",
+    "PSChsName": "\u8D85\u7EA7\u82B1\u53F6\u8482",
+    "AllValue": 651,
+    "Pokemon": null,
+    "PokemonId": 1489
+  },
+  {
+    "Id": 1371,
+    "PSName": "Meowstic-M-Mega",
+    "PSImgName": "meowsticmmega",
+    "PSChsName": "\u8D85\u7EA7\u8D85\u80FD\u5999\u55B5-\u96C4\u6027\u7684\u6837\u5B50",
+    "AllValue": 566,
+    "Pokemon": null,
+    "PokemonId": 1490
+  },
+  {
+    "Id": 1372,
+    "PSName": "Meowstic-F-Mega",
+    "PSImgName": "meowsticfmega",
+    "PSChsName": "\u8D85\u7EA7\u8D85\u80FD\u5999\u55B5-\u96CC\u6027\u7684\u6837\u5B50",
+    "AllValue": 566,
+    "Pokemon": null,
+    "PokemonId": 1491
+  },
+  {
+    "Id": 1373,
+    "PSName": "Malamar-Mega",
+    "PSImgName": "malamarmega",
+    "PSChsName": "\u8D85\u7EA7\u4E4C\u8D3C\u738B",
+    "AllValue": 582,
+    "Pokemon": null,
+    "PokemonId": 1492
+  },
+  {
+    "Id": 1374,
+    "PSName": "Barbaracle-Mega",
+    "PSImgName": "barbaraclemega",
+    "PSChsName": "\u8D85\u7EA7\u9F9F\u8DB3\u5DE8\u94E0",
+    "AllValue": 600,
+    "Pokemon": null,
+    "PokemonId": 1493
+  },
+  {
+    "Id": 1375,
+    "PSName": "Dragalge-Mega",
+    "PSImgName": "dragalgemega",
+    "PSChsName": "\u8D85\u7EA7\u6BD2\u85FB\u9F99",
+    "AllValue": 594,
+    "Pokemon": null,
+    "PokemonId": 1494
+  },
+  {
+    "Id": 1376,
+    "PSName": "Hawlucha-Mega",
+    "PSImgName": "hawluchamega",
+    "PSChsName": "\u8D85\u7EA7\u6454\u89D2\u9E70\u4EBA",
+    "AllValue": 600,
+    "Pokemon": null,
+    "PokemonId": 1495
+  },
+  {
+    "Id": 1377,
+    "PSName": "Zygarde-Mega",
+    "PSImgName": "zygardemega",
+    "PSChsName": "\u8D85\u7EA7\u57FA\u683C\u5C14\u5FB7-50%\u5F62\u6001",
+    "AllValue": 778,
+    "Pokemon": null,
+    "PokemonId": 1496
+  },
+  {
+    "Id": 1378,
+    "PSName": "Crabominable-Mega",
+    "PSImgName": "crabominablemega",
+    "PSChsName": "\u8D85\u7EA7\u597D\u80DC\u6BDB\u87F9",
+    "AllValue": 578,
+    "Pokemon": null,
+    "PokemonId": 1497
+  },
+  {
+    "Id": 1379,
+    "PSName": "Rockruff-Dusk",
+    "PSImgName": "rockruffdusk",
+    "PSChsName": "\u5CA9\u72D7\u72D7-\u9EC4\u660F",
+    "AllValue": 280,
+    "Pokemon": null,
+    "PokemonId": 1498
+  },
+  {
+    "Id": 1380,
+    "PSName": "Golisopod-Mega",
+    "PSImgName": "golisopodmega",
+    "PSChsName": "\u8D85\u7EA7\u5177\u7532\u6B66\u8005",
+    "AllValue": 630,
+    "Pokemon": null,
+    "PokemonId": 1499
+  },
+  {
+    "Id": 1381,
+    "PSName": "Drampa-Mega",
+    "PSImgName": "drampamega",
+    "PSChsName": "\u8D85\u7EA7\u8001\u7FC1\u9F99",
+    "AllValue": 585,
+    "Pokemon": null,
+    "PokemonId": 1500
+  },
+  {
+    "Id": 1382,
+    "PSName": "Magearna-Mega",
+    "PSImgName": "magearnamega",
+    "PSChsName": "\u8D85\u7EA7\u739B\u673A\u96C5\u5A1C",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1501
+  },
+  {
+    "Id": 1383,
+    "PSName": "Magearna-Original-Mega",
+    "PSImgName": "magearnaoriginalmega",
+    "PSChsName": "\u8D85\u7EA7\u739B\u673A\u96C5\u5A1C-500\u5E74\u524D\u7684\u989C\u8272",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1502
+  },
+  {
+    "Id": 1384,
+    "PSName": "Zeraora-Mega",
+    "PSImgName": "zeraoramega",
+    "PSChsName": "\u8D85\u7EA7\u6377\u62C9\u5965\u62C9",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1503
+  },
+  {
+    "Id": 1385,
+    "PSName": "Falinks-Mega",
+    "PSImgName": "falinksmega",
+    "PSChsName": "\u8D85\u7EA7\u5217\u9635\u5175",
+    "AllValue": 570,
+    "Pokemon": null,
+    "PokemonId": 1504
+  },
+  {
+    "Id": 1386,
+    "PSName": "Scovillain-Mega",
+    "PSImgName": "scovillainmega",
+    "PSChsName": "\u8D85\u7EA7\u72E0\u8FA3\u6912",
+    "AllValue": 586,
+    "Pokemon": null,
+    "PokemonId": 1505
+  },
+  {
+    "Id": 1387,
+    "PSName": "Glimmora-Mega",
+    "PSImgName": "glimmoramega",
+    "PSChsName": "\u8D85\u7EA7\u6676\u5149\u82B1",
+    "AllValue": 625,
+    "Pokemon": null,
+    "PokemonId": 1506
+  },
+  {
+    "Id": 1388,
+    "PSName": "Tatsugiri-Curly-Mega",
+    "PSImgName": "tatsugiricurlymega",
+    "PSChsName": "\u8D85\u7EA7\u7C73\u7ACB\u9F99",
+    "AllValue": 575,
+    "Pokemon": null,
+    "PokemonId": 1507
+  },
+  {
+    "Id": 1389,
+    "PSName": "Tatsugiri-Droopy-Mega",
+    "PSImgName": "tatsugiridroopymega",
+    "PSChsName": "\u8D85\u7EA7\u7C73\u7ACB\u9F99-\u4E0B\u5782\u59FF\u52BF",
+    "AllValue": 575,
+    "Pokemon": null,
+    "PokemonId": 1508
+  },
+  {
+    "Id": 1390,
+    "PSName": "Tatsugiri-Stretchy-Mega",
+    "PSImgName": "tatsugiristretchymega",
+    "PSChsName": "\u8D85\u7EA7\u7C73\u7ACB\u9F99-\u5E73\u633A\u5F62\u6001",
+    "AllValue": 575,
+    "Pokemon": null,
+    "PokemonId": 1509
+  },
+  {
+    "Id": 1391,
+    "PSName": "Baxcalibur-Mega",
+    "PSImgName": "baxcaliburmega",
+    "PSChsName": "\u8D85\u7EA7\u621F\u810A\u9F99",
+    "AllValue": 700,
+    "Pokemon": null,
+    "PokemonId": 1510
   }
 ]

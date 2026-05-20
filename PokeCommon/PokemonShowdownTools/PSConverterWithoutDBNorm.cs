@@ -22,11 +22,21 @@ namespace PokeCommon.PokemonShowdownTools
                 ShowdownTextLanguage.English);
         }
 
-        public static async ValueTask<string> ConvertToPsAsync(GamePokemonTeam gamePokemonTeam)
+        public static async ValueTask<string> ConvertToChsPsAsync(GamePokemon gamePokemon)
+        {
+            return await ShowdownFormatSerializer.SerializePokemonAsync(
+                gamePokemon,
+                PokemonToolsWithoutDBNorm.GetPsPokemonAsync,
+                ShowdownTextLanguage.Chinese);
+        }
+
+        public static async ValueTask<string> ConvertToPsAsync(GamePokemonTeam gamePokemonTeam, LanguageType languageType = LanguageType.ENG)
         {
             return await ShowdownFormatSerializer.SerializeTeamAsync(
                 gamePokemonTeam,
-                pokemon => ConvertToPsAsync(pokemon!));
+                languageType == LanguageType.CHS
+                    ? pokemon => ConvertToChsPsAsync(pokemon!)
+                    : pokemon => ConvertToPsAsync(pokemon!));
         }
 
         public static async Task<GamePokemon?> ConvertToPokemonAsync(string PStext)

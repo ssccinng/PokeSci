@@ -257,7 +257,7 @@ internal static class ShowdownFormatSerializer
 
             if (gamePokemon.Happiness != DefaultHappiness)
             {
-                sb.Append("请密度: ").Append(gamePokemon.Happiness).AppendLine();
+                sb.Append("亲密度: ").Append(gamePokemon.Happiness).AppendLine();
             }
         }
         else
