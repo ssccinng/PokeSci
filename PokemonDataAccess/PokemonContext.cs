@@ -8,17 +8,6 @@ namespace PokemonDataAccess
 {
     public class PokemonContext : DbContext, IPokemonContext
     {
-        // public PokemonContext(DbContextOptions options) : base(options) {
-
-        // }
-
-        // protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=PokemonDataBase;Integrated Security=True");
-        // protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite(@"Data Source=E:\vscode hub\PokemonHub\PokemonDataAccess\PokemonDataBase.db");
-        //protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseMySQL(@"server=47.97.153.197;port=37793;Database=PokemonDataBase;User ID=PokemonDataBase;Password=5YEfwhkaftWD7M8k");
-        //protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseMySQL(@"server=47.97.153.197;port=37793;Database=PokemonDataBase;User ID=PokemonDataBase;Password=5YEfwhkaftWD7M8k");
-        // protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseMySQL(@"server=47.97.153.197;port=37793;Database=PSDisplay;User ID=PSDisplay;Password=Ld2BMCXXFpLf2aJY");
-        //protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite(@"Data Source=E:\vs code\PokeSci\PokeUI3\DB\PokemonDataBase.db");
-        //protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite(@"Data Source=PokemonDataBase.db");
         protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite($"Data Source={DbPath}");
 
         /*         protected override void OnModelCreating(ModelBuilder modelBuilder)
