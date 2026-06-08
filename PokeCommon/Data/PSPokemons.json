@@ -78,7 +78,7 @@
     "PSChsName": "\u8D85\u7EA7\u55B7\u706B\u9F99X",
     "AllValue": 634,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 900
   },
   {
     "Id": 10,
@@ -87,7 +87,7 @@
     "PSChsName": "\u8D85\u7EA7\u55B7\u706B\u9F99Y",
     "AllValue": 634,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 901
   },
   {
     "Id": 11,
@@ -7656,7 +7656,7 @@
     "PSChsName": "\u5F69\u7C89\u8776",
     "AllValue": 411,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 666
   },
   {
     "Id": 852,
@@ -7665,7 +7665,7 @@
     "PSChsName": "\u5F69\u7C89\u8776-Fancy",
     "AllValue": 411,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 1138
   },
   {
     "Id": 853,
@@ -7674,7 +7674,7 @@
     "PSChsName": "\u5F69\u7C89\u8776-Pokeball",
     "AllValue": 411,
     "Pokemon": null,
-    "PokemonId": 1
+    "PokemonId": 1139
   },
   {
     "Id": 854,
