@@ -1,0 +1,22 @@
+{
+  "name": "Poke Damage Calculator",
+  "short_name": "Damage Calc",
+  "id": "./",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f6f2",
+  "theme_color": "#176d7a",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

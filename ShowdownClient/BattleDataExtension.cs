@@ -187,7 +187,9 @@ namespace Showdown
                     return pokemon;
                 }
 
-                var pokes = PokemonDBInMemory.Pokemons.Where(s => s.DexId == metaPokemon.DexId);
+                var pokes = PokemonDBInMemory.Pokemons
+                    .AsEnumerable()
+                    .Where(s => s != null && s.DexId == metaPokemon.DexId && s.PSPokemon != null && s.PSPokemon.PSName != null);
                 var fact = pokes.FirstOrDefault(s => RemoveNonAlphanumeric(s.PSPokemon.PSName) == newpokeName);
 
                 if (fact == null || fact.Id == pokemon.Pokemon.MetaPokemon?.Id)
@@ -461,7 +463,7 @@ namespace Showdown
                         ? (x with { Position = -1, BattleStatus = x.BattleStatus is IsDead ? x.BattleStatus : PsBattleStatus.InBackField }).SwitchOut()
                         : x)
                         .Select(x => // 设置后排宝可梦上场
-                        switchPokemonName.Contains(RemoveNonAlphanumeric(x.PsName))
+                        x is not null && switchPokemonName.Contains(RemoveNonAlphanumeric(x.PsName))
                         ? (x.UpdatePoke(switchPokemonName) with { Position = switchData.pos, BattleStatus = PsBattleStatus.InField }).SwitchIn()
                         : x);
                 //.ToImmutableArray();
@@ -528,12 +530,29 @@ namespace Showdown
 
             public BattleData ApplyAbility(string[] lines)
             {
+                if (lines.Length < 2)
+                {
+                    return battleData;
+                }
+
                 var sideData = GetSidePos(lines[0]);
                 var abilityName = lines[1];
+                if (!PokemonDBInMemory.AbilityByNormalizedName.TryGetValue(PokemonDBInMemory.NormalizeName(abilityName), out var ability))
+                {
+                    return battleData;
+                }
 
-                // 想想特性放哪里
+                var lastTurn = battleData.GetLastTurn()!;
+                var sideTeam = lastTurn.SideTeam[sideData.side - 1];
+                var newPokes = sideTeam.Pokemons
+                    .Select(x => x.Position == sideData.pos ? x with { Ability = LanguageExt.Prelude.Some(ability) } : x)
+                    .ToImmutableArray();
+                var newTurn = lastTurn with
+                {
+                    SideTeam = lastTurn.SideTeam.SetItem(sideData.side - 1, sideTeam with { Pokemons = newPokes })
+                };
 
-                return battleData;
+                return battleData.UpdateLastTurn(newTurn);
             }
 
             public async Task<BattleData> ApplyTerastallize(string[] lines)

@@ -1,0 +1,592 @@
+@page "/"
+@page "/calculator"
+@inject DamageCalcUiService Calculator
+
+<PageTitle>@T("宝可梦伤害计算器", "Poke Damage Calculator")</PageTitle>
+
+<main class="calc-shell">
+    <header class="topbar">
+        <div>
+            <h1>@T("宝可梦伤害计算器", "Poke Damage Calculator")</h1>
+            <p>Gen9 / @Calculator.SpeciesOptions.Count @T("宝可梦", "species") / @Calculator.MoveOptions.Count @T("招式", "moves")</p>
+        </div>
+        <div class="topbar-actions">
+            <div class="language-toggle" role="group" aria-label="@T("语言", "Language")">
+                <button type="button" class="@(Language == UiLanguage.Chinese ? "active" : "")" @onclick="@(() => SetLanguage(UiLanguage.Chinese))">中文</button>
+                <button type="button" class="@(Language == UiLanguage.English ? "active" : "")" @onclick="@(() => SetLanguage(UiLanguage.English))">English</button>
+            </div>
+            <button type="button" class="primary-action" @onclick="Calculate">@T("计算", "Calculate")</button>
+            <button type="button" @onclick="Infer">@T("反推", "Infer")</button>
+        </div>
+    </header>
+
+    <section class="workspace">
+        <section class="panel presets-panel">
+            <div class="panel-title">
+                <h2>@T("预设", "Presets")</h2>
+                <span>@Calculator.SetOptions.Count @T("配置", "sets") / @Calculator.Items.Count @T("道具", "items") / @Calculator.Abilities.Count @T("特性", "abilities")</span>
+            </div>
+            <div class="preset-toolbar">
+                <label>
+                    <span>@T("分级", "Format")</span>
+                    <select @bind="selectedSetFormat">
+                        <option value="">@T("全部分级", "All formats")</option>
+                        @foreach (var format in Calculator.FormatOptions)
+                        {
+                            <option value="@format.Id">@Calculator.FormatDisplayName(format.Id)</option>
+                        }
+                    </select>
+                </label>
+                <label>
+                    <span>@T("场地预设", "Field preset")</span>
+                    <select @bind="selectedFieldPreset">
+                        <option value="">@T("选择场地", "Select field")</option>
+                        @foreach (var preset in Calculator.FieldPresets)
+                        {
+                            <option value="@preset.Id">@Calculator.FieldPresetDisplayName(preset) - @Calculator.FieldPresetDescription(preset)</option>
+                        }
+                    </select>
+                </label>
+                <button type="button" @onclick="ApplyFieldPreset">@T("应用场地", "Apply Field")</button>
+            </div>
+
+            <div class="quick-actions matchup-actions">
+                @foreach (var matchup in Calculator.QuickMatchups)
+                {
+                    <button type="button" @onclick="@(() => ApplyQuickMatchup(matchup))">@Calculator.QuickMatchupDisplayName(matchup)</button>
+                }
+            </div>
+            <div class="quick-actions">
+                <button type="button" @onclick='@(() => ApplyQuickField("vgc50"))'>VGC Lv50</button>
+                <button type="button" @onclick='@(() => ApplyQuickField("rain"))'>@T("雨天", "Rain")</button>
+                <button type="button" @onclick='@(() => ApplyQuickField("screens"))'>@T("双墙", "Screens")</button>
+                <button type="button" @onclick='@(() => ApplyQuickField("snowveil"))'>@T("雪天极光幕", "Snow Veil")</button>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(presetError))
+            {
+                <div class="alert">@presetError</div>
+            }
+        </section>
+
+        <EditForm Model="form" OnSubmit="Calculate" class="calc-form">
+            <div class="column">
+                <section class="panel pokemon-panel attacker-panel">
+                    <div class="panel-title">
+                        <h2>@T("攻击方", "Attacker")</h2>
+                        <span>@AttackerPreview</span>
+                    </div>
+                    <PokemonEditor Model="form.Attacker"
+                                   SpeciesOptions="Calculator.SpeciesOptions"
+                                   NatureOptions="Calculator.Natures"
+                                   ItemOptions="Calculator.Items"
+                                   AbilityOptions="Calculator.Abilities"
+                                   TypeOptions="Calculator.Types"
+                                   StatusOptions="Calculator.Statuses"
+                                   SetFormat="@selectedSetFormat"
+                                   SetSelected="ApplyAttackerSetSelection" />
+                </section>
+
+                <section class="panel pokemon-panel defender-panel">
+                    <div class="panel-title">
+                        <h2>@T("防守方", "Defender")</h2>
+                        <span>@DefenderPreview</span>
+                    </div>
+                    <PokemonEditor Model="form.Defender"
+                                   SpeciesOptions="Calculator.SpeciesOptions"
+                                   NatureOptions="Calculator.Natures"
+                                   ItemOptions="Calculator.Items"
+                                   AbilityOptions="Calculator.Abilities"
+                                   TypeOptions="Calculator.Types"
+                                   StatusOptions="Calculator.Statuses"
+                                   SetFormat="@selectedSetFormat"
+                                   SetSelected="ApplyDefenderSetSelection" />
+                </section>
+            </div>
+
+            <div class="column">
+                <section class="panel move-panel">
+                    <div class="panel-title">
+                        <h2>@T("招式", "Move")</h2>
+                        <span>@MovePreview</span>
+                    </div>
+                    <div class="field-grid move-grid">
+                        <label>
+                            <span>@T("招式", "Move")</span>
+                            <SearchInput @bind-Value="form.Move.Name"
+                                         Options="Calculator.MoveSearchOptions"
+                                         Placeholder="@T("输入中文、英文或 id", "Name or id")"
+                                         EmptyText="@T("没有匹配招式", "No matching moves")" />
+                        </label>
+                        <label>
+                            <span>@T("命中次数", "Hits")</span>
+                            <InputNumber @bind-Value="form.Move.Hits" min="1" max="10" />
+                        </label>
+                        <label class="check-row">
+                            <InputCheckbox @bind-Value="form.Move.IsCrit" />
+                            <span>@T("击中要害", "Critical")</span>
+                        </label>
+                        <label class="check-row">
+                            <InputCheckbox @bind-Value="form.Move.IsStellarFirstUse" />
+                            <span>@T("星晶首次", "Stellar first use")</span>
+                        </label>
+                    </div>
+                </section>
+
+                <section class="panel field-panel">
+                    <div class="panel-title">
+                        <h2>@T("场地", "Field")</h2>
+                        <span>@FieldPreview</span>
+                    </div>
+                    <div class="field-grid">
+                        <label>
+                            <span>@T("天气", "Weather")</span>
+                            <InputSelect @bind-Value="form.Field.Weather">
+                                @foreach (var weather in Calculator.Weathers)
+                                {
+                                    <option value="@weather">@Calculator.WeatherDisplayName(weather)</option>
+                                }
+                            </InputSelect>
+                        </label>
+                        <label>
+                            <span>@T("场地", "Terrain")</span>
+                            <InputSelect @bind-Value="form.Field.Terrain">
+                                @foreach (var terrain in Calculator.Terrains)
+                                {
+                                    <option value="@terrain">@Calculator.TerrainDisplayName(terrain)</option>
+                                }
+                            </InputSelect>
+                        </label>
+                    </div>
+                    <div class="toggle-grid">
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.IsDoubles" /><span>@T("双打", "Doubles")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.IsMagicRoom" /><span>@T("魔法空间", "Magic Room")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.IsWonderRoom" /><span>@T("奇妙空间", "Wonder Room")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.AttackerHelpingHand" /><span>@T("帮助", "Helping Hand")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.DefenderReflect" /><span>@T("反射壁", "Reflect")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.DefenderLightScreen" /><span>@T("光墙", "Light Screen")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.DefenderAuroraVeil" /><span>@T("极光幕", "Aurora Veil")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.DefenderProtected" /><span>@T("守住", "Protect")</span></label>
+                        <label class="check-row"><InputCheckbox @bind-Value="form.Field.DefenderFriendGuard" /><span>@T("友情防守", "Friend Guard")</span></label>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-title">
+                        <h2>@T("结果", "Result")</h2>
+                        @if (damageResult?.Result is not null)
+                        {
+                            <span>@damageResult.PercentRangeText()</span>
+                        }
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(damageResult?.Error))
+                    {
+                        <div class="alert">@damageResult.Error</div>
+                    }
+                    else if (damageResult?.Result is not null)
+                    {
+                        <div class="result-metrics">
+                            <div>
+                                <span>@T("范围", "Range")</span>
+                                <strong>@damageResult.RangeText()</strong>
+                            </div>
+                            <div>
+                                <span>@T("击倒", "KO")</span>
+                                <strong>@damageResult.Result.KoChance()</strong>
+                            </div>
+                        </div>
+                        <p class="description">@damageResult.Result.FullDescription()</p>
+                        <p class="description muted">@damageResult.Result.MoveDescription()</p>
+                        <div class="rolls">@damageResult.RollsText()</div>
+                        <div class="extra-lines">
+                            <span>@T("反伤", "Recoil"): @Blank(damageResult.Result.Recoil(), T("无", "None"))</span>
+                            <span>@T("回复", "Recovery"): @Blank(damageResult.Result.Recovery(), T("无", "None"))</span>
+                        </div>
+                    }
+                </section>
+
+                <section class="panel move-results-panel">
+                    <div class="panel-title">
+                        <h2>@T("招式结果", "Move Results")</h2>
+                        <span>@moveResults.Count @T("已计算", "calculated")</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="move-results-table">
+                            <thead>
+                                <tr>
+                                    <th>@T("侧", "Side")</th>
+                                    <th>@T("招式", "Move")</th>
+                                    <th>@T("范围", "Range")</th>
+                                    <th>%</th>
+                                    <th>@T("击倒", "KO")</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (moveResults.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="6" class="empty-row">@T("没有填入招式", "No move slots filled")</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var row in moveResults)
+                                    {
+                                        <tr class="@(row.Error is null ? "" : "error-row")">
+                                            <td>@SlotLabel(row)</td>
+                                            <td>@Calculator.MoveDisplayName(row.MoveName)</td>
+                                            <td>@row.RangeText()</td>
+                                            <td>@row.PercentRangeText()</td>
+                                            <td>@row.KoChanceText()</td>
+                                            <td>
+                                                @if (row.Source == "Attacker" && row.Slot > 0)
+                                                {
+                                                    <button type="button" class="small-action" @onclick="@(() => UseAttackerMove(row.Slot - 1))">@T("使用", "Use")</button>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr class="move-description-row @(row.Error is null ? "" : "error-row")">
+                                            <td></td>
+                                            <td colspan="5">@row.DescriptionText()</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </EditForm>
+
+        <section class="panel reverse-panel">
+            <div class="panel-title">
+                <h2>@T("反推", "Reverse")</h2>
+                <span>@ReverseSummary</span>
+            </div>
+
+            <div class="reverse-grid">
+                <label>
+                    <span>@T("目标", "Target")</span>
+                    <InputSelect @bind-Value="form.Reverse.Target">
+                        <option value="@ReverseTarget.Attacker">@Calculator.ReverseTargetDisplayName(ReverseTarget.Attacker)</option>
+                        <option value="@ReverseTarget.Defender">@Calculator.ReverseTargetDisplayName(ReverseTarget.Defender)</option>
+                    </InputSelect>
+                </label>
+                <label>
+                    <span>@T("模式", "Mode")</span>
+                    <InputSelect @bind-Value="form.Reverse.MatchMode">
+                        <option value="@DamageMatchMode.ExactRange">@Calculator.DamageMatchModeDisplayName(DamageMatchMode.ExactRange)</option>
+                        <option value="@DamageMatchMode.ContainsDamage">@Calculator.DamageMatchModeDisplayName(DamageMatchMode.ContainsDamage)</option>
+                        <option value="@DamageMatchMode.OverlapsRange">@Calculator.DamageMatchModeDisplayName(DamageMatchMode.OverlapsRange)</option>
+                    </InputSelect>
+                </label>
+                <label>
+                    <span>@T("能力", "Stat")</span>
+                    <InputSelect @bind-Value="form.Reverse.Stat">
+                        @foreach (var stat in Stats)
+                        {
+                            <option value="@stat">@Calculator.StatDisplayName(stat)</option>
+                        }
+                    </InputSelect>
+                </label>
+                <label>
+                    <span>@T("观察最小", "Observed min")</span>
+                    <InputNumber @bind-Value="form.Reverse.ObservedMin" min="0" />
+                </label>
+                <label>
+                    <span>@T("观察最大", "Observed max")</span>
+                    <InputNumber @bind-Value="form.Reverse.ObservedMax" min="0" />
+                </label>
+                <label>
+                    <span>@T("单次伤害", "Single damage")</span>
+                    <InputNumber @bind-Value="form.Reverse.ObservedDamage" min="0" />
+                </label>
+                <label>
+                    <span>@T("EV 最小", "EV min")</span>
+                    <InputNumber @bind-Value="form.Reverse.EvMin" min="0" max="252" step="4" />
+                </label>
+                <label>
+                    <span>@T("EV 最大", "EV max")</span>
+                    <InputNumber @bind-Value="form.Reverse.EvMax" min="0" max="252" step="4" />
+                </label>
+                <label>
+                    <span>@T("IV 最小", "IV min")</span>
+                    <InputNumber @bind-Value="form.Reverse.IvMin" min="0" max="31" />
+                </label>
+                <label>
+                    <span>@T("IV 最大", "IV max")</span>
+                    <InputNumber @bind-Value="form.Reverse.IvMax" min="0" max="31" />
+                </label>
+                <label>
+                    <span>@T("阶级最小", "Boost min")</span>
+                    <InputNumber @bind-Value="form.Reverse.BoostMin" min="-6" max="6" />
+                </label>
+                <label>
+                    <span>@T("阶级最大", "Boost max")</span>
+                    <InputNumber @bind-Value="form.Reverse.BoostMax" min="-6" max="6" />
+                </label>
+                <label>
+                    <span>@T("性格范围", "Natures")</span>
+                    <InputSelect @bind-Value="form.Reverse.NatureMode">
+                        <option value="@ReverseNatureMode.Recommended">@Calculator.ReverseNatureModeDisplayName(ReverseNatureMode.Recommended)</option>
+                        <option value="@ReverseNatureMode.Selected">@Calculator.ReverseNatureModeDisplayName(ReverseNatureMode.Selected)</option>
+                        <option value="@ReverseNatureMode.All">@Calculator.ReverseNatureModeDisplayName(ReverseNatureMode.All)</option>
+                    </InputSelect>
+                </label>
+                <label>
+                    <span>@T("性格", "Nature")</span>
+                    <InputSelect @bind-Value="form.Reverse.Nature">
+                        @foreach (var nature in Calculator.Natures)
+                        {
+                            <option value="@nature">@Calculator.NatureDisplayName(nature)</option>
+                        }
+                    </InputSelect>
+                </label>
+                <label>
+                    <span>@T("最大行数", "Max rows")</span>
+                    <InputNumber @bind-Value="form.Reverse.MaxResults" min="1" max="1000" />
+                </label>
+                <button type="button" class="primary-action infer-button" @onclick="Infer">@T("反推", "Infer")</button>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(reverseResult?.Error))
+            {
+                <div class="alert">@reverseResult.Error</div>
+            }
+            else if (reverseResult is not null)
+            {
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>@T("能力", "Stat")</th>
+                                <th>@T("实际值", "Actual")</th>
+                                <th>EV</th>
+                                <th>IV</th>
+                                <th>@T("性格", "Nature")</th>
+                                <th>@T("阶级", "Boost")</th>
+                                <th>@T("范围", "Range")</th>
+                                <th>@T("随机数", "Rolls")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (reverseResult.Candidates.Count == 0)
+                            {
+                                <tr>
+                                    <td colspan="8" class="empty-row">@T("无候选", "No candidates")</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var candidate in reverseResult.Candidates)
+                                {
+                                    <tr>
+                                        <td>@Calculator.StatDisplayName(candidate.Stat)</td>
+                                        <td>@candidate.ActualStat</td>
+                                        <td>@candidate.Ev</td>
+                                        <td>@candidate.Iv</td>
+                                        <td>@Calculator.NatureDisplayName(candidate.Nature)</td>
+                                        <td>@candidate.Boost</td>
+                                        <td>@candidate.ExpectedRange.Min-@candidate.ExpectedRange.Max</td>
+                                        <td>@string.Join(", ", candidate.Rolls)</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </section>
+    </section>
+</main>
+
+@code {
+    private static readonly StatId[] Stats = Enum.GetValues<StatId>();
+
+    private readonly DamageCalcFormModel form = new();
+    private UiDamageResult? damageResult;
+    private UiReverseResult? reverseResult;
+    private IReadOnlyList<UiMoveDamageResult> moveResults = [];
+    private string? selectedSetFormat;
+    private string? selectedFieldPreset;
+    private string? presetError;
+
+    private UiLanguage Language
+    {
+        get => Calculator.Language;
+        set => Calculator.Language = value;
+    }
+
+    private string AttackerPreview => PreviewPokemon(form.Attacker);
+
+    private string DefenderPreview => PreviewPokemon(form.Defender);
+
+    private string MovePreview => string.IsNullOrWhiteSpace(form.Move.Name) ? T("未选择招式", "No move") : Calculator.MoveDisplayName(form.Move.Name);
+
+    private string FieldPreview => string.Join(" / ", new[]
+        {
+            Calculator.WeatherDisplayName(form.Field.Weather),
+            Calculator.TerrainDisplayName(form.Field.Terrain),
+            form.Field.IsDoubles ? T("双打", "Doubles") : ""
+        }.Where(value => !string.IsNullOrWhiteSpace(value)));
+
+    private string ReverseSummary => $"{Calculator.ReverseTargetDisplayName(form.Reverse.Target)} / {Calculator.StatDisplayName(form.Reverse.Stat)} / {form.Reverse.ObservedMin}-{form.Reverse.ObservedMax}";
+
+    protected override void OnInitialized()
+    {
+        Calculate();
+    }
+
+    private void Calculate()
+    {
+        damageResult = Calculator.Calculate(form);
+        moveResults = Calculator.CalculateAllMoves(form);
+        if (damageResult?.Result is not null)
+        {
+            var (min, max) = damageResult.Result.Range();
+            form.Reverse.ObservedMin = min;
+            form.Reverse.ObservedMax = max;
+        }
+    }
+
+    private void Infer()
+    {
+        reverseResult = Calculator.Infer(form);
+    }
+
+    private void UseAttackerMove(int slot)
+    {
+        if (slot < 0 || slot >= form.Attacker.Moves.Length)
+        {
+            return;
+        }
+
+        form.Move.CopyFrom(form.Attacker.Moves[slot]);
+        Calculate();
+    }
+
+    private void ApplyAttackerSetSelection(PokemonSetSearchResult set) => ApplySetSelection(set, attacker: true);
+
+    private void ApplyDefenderSetSelection(PokemonSetSearchResult set) => ApplySetSelection(set, attacker: false);
+
+    private void ApplySetSelection(PokemonSetSearchResult set, bool attacker)
+    {
+        if (set.IsBlank)
+        {
+            var target = attacker ? form.Attacker : form.Defender;
+            target.Species = set.SpeciesId;
+            target.SelectedSetName = null;
+            Calculate();
+            return;
+        }
+
+        ApplySet(set.Key, attacker);
+    }
+
+    private void ApplyQuickMatchup(QuickMatchup matchup)
+    {
+        presetError = null;
+        ApplySet(matchup.AttackerSetKey, attacker: true, calculate: false);
+        if (!string.IsNullOrWhiteSpace(presetError))
+        {
+            return;
+        }
+
+        ApplySet(matchup.DefenderSetKey, attacker: false, calculate: false);
+        if (!string.IsNullOrWhiteSpace(presetError))
+        {
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(matchup.FieldPresetId) &&
+            !Calculator.TryApplyFieldPreset(form, matchup.FieldPresetId, out presetError))
+        {
+            return;
+        }
+
+        selectedSetFormat = "";
+        Calculate();
+    }
+
+    private void ApplySet(string? setKey, bool attacker, bool calculate = true)
+    {
+        presetError = null;
+        if (string.IsNullOrWhiteSpace(setKey))
+        {
+            presetError = T("请先选择配置。", "Select a set first.");
+            return;
+        }
+
+        var target = attacker ? form.Attacker : form.Defender;
+        var move = attacker ? form.Move : null;
+        if (!Calculator.TryApplyPokemonSet(target, setKey, out presetError, move))
+        {
+            return;
+        }
+
+        if (calculate)
+        {
+            Calculate();
+        }
+    }
+
+    private void ApplyFieldPreset()
+    {
+        ApplyQuickField(selectedFieldPreset);
+    }
+
+    private void ApplyQuickField(string? presetId)
+    {
+        presetError = null;
+        if (string.IsNullOrWhiteSpace(presetId))
+        {
+            presetError = T("请先选择场地预设。", "Select a field preset first.");
+            return;
+        }
+
+        selectedFieldPreset = presetId;
+        if (!Calculator.TryApplyFieldPreset(form, presetId, out presetError))
+        {
+            return;
+        }
+
+        Calculate();
+    }
+
+    private string PreviewPokemon(PokemonFormModel model)
+    {
+        var parts = new[]
+        {
+            Calculator.SpeciesDisplayName(model.Species),
+            $"Lv.{model.Level}",
+            string.IsNullOrWhiteSpace(model.Item) ? "" : Calculator.ItemDisplayName(model.Item),
+            string.IsNullOrWhiteSpace(model.Ability) ? "" : Calculator.AbilityDisplayName(model.Ability)
+        };
+
+        return string.Join(" / ", parts.Where(value => !string.IsNullOrWhiteSpace(value)));
+    }
+
+    private static string Blank(string? value, string fallback) =>
+        string.IsNullOrWhiteSpace(value) ? fallback : value;
+
+    private void SetLanguage(UiLanguage language)
+    {
+        Language = language;
+        StateHasChanged();
+    }
+
+    private string SlotLabel(UiMoveDamageResult row)
+    {
+        var source = row.Source switch
+        {
+            "Attacker" => T("攻击方", "Attacker"),
+            "Defender" => T("防守方", "Defender"),
+            "Setup" => T("设置", "Setup"),
+            _ => row.Source
+        };
+
+        return row.Slot <= 0 ? source : $"{source} {row.Slot}";
+    }
+
+    private string T(string chinese, string english) => Calculator.Text(chinese, english);
+}

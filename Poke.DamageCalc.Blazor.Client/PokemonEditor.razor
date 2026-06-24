@@ -1,0 +1,341 @@
+@inject DamageCalcUiService Calculator
+@using System.Globalization
+
+<div class="pokemon-editor">
+    <div class="set-combobox">
+        <button type="button" class="set-combobox-button" @onclick="ToggleSetSelector">
+            <span>@SetSelectorLabel</span>
+            <span aria-hidden="true">▾</span>
+        </button>
+        @if (isSetSelectorOpen)
+        {
+            <div class="set-combobox-menu">
+                <input class="set-combobox-search" @bind="setQuery" @bind:event="oninput" placeholder="@T("搜索宝可梦或配置", "Search Pokemon or set")" />
+                <div class="set-combobox-options">
+                    @foreach (var group in SetGroups)
+                    {
+                        <div class="set-combobox-group">
+                            <div class="set-combobox-group-title">@Calculator.SpeciesDisplayName(group.SpeciesId, group.SpeciesName)</div>
+                            @foreach (var set in group.Sets)
+                            {
+                                <button type="button"
+                                        class="set-combobox-option @(set.IsBlank ? "blank-set" : "")"
+                                        @onclick="@(() => SelectSet(set))">
+                                    <span>@Calculator.SetDisplayName(set)</span>
+                                    @if (!set.IsBlank)
+                                    {
+                                        <small>@Calculator.FormatDisplayName(set.Format)</small>
+                                    }
+                                </button>
+                            }
+                        </div>
+                    }
+                    @if (SetGroups.Count == 0)
+                    {
+                        <div class="set-combobox-empty">@T("没有匹配配置", "No matching sets")</div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="field-grid">
+        <label>
+            <span>@T("宝可梦", "Species")</span>
+            <SearchInput Value="@Model.Species"
+                         ValueChanged="SetSpecies"
+                         Options="Calculator.SpeciesSearchOptions"
+                         Placeholder="@T("输入中文、英文或 id", "Name or id")"
+                         EmptyText="@T("没有匹配宝可梦", "No matching species")" />
+        </label>
+        <label>
+            <span>@T("等级", "Level")</span>
+            <InputNumber @bind-Value="Model.Level" min="1" max="100" />
+        </label>
+        <label>
+            <span>@T("性格", "Nature")</span>
+            <InputSelect @bind-Value="Model.Nature">
+                @foreach (var nature in NatureOptions)
+                {
+                    <option value="@nature">@Calculator.NatureDisplayName(nature)</option>
+                }
+            </InputSelect>
+        </label>
+        <label>
+            <span>@T("当前 HP", "Current HP")</span>
+            <InputNumber @bind-Value="Model.CurrentHp" min="1" />
+        </label>
+        <label>
+            <span>@T("特性", "Ability")</span>
+            <SearchInput @bind-Value="Model.Ability"
+                         Options="Calculator.AbilitySearchOptions"
+                         Placeholder="@T("输入特性", "Ability")"
+                         EmptyText="@T("没有匹配特性", "No matching abilities")" />
+        </label>
+        <label>
+            <span>@T("道具", "Item")</span>
+            <SearchInput @bind-Value="Model.Item"
+                         Options="Calculator.ItemSearchOptions"
+                         Placeholder="@T("输入道具", "Item")"
+                         EmptyText="@T("没有匹配道具", "No matching items")" />
+        </label>
+        <label>
+            <span>@T("状态", "Status")</span>
+            <InputSelect @bind-Value="Model.Status">
+                @foreach (var status in StatusOptions)
+                {
+                    <option value="@status">@Calculator.StatusDisplayName(status)</option>
+                }
+            </InputSelect>
+        </label>
+        <label>
+            <span>@T("太晶", "Tera")</span>
+            <InputSelect @bind-Value="Model.TeraType">
+                <option value="">@T("无", "None")</option>
+                @foreach (var type in TypeOptions)
+                {
+                    <option value="@type">@Calculator.TypeDisplayName(type)</option>
+                }
+            </InputSelect>
+        </label>
+    </div>
+
+    <div class="stat-editor" aria-label="@T("能力值", "Stats")">
+        <div class="stat-editor-head">
+            <span>@T("能力", "Stat")</span>
+            <span>@T("种族", "Base")</span>
+            <span>EV</span>
+            <span>IV</span>
+            <span>@T("阶级", "Boost")</span>
+            <span>@T("实数", "Actual")</span>
+        </div>
+        @foreach (var stat in Calculator.GetStatLines(Model))
+        {
+            <div class="@StatRowClass(stat)">
+                <div class="stat-name">
+                    <strong>@Calculator.StatDisplayName(stat.Stat)</strong>
+                    <small>@Calculator.StatShortName(stat.Stat)@Calculator.NatureSuffix(Model.Nature, stat.Stat)</small>
+                </div>
+                <div class="stat-base">@DisplayNumber(stat.Base)</div>
+                <input type="number"
+                       min="0"
+                       max="252"
+                       step="4"
+                       value="@stat.Ev"
+                       @onchange="@((ChangeEventArgs args) => SetEv(stat.Stat, args.Value))" />
+                <input type="number"
+                       min="0"
+                       max="31"
+                       value="@stat.Iv"
+                       @onchange="@((ChangeEventArgs args) => SetIv(stat.Stat, args.Value))" />
+                @if (stat.Stat == StatId.Hp)
+                {
+                    <span class="stat-boost-placeholder">-</span>
+                }
+                else
+                {
+                    <input type="number"
+                           min="-6"
+                           max="6"
+                           value="@stat.Boost"
+                           @onchange="@((ChangeEventArgs args) => SetBoost(stat.Stat, args.Value))" />
+                }
+                <div class="stat-actual-cell">
+                    <input class="stat-actual"
+                           type="number"
+                           min="1"
+                           value="@DisplayNumber(stat.Actual)"
+                           @onchange="@((ChangeEventArgs args) => SetActual(stat.Stat, args.Value))" />
+                    @if (stat.Modified.HasValue && stat.Modified != stat.Actual)
+                    {
+                        <small>@T("修正", "mod") @stat.Modified</small>
+                    }
+                </div>
+            </div>
+        }
+        <div class="@StatTotalClass">
+            <span>@T("努力值合计", "EV total")</span>
+            <strong>@EvTotal / 510</strong>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(statMessage))
+        {
+            <div class="stat-message">@statMessage</div>
+        }
+    </div>
+
+    <div class="move-slots">
+        <div class="subsection-title">@T("招式", "Moves")</div>
+        @for (var i = 0; i < Model.Moves.Length; i++)
+        {
+            var slot = Model.Moves[i];
+            var number = i + 1;
+            <div class="move-slot">
+                <label class="move-name">
+                    <span>@T($"招式 {number}", $"Move {number}")</span>
+                    <SearchInput @bind-Value="slot.Name"
+                                 Options="Calculator.MoveSearchOptions"
+                                 Placeholder="@T("输入招式", "Move")"
+                                 EmptyText="@T("没有匹配招式", "No matching moves")" />
+                </label>
+                <label>
+                    <span>@T("命中次数", "Hits")</span>
+                    <InputNumber @bind-Value="slot.Hits" min="1" max="10" />
+                </label>
+                <label class="check-row">
+                    <InputCheckbox @bind-Value="slot.IsCrit" />
+                    <span>@T("击中要害", "Critical")</span>
+                </label>
+                <label class="check-row">
+                    <InputCheckbox @bind-Value="slot.IsStellarFirstUse" />
+                    <span>@T("星晶首次", "Stellar")</span>
+                </label>
+            </div>
+        }
+    </div>
+
+    <div class="toggle-grid compact">
+        <label class="check-row"><InputCheckbox @bind-Value="Model.IsDynamaxed" /><span>@T("极巨化", "Dynamax")</span></label>
+        <label>
+            <span>@T("极巨等级", "Dynamax Lv")</span>
+            <InputNumber @bind-Value="Model.DynamaxLevel" min="0" max="10" />
+        </label>
+        <label>
+            <span>@T("倒下队友", "Allies fainted")</span>
+            <InputNumber @bind-Value="Model.AlliesFainted" min="0" max="5" />
+        </label>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public PokemonFormModel Model { get; set; } = default!;
+
+    [Parameter]
+    public IReadOnlyList<SpeciesOption> SpeciesOptions { get; set; } = [];
+
+    [Parameter]
+    public IReadOnlyList<string> NatureOptions { get; set; } = [];
+
+    [Parameter]
+    public IReadOnlyList<string> ItemOptions { get; set; } = [];
+
+    [Parameter]
+    public IReadOnlyList<string> AbilityOptions { get; set; } = [];
+
+    [Parameter]
+    public IReadOnlyList<string> TypeOptions { get; set; } = [];
+
+    [Parameter]
+    public IReadOnlyList<string> StatusOptions { get; set; } = [];
+
+    [Parameter]
+    public EventCallback<PokemonSetSearchResult> SetSelected { get; set; }
+
+    [Parameter]
+    public string? SetFormat { get; set; }
+
+    private bool isSetSelectorOpen;
+
+    private string setQuery = "";
+
+    private string? statMessage;
+
+    private int EvTotal => Calculator.EffortTotal(Model);
+
+    private string StatTotalClass =>
+        EvTotal > 510 ? "stat-total invalid" : "stat-total";
+
+    private string SetSelectorLabel
+    {
+        get
+        {
+            if (!string.IsNullOrWhiteSpace(Model.SelectedSetName))
+            {
+                return $"{Calculator.SpeciesDisplayName(Model.Species, T("自定义宝可梦", "Custom Pokemon"))} ({Model.SelectedSetName})";
+            }
+
+            return Calculator.BlankSetLabel(Model.Species, T("自定义宝可梦", "Custom Pokemon"));
+        }
+    }
+
+    private IReadOnlyList<PokemonSetGroup> SetGroups =>
+        Calculator.SearchPokemonSetGroups(setQuery, Model.Species, SetFormat, 8, 8);
+
+    private void ToggleSetSelector() => isSetSelectorOpen = !isSetSelectorOpen;
+
+    private void SetSpecies(string? value)
+    {
+        value ??= "";
+
+        if (!string.Equals(Model.Species, value, StringComparison.OrdinalIgnoreCase))
+        {
+            Model.SelectedSetName = null;
+            setQuery = "";
+        }
+
+        Model.Species = value;
+    }
+
+    private async Task SelectSet(PokemonSetSearchResult set)
+    {
+        isSetSelectorOpen = false;
+        setQuery = "";
+        statMessage = null;
+        await SetSelected.InvokeAsync(set);
+    }
+
+    private void SetEv(StatId stat, object? value)
+    {
+        if (TryReadInt(value, out var ev))
+        {
+            Calculator.SetEv(Model, stat, ev);
+            statMessage = null;
+        }
+    }
+
+    private void SetIv(StatId stat, object? value)
+    {
+        if (TryReadInt(value, out var iv))
+        {
+            Calculator.SetIv(Model, stat, iv);
+            statMessage = null;
+        }
+    }
+
+    private void SetBoost(StatId stat, object? value)
+    {
+        if (TryReadInt(value, out var boost))
+        {
+            Calculator.SetBoost(Model, stat, boost);
+            statMessage = null;
+        }
+    }
+
+    private void SetActual(StatId stat, object? value)
+    {
+        if (!TryReadInt(value, out var actual))
+        {
+            return;
+        }
+
+        var exact = Calculator.TrySetEvFromActualStat(Model, stat, actual);
+        var line = Calculator.GetStatLine(Model, stat);
+        statMessage = exact
+            ? T("已按实数值反推努力值。", "EV inferred from the actual stat.")
+            : string.Format(
+                T("无法精确得到 {0}，已使用最接近的努力值，当前实数 {1}。", "Could not hit {0} exactly; closest EV gives actual {1}."),
+                actual,
+                DisplayNumber(line.Actual));
+    }
+
+    private static bool TryReadInt(object? value, out int result) =>
+        int.TryParse(Convert.ToString(value, CultureInfo.InvariantCulture), CultureInfo.InvariantCulture, out result);
+
+    private static string DisplayNumber(int? value) =>
+        value?.ToString(CultureInfo.InvariantCulture) ?? "";
+
+    private static string StatRowClass(StatLineModel stat) =>
+        stat.Ev % 4 == 0 ? "stat-row" : "stat-row invalid";
+
+    private string T(string chinese, string english) => Calculator.Text(chinese, english);
+}

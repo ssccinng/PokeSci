@@ -10,8 +10,12 @@
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.Usage/Poke.Usage.csproj" />
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeCommon/PokeCommon.csproj" />
   </Folder>
-  <Folder Name="/Solution Items/src/Demo/" />
+  <Folder Name="/Solution Items/src/Demo/">
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.DamageCalc.Blazor.Client/Poke.DamageCalc.Blazor.Client.csproj" />
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.DamageCalc.Blazor/Poke.DamageCalc.Blazor.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/src/Lib/">
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.DamageCalc/Poke.DamageCalc.csproj" />
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.Data/Poke.Data.csproj" />
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.UPDL/Poke.UPDL.csproj" />
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/PokeDelectCV/PokeDelectCV.csproj" />
@@ -29,6 +33,7 @@
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/RK99Tool/RK9Tool.csproj" />
   </Folder>
   <Folder Name="/Solution Items/test/">
+    <Project Path="G:/CSharpDev/ssccinng/PokeSci/Poke.DamageCalc.Tests/Poke.DamageCalc.Tests.csproj" />
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/RK99Test/RK99Test.csproj" />
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/TestPokemonHome/TestPokemonHome.csproj" />
     <Project Path="G:/CSharpDev/ssccinng/PokeSci/TestPSStat/TestPSStat.csproj" />

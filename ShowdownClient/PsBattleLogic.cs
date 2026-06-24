@@ -1,4 +1,5 @@
 ﻿using PokeCommon.Utils;
+using Serilog;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -522,7 +523,25 @@ namespace Showdown
         public async Task InitOppTeamAsync(string name)
         {
             name = name.Replace("-*", "");
-            OppTeam[oppTeamIdx++] = new PSBattlePokemon(await PokemonToolsWithoutDB.GetPokemonFromPsNameAsync(name), name);
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return;
+            }
+
+            if (OppTeam.Any(pokemon => string.Equals(pokemon?.PSName, name, StringComparison.OrdinalIgnoreCase)))
+            {
+                return;
+            }
+
+            var slot = OppTeam.FindIndex(pokemon => pokemon is null);
+            if (slot < 0)
+            {
+                Log.Logger.Warning("Opponent team is already full; ignoring replayed poke entry {Pokemon}", name);
+                return;
+            }
+
+            OppTeam[slot] = new PSBattlePokemon(await PokemonToolsWithoutDB.GetPokemonFromPsNameAsync(name), name);
+            oppTeamIdx = Math.Max(oppTeamIdx, slot + 1);
         }
     }
     public enum BattleStatus

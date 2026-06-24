@@ -1,0 +1,201 @@
+<div class="search-input">
+    <input value="@text"
+           @oninput="OnInput"
+           @onfocus="Open"
+           @onblur="CloseSoon"
+           placeholder="@Placeholder"
+           autocomplete="off"
+           spellcheck="false" />
+    @if (isOpen)
+    {
+        var matches = FilteredOptions;
+        <div class="search-input-menu">
+            @if (matches.Count == 0)
+            {
+                <div class="search-input-empty">@EmptyText</div>
+            }
+            else
+            {
+                @foreach (var option in matches)
+                {
+                    <button type="button"
+                            class="search-input-option"
+                            @onmousedown:preventDefault="true"
+                            @onclick="@(() => SelectOption(option))">
+                        <span>@option.Label</span>
+                        @if (!string.IsNullOrWhiteSpace(option.Detail))
+                        {
+                            <small>@option.Detail</small>
+                        }
+                    </button>
+                }
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<SearchOption> Options { get; set; } = [];
+
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    [Parameter]
+    public string EmptyText { get; set; } = "No matches";
+
+    [Parameter]
+    public int MaxResults { get; set; } = 12;
+
+    private string text = "";
+    private bool isOpen;
+    private bool hasFocus;
+
+    private IReadOnlyList<SearchOption> FilteredOptions => BuildFilteredOptions();
+
+    protected override void OnParametersSet()
+    {
+        if (!hasFocus)
+        {
+            text = DisplayFor(Value);
+        }
+    }
+
+    private void Open()
+    {
+        hasFocus = true;
+        isOpen = true;
+    }
+
+    private async Task CloseSoon()
+    {
+        await Task.Delay(120);
+        hasFocus = false;
+        isOpen = false;
+        text = DisplayFor(Value);
+    }
+
+    private async Task OnInput(ChangeEventArgs args)
+    {
+        text = args.Value?.ToString() ?? "";
+        isOpen = true;
+        await ValueChanged.InvokeAsync(text);
+    }
+
+    private async Task SelectOption(SearchOption option)
+    {
+        text = option.Label;
+        isOpen = false;
+        hasFocus = false;
+        await ValueChanged.InvokeAsync(option.Value);
+    }
+
+    private IReadOnlyList<SearchOption> BuildFilteredOptions()
+    {
+        var limit = Math.Clamp(MaxResults, 1, 50);
+        if (Options.Count == 0)
+        {
+            return [];
+        }
+
+        var query = Normalize(text);
+        if (query.Length == 0)
+        {
+            return Options.Take(limit).ToArray();
+        }
+
+        return Options
+            .Select(option => (Option: option, Score: Score(option, query)))
+            .Where(item => item.Score > 0)
+            .OrderByDescending(item => item.Score)
+            .ThenBy(item => item.Option.Label, StringComparer.OrdinalIgnoreCase)
+            .Take(limit)
+            .Select(item => item.Option)
+            .ToArray();
+    }
+
+    private string DisplayFor(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return "";
+        }
+
+        var normalized = Normalize(value);
+        var option = Options.FirstOrDefault(option =>
+            Normalize(option.Value) == normalized ||
+            Normalize(option.Label) == normalized ||
+            (!string.IsNullOrWhiteSpace(option.Detail) && Normalize(option.Detail) == normalized) ||
+            option.Keywords.Any(keyword => Normalize(keyword) == normalized));
+
+        return option?.Label ?? value.Trim();
+    }
+
+    private static int Score(SearchOption option, string query)
+    {
+        var best = ScoreText(option.Label, query, exact: 1000, startsWith: 850, contains: 500);
+        best = Math.Max(best, ScoreText(option.Value, query, exact: 950, startsWith: 800, contains: 450));
+        best = Math.Max(best, ScoreText(option.Detail, query, exact: 760, startsWith: 620, contains: 320));
+
+        foreach (var keyword in option.Keywords)
+        {
+            best = Math.Max(best, ScoreText(keyword, query, exact: 900, startsWith: 740, contains: 420));
+        }
+
+        return best;
+    }
+
+    private static int ScoreText(string? value, string query, int exact, int startsWith, int contains)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return 0;
+        }
+
+        var normalized = Normalize(value);
+        if (normalized.Length == 0)
+        {
+            return 0;
+        }
+
+        if (normalized == query)
+        {
+            return exact;
+        }
+
+        if (normalized.StartsWith(query, StringComparison.OrdinalIgnoreCase))
+        {
+            return startsWith;
+        }
+
+        return normalized.Contains(query, StringComparison.OrdinalIgnoreCase) ? contains : 0;
+    }
+
+    private static string Normalize(string value)
+    {
+        var builder = new System.Text.StringBuilder(value.Length);
+        foreach (var ch in value)
+        {
+            if (ch == '♀')
+            {
+                builder.Append('f');
+            }
+            else if (ch == '♂')
+            {
+                builder.Append('m');
+            }
+            else if (char.IsLetterOrDigit(ch))
+            {
+                builder.Append(char.ToLowerInvariant(ch));
+            }
+        }
+
+        return builder.ToString();
+    }
+}

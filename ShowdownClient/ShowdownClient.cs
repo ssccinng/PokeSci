@@ -286,19 +286,28 @@ public partial class ShowdownClient
             string cmd = currData[1];
             string[] other = currData[2..];
 
-            //Console.WriteLine(cmd);
-            //Console.WriteLine(battle.BattleData.GetMyTeam());
-            battle.BattleData = (await battle.BattleData.ApplyLog(cmd, other)).AddTurnLog(battleData[i]);
-            //Console.WriteLine(cmd);
-            //Console.WriteLine(battle.BattleData.GetMyTeam());
-            switch (cmd)
+            try
+            {
+                //Console.WriteLine(cmd);
+                //Console.WriteLine(battle.BattleData.GetMyTeam());
+                battle.BattleData = (await battle.BattleData.ApplyLog(cmd, other)).AddTurnLog(battleData[i]);
+                //Console.WriteLine(cmd);
+                //Console.WriteLine(battle.BattleData.GetMyTeam());
+                switch (cmd)
             {
                 case "init":
-                    Battles.TryAdd(tag, battle);
-                    OnBattleStart?.Invoke(battle);
+                    if (Battles.TryAdd(tag, battle))
+                    {
+                        OnBattleStart?.Invoke(battle);
+                    }
                     break;
                 case "player":
                     // Todo: 这个也要高的battledata里
+                    if (other.Length < 2)
+                    {
+                        break;
+                    }
+
                     if (other[1] == ClientInfo.Name)
                     {
                         battle.PlayerPosition = other[0] == "p1" ? PlayerPosition.Player1 : PlayerPosition.Player2;
@@ -326,7 +335,7 @@ public partial class ShowdownClient
                     }
                     break;
                 case "request":
-                    if (other[0] != "")
+                    if (other.Length > 0 && other[0] != "")
                     {
                         RequestsAction?.Invoke(battle);
 
@@ -340,7 +349,11 @@ public partial class ShowdownClient
                         // 应该还需要拆分
                         if (other[0].Length == 1)
                         {
-                            await battle.RefreshByRequestAsync(other[1].Split('\n')[1]);
+                            var requestLines = other.Length > 1 ? other[1].Split('\n') : [];
+                            if (requestLines.Length > 1)
+                            {
+                                await battle.RefreshByRequestAsync(requestLines[1]);
+                            }
                             // RequestsAction?.Invoke(tag, other[1].Split('\n')[1]);
                             // other[1].split('\n')[1] 为队伍信息
                         }
@@ -373,14 +386,14 @@ public partial class ShowdownClient
                     battle.NextTurn();
                     break;
                 case "callback":
-                    if (other[0] == "trapped")
+                    if (other.Length > 0 && other[0] == "trapped")
                     {
                         // makemove
                         // 招式失败 好像
                     }
                     break;
                 case "poke":
-                    if (other[0] == (battle.PlayerPosition == PlayerPosition.Player1 ? "p2" : "p1"))
+                    if (other.Length > 1 && other[0] == (battle.PlayerPosition == PlayerPosition.Player1 ? "p2" : "p1"))
                     {
                         // 对手的队伍信息
                         var data = other[1].Split(", ");
@@ -393,12 +406,12 @@ public partial class ShowdownClient
                     break;
                 case "win":
                     // Console.WriteLine("对战结束");
-                    OnBattleEnd?.Invoke(battle, other[0].Contains(ClientInfo.Name));
+                    OnBattleEnd?.Invoke(battle, other.Length > 0 && other[0].Contains(ClientInfo.Name));
                     Battles.Remove(battle.Tag);
                     // 对战结束
                     break;
                 case "error":
-                    OnBattleError?.Invoke(battle, other[0]);
+                    OnBattleError?.Invoke(battle, other.Length > 0 ? other[0] : string.Empty);
                     // 出现异常
                     break;
                 //case "raw":
@@ -408,6 +421,11 @@ public partial class ShowdownClient
                 default:
                     battle.LogParse(cmd, other);
                     break;
+            }
+            }
+            catch (Exception ex)
+            {
+                Logger.Warning(ex, "Skipping malformed battle log line in {BattleTag}: {BattleLine}", tag, battleData[i]);
             }
         }
     }
